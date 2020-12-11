@@ -1,7 +1,7 @@
 # CuppaComponent
 
 ```
-import {CuppaComponent} from "cuppa_component";
+import {CuppaComponent} from "cuppa-component";
 
 export default class TemplateComponent extends CuppaComponent {
     cuppa = cuppa;
