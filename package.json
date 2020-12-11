@@ -1,0 +1,29 @@
+{
+  "name": "cuppa-component",
+  "version": "0.0.1",
+  "description": "Vanilla JavaScript Reactive Component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudbit-interactive/CuppaComponent.git"
+  },
+  "keywords": [
+    "reactjs",
+    "cuppajs",
+    "javascript",
+    "vanilla",
+    "reactive",
+    "component",
+    "web",
+    "component"
+  ],
+  "author": "Tufik Chediak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cloudbit-interactive/CuppaComponent/issues"
+  },
+  "homepage": "https://github.com/cloudbit-interactive/CuppaComponent#readme"
+}
