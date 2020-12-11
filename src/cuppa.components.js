@@ -139,7 +139,7 @@ export class CuppaComponent extends HTMLElement {
                             if(paramsStartAt == -1){
                                 element[name] = this[functionName].bind(this);
                             }else{
-                                let params = functionName.slice(paramsStartAt+1, functionName.indexOf(")")-1);
+                                let params = functionName.slice(paramsStartAt+1, functionName.indexOf(")"));
                                     params = params.split(",");
                                     params = params.map(param => param.trim());
                                 functionName = functionName.slice(0, paramsStartAt);
