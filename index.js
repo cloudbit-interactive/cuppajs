@@ -1,1 +1,1 @@
-export * from "./src/cuppa.components.js";
+export * from "./src/cuppa.component.js";
