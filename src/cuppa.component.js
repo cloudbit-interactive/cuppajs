@@ -134,7 +134,10 @@ export class CuppaComponent extends HTMLElement {
                 let name = newDomMap.attributes[i].nodeName;
                 let value = newDomMap.attributes[i].nodeValue;
                 let oldValue = element.attributes[name];
-                if(!value){
+                
+                if(name == "value" && element.value){
+                    element.value = value;
+                }else if(!value){
                     element.removeAttribute(name);
                 }else if(oldValue != value){
                     if(eventAttr[name]){
