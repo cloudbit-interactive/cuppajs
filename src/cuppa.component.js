@@ -1,3 +1,10 @@
+/**
+ * CuppaComponent
+ * 
+ *  shadow = false, true or open
+ * 
+ */
+
 const eventAttr =  {
     onclick:1, ondblclick:1, onmousedown:1, onmousemove:1, onmouseout:1, onmouseover:1, onmouseup:1, onwheel:1,
     onblur:1, onchange:1, oncontextmenu:1, onfocus:1, oninput:1, oninvalid:1, onreset:1, onsearch:1, onselect:1, onsubmit:1,
@@ -9,7 +16,7 @@ const eventAttr =  {
 export class CuppaComponent extends HTMLElement {
     cuppa;
     pure = false;
-    shadow = false; //false, true or open
+    shadow = false;
     getDataDictionary = {};
     state = {};
     refs = {};
