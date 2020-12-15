@@ -1,6 +1,6 @@
 # CuppaComponent
 
-Standar vanilla implementation of Reactive Component with the advantage of update based in state.
+Standard vanilla implementation of Reactive Component with the advantage of update based in state.
 
 # Advantages
 
@@ -11,8 +11,11 @@ Standar vanilla implementation of Reactive Component with the advantage of updat
 
 # Example
 
+Online: https://repl.it/@tufik2/CuppaComponent#index.html
+
 ```
 import {CuppaComponent} from "https://int-server-one.info/cuppa/cuppajs/cuppa.component.min.js"
+import {cuppa} from "https://int-server-one.info/cuppa/cuppajs/cuppa.min.js"  // Not required
 
 export default class TemplateComponent extends CuppaComponent {
     cuppa = cuppa;
