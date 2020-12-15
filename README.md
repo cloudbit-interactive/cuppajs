@@ -15,10 +15,8 @@ Online: https://repl.it/@tufik2/CuppaComponent#index.html
 
 ```
 import {CuppaComponent} from "https://int-server-one.info/cuppa/cuppajs/cuppa.component.min.js"
-import {cuppa} from "https://int-server-one.info/cuppa/cuppajs/cuppa.min.js"  // Not required
 
 export default class TemplateComponent extends CuppaComponent {
-    cuppa = cuppa;
     state = {name:'Foo', age:0}
     
     static get observedAttributes() { return ['name', 'age']; }
