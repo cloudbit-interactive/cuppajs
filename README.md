@@ -6,13 +6,13 @@ import {CuppaComponent} from "cuppa-component";
 export default class TemplateComponent extends CuppaComponent {
     cuppa = cuppa;
     state = {name:'Foo', age:0}
+    
+    static get observedAttributes() { return ['name', 'age']; }
+    attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal}); }
 
     constructor() { super(); }
     connected() { }
     disconnected() { }
-
-    static get observedAttributes() { return ['name', 'age']; }
-    attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal}); }
 
     render(){
         return /*html*/`

@@ -112,23 +112,25 @@ export class CuppaComponent extends HTMLElement {
         this.setAttributes(realNode, newNode);
 
         // render childs
-        if(newNode.nodeName.indexOf("-") != -1){ return; }
+        if(newNode && newNode.nodeName.indexOf("-") != -1){ return; }
 
-        let i = 0; let length = newNode.childNodes.length;
+        let i = 0; let length = (newNode) ? newNode.childNodes.length : 0;
         while (i < length) {
             this.draw(newNode.childNodes[i], i, newNode, realNode);
             i++;
         }
         
         // delete extra nodes
-        while(realNode.childNodes.length > length){
-            realNode.removeChild(realNode.childNodes[newNode.childNodes.length]);
+        if(newNode){
+            while(realNode.childNodes.length > length){
+                realNode.removeChild(realNode.childNodes[newNode.childNodes.length]);
+            }
         }
     }
 
     setAttributes(element, newDomMap){
         if(!element || element.nodeType != 1) return;
-        if(newDomMap.attributes != null){
+        if(newDomMap && newDomMap.attributes != null){
             let i = 0; let length = newDomMap.attributes.length;
             while (i < length) {
                 let name = newDomMap.attributes[i].nodeName;
