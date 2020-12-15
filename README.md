@@ -1,7 +1,18 @@
 # CuppaComponent
 
+Standar vanilla implementation of Reactive Component with the advantage of update based in state.
+
+# Advantages
+
+    * Compatible with any other framework or libraries due is just standard code.
+    * Faster performance.
+    * No pre-compilation process.
+    * Small size (6KB).
+
+# Example
+
 ```
-import {CuppaComponent} from "cuppa-component";
+import {CuppaComponent} from "https://int-server-one.info/cuppa/cuppajs/cuppa.component.min.js"
 
 export default class TemplateComponent extends CuppaComponent {
     cuppa = cuppa;
@@ -26,3 +37,5 @@ export default class TemplateComponent extends CuppaComponent {
 customElements.define('template-comp', TemplateComponent);
 
 ```
+
+Check-out the ./examples/ folder to see more complex code
