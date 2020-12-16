@@ -1,7 +1,11 @@
 import {CuppaComponent} from "../../../src/cuppa.component.min.js"
 
 export default class Performance extends CuppaComponent {
-    state = {list:[], q:1000, position:"start"}
+
+    constructor(){
+        super();
+        this.state = {list:[], q:1000, position:"start"};
+    }
 
     onAdd(e){
         this.startTime = new Date();

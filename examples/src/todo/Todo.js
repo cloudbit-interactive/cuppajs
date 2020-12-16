@@ -2,13 +2,18 @@ import {CuppaComponent} from "../../../src/cuppa.component.min.js"
 import {cuppa} from "../../../src/cuppa.min.js"
 import TodoItem from "./TodoItem.js"
 
+export const STORE_TODO = "STORE_TODO"
+
 export default class Todo extends CuppaComponent {
-    static STORE_TODO = "STORE_TODO"
-    cuppa = cuppa
-    state = {todoList:[], value:''}
+
+    constructor(){
+        super()
+        this.cuppa = cuppa
+        this.state = {todoList:[], value:''}
+    }
 
     connected(){
-        this.getData(Todo.STORE_TODO, {store:"local", callback:todoList=>this.setState({todoList})})
+        this.getData(STORE_TODO, {store:"local", callback:todoList=>this.setState({todoList})})
     }
 
     onAdd(e){
@@ -16,7 +21,7 @@ export default class Todo extends CuppaComponent {
         if(!this.state.value.trim()) return;
         let todoItem = {name:this.state.value, done:false, uuid:cuppa.uuid()}
         let todoList = [...this.state.todoList, todoItem]
-        this.setData(Todo.STORE_TODO, {data:todoList, store:"local"})
+        this.setData(STORE_TODO, {data:todoList, store:"local"})
         this.setState({value:""})
     }
     

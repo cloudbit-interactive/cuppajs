@@ -1,7 +1,11 @@
 import {CuppaComponent} from "../../../src/cuppa.component.min.js"
 
 export default class SimpleTodo extends CuppaComponent {
-    state = {todoList:['Todo1', 'Todo2'], value:''}
+   
+    constructor(){
+        super();
+        this.state = {todoList:['Todo1', 'Todo2'], value:''};
+    }
 
     onAdd(e){
         e.preventDefault();
