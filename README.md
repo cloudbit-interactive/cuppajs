@@ -17,7 +17,11 @@ Online: https://repl.it/@tufik2/CuppaComponent#index.html
 import {CuppaComponent} from "https://int-server-one.info/cuppa/cuppajs/cuppa.component.min.js"
 
 export default class TemplateComponent extends CuppaComponent {
-    state = {name:'Foo', age:0}
+    
+    constructor(){
+        super();
+        this.state = {name:'Foo', age:0}
+    }
     
     static get observedAttributes() { return ['name', 'age']; }
     attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal}); }
