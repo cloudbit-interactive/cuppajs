@@ -3,6 +3,7 @@ import {cuppa} from "../../../src/cuppa.min.js"
 
 export default class Template extends CuppaComponent {
     constructor(){
+        super();
         this.cuppa = cuppa
         this.pure = false
         this.shadow = false
@@ -12,7 +13,6 @@ export default class Template extends CuppaComponent {
     static get observedAttributes() { return ['attr1', 'attr2'] }
     attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal}) }
     
-    constructor() { super(); }
     connected() { }
     disconnected() { }
 
