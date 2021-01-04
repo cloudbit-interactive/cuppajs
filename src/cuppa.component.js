@@ -51,12 +51,12 @@ export class CuppaComponent extends HTMLElement {
                 this.insertAdjacentHTML("afterbegin", this.render());
             }
         }else{
-            let html = this.render().trim();
+            let html = this.render();
+                html = html.trim();
                 html = html.replace(/\s+/gi, " ");
                 html = html.replace(/<!--(.*?)-->/g, "");
-                html = html.replace(new RegExp("&", 'g'), "&amp");
                 html = html.replace(new RegExp("> <", 'g'), "><");
-            let newNode = this.parser.parseFromString(html, "text/xml").firstChild;
+            let newNode = this.parser.parseFromString(html, "text/html").firstChild;
             if(this.shadow){
                 this.shadowRoot.append("");
                 this.draw(newNode, 0, null, this.shadowRoot);

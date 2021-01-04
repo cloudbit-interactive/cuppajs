@@ -1,4 +1,4 @@
-import {CuppaComponent} from "../../../src/cuppa.component.min.js"
+import {CuppaComponent} from "../../../src/cuppa.component.js"
 
 export default class SimpleTodo extends CuppaComponent {
    
@@ -23,7 +23,7 @@ export default class SimpleTodo extends CuppaComponent {
     render(){
         return /*html*/`
             <div>
-                <h2>Simple Todo</h2>
+                <h2>Simple Todo &nbsp;</h2>
                 <form onsubmit="this.onAdd">
                     <input value="${this.state.value}" oninput="(e)=>this.setState({value:e.target.value})" placeholder="Type any word..." />
                     <button>Add</button>
