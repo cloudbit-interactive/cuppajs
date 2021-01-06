@@ -1,7 +1,11 @@
 /**
- * CuppaComponent
+ *  CuppaComponent
  * 
  *  shadow = false, true or open
+ * 
+ *  import CuppaComponent from "cuppa.component.js";
+ *  import "cuppa.component.js"
+ *  <script src="cuppa.component.js" type="module"></script>
  * 
  */
 
@@ -223,3 +227,5 @@ export class CuppaComponent extends HTMLElement {
         };
     };
 }
+
+window.CuppaComponent = CuppaComponent;

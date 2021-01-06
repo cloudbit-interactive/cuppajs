@@ -1,4 +1,4 @@
-import {CuppaComponent} from "../../../src/cuppa.component.js"
+import {CuppaComponent} from "../../../libs/cuppa.component.js"
 
 export default class SimpleTodo extends CuppaComponent {
    

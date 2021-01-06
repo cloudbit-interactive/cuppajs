@@ -1,5 +1,5 @@
-import {CuppaComponent} from "../../../src/cuppa.component.js"
-import {cuppa} from "../../../src/cuppa.min.js"
+import {CuppaComponent} from "../../../../../libs/cuppa.component.js"
+import {cuppa} from "../../../../../libs/cuppa.min.js"
 
 export default class ProductDesc extends CuppaComponent {
     constructor(){

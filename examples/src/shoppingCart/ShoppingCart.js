@@ -1,8 +1,10 @@
-import {CuppaComponent} from "../../../src/cuppa.component.js"
-import {cuppa, log} from "../../../src/cuppa.min.js"
+import {CuppaComponent} from "../../../libs/cuppa.component.js"
+import {cuppa, log, val} from "../../../libs/cuppa.min.js"
 import CategoryList from "./components/categories/CategoryList.js"
 import ProductList from "./components/products/ProductList.js"
-import CuppaRouter from "../../../src/cuppa.router.js";
+import ProductDesc from "./components/products/ProductDesc.js"
+import {CuppaRouter} from "../../../libs/cuppa.router.js"
+cuppa.requiereCSS("./src/shoppingCart/styles.css")
 
 export const router = new CuppaRouter({root:"/examples/", hash:"#/"});
 
@@ -11,40 +13,23 @@ export default class ShoppingCart extends CuppaComponent {
     constructor(){
         super();
         this.cuppa = cuppa;
-        this.state = {path:""}
-        this.routes();
-    }
-
-    routes(){
-        
-        router.on('*',(params)=>this.setState({path:params.path}) )
-        
-       /*
-       router.on('', (params)=>{
-        console.log("1",params)
-        }, {exact:false})
-        
-        router.on('category/:category', (params)=>{
-            console.log("2",params)
-        }, {exact:false})
-        
-        
-        router.on('product/:id/*', (params)=>{
-            console.log(params)
-        })
-        */
-
+        router.on('*',(params)=>this.forceRender() );
         router.resolve();
-        
     }
 
     render(){
-        console.log(router.match(this.state.path, "category/:category"))
+        let pathData = router.getPathData();
         return /*html*/`
-            <div>
+            <main>
                 <category-list></category-list>
-                ${ (router.match(this.state.path, "category/:category")) ? "Is category" : "Is general" }
-            </div>`
+                <section class="main-content">
+                    ${ 
+                        (val(pathData, 'pathArray.0') == "category" ) ? /*html*/`<product-list category="${pathData.pathArray[1]}"></product-list>` 
+                        : (val(pathData, 'pathArray.0') == "product") ? /*html*/`<product-desc productId="${pathData.pathArray[1]}"></product-desc>`  
+                        : /*html*/`<product-list category=""></product-list>`
+                    }
+                </section>
+            </main>`
     }
 }
 

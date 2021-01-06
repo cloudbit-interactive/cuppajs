@@ -1,11 +1,11 @@
-/*
-    Ways to import
+/** 
+ *  Ways to import
+ *  import {CuppaRouter} from "cuppa.router.js";
+ *  import "cuppa.router.js"
+ *  <script src="cuppa.router.js" type="module"></script>
+ * **/
 
-    import CuppaRouter from "cuppa.router.js";
-    import "cuppa.router.js"
-    <script src="cuppa.router.js" type="module"></script>
-*/
-class CuppaRouter{
+export class CuppaRouter{
     opts;
     routes = [];
 
@@ -92,11 +92,41 @@ class CuppaRouter{
         return match;
       }
     }
+
+    getPathData(path){
+      if(!path) path = this.getPath();
+      let url = new URL(window.location.href);
+      let obj = {url:window.location.href};
+      // path
+          if(path.indexOf("?") != -1) path = path.substr(0, path.indexOf("?"));
+          obj.path = path;
+          obj.pathArray = path.split("/");
+          obj.pathArray = obj.pathArray.filter(item=>item);
+      // domain
+          obj.domain = url.host;
+      // protocol / port
+          obj.protocol = url.protocol;
+          obj.port = url.port;
+      // get data
+          let dataStr = path;
+          if(dataStr.indexOf("?") != -1 || dataStr.indexOf("#") != -1){
+              if(dataStr.indexOf("?") != -1) dataStr = dataStr.substr(path.indexOf("?")+1);
+              if(dataStr.indexOf("#") != -1) dataStr = dataStr.substr(path.indexOf("#")+1);
+              let dataArray = dataStr.split("&");
+              let data = {};
+              for(let i = 0; i < dataArray.length; i++){
+                  let parts = dataArray[i].split("=");
+                  if(parts[0]) data[parts[0]] = parts[1] || '';
+              };
+              obj.data = data;
+          }else{ obj.data = {}; };
+       return obj;
+    }
 }
 
 window.CuppaRouter = CuppaRouter;
-export default CuppaRouter;
 
+// DEPENDENCIES
 const cache = {};
 const cacheLimit = 10000;
 let cacheCount = 0;
