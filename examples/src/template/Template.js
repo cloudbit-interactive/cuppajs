@@ -1,4 +1,4 @@
-import {CuppaComponent} from "../../../src/cuppa.component.min.js"
+import {CuppaComponent} from "../../../src/cuppa.component.js"
 import {cuppa} from "../../../src/cuppa.min.js"
 
 export default class Template extends CuppaComponent {
