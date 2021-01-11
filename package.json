@@ -1,6 +1,6 @@
 {
   "name": "cuppa-component",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Vanilla JavaScript Reactive Component",
   "main": "index.js",
   "scripts": {

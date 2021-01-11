@@ -14,7 +14,7 @@ Standard vanilla implementation of Reactive Component with the advantage of upda
 Online: https://repl.it/@tufik2/CuppaComponent#index.html
 
 ```
-import {CuppaComponent} from "https://unpkg.com/cuppa-component/src/cuppa.component.min.js"
+import {CuppaComponent} from "https://unpkg.com/cuppa-component/libs/cuppa.component.min.js"
 
 export default class TemplateComponent extends CuppaComponent {
     
