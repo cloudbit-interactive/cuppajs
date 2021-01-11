@@ -60,7 +60,7 @@ export class CuppaComponent extends HTMLElement {
                 html = html.replace(/\s+/gi, " ");
                 html = html.replace(/<!--(.*?)-->/g, "");
                 html = html.replace(new RegExp("> <", 'g'), "><");
-            let newNode = this.parser.parseFromString(html, "text/html").firstChild;
+            let newNode = this.parser.parseFromString(html, "text/html").body.firstChild;
             if(this.shadow){
                 this.shadowRoot.append("");
                 this.draw(newNode, 0, null, this.shadowRoot);
