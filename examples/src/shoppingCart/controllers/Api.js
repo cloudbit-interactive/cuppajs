@@ -1,13 +1,18 @@
 export default class API{
 
     static STORE_PRODUCTS = "STORE_PRODUCTS";
-    static async getProducts(category){
+    static getProducts(category){
         let products = productsData;
         if(category) products = products.filter((product)=>product.category == category.replace("-", " "));
         return products;
     }
 
-    static async getCategories(){
+    static getProduct(id){
+      let product = productsData.filter(product=>product.id == id)[0];
+      return product;
+    }
+
+    static getCategories(){
         let categories = categoriesData;
         return categoriesData;
     }

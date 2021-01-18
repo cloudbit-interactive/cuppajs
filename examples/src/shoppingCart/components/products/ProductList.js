@@ -17,23 +17,26 @@ export default class ProductList extends CuppaComponent {
     }
 
     connected(){
-        this.loadProducts().then();
+        this.loadProducts()
     }
 
-    async loadProducts(){
+    loadProducts(){
         if(!this) return;
-        let products = await API.getProducts(this.state?.category);
+        let products = API.getProducts(this.state?.category);
         this.setState({products}, ()=>router.updateLinks())
     }
 
     render(){
         return /*html*/`
-            <div class="category-title">${ val(this.state, 'category', 'All Items').replace("-", " ") }</div>
-            <div class="list" style="margin:10px 0 0">
-                ${(this.state.products || []).map(product=>{
-                    return /*html*/`<product-list-item key="${product.id}" product="${cuppa.jsonEncode(product)}"></product-list-item>`
-                }).join("")}
-            </div>`
+            <div>
+                <div class="category-title">${ val(this.state, 'category', 'All Items').replace("-", " ") }</div>
+                <div class="list" style="margin:10px 0 0">
+                    ${(this.state.products || []).map(product=>{
+                        return /*html*/`<product-list-item key="${product.id}" product="${cuppa.jsonEncode(product)}"></product-list-item>`
+                    }).join("")}
+                </div>
+            </div>
+            `
     }
 }
 

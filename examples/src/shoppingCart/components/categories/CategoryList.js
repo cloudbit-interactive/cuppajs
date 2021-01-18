@@ -11,23 +11,23 @@ export default class CategoryList extends CuppaComponent {
     }
     
     connected() {
-        this.loadCategories().then();
+        this.loadCategories();
 
         
     }
 
-    async loadCategories(){
-        let categories = await API.getCategories();
+    loadCategories(){
+        let categories = API.getCategories();
         this.setState({categories}, ()=>router.updateLinks());
     }
 
     render(){
         return /*html*/`
-            <nav class="nav-main">
+            <nav>
                 <ul>
                     <li><a href="#">All</a></li>
                     ${ (this.state.categories || []).map(category=>{
-                        return /*html*/`<li><a href="category/${cuppa.urlFriendly(category)}" title="${category}" >${category}</a></li>`
+                        return /*html*/`<li><a href="category/${cuppa.urlFriendly(category)}" title="${cuppa.capitaliseAllWords(category)}" >${category}</a></li>`
                     }).join("") }
                 </ul>
             </nav>`

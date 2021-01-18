@@ -1,12 +1,12 @@
 import {CuppaComponent} from "../../../libs/cuppa.component.js"
 import {cuppa, log, val} from "../../../libs/cuppa.min.js"
 import CategoryList from "./components/categories/CategoryList.js"
+import {CuppaRouter} from "../../../libs/cuppa.router.js"
 import ProductList from "./components/products/ProductList.js"
 import ProductDesc from "./components/products/ProductDesc.js"
-import {CuppaRouter} from "../../../libs/cuppa.router.js"
-cuppa.requiereCSS("./src/shoppingCart/styles.css")
+cuppa.requiereCSS("./src/shoppingCart/styles.css");
 
-export const router = new CuppaRouter({root:"/examples/", hash:"#/"});
+export const router = new CuppaRouter({root:"/examples/", hash:"#/", titlesMap:{"/":"Shopping Cart"}});
 
 export default class ShoppingCart extends CuppaComponent {
 

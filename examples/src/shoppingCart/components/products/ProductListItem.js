@@ -1,5 +1,5 @@
 import {CuppaComponent} from "../../../../../libs/cuppa.component.js"
-import {cuppa} from "../../../../../libs/cuppa.min.js"
+import {cuppa, log} from "../../../../../libs/cuppa.min.js"
 
 export default class ProductListItem extends CuppaComponent {
     constructor(){
@@ -13,7 +13,7 @@ export default class ProductListItem extends CuppaComponent {
 
     render(){
         return /*html*/`
-            <a class="product-list-item" href="product/${this.state.product?.id}/${cuppa.urlFriendly(this.state.product?.title)}" >
+            <a href="product/${this.state.product?.id}/${cuppa.urlFriendly(this.state.product?.title)}" title="${cuppa.capitaliseAllWords(this.state.product?.title)}" >
                 <div class="image" style="background-image:url(${this.state.product?.image})"></div>
                 <h3>${this.state.product?.title}</h2>
                 <p>${this.state.product?.category}</p>

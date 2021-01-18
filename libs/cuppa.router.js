@@ -9,7 +9,7 @@ export class CuppaRouter{
     opts;
     routes = [];
 
-    constructor(opts = {root:"", hash:"", resolveAll:false, titlesMap:{} }){
+    constructor(opts){
         this.opts = {...{root:"", hash:"", resolveAll:false, titlesMap:{} }, ...opts};
         window.addEventListener("popstate", this.onHistory.bind(this));
     }
@@ -40,19 +40,26 @@ export class CuppaRouter{
             path = path.replace(this.opts.root,"");
             path = path.replace(this.opts.hash,"");
         }
-        if(!title && path) title = this.opts.titlesMap[path]
-        if(title) document.title = title;
-        if(title == undefined) title = "";
         if(path == undefined || path == "") path = " ";
         if(path == "#" || path == "/" || path == " ") path = " ";
         else path = this.opts.hash+path;
+
+        if(!title && path == " ") title = this.opts.titlesMap[""] || this.opts.titlesMap["/"] || this.opts.titlesMap["*"];
+        if(!title && path) title = this.opts.titlesMap[path]
+        if(title == undefined) title = "";
+        if(title) document.title = title;
+
         if(addToHistory) window.history.pushState(path, title, path);
         this.resolve();
     }
 
     getPath(){
+        let base = document.querySelector("base");
+            base = (base) ? base.href : "";
         let url = new URL(window.location.href);
-        let path = window.location.href.replace(url.origin, "");
+        let path = window.location.href;
+            if(base && base != "/") path = path.replace(base, "");
+            path = path.replace(url.origin, "");
             path = path.replace(this.opts.root,"");
             path = path.replace(this.opts.hash,"");
         return path;
