@@ -1,4 +1,4 @@
-import {CuppaComponent} from "../cuppa.component.js";
+import {CuppaComponent} from "../cuppa.component.min.js";
 import {cuppa} from "../cuppa.min.js";
 
 export class CuppaTabs extends CuppaComponent {
