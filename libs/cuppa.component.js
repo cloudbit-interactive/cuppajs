@@ -29,6 +29,7 @@ export class CuppaComponent extends HTMLElement {
         this.state = {};
         this.refs = {};
         this.parser = new DOMParser();
+        this.updatedCallback = null;
     }
 
     connectedCallback() {
@@ -60,17 +61,20 @@ export class CuppaComponent extends HTMLElement {
                 html = html.replace(/\s+/gi, " ");
                 html = html.replace(/<!--(.*?)-->/g, "");
                 html = html.replace(new RegExp("> <", 'g'), "><");
-            let newNode = this.parser.parseFromString(html, "text/html").body.firstChild;
+            let headNodes = this.parser.parseFromString(html, "text/html").head.childNodes;
+            let bodyNodes = this.parser.parseFromString(html, "text/html").body.childNodes;
+            let rootNodes = [...headNodes, ...bodyNodes]
             if(this.shadow){
                 this.shadowRoot.append("");
-                this.draw(newNode, 0, null, this.shadowRoot);
+                rootNodes.map(node=>this.draw(node, 0, null, this));
             }else{
-                this.draw(newNode, 0, null, this);
+                rootNodes.map((node, index)=>this.draw(node, index, null, this));
             }
         }
         this.processRefs(this, this.refs, "ref");
         this.binAll(this);
         if(callback) callback();
+        if(this.updatedCallback) this.updatedCallback();
     }
 
     draw(newNode, newNodeIndex, newNodeParent, realParentNode){

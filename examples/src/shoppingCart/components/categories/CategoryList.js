@@ -12,7 +12,7 @@ export default class CategoryList extends CuppaComponent {
     
     connected() {
         this.loadCategories();
-
+new CuppaSwitch();
         
     }
 
