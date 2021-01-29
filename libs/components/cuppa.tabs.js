@@ -51,7 +51,7 @@ export class CuppaTab extends CuppaComponent {
                 cuppa-tab[selected]{ background:#2296F3; color:#FFF; cursor:default; pointer-events: none; box-shadow:0 1px 3px rgba(0,0,0,0.2) }
                 cuppa-tab:first-of-type{ border-radius:5px 0 0 5px; }
                 cuppa-tab:last-of-type{ border-radius:0 5px 5px 0; }
-                cuppa-tab:hover{ opacity:0.7; }
+                cuppa-tab:hover{ opacity:0.6; }
             </style>
             `
     }
