@@ -74,7 +74,7 @@ export class CuppaComponent extends HTMLElement {
         this.processRefs(this, this.refs, "ref");
         this.binAll(this);
         if(callback) callback();
-        if(this.updatedCallback) this.updatedCallback();
+         if(this.rendered) this.rendered(this);
     }
 
     draw(newNode, newNodeIndex, newNodeParent, realParentNode){

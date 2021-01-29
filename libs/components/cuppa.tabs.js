@@ -6,13 +6,12 @@ export class CuppaTabs extends CuppaComponent {
         super();
         this.state = {selected:null}
         this.group = cuppa.unique("cuppa-tab-");
-        this.updatedCallback = this.onUpdated;
     }
 
     static get observedAttributes() { return ['selected'] }
     attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal}) }
 
-    onUpdated(){
+    rendered(){
         let tabs = this.querySelectorAll("cuppa-tab");
         cuppa.attr(tabs, "selected", "", true)
         let selectedNode = this.querySelector(`cuppa-tab[value=${this.state.selected}]`);
