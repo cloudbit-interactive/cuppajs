@@ -1,5 +1,5 @@
-import {CuppaComponent} from "../cuppa.component.js"
-import {cuppa} from "../cuppa.min.js"
+import {CuppaComponent} from "../cuppa.component.js";
+import {cuppa} from "../cuppa.min.js";
 
 export class CuppaTabs extends CuppaComponent {
     constructor(){
@@ -15,7 +15,7 @@ export class CuppaTabs extends CuppaComponent {
     onUpdated(){
         let tabs = this.querySelectorAll("cuppa-tab");
         cuppa.attr(tabs, "selected", "", true)
-        let selectedNode = this.querySelector(`cuppa-tab[value=${this.state?.selected}]`);
+        let selectedNode = this.querySelector(`cuppa-tab[value=${this.state.selected}]`);
         if(selectedNode) selectedNode.setAttribute("selected", "");
         cuppa.offGroup(this.group);
         cuppa.on(tabs, "click", this.onClick, this.group);
