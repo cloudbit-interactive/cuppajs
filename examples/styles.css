@@ -1,0 +1,26 @@
+*{ box-sizing: border-box; }
+:root{ 
+    font-size: 62.5%; 
+    --nav-main-width:27rem; 
+    --color-purple1:#494ca2; 
+    --color-white1:#FFF;
+}
+html, body{ margin:0; padding:0; font-family: Arial, Helvetica, sans-serif; font-size: 1.4rem; line-height: normal; letter-spacing: 0.5px; overflow-x: hidden; }
+.title1{ font-size: 4rem; font-size: 600; margin:0; }
+.title2{ font-size: 2.5rem; font-size: 600; margin:0; }
+
+.link-clear{ color:var(--color-white1); text-decoration: none; cursor: pointer; }
+.wire, .wire *{ border:1px dotted #F00; }
+
+app-comp{ display:grid; width: 100vw; min-height: 100vh; grid-template-columns: var(--nav-main-width) 1fr; grid-template-rows: 1fr; }
+navbar-comp{ background: var(--color-purple1); color:var(--color-white1); padding:2rem; font-size: 1.6rem; }
+
+.menu{ margin:0; padding:0; list-style: none; margin:1.5rem 0 0; font-weight: 300; }
+.menu-item{ transition: 0.3s opacity; opacity: 0.6;  border-bottom: 1px solid rgba(255,255,255,0.3); position: relative; user-select: none; }
+.menu-item:hover{ opacity: 1; }
+.menu-item.selected{  opacity: 1; }
+.menu-item-link{ text-decoration: none; display: block; color:var(--color-white1); cursor: pointer; padding:1.3rem 0.8rem; }
+.menu-item-underline{ transition: 0.3s width; position: absolute; left:0; bottom:-1; width: 0%; height: 0; border-bottom: 1px solid #FFF; }
+.menu-item.selected .menu-item-underline{ width:100%; }
+
+.message{ padding:2rem; background:#EEE; border-radius: 5px; }

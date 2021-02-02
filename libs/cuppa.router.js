@@ -8,6 +8,7 @@
 export class CuppaRouter{
     opts;
     routes = [];
+    callbackSet = new Set();
 
     constructor(opts){
         this.opts = {...{root:"", hash:"", resolveAll:false, titlesMap:{} }, ...opts};
@@ -81,53 +82,65 @@ export class CuppaRouter{
         let resolved = false;
         for(let i = 0; i < this.routes.length; i++){
             let route = this.routes[i];
-            
-              let match = this.match(path, route.path, route.opts.exact, route.opts.strict);
-              if(match && route.callback){
-                  resolved = true;
-                  route.callback(match);
-              }
+            let match = this.match(path, route.path, route.opts.exact, route.opts.strict);
+            if(match && route.callback){
+                resolved = true;
+                route.callback(match);
+            }
             if(resolved && !this.opts.resolveAll) break;
         }
+        this.callbackSet.forEach((func)=>{ func(this.getPath()) })
     }
 
     match(path, route, exact = true, strict = false){
-      if(route == "*"){
-        return {path};
-      }else{
-        let match = matchPath(path, {path: route, exact, strict});
-        return match;
-      }
+        if(route == "*"){
+            return {path};
+        }else{
+            let match = matchPath(path, {path: route, exact, strict});
+            return match;
+        }
+    }
+
+    addListener(func){
+        if(!func) return;
+        if( this.callbackSet.has(func) ) return;
+        this.callbackSet.add(func) 
+    }
+
+    removeListener(func){
+        if(!func) return;
+        if(!this.callbackSet.has(func)) return;
+        this.callbackSet.delete(func)
     }
 
     getPathData(path){
-      if(!path) path = this.getPath();
-      let url = new URL(window.location.href);
-      let obj = {url:window.location.href};
-      // path
-          if(path.indexOf("?") != -1) path = path.substr(0, path.indexOf("?"));
-          obj.path = path;
-          obj.pathArray = path.split("/");
-          obj.pathArray = obj.pathArray.filter(item=>item);
-      // domain
-          obj.domain = url.host;
-      // protocol / port
-          obj.protocol = url.protocol;
-          obj.port = url.port;
-      // get data
-          let dataStr = path;
-          if(dataStr.indexOf("?") != -1 || dataStr.indexOf("#") != -1){
-              if(dataStr.indexOf("?") != -1) dataStr = dataStr.substr(path.indexOf("?")+1);
-              if(dataStr.indexOf("#") != -1) dataStr = dataStr.substr(path.indexOf("#")+1);
-              let dataArray = dataStr.split("&");
-              let data = {};
-              for(let i = 0; i < dataArray.length; i++){
-                  let parts = dataArray[i].split("=");
-                  if(parts[0]) data[parts[0]] = parts[1] || '';
-              };
-              obj.data = data;
-          }else{ obj.data = {}; };
-       return obj;
+        if(!path) path = this.getPath();
+        let url = new URL(window.location.href);
+        let obj = {url:window.location.href};
+        // path
+            if(path.indexOf("?") != -1) path = path.substr(0, path.indexOf("?"));
+            obj.path = path;
+            obj.pathArray = path.split("/");
+            obj.pathArray = obj.pathArray.filter(item=>item);
+        // domain
+            obj.domain = url.host;
+        // protocol / port
+            obj.protocol = url.protocol;
+            obj.port = url.port;
+        // get data
+            let dataStr = path;
+            if(dataStr.indexOf("?") != -1 || dataStr.indexOf("#") != -1){
+                if(dataStr.indexOf("?") != -1) dataStr = dataStr.substr(path.indexOf("?")+1);
+                if(dataStr.indexOf("#") != -1) dataStr = dataStr.substr(path.indexOf("#")+1);
+                let dataArray = dataStr.split("&");
+                let data = {};
+                for(let i = 0; i < dataArray.length; i++){
+                    let parts = dataArray[i].split("=");
+                    if(parts[0]) data[parts[0]] = parts[1] || '';
+                };
+                obj.data = data;
+            }else{ obj.data = {}; };
+        return obj;
     }
 }
 
@@ -139,158 +152,158 @@ const cacheLimit = 10000;
 let cacheCount = 0;
 
 function compilePath(path, options) {
-  const cacheKey = `${options.end}${options.strict}${options.sensitive}`;
-  const pathCache = cache[cacheKey] || (cache[cacheKey] = {});
+	const cacheKey = `${options.end}${options.strict}${options.sensitive}`;
+	const pathCache = cache[cacheKey] || (cache[cacheKey] = {});
 
-  if (pathCache[path]) return pathCache[path];
+	if (pathCache[path]) return pathCache[path];
 
-  const keys = [];
-  const regexp = pathToRegexp(path, keys, options);
-  const result = { regexp, keys };
+	const keys = [];
+	const regexp = pathToRegexp(path, keys, options);
+	const result = { regexp, keys };
 
-  if (cacheCount < cacheLimit) {
-    pathCache[path] = result;
-    cacheCount++;
-  }
+	if (cacheCount < cacheLimit) {
+		pathCache[path] = result;
+		cacheCount++;
+	}
 
-  return result;
+	return result;
 }
 
 function matchPath(pathname, options = {}) {
-    if (typeof options === "string" || Array.isArray(options)) {
-      options = { path: options };
-    }
-  
-    const { path, exact = false, strict = false, sensitive = false } = options;
-  
-    const paths = [].concat(path);
-  
-    return paths.reduce((matched, path) => {
-      if (!path && path !== "") return null;
-      if (matched) return matched;
-  
-      const { regexp, keys } = compilePath(path, {
-        end: exact,
-        strict,
-        sensitive
-      });
-      const match = regexp.exec(pathname);
-  
-      if (!match) return null;
-  
-      const [url, ...values] = match;
-      const isExact = pathname === url;
-  
-      if (exact && !isExact) return null;
-  
-      return {
-        path, 
-        url: path === "/" && url === "" ? "/" : url,
-        isExact,
-        params: keys.reduce((memo, key, index) => {
-          memo[key.name] = values[index];
-          return memo;
-        }, {})
-      };
-    }, null);
+		if (typeof options === "string" || Array.isArray(options)) {
+			options = { path: options };
+		}
+	
+		const { path, exact = false, strict = false, sensitive = false } = options;
+	
+		const paths = [].concat(path);
+	
+		return paths.reduce((matched, path) => {
+			if (!path && path !== "") return null;
+			if (matched) return matched;
+	
+			const { regexp, keys } = compilePath(path, {
+				end: exact,
+				strict,
+				sensitive
+			});
+			const match = regexp.exec(pathname);
+	
+			if (!match) return null;
+	
+			const [url, ...values] = match;
+			const isExact = pathname === url;
+	
+			if (exact && !isExact) return null;
+	
+			return {
+				path, 
+				url: path === "/" && url === "" ? "/" : url,
+				isExact,
+				params: keys.reduce((memo, key, index) => {
+					memo[key.name] = values[index];
+					return memo;
+				}, {})
+			};
+		}, null);
 }
 
 
 var PATH_REGEXP = new RegExp([
-    '(\\\\.)',
-    '([\\/.])?(?:\\:(\\w+)(?:\\(((?:\\\\.|[^)])*)\\))?|\\(((?:\\\\.|[^)])*)\\))([+*?])?',
-    '([.+*?=^!:${}()[\\]|\\/])'
-  ].join('|'), 'g');
+		'(\\\\.)',
+		'([\\/.])?(?:\\:(\\w+)(?:\\(((?:\\\\.|[^)])*)\\))?|\\(((?:\\\\.|[^)])*)\\))([+*?])?',
+		'([.+*?=^!:${}()[\\]|\\/])'
+	].join('|'), 'g');
 
 function escapeGroup (group) {
-    return group.replace(/([=!:$\/()])/g, '\\$1');
-  }
+		return group.replace(/([=!:$\/()])/g, '\\$1');
+	}
 
 var attachKeys = function (re, keys) {
-    re.keys = keys;
-    return re;
+		re.keys = keys;
+		return re;
 };
 
 function pathToRegexp(path, keys, options){
     if (keys && !Array.isArray(keys)) {
-      options = keys;
-      keys = null;
+        options = keys;
+        keys = null;
     }
-  
+
     keys = keys || [];
     options = options || {};
-  
+
     var strict = options.strict;
     var end = options.end !== false;
     var flags = options.sensitive ? '' : 'i';
     var index = 0;
-  
-    if (path instanceof RegExp) {
-      var groups = path.source.match(/\((?!\?)/g) || [];
-  
-      keys.push.apply(keys, groups.map(function (match, index) {
-        return {
-          name:      index,
-          delimiter: null,
-          optional:  false,
-          repeat:    false
-        };
-      }));
-  
-      return attachKeys(path, keys);
-    }
-  
-    if (Array.isArray(path)) {
-      path = path.map(function (value) {
-        return pathtoRegexp(value, keys, options).source;
-      });
 
-      return attachKeys(new RegExp('(?:' + path.join('|') + ')', flags), keys);
+    if (path instanceof RegExp) {
+        var groups = path.source.match(/\((?!\?)/g) || [];
+
+        keys.push.apply(keys, groups.map(function (match, index) {
+            return {
+                name:      index,
+                delimiter: null,
+                optional:  false,
+                repeat:    false
+            };
+        }));
+
+        return attachKeys(path, keys);
     }
-  
+
+    if (Array.isArray(path)) {
+        path = path.map(function (value) {
+            return pathtoRegexp(value, keys, options).source;
+        });
+
+        return attachKeys(new RegExp('(?:' + path.join('|') + ')', flags), keys);
+    }
+
     path = path.replace(PATH_REGEXP, function (match, escaped, prefix, key, capture, group, suffix, escape) {
-      if (escaped) {
-        return escaped;
-      }
-  
-      if (escape) {
-        return '\\' + escape;
-      }
-  
-      var repeat   = suffix === '+' || suffix === '*';
-      var optional = suffix === '?' || suffix === '*';
-  
-      keys.push({
-        name:      key || index++,
-        delimiter: prefix || '/',
-        optional:  optional,
-        repeat:    repeat
-      });
-  
-      prefix = prefix ? '\\' + prefix : '';
-  
-      capture = escapeGroup(capture || group || '[^' + (prefix || '\\/') + ']+?');
-  
-      if (repeat) {
-        capture = capture + '(?:' + prefix + capture + ')*';
-      }
-  
-      if (optional) {
-        return '(?:' + prefix + '(' + capture + '))?';
-      }
-  
-      return prefix + '(' + capture + ')';
+        if (escaped) {
+            return escaped;
+        }
+
+        if (escape) {
+            return '\\' + escape;
+        }
+
+        var repeat   = suffix === '+' || suffix === '*';
+        var optional = suffix === '?' || suffix === '*';
+
+        keys.push({
+            name:      key || index++,
+            delimiter: prefix || '/',
+            optional:  optional,
+            repeat:    repeat
+        });
+
+        prefix = prefix ? '\\' + prefix : '';
+
+        capture = escapeGroup(capture || group || '[^' + (prefix || '\\/') + ']+?');
+
+        if (repeat) {
+            capture = capture + '(?:' + prefix + capture + ')*';
+        }
+
+        if (optional) {
+            return '(?:' + prefix + '(' + capture + '))?';
+        }
+
+        return prefix + '(' + capture + ')';
     });
-  
+
     var endsWithSlash = path[path.length - 1] === '/';
 
     if (!strict) {
-      path = (endsWithSlash ? path.slice(0, -2) : path) + '(?:\\/(?=$))?';
+        path = (endsWithSlash ? path.slice(0, -2) : path) + '(?:\\/(?=$))?';
     }
 
     if (!end) {
-      path += strict && endsWithSlash ? '' : '(?=\\/|$)';
+        path += strict && endsWithSlash ? '' : '(?=\\/|$)';
     }
-  
+
     return attachKeys(new RegExp('^' + path + (end ? '$' : ''), flags), keys);
-  };
+};

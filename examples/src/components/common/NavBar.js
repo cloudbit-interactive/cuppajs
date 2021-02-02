@@ -1,0 +1,47 @@
+import {CuppaComponent} from "../../../../libs/cuppa.component.js";
+import { router } from "../App.js";
+
+export default class NavBar extends CuppaComponent {
+    constructor(){
+        super();
+        this.state = { path:null }
+    }
+    
+    connected() { 
+        router.updateLinks();
+        router.addListener((path)=>this.setState({path}))
+        router.resolve();
+    }
+
+    render(){
+        return /*html*/`
+            <h1 class="title1">
+                <a class="link-clear" href="/">EXP...</a>
+            </h1>
+            <ul class="menu">
+                <li class="menu-item ${ this.state.path == "simple-todo" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="simple-todo" >Simple Todo</a>
+                    <div class="menu-item-underline"></div>
+                </li>
+                <li class="menu-item ${ this.state.path == "todo" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="todo" >Todo Persistent</a>
+                    <div class="menu-item-underline"></div>
+                </li>
+                <li class="menu-item  ${ this.state.path == "performance" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="performance" >Performance</a>
+                    <div class="menu-item-underline"></div>
+                </li>
+                <li class="menu-item ${ this.state.path == "shopping-cart" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="shopping-cart" >Shopping Cart</a>
+                    <div class="menu-item-underline"></div>
+                </li>
+                <li class="menu-item ${ this.state.path == "vanilla-components" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="vanilla-components" >Vanilla Component</a>
+                    <div class="menu-item-underline"></div>
+                </li>
+            </ul>
+            `
+    }
+}
+
+customElements.define('navbar-comp', NavBar);

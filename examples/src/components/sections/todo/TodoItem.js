@@ -1,5 +1,5 @@
-import {CuppaComponent} from "../../../libs/cuppa.component.js"
-import {cuppa, val} from "../../../libs/cuppa.js"
+import {CuppaComponent} from "../../../../../libs/cuppa.component.js"
+import {cuppa, val} from "../../../../../libs/cuppa.js"
 import {STORE_TODO} from "./Todo.js"
 
 export default class TodoItem extends CuppaComponent {

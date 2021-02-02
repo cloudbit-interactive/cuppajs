@@ -1,10 +1,10 @@
-import {CuppaComponent} from "../../../libs/cuppa.component.js"
+import {CuppaComponent} from "../../../../../libs/cuppa.component.js"
 
 export default class SimpleTodo extends CuppaComponent {
    
     constructor(){
         super();
-        this.state = {todoList:['Todo1', 'Todo2'], value:''};
+        this.state = {todoList:['Todo1', 'Todo2', 'Todo3'], value:''};
     }
 
     onAdd(e){

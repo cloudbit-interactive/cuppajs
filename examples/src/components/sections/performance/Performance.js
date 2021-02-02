@@ -1,4 +1,4 @@
-import {CuppaComponent} from "../../../libs/cuppa.component.min.js"
+import {CuppaComponent} from "../../../../../libs/cuppa.component.min.js"
 
 export default class Performance extends CuppaComponent {
 

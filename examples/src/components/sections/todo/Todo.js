@@ -1,5 +1,5 @@
-import {CuppaComponent} from "../../../libs/cuppa.component.js"
-import {cuppa} from "../../../libs/cuppa.js"
+import {CuppaComponent} from "../../../../../libs/cuppa.component.js"
+import {cuppa} from "../../../../../libs/cuppa.js"
 import TodoItem from "./TodoItem.js"
 
 export const STORE_TODO = "STORE_TODO"
