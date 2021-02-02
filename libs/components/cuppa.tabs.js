@@ -24,6 +24,12 @@ export class CuppaTabs extends CuppaComponent {
         let value = e.currentTarget.getAttribute("value");
         if(!value) return;
         this.setAttribute("selected",value);
+
+        this.dispatchEvent(new Event('change'));
+        let onChangeAttr = this.getAttribute("onChange");
+        if(onChangeAttr){ 
+            try{ eval(`${onChangeAttr}('${this.state.selected}')`) }catch(err) { }
+        }
     }
 
     render(){

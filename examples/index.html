@@ -3,31 +3,12 @@
     <head>
         <meta charset="utf-8" />
         <title>Cuppa Example</title>
-        <style>
-            body{ font-family: Arial, Helvetica, sans-serif; }
-        </style>
+        <link href="src/App.css" rel="stylesheet" />
     </head>
     <body>
-        
-        <cuppa-tabs>
-            <cuppa-tab value="breakouts">BREAKOUTS</cuppa-tab>
-            <cuppa-tab value="none">NONE</cuppa-tab>
-            <cuppa-tab value="channels">CHANNELS</cuppa-tab>
-        </cuppa-tabs>
-        
         <script type="module" >
-            //import SimpleTodo from "./src/simpleTodo/SimpleTodo.js"
-            //document.body.append(new SimpleTodo())
-
-            //import Todo from "./src/todo/Todo.js"
-            //document.body.append(new Todo())
-
-            //import Performance from "./src/performance/Performance.js"
-            //document.body.append(new Performance())
-
-            //import ShoppingCart from "./src/shoppingCart/ShoppingCart.js"
-            //document.body.append(new ShoppingCart())
+            import App from "./src/App.js";
+            document.body.append(new App());
         </script>
-        <script src="../libs/components/cuppa.tabs.min.js" type="module"></script>
     </body>
 </html>

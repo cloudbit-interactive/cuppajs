@@ -16,20 +16,24 @@ export default class TodoItem extends CuppaComponent {
     onRename(e){
         let todoList = this.getData(STORE_TODO, {store:"local"})
             todoList[this.state.index].name = e.target.value;
-        this.setData(STORE_TODO, {data:todoList, store:"local"})
+        this.update(todoList);
         this.setState({rename:false});
     }
 
     onDone(){
-        let todoList = this.getData(STORE_TODO, {store:"local"})
-            todoList[this.state.index].done = !this.state.item.done
-        this.setData(STORE_TODO, {data:todoList, store:"local"})
+        let todoList = this.getData(STORE_TODO, {store:"local"});
+            todoList[this.state.index].done = !this.state.item.done;
+        this.update(todoList);
     }
 
     onDelete(){
-        let todoList = this.getData(STORE_TODO, {store:"local"})
-            todoList.splice(this.state.index, 1)
-        this.setData(STORE_TODO, {data:todoList, store:"local"})
+        let todoList = this.getData(STORE_TODO, {store:"local"});
+            todoList.splice(this.state.index, 1);
+        this.update(todoList);
+    }
+
+    update(data){
+        this.setStorage(STORE_TODO, {data, store:"local"});
     }
     
     render(){

@@ -13,7 +13,7 @@ export default class Todo extends CuppaComponent {
     }
 
     connected(){
-        this.getData(STORE_TODO, {store:"local", callback:todoList=>this.setState({todoList})})
+        this.getStorage(STORE_TODO, {store:"local", callback:todoList=>this.setState({todoList})})
     }
 
     onAdd(e){
@@ -21,8 +21,12 @@ export default class Todo extends CuppaComponent {
         if(!this.state.value.trim()) return;
         let todoItem = {name:this.state.value, done:false, uuid:cuppa.uuid()}
         let todoList = [...this.state.todoList, todoItem]
-        this.setData(STORE_TODO, {data:todoList, store:"local"})
+        this.update(todoList);
         this.setState({value:""})
+    }
+
+    update(data){
+        this.setStorage(STORE_TODO, {data, store:"local"});
     }
     
     render(){

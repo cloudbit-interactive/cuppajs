@@ -181,6 +181,8 @@ export class CuppaComponent extends HTMLElement {
         this.cuppa.setData(name, opts);
     }
 
+    setStorage(name, opts){ this.setData(name, opts) }
+
     getData(name, opts){
         if(!this.cuppa) return;
         if(opts && opts.callback){
@@ -190,8 +192,10 @@ export class CuppaComponent extends HTMLElement {
             return this.cuppa.getData(name, opts);
         }
     }
+    
+    getStorage(name, opts){ return this.getData(name, opts) }
 
-    removeData(){
+    removeStorage(){
         if(!this.cuppa) return;
         Object.entries(this.getDataDictionary).map(([key, value])=>{
             if(value && value.callback) this.cuppa.removeListener(key, value.callback);
@@ -200,7 +204,7 @@ export class CuppaComponent extends HTMLElement {
     }
 
     destroy(){
-        this.removeData();
+        this.removeStorage();
     }
 
     disconnectedCallback() {

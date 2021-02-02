@@ -25,7 +25,12 @@ export default class CategoryList extends CuppaComponent {
                 <ul>
                     <li><a href="#">All</a></li>
                     ${ (this.state.categories || []).map(category=>{
-                        return /*html*/`<li><a href="category/${cuppa.urlFriendly(category)}" title="${cuppa.capitaliseAllWords(category)}" >${category}</a></li>`
+                        return /*html*/`
+                            <li>
+                                <a href="category/${cuppa.urlFriendly(category)}" title="${cuppa.capitaliseAllWords(category)}" >
+                                    ${cuppa.capitaliseAllWords(category)}
+                                </a>
+                            </li>`
                     }).join("") }
                 </ul>
             </nav>`
