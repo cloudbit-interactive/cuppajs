@@ -19,8 +19,8 @@ export default class CuppaComponents extends CuppaComponent {
                 <p>There are tons of way to load a components depending of each case. Bellow is showed the simples and fast way to import it.</p>
                 <cuppa-switch name="switch1" onChange="this.onChange" ></cuppa-switch>
                 
-                <iframe src="https://stackblitz.com/edit/cuppa-component-import1?embed=1&file=index.html&hideExplorer=1&hideNavigation=1&view=editor"
-                        style="height:600px; margin-top:0.5rem"
+                <iframe style="height:600px;" src="https://stackblitz.com/edit/cuppa-component-import1?embed=1&file=index.html&hideExplorer=1&hideNavigation=1"
+                        
                 ></iframe>
             </div>`
     }
