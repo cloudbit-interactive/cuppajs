@@ -35,6 +35,7 @@ export class CuppaTabs extends CuppaComponent {
     render(){
         return /*html*/`
             <style>
+                cuppa-tabs, cuppa-tabs *{ box-sizing: border-box; }
                 cuppa-tabs{ display:inline-flex; background:#40495A; border-radius:5px; user-select: none; }
             </style>
             `
@@ -52,6 +53,7 @@ export class CuppaTab extends CuppaComponent {
     render(){
         return /*html*/`
             <style>
+                cuppa-tab, cuppa-tab *{ box-sizing: border-box; }
                 cuppa-tab{ transition:0.3s; transition-property:background-color, color, opacity; display:flex; justify-content:center; align-items:center; color:#B1B1B1; padding:10px 10px; font-size:11px; cursor:pointer; }
                 cuppa-tab[selected]{ background:#2296F3; color:#FFF; cursor:default; pointer-events: none; box-shadow:0 1px 3px rgba(0,0,0,0.2) }
                 cuppa-tab:first-of-type{ border-radius:5px 0 0 5px; }
