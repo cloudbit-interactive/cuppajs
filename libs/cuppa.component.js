@@ -144,7 +144,7 @@ export class CuppaComponent extends HTMLElement {
             while (i < length) {
                 let name = newDomMap.attributes[i].nodeName;
                 let value = newDomMap.attributes[i].nodeValue;
-                let oldValue = element.attributes[name];
+                let oldValue = element.getAttribute(name);
                 
                 if(name == "value" && element.value){
                     element.value = value;
