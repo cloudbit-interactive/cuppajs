@@ -21,7 +21,22 @@ export class CuppaComponent extends HTMLElement {
 
     constructor() {
         super();
-        
+        this.binAll = this.binAll.bind(this);
+        this.connectedCallback = this.connectedCallback.bind(this);
+        this.setState = this.setState.bind(this);
+        this.forceRender = this.forceRender.bind(this);
+        this.draw = this.draw.bind(this);
+        this.setAttributes = this.setAttributes.bind(this);
+        this.setData = this.setData.bind(this);
+        this.setStorage =this.setStorage.bind(this);
+        this.getData = this.getData.bind(this);
+        this.getStorage = this.getStorage.bind(this);
+        this.removeStorage = this.removeStorage.bind(this);
+        this.destroy = this.destroy.bind(this);
+        this.disconnectedCallback = this.disconnectedCallback.bind(this);
+        this.processRefs = this.processRefs.bind(this);
+        this.binAll(this);
+
         this.cuppa = null;
         this.pure = false;
         this.shadow = false;
@@ -72,9 +87,8 @@ export class CuppaComponent extends HTMLElement {
             }
         }
         this.processRefs(this, this.refs, "ref");
-        this.binAll(this);
         if(callback) callback();
-         if(this.rendered) this.rendered(this);
+        if(this.rendered) this.rendered(this);
     }
 
     draw(newNode, newNodeIndex, newNodeParent, realParentNode){
@@ -236,4 +250,4 @@ export class CuppaComponent extends HTMLElement {
     };
 }
 
-window.CuppaComponent = CuppaComponent;
+document.defaultView.CuppaComponent = CuppaComponent;
