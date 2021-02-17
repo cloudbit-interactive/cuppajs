@@ -1,6 +1,6 @@
 {
   "name": "cuppa-component",
-  "version": "0.0.39",
+  "version": "0.0.41",
   "description": "Vanilla JavaScript Reactive Component",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloudbit-interactive/CuppaComponent.git"
+    "url": "git+https://github.com/cloudbit-interactive/cuppajs.git"
   },
   "keywords": [
     "reactjs",

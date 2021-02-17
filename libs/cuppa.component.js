@@ -18,6 +18,14 @@ const eventAttr =  {
 }
 
 export class CuppaComponent extends HTMLElement {
+    cuppa = null;
+    pure = false;
+    shadow = false;
+    getDataDictionary = {};
+    state = {};
+    refs = {};
+    parser = new DOMParser();
+    updatedCallback = null;
 
     constructor() {
         super();
@@ -36,15 +44,6 @@ export class CuppaComponent extends HTMLElement {
         this.disconnectedCallback = this.disconnectedCallback.bind(this);
         this.processRefs = this.processRefs.bind(this);
         this.binAll(this);
-
-        this.cuppa = null;
-        this.pure = false;
-        this.shadow = false;
-        this.getDataDictionary = {};
-        this.state = {};
-        this.refs = {};
-        this.parser = new DOMParser();
-        this.updatedCallback = null;
     }
 
     connectedCallback() {

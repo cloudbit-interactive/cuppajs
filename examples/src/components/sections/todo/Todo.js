@@ -5,11 +5,11 @@ import TodoItem from "./TodoItem.js"
 export const STORE_TODO = "STORE_TODO"
 
 export default class Todo extends CuppaComponent {
+    cuppa = cuppa;
+    state = {todoList:[], value:''};
 
     constructor(){
-        super()
-        this.cuppa = cuppa
-        this.state = {todoList:[], value:''}
+        super();
     }
 
     connected(){

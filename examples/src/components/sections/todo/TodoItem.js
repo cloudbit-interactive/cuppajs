@@ -3,11 +3,11 @@ import {cuppa, val} from "../../../../../libs/cuppa.js"
 import {STORE_TODO} from "./Todo.js"
 
 export default class TodoItem extends CuppaComponent {
-    
+    cuppa = cuppa;
+    state = {item:null, rename:false, index:null};
+
     constructor(){
-        super()
-        this.cuppa = cuppa
-        this.state = {item:null, rename:false, index:null}
+        super();
     }
 
     static get observedAttributes() { return ['item', 'index'] }

@@ -2,11 +2,8 @@ import {CuppaComponent} from "../cuppa.component.min.js";
 import {cuppa} from "../cuppa.min.js";
 
 export class CuppaTabs extends CuppaComponent {
-    constructor(){
-        super();
-        this.state = {selected:null}
-        this.group = cuppa.unique("cuppa-tab-");
-    }
+    group = cuppa.unique("cuppa-tab-");
+    state = {selected:null};
 
     static get observedAttributes() { return ['selected'] }
     attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal}) }
@@ -41,15 +38,11 @@ export class CuppaTabs extends CuppaComponent {
             `
     }
 }
+
 customElements.define('cuppa-tabs', CuppaTabs);
 document.defaultView.CuppaTabs = CuppaTabs;
 
 export class CuppaTab extends CuppaComponent {
-    constructor(){
-        super();
-        this.state = {attr1:null, attr2:false}
-    }
-
     render(){
         return /*html*/`
             <style>
@@ -63,5 +56,6 @@ export class CuppaTab extends CuppaComponent {
             `
     }
 }
+
 customElements.define('cuppa-tab', CuppaTab);
 document.defaultView.CuppaTab = CuppaTab;

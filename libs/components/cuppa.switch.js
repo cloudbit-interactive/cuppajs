@@ -1,9 +1,10 @@
 import {CuppaComponent} from "../cuppa.component.min.js";
 
 export default class CuppaSwitch extends CuppaComponent {
+
     constructor(name, checked = false){
         super();
-        this.state = {name, checked}
+        this.state = {name, checked};
     }
 
     static get observedAttributes() { return ['checked', 'name', 'disabled'] }
