@@ -1,7 +1,7 @@
-import CuppaSwitch from "../../../../../libs/components/cuppa.switch.js";
 import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
 import("../../../../../libs/components/cuppa.switch.js");
 import("../../../../../libs/components/cuppa.alert.js");
+import("../../../../../libs/components/cuppa.tabs.js");
 
 export default class CuppaComponents extends CuppaComponent {
     
@@ -31,6 +31,12 @@ export default class CuppaComponents extends CuppaComponent {
 
                 <h3 class="title3">Cuppa Alert</h3>
                 <button onclick="this.onAlert">Show Alert</button>
+
+                <h3 class="title3">Cuppa Tabs</h3>    
+                <cuppa-tabs selected="first-tab">
+                    <cuppa-tab value="first-tab">First tab</cuppa-tab>
+                    <cuppa-tab value="second-tab">Second tab</cuppa-tab>
+                </cuppa-tabs>
             </div>`
     }
 }
