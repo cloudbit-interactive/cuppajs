@@ -1,6 +1,6 @@
 # CuppaComponent
 
-Standard vanilla implementation of Reactive Component with the advantage of update based in state.
+Standard vanilla implementation of reactive component with the advantage of update node based in state.
 
 # Advantages
 
