@@ -1,7 +1,7 @@
 {
   "name": "cuppajs",
-  "version": "0.0.41",
-  "description": "Standard Vanilla Libraries that work with everything",
+  "version": "0.0.42",
+  "description": "Standard Vanilla Libraries that work with everything.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
