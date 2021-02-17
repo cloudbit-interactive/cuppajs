@@ -1,4 +1,4 @@
-# CuppaComponent
+# CuppaJS
 
 Standard vanilla implementation of reactive component with the advantage of update node based in state.
 
