@@ -1,13 +1,19 @@
 /**
- *  CuppaComponent
- * 
- *  shadow = false, true or open
- * 
- *  import CuppaComponent from "cuppa.component.js";
- *  import "cuppa.component.js"
- *  <script src="cuppa.component.js" type="module"></script>
- * 
- */
+    CuppaComponent
+ 
+    class fields
+        cuppa = null;
+        pure = false;               // false, true 'will render only 1 time'
+        shadow = false;             // false, true
+        state = {};
+        refs = {};
+        updatedCallback = null;
+        autoAddChilds = true;
+
+    import CuppaComponent from "cuppa.component.js";
+    import "cuppa.component.js"
+    <script src="cuppa.component.js" type="module"></script>
+**/
 
 const eventAttr =  {
     onclick:1, ondblclick:1, onmousedown:1, onmousemove:1, onmouseout:1, onmouseover:1, onmouseup:1, onwheel:1, onmouseenter:1, onmouseleave:1,
@@ -21,12 +27,12 @@ export class CuppaComponent extends HTMLElement {
     cuppa = null;
     pure = false;
     shadow = false;
-    getDataDictionary = {};
     state = {};
     refs = {};
-    parser = new DOMParser();
     updatedCallback = null;
     autoAddChilds = true;
+    _getStorageDictionary = {};
+    _parser = new DOMParser();
 
     constructor() {
         super();
@@ -77,8 +83,8 @@ export class CuppaComponent extends HTMLElement {
                 html = html.replace(/\s+/gi, " ");
                 html = html.replace(/<!--(.*?)-->/g, "");
                 html = html.replace(new RegExp("> <", 'g'), "><");
-            let headNodes = this.parser.parseFromString(html, "text/html").head.childNodes;
-            let bodyNodes = this.parser.parseFromString(html, "text/html").body.childNodes;
+            let headNodes = this._parser.parseFromString(html, "text/html").head.childNodes;
+            let bodyNodes = this._parser.parseFromString(html, "text/html").body.childNodes;
             let rootNodes = [...headNodes, ...bodyNodes]
             if(this.shadow){
                 this.shadowRoot.append("");
@@ -209,7 +215,7 @@ export class CuppaComponent extends HTMLElement {
         if(!this.cuppa) return;
         if(opts && opts.callback){
             this.cuppa.getData(name, opts);
-            this.getDataDictionary[name] = opts;
+            this._getStorageDictionary[name] = opts;
         }else{
             return this.cuppa.getData(name, opts);
         }
@@ -219,9 +225,9 @@ export class CuppaComponent extends HTMLElement {
 
     removeStorage(){
         if(!this.cuppa) return;
-        Object.entries(this.getDataDictionary).map(([key, value])=>{
+        Object.entries(this._getStorageDictionary).map(([key, value])=>{
             if(value && value.callback) this.cuppa.removeListener(key, value.callback);
-            delete this.getDataDictionary[key];
+            delete this._getStorageDictionary[key];
         });
     }
 
@@ -256,6 +262,25 @@ export class CuppaComponent extends HTMLElement {
             };
         };
     };
+
+    observable(varName, defaultValue, callback) {
+        return Observable(this, varName, defaultValue, callback);
+    }
 }
 
 document.defaultView.CuppaComponent = CuppaComponent;
+
+export function Observable(target, varName, defaultValue, callback){
+    let privateVar = "_" + varName;
+    target[privateVar] = defaultValue;
+    Object.defineProperty(target, varName, {
+        set: value => { 
+            target[privateVar] = value;  
+            if(target["forceRender"]) target.forceRender();
+            if(callback) callback();
+        },
+        get: () => { return target[privateVar]; },
+        configurable:true,
+    });
+    return target[varName];
+}

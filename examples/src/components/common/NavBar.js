@@ -16,9 +16,13 @@ export default class NavBar extends CuppaComponent {
     render(){
         return /*html*/`
             <h1 class="title1">
-                <a class="link-clear" href="/">EXP...</a>
+                <a class="link-clear" href="/">DOC.</a>
             </h1>
             <ul class="menu">
+                <li class="menu-item ${ this.state.path == "simple-components" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="simple-components" >Simple Componets</a>
+                    <div class="menu-item-underline"></div>
+                </li>
                 <li class="menu-item ${ this.state.path == "simple-todo" ? "selected" : "" }" >
                     <a class="menu-item-link" href="simple-todo" >Simple Todo</a>
                     <div class="menu-item-underline"></div>
