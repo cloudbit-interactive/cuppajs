@@ -1,4 +1,4 @@
-# CuppaJS - Standard Vanilla Libraries that work with everything.
+# CuppaJS - Standard Vanilla Libraries that work with everything out there.
 
 CuppaComponent: Standard vanilla implementation of reactive component with the advantage of update node based in state.
 
