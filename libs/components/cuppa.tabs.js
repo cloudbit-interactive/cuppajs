@@ -1,5 +1,5 @@
-import {CuppaComponent} from "../cuppa.component.js";
-import {cuppa} from "../cuppa.js";
+import {CuppaComponent} from "../cuppa.component.min.js";
+import {cuppa} from "../cuppa.min.js";
 
 export class CuppaTabs extends CuppaComponent {
     group = cuppa.unique("cuppa-tab-");
