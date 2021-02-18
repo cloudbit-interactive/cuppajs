@@ -1,5 +1,5 @@
-import {CuppaComponent} from "../../../../libs/cuppa.component.min.js";
-import {cuppa} from "../../../../libs/cuppa.min.js";
+import {CuppaComponent} from "../cuppa.component.min.js";
+import {cuppa} from "../cuppa.min.js";
 
 export default class CuppaAlert extends CuppaComponent {
     state = {title:"", message:"", htmlContent:"", acceptText:"Accept", cancelText:"", backdropEnabled:true, inputText:null, placeholder:"", callback:null}

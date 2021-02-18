@@ -26,6 +26,7 @@ export class CuppaComponent extends HTMLElement {
     refs = {};
     parser = new DOMParser();
     updatedCallback = null;
+    autoAddChilds = true;
 
     constructor() {
         super();
@@ -71,6 +72,7 @@ export class CuppaComponent extends HTMLElement {
             }
         }else{
             let html = this.render();
+                if(this.autoAddChilds) html += this.childs;
                 html = html.trim();
                 html = html.replace(/\s+/gi, " ");
                 html = html.replace(/<!--(.*?)-->/g, "");
@@ -92,12 +94,13 @@ export class CuppaComponent extends HTMLElement {
 
     draw(newNode, newNodeIndex, newNodeParent, realParentNode){
         let realNode = realParentNode.childNodes[newNodeIndex];
+        let isComponent = (newNode.nodeName.indexOf("-") != -1);
         if(!realNode){
             if(newNode && newNode.nodeType == 3){
                 realParentNode.insertAdjacentText('beforeend', newNode.nodeValue);
                 return;
             }else if(newNode){
-                realNode = document.createElement(newNode.nodeName);
+                realNode = this.createRealNode(newNode, isComponent);
                 realParentNode.insertAdjacentElement("beforeend", realNode);
             }
         }else if(newNode && realNode.nodeName.toUpperCase() == newNode.nodeName.toUpperCase()){
@@ -109,7 +112,7 @@ export class CuppaComponent extends HTMLElement {
                 let newKey = newNode.getAttribute("key");
                 if(newKey && realKey != newKey){
                     if(realParentNode.childNodes.length < newNodeParent.childNodes.length){
-                        let newRealNode = document.createElement(newNode.nodeName);
+                        let newRealNode = this.createRealNode(newNode, isComponent);
                         realNode.insertAdjacentElement("beforebegin", newRealNode);
                         realNode = newRealNode;
                     }else if(realParentNode.childNodes.length > newNodeParent.childNodes.length){
@@ -124,7 +127,7 @@ export class CuppaComponent extends HTMLElement {
                 realParentNode.insertBefore(newNode, realNode);
                 return;
             }else if(newNode.nodeType == 1){
-                let newRealNode = document.createElement(newNode.nodeName);
+                let newRealNode = this.createRealNode(newNode, isComponent);
                 realParentNode.insertBefore(newRealNode, realNode)
                 realNode = newRealNode;
             }
@@ -134,7 +137,7 @@ export class CuppaComponent extends HTMLElement {
         this.setAttributes(realNode, newNode);
 
         // render childs
-        if(newNode && newNode.nodeName.indexOf("-") != -1){ return; }
+        if(newNode && isComponent){ return; }
 
         let i = 0; let length = (newNode) ? newNode.childNodes.length : 0;
         while (i < length) {
@@ -148,6 +151,12 @@ export class CuppaComponent extends HTMLElement {
                 realNode.removeChild(realNode.childNodes[newNode.childNodes.length]);
             }
         }
+    }
+
+    createRealNode(newNode, isComponent){
+        let realNode = document.createElement(newNode.nodeName);
+        if(isComponent){ realNode.childs = newNode.innerHTML; }
+        return realNode;
     }
 
     setAttributes(element, newDomMap){

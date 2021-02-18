@@ -27,7 +27,7 @@ export default class App extends CuppaComponent {
                 ${ this.state.path == "simple-todo" ? "<simple-todo></simple-todo>"
                     : (this.state.path == "todo") ? "<todo-comp></todo-comp>" 
                     : (this.state.path == "performance") ? "<performance-comp></performance-comp>" 
-                    : (this.state.path == "shopping-cart") ? "shopping-cart" 
+                    : (this.state.path == "shopping-cart") ? "<div>Shopping cart</div>" 
                     : (this.state.path == "cuppa-components") ? "<cuppa-components></cuppa-components>" 
                     : "<welcome-comp></welcome-comp>"
                 }
