@@ -8,6 +8,7 @@ CuppaComponent: Standard vanilla implementation of reactive component with the a
     * Faster performance.
     * No pre-compilation process.
     * Small size (6KB minified / 2KB gzipped).
+    * No extra syntaxis "@click, v-on:, ng-, :S" just the code that you know.
 
 # Example
 
