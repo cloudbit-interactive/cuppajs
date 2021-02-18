@@ -78,7 +78,7 @@ export class CuppaComponent extends HTMLElement {
             }
         }else{
             let html = this.render();
-                if(this.autoAddChilds) html += this.childs;
+                if(this.autoAddChilds && this.childs) html += this.childs;
                 html = html.trim();
                 html = html.replace(/\s+/gi, " ");
                 html = html.replace(/<!--(.*?)-->/g, "");
