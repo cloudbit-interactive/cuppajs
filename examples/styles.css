@@ -13,6 +13,7 @@ iframe{ border:1px solid #999; display: block; width: 100%; margin-top:0.5rem; }
 .m-t-5{ margin-top:0.5rem; } .m-l-5{ margin-left:0.5rem; } .m-r-5{ margin-right:0.5rem; } .m-b-5{ margin-bottom:0.5rem; }
 .m-t-10{ margin-top:1rem; } .m-l-10{ margin-left:1rem; } .m-r-10{ margin-right:1rem; } .m-b-10{ margin-bottom:1rem; }
 .wire, .wire *{ border:1px dotted #F00; }
+.CodeMirror{ margin:20px 0; padding:10px 0; height: auto !important; }
 
 app-comp{ display:grid; width: 100vw; min-height: 100vh; grid-template-columns: var(--nav-main-width) 1fr; grid-template-rows: 1fr; }
 navbar-comp{ background: var(--color-purple1); color:var(--color-white1); padding:2rem; font-size: 1.6rem; }

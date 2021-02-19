@@ -263,24 +263,30 @@ export class CuppaComponent extends HTMLElement {
         };
     };
 
-    observable(varName, defaultValue, callback) {
-        return Observable(this, varName, defaultValue, callback);
+    observable(object, callback) {
+        return Observable(this, object, callback);
     }
 }
 
 document.defaultView.CuppaComponent = CuppaComponent;
 
-export function Observable(target, varName, defaultValue, callback){
-    let privateVar = "_" + varName;
-    target[privateVar] = defaultValue;
-    Object.defineProperty(target, varName, {
-        set: value => { 
-            target[privateVar] = value;  
-            if(target["forceRender"]) target.forceRender();
-            if(callback) callback();
-        },
-        get: () => { return target[privateVar]; },
-        configurable:true,
-    });
-    return target[varName];
+export function Observable(target, object, callback){
+    if(!object) return;
+    let firstName;
+    Object.keys(object).map((name, index)=>{
+        if(!index) firstName = name;
+        let value = object[name];
+        let privateVar = "_" + name;
+        target[privateVar] = value;
+        Object.defineProperty(target, name, {
+            set: value => {
+                target[privateVar] = value;
+                if(target["forceRender"]) target.forceRender();
+                if(callback) callback();
+            },
+            get: () => { return target[privateVar]; },
+            configurable:true,
+        });
+    })
+    return target[firstName];
 }

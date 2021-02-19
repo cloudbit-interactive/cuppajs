@@ -1,19 +1,25 @@
-import {CuppaComponent} from "../../../../../libs/cuppa.component.js"
+import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
+
+const CodeMirror = document.defaultView["CodeMirror"]
 
 export default class SimpleComponents extends CuppaComponent {
-    _count = this.observable("count", 0);
+    count; age; _= this.observable({count:0, age:10});
 
-    constructor(){ 
-        super(); 
-        setInterval(() => { this.count++; }, 1000);
+    constructor(){
+        super();
+        setInterval(() => { this.count++; this.age++ }, 1000);
+    }
+
+    connected() {
+        // let cm = CodeMirror.fromTextArea(this.refs.textArea, {value:"333", mode:"css", lineNumbers: true, theme:"dracula"});
+        let cm = CodeMirror(this, {value:"333\n22", mode:"css", lineNumbers: true, theme:"dracula"})
     }
 
     render(){
         return /*html*/`
-            <style>
-                simple-comps{ background:#AAA; padding:5px 10px; border-radius:5px; }
-            </style>
-            <span>${this.count}</span>
+            <div>
+                <span>${this.count} ${this.age}</span>
+            </div>
         `
     }
 }
