@@ -3,19 +3,19 @@ import {CuppaRouter} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.router.min.
 import NavBar from "./common/NavBar.js";
 
 import("./sections/welcome/Welcome.js");
-//import("./sections/simpleComponents/simpleComponents.js");
+import("./sections/simpleComponents/simpleComponents.js");
 //import("./sections/simpleTodo/SimpleTodo.js");
 //import("./sections/todo/Todo.js");
 //import("./sections/performance/Performance.js");
 //import("./sections/cuppaComponents/CuppaComponents.js");
 
-export const router = new CuppaRouter({hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
+export const router = new CuppaRouter({root:"/", hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
 
 export default class App extends CuppaComponent {
+    state = { path:null }
 
     constructor(){
         super();
-        this.state = { path:null }
         router.addListener(path=>this.setState({path}));
         router.resolve();
         

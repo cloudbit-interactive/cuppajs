@@ -12,6 +12,7 @@ export class CuppaRouter{
 
     constructor(opts){
         this.opts = {...{root:"", hash:"", resolveAll:false, titlesMap:{} }, ...opts};
+        if(!this.opts.root) this.opts.root = "/";
         window.addEventListener("popstate", this.onHistory.bind(this));
     }
 

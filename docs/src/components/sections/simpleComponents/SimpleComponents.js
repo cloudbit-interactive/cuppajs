@@ -1,6 +1,6 @@
-import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
+import {CuppaComponent} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 
-const CodeMirror = document.defaultView["CodeMirror"]
+const CodeMirror = document.defaultView["CodeMirror"];
 
 export default class SimpleComponents extends CuppaComponent {
     count = this.observable({ count: 30 });
