@@ -3,7 +3,7 @@ import {CuppaRouter} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.router.min.
 import NavBar from "./common/NavBar.js";
 
 import("./sections/welcome/Welcome.js");
-import("./sections/simpleComponents/simpleComponents.js");
+import("./sections/simpleComponents/SimpleComponents.js");
 //import("./sections/simpleTodo/SimpleTodo.js");
 //import("./sections/todo/Todo.js");
 //import("./sections/performance/Performance.js");
