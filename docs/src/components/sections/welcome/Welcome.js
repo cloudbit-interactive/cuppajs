@@ -1,4 +1,4 @@
-import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
+import {CuppaComponent} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 
 export default class Welcome extends CuppaComponent {
     constructor(){

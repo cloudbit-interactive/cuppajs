@@ -3,11 +3,11 @@ import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
 const CodeMirror = document.defaultView["CodeMirror"]
 
 export default class SimpleComponents extends CuppaComponent {
-    count; age; _= this.observable({count:0, age:10});
+    count = this.observable({ count: 30 });
 
     constructor(){
         super();
-        setInterval(() => { this.count++; this.age++ }, 1000);
+        setInterval(() => { this.count++; }, 1000);
     }
 
     connected() {
@@ -16,11 +16,10 @@ export default class SimpleComponents extends CuppaComponent {
     }
 
     render(){
-        return /*html*/`
-            <div>
-                <span>${this.count} ${this.age}</span>
-            </div>
-        `
+        return /*html*/ `
+        <div>
+            ${this.count}
+        </div>`;
     }
 }
 

@@ -1,15 +1,15 @@
-import {CuppaComponent} from "../../../libs/cuppa.component.js";
-import {CuppaRouter} from "../../../libs/cuppa.router.js";
+import {CuppaComponent} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
+import {CuppaRouter} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.router.min.js";
 import NavBar from "./common/NavBar.js";
 
 import("./sections/welcome/Welcome.js");
-import("./sections/simpleComponents/simpleComponents.js");
-import("./sections/simpleTodo/SimpleTodo.js");
-import("./sections/todo/Todo.js");
-import("./sections/performance/Performance.js");
-import("./sections/cuppaComponents/CuppaComponents.js");
+//import("./sections/simpleComponents/simpleComponents.js");
+//import("./sections/simpleTodo/SimpleTodo.js");
+//import("./sections/todo/Todo.js");
+//import("./sections/performance/Performance.js");
+//import("./sections/cuppaComponents/CuppaComponents.js");
 
-export const router = new CuppaRouter({root:"/docs/", hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
+export const router = new CuppaRouter({hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
 
 export default class App extends CuppaComponent {
 
