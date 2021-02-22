@@ -3,11 +3,12 @@
  
     class fields
         cuppa = null;
-        pure = false;               // false, true 'will render only 1 time'
-        shadow = false;             // false, true
+        pure = false;                   // false, true 'will render only 1 time'
+        shadow = false;                 // false, true
         state = {};
         refs = {};
         updatedCallback = null;
+        autoDefineObservables = true    // true, false 'will avoid auto create set / get for class declaration variables'
         autoAddChilds = true;
 
     import CuppaComponent from "cuppa.component.js";
@@ -31,10 +32,11 @@ export class CuppaComponent extends HTMLElement {
     refs = {};
     updatedCallback = null;
     autoAddChilds = true;
+    autoDefineObservables = true;
     _getStorageDictionary = {};
     _parser = new DOMParser();
 
-    constructor() {
+    constructor(ref) {
         super();
         this.binAll = this.binAll.bind(this);
         this.connectedCallback = this.connectedCallback.bind(this);
@@ -51,6 +53,7 @@ export class CuppaComponent extends HTMLElement {
         this.disconnectedCallback = this.disconnectedCallback.bind(this);
         this.processRefs = this.processRefs.bind(this);
         this.binAll(this);
+        this.autoSetObservables();
     }
 
     connectedCallback() {
@@ -262,6 +265,18 @@ export class CuppaComponent extends HTMLElement {
             };
         };
     };
+
+    autoSetObservables(){
+        let baseParamsMap = {}; 
+        Object.keys(this).map(key=>baseParamsMap[key] = 1);
+        setTimeout(()=>{ 
+            if(!this.autoDefineObservables) return;
+            Object.keys(this).map(key=>{
+                if(baseParamsMap[key]) return;
+                Observable(this, {[key]:this[key]});
+            });
+         }, 0);
+    }
 
     observable(object, callback) {
         return Observable(this, object, callback);
