@@ -1,23 +1,21 @@
 import {CuppaComponent} from "../../../../../libs/cuppa.component.js"
 
 export default class SimpleTodo extends CuppaComponent {
-    state = {todoList:['Todo1', 'Todo2', 'Todo3'], value:''};
-
-    constructor(){
-        super();
-    }
+    value = "";
+    todoList = ['Todo1', 'Todo2', 'Todo3'];
 
     onAdd(e){
         e.preventDefault();
-        if(!this.state.value.trim()) return;
-        let todoList = [...this.state.todoList, this.state.value]
-        this.setState({todoList, value:''})
+        if(!this.value.trim()) return;
+        let todoList = [...this.todoList, this.value];
+        this.todoList = todoList;
+        this.value = "";
     }
 
     onDelete(index){
-        let todoList = [...this.state.todoList]
-            todoList.splice(index, 1)
-        this.setState({todoList})
+        let todoList = this.todoList;
+            todoList.splice(index, 1);
+        this.todoList = todoList;
     }
     
     render(){
@@ -25,11 +23,11 @@ export default class SimpleTodo extends CuppaComponent {
             <div>
                 <h2>Simple Todo &nbsp;</h2>
                 <form onsubmit="this.onAdd">
-                    <input value="${this.state.value}" oninput="(e)=>this.setState({value:e.target.value})" placeholder="Type any word..." />
+                    <input value="${this.value}" oninput="(e)=>{ this.value = e.target.value }" placeholder="Type any word..." />
                     <button>Add</button>
                 </form>
                 <ul>
-                    ${ this.state.todoList.map((todoItem, index)=>{
+                    ${ this.todoList.map((todoItem, index)=>{
                         return /*html*/`
                             <li key="${todoItem}">
                                 <span>${todoItem}</span>

@@ -5,11 +5,12 @@
         cuppa = null;
         pure = false;                   // false, true 'will render only 1 time'
         shadow = false;                 // false, true
-        state = {};
         refs = {};
         updatedCallback = null;
         autoDefineObservables = true    // true, false 'will avoid auto create set / get for class declaration variables'
         autoAddChilds = true;
+        [Others]
+        state = {};                     // also is possible work with state object and use this.setState({}) to update the object
 
     import CuppaComponent from "cuppa.component.js";
     import "cuppa.component.js"
