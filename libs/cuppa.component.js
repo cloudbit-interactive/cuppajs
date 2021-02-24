@@ -37,13 +37,14 @@ export class CuppaComponent extends HTMLElement {
     _getStorageDictionary = {};
     _parser = new DOMParser();
 
-    constructor(ref) {
+    constructor() {
         super();
         this.binAll = this.binAll.bind(this);
         this.connectedCallback = this.connectedCallback.bind(this);
         this.setState = this.setState.bind(this);
         this.forceRender = this.forceRender.bind(this);
         this.draw = this.draw.bind(this);
+        this.createRealNode = this.createRealNode.bind(this);
         this.setAttributes = this.setAttributes.bind(this);
         this.setData = this.setData.bind(this);
         this.setStorage =this.setStorage.bind(this);
