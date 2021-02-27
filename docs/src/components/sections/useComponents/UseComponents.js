@@ -3,7 +3,7 @@ import("../../../../../libs/components/cuppa.switch.js");
 import("../../../../../libs/components/cuppa.alert.js");
 import("../../../../../libs/components/cuppa.tabs.js");
 
-export default class CuppaComponents extends CuppaComponent {
+export default class UseComponents extends CuppaComponent {
     
     constructor(){
         super();
@@ -47,4 +47,4 @@ export default class CuppaComponents extends CuppaComponent {
     }
 }
 
-customElements.define('cuppa-components', CuppaComponents);
+customElements.define('use-components', UseComponents);

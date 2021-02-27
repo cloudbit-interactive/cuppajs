@@ -3,13 +3,13 @@ import {CuppaRouter} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.router.min.
 import NavBar from "./common/NavBar.js";
 
 import("./sections/welcome/Welcome.js");
-import("./sections/simpleComponents/SimpleComponents.js");
+import("./sections/basicComponents/BasicComponents.js");
 import("./sections/simpleTodo/SimpleTodo.js");
 import("./sections/todo/Todo.js");
 import("./sections/performance/Performance.js");
-import("./sections/cuppaComponents/CuppaComponents.js");
+import("./sections/useComponents/UseComponents.js");
 
-export const router = new CuppaRouter({root:"/docs/", hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
+export const router = new CuppaRouter({root:"/", hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
 
 export default class App extends CuppaComponent {
     state = { path:null }
@@ -26,6 +26,7 @@ export default class App extends CuppaComponent {
             <navbar-comp></navbar-comp>
             <section style="padding:2rem">
                 ${ this.state.path == "simple-todo" ? "<simple-todo></simple-todo>"
+                    : (this.state.path == "basic-components") ? "<basic-components></basic-components>" 
                     : (this.state.path == "simple-components") ? "<simple-comps></simple-comps>" 
                     : (this.state.path == "todo") ? "<todo-comp></todo-comp>" 
                     : (this.state.path == "performance") ? "<performance-comp></performance-comp>" 
