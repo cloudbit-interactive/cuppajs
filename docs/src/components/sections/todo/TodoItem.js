@@ -27,13 +27,9 @@ export default class TodoItem extends CuppaComponent {
     }
 
     onDelete(){
-        /*
         let todoList = this.getData(STORE_TODO, {store:"local"});
             todoList.splice(this.state.index, 1);
         this.update(todoList);
-        */
-       console.log("--")
-       this.dispatchEvent(new Event('change'));
     }
 
     update(data){

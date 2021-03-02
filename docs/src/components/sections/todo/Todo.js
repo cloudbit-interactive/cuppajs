@@ -43,7 +43,7 @@ export default class Todo extends CuppaComponent {
                 </form>
                 <ul>
                     ${ (this.state.todoList || []).map((todoItem, index)=>{
-                        return /*html*/`<todo-item onchange="this.onChange" key="${todoItem.uuid}" item="${cuppa.jsonEncode(todoItem)}" index="${index}" ></todo-item>`
+                        return /*html*/`<todo-item ondelete="this.onChange" key="${todoItem.uuid}" item="${cuppa.jsonEncode(todoItem)}" index="${index}" ></todo-item>`
                     }).join("") }
                 </ul>
             </div>`
