@@ -1,46 +1,45 @@
-import {CuppaComponent} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
+import {CuppaComponent} from "../../../../libs/cuppa.component.js";
+import { cuppa } from "../../../../libs/cuppa.js";
 import { router } from "../App.js";
 
 export default class NavBar extends CuppaComponent {
-    constructor(){
-        super();
-        this.state = { path:null }
-    }
+    path; 
     
-    connected() { 
+    connected() {
         router.updateLinks();
-        router.addListener((path)=>this.setState({path}))
+        router.addListener( path=>this.path = path );
         router.resolve();
     }
 
     render(){
+        console.log("render", this.path)
         return /*html*/`
             <h1 class="title1">
                 <a class="link-clear" href="/">DOC.</a>
             </h1>
             <ul class="menu">
                 <h3 class="title3"><a class="menu-item-clear" href="basic-components">Basic</a></h3>
-                <li class="menu-item ${ this.state.path == "simple-components" ? "selected" : "" }" >
+                <li class="menu-item ${ this.path == "basic-components" ? "selected" : "" }" >
                     <a class="menu-item-link" href="basic-components" >Components</a>
                     <div class="menu-item-underline"></div>
                 </li>
-                <li class="menu-item ${ this.state.path == "simple-todo" ? "selected" : "" }" >
+                <li class="menu-item ${ this.path == "simple-todo" ? "selected" : "" }" >
                     <a class="menu-item-link" href="simple-todo" >Simple Todo</a>
                     <div class="menu-item-underline"></div>
                 </li>
-                <li class="menu-item ${ this.state.path == "todo" ? "selected" : "" }" >
+                <li class="menu-item ${ this.path == "todo" ? "selected" : "" }" >
                     <a class="menu-item-link" href="todo" >Todo Persistent</a>
                     <div class="menu-item-underline"></div>
                 </li>
-                <li class="menu-item  ${ this.state.path == "performance" ? "selected" : "" }" >
+                <li class="menu-item  ${ this.path == "performance" ? "selected" : "" }" >
                     <a class="menu-item-link" href="performance" >Performance</a>
                     <div class="menu-item-underline"></div>
                 </li>
-                <li class="menu-item ${ this.state.path == "shopping-cart" ? "selected" : "" }" >
+                <li class="menu-item ${ this.path == "shopping-cart" ? "selected" : "" }" >
                     <a class="menu-item-link" href="shopping-cart" >Shopping Cart</a>
                     <div class="menu-item-underline"></div>
                 </li>
-                <li class="menu-item ${ this.state.path == "cuppa-components" ? "selected" : "" }" >
+                <li class="menu-item ${ this.path == "cuppa-components" ? "selected" : "" }" >
                     <a class="menu-item-link" href="cuppa-components" >Cuppa Components</a>
                     <div class="menu-item-underline"></div>
                 </li>

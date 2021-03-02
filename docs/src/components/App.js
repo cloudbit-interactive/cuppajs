@@ -9,7 +9,7 @@ import("./sections/todo/Todo.js");
 import("./sections/performance/Performance.js");
 import("./sections/useComponents/UseComponents.js");
 
-export const router = new CuppaRouter({root:"/", hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
+export const router = new CuppaRouter({root:"/docs/", hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
 
 export default class App extends CuppaComponent {
     state = { path:null }

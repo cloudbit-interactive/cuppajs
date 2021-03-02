@@ -19,6 +19,9 @@ iframe{ border:1px solid #999; display: block; width: 100%; margin-top:0.5rem; }
 .m-t-20{ margin-top:2rem; } .m-l-20{ margin-left:2rem; } .m-r-20{ margin-right:1rem; } .m-b-20{ margin-bottom:2rem; }
 .wire, .wire *{ border:1px dotted #F00; }
 .separator1{ margin:2rem 0; border: none; height: 0; border-bottom: 1px solid #AAA; }
+.disabled{ opacity: 0.4; pointer-events: none; }
+.button-alpha{ cursor: pointer; text-decoration: none; transition: 0.3s opacity; }
+    .button-alpha:hover{ opacity: 0.7; }
 .CodeMirror{ margin:20px 0; padding:10px 0; height: auto !important; }
 
 app-comp{ display:grid; width: 100vw; min-height: 100vh; grid-template-columns: var(--nav-main-width) 1fr; grid-template-rows: 1fr; }

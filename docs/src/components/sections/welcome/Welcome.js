@@ -1,8 +1,13 @@
 import {CuppaComponent} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
+import { router } from "../../App.js";
 
 export default class Welcome extends CuppaComponent {
     constructor(){
         super();
+    }
+
+    connected() { 
+        router.updateLinks();
     }
 
     render(){
@@ -21,22 +26,22 @@ export default class Welcome extends CuppaComponent {
                 </ul>
             </div>
             <div class="grid-cards m-t-10 ">
-                <div class="message message_red">
+                <a class="button-alpha message message_red" href="basic-components">
                     <h3 class="title3"><i class="fas fa-puzzle-piece message_icon"></i> Cuppa Component</h3>
                     <p>Small class boilerplate aims to not leave footprint in your component and geeting best performance (~2.5kB gzipped)</p>
                     <p>Here you can found some examples using Cuppa Components, a standard vanilla implementation inpired of Reactive Component based on Observable or state.</p>    
-                </div>
-                <div class="message message_blue">
+                </a>
+                <div class="message message_blue disabled">
                     <h3 class="title3"><i class="fas fa-map-signs message_icon"></i> Cuppa Router</h3>
                     <p>Simple Router for Vanilla Projects (~2.5kB gzipped)</p>
                     <p>Here you can found some examples using Cuppa Components, a standard vanilla implementation inpired of Reactive Component based on Observable or state.</p>    
                 </div>
-                <div class="message message_purple">
+                <div class="message message_purple disabled">
                     <h3 class="title3"><i class="fas fa-toolbox message_icon"></i> Cuppa Storage</h3>
                     <p>Global storages that advice to his subscribers when his data state (~2.5kB gzipped)</p>
                     <p>Store data in: memory, localStorage, sessionStorage, Cache or register your own middleware to extend the storage option.</p>    
                 </div>
-                <div class="message message_purple">
+                <div class="message message_purple disabled">
                     <h3 class="title3"><i class="fas fa-toolbox message_icon"></i> Cuppa Tools</h3>
                     <p>Small Toolset with usefull resources.</p>
                     <p>Store data in: memory, localStorage, sessionStorage, Cache or register your own middleware to extend the storage option.</p>    

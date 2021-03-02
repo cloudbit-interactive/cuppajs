@@ -54,15 +54,19 @@ export class CuppaComponent extends HTMLElement {
         this.destroy = this.destroy.bind(this);
         this.disconnectedCallback = this.disconnectedCallback.bind(this);
         this.processRefs = this.processRefs.bind(this);
+        this.autoSetObservables = this.autoSetObservables.bind(this);
+        this.observables = this.observables.bind(this);
         this.binAll(this);
         this.autoSetObservables();
     }
 
     connectedCallback() {
-        if(this.shadow === true) this.shadow = "open";
-        if(this.shadow) this.attachShadow({mode: this.shadow});
-        this.forceRender();
-        if(this.connected) this.connected(this);
+        setTimeout(()=>{
+            if(this.shadow === true) this.shadow = "open";
+            if(this.shadow) this.attachShadow({mode: this.shadow});
+            this.forceRender();
+            if(this.connected) this.connected(this);
+        }, 0);
     }
 
     setState(state, callback){
@@ -277,10 +281,10 @@ export class CuppaComponent extends HTMLElement {
                 if(baseParamsMap[key]) return;
                 Observable(this, {[key]:this[key]});
             });
-         }, 0);
+        }, 0);
     }
 
-    observable(object, callback) {
+    observables(object, callback) {
         return Observable(this, object, callback);
     }
 }
