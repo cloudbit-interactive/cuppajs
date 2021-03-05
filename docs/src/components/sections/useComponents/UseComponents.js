@@ -1,7 +1,7 @@
 import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
-import("../../../../../libs/components/cuppa.switch.js");
-import("../../../../../libs/components/cuppa.alert.js");
-import("../../../../../libs/components/cuppa.tabs.js");
+import("../../../../../libs/components/cuppa.switch.min.js");
+import("../../../../../libs/components/cuppa.alert.min.js");
+import("../../../../../libs/components/cuppa.tabs.min.js");
 
 export default class UseComponents extends CuppaComponent {
     
@@ -10,7 +10,7 @@ export default class UseComponents extends CuppaComponent {
     }
 
     onSwitchChange(e){
-        console.log("switch callback:", e.currentTarget.state)
+        console.log("switch callback:", e.target.name, e.target.checked)
     }
 
     onAlert(){
@@ -25,9 +25,7 @@ export default class UseComponents extends CuppaComponent {
                 
                 <h3 class="title3">CuppaSwitch</h3>
                 <cuppa-switch name="switch1" onchange="this.onSwitchChange" ></cuppa-switch>
-                <!--
-                <iframe style="height:600px;" src="https://stackblitz.com/edit/cuppa-component-import1?embed=1&file=index.html&hideExplorer=1&hideNavigation=1"></iframe>
-                -->
+               
 
                 <h3 class="title3">Cuppa Alert</h3>
                 <button onclick="this.onAlert">Show Alert</button>
