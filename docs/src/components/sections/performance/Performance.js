@@ -1,4 +1,4 @@
-import {CuppaComponent} from "../../../../../libs/cuppa.component.min.js"
+import {CuppaComponent} from "../../../../../libs/cuppa.component.js"
 
 export default class Performance extends CuppaComponent {
     state = {list:[], q:1000, position:"start"};
@@ -82,7 +82,7 @@ export default class Performance extends CuppaComponent {
                 <ul>
                     ${ this.state.list.map((item, index)=>{
                         return /*html*/`
-                            <li key="${item}">
+                            <li>
                                 ${item}
                                 <button onclick="this.onRemove" data-index="${index}">Remove</button>
                                 <button onclick="this.onRename" data-index="${index}">Rename</button>

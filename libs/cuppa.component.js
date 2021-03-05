@@ -203,6 +203,10 @@ export class CuppaComponent extends HTMLElement {
                                 element[name] = ()=>this[functionName](...params);
                             }
                         }                        
+                    }else if(name.indexOf("on") === 0 && name.length > 2){
+                        let functionName = value.replace("this.", "");
+                        element.removeEventListener(name, this[functionName]);
+                        element.addEventListener(name, this[functionName]);
                     }else{
                         element.setAttribute(name, value);
                     }

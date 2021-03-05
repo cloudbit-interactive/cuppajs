@@ -28,10 +28,6 @@ export default class Todo extends CuppaComponent {
     update(data){
         this.setStorage(STORE_TODO, {data, store:"local"});
     }
-
-    onChange(e){
-        console.log("onChange", e.target)
-    }
     
     render(){
         return /*html*/`
@@ -43,7 +39,7 @@ export default class Todo extends CuppaComponent {
                 </form>
                 <ul>
                     ${ (this.state.todoList || []).map((todoItem, index)=>{
-                        return /*html*/`<todo-item ondelete="this.onChange" key="${todoItem.uuid}" item="${cuppa.jsonEncode(todoItem)}" index="${index}" ></todo-item>`
+                        return /*html*/`<todo-item item="${cuppa.jsonEncode(todoItem)}" index="${index}" ></todo-item>`
                     }).join("") }
                 </ul>
             </div>`

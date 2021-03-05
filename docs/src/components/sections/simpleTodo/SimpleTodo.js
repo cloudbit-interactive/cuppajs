@@ -29,7 +29,7 @@ export default class SimpleTodo extends CuppaComponent {
                 <ul>
                     ${ this.todoList.map((todoItem, index)=>{
                         return /*html*/`
-                            <li key="${todoItem}">
+                            <li>
                                 <span>${todoItem}</span>
                                 <button onclick="this.onDelete(${index})" >Delete</button>
                             </li>`
