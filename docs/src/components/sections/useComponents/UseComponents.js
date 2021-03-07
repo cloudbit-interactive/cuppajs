@@ -1,5 +1,5 @@
 import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
-import("../../../../../libs/components/cuppa.switch.min.js");
+import("../../../../../libs/components/cuppa.switch.js");
 import("../../../../../libs/components/cuppa.alert.min.js");
 import("../../../../../libs/components/cuppa.tabs.min.js");
 

@@ -19,13 +19,9 @@ export default class CuppaSwitch extends CuppaComponent {
     }
 
     onChange(e){
-        let checked = e.currentTarget.checked;
-        this.setAttribute("checked", checked);
-        this.checked = checked;
-        let onChangeAttr = this.getAttribute("onChange");
-        if(onChangeAttr){ 
-            try{ eval(`${onChangeAttr}('${this.name}', '${checked}')`) }catch(err) { }
-        }
+        this.checked = e.currentTarget.checked;
+        this.setAttribute("checked", this.checked);
+        this.dispatchEvent(new Event('onchange'));
     }
 
     render(){
@@ -43,7 +39,7 @@ export default class CuppaSwitch extends CuppaComponent {
             <label>
                 <input type="checkbox" 
                     name="${this.name}"
-                    onChange="this.onChange"
+                    onchange="this.onChange"
                     ${ this.checked ? `checked="checked"` : '' } 
                 />
                 <div class="background"></div>

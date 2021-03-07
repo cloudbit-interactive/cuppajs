@@ -12,22 +12,22 @@ export default class BasicComponents extends CuppaComponent {
     }
 
     connected() {
-        // let cm = CodeMirror.fromTextArea(this.refs.textArea, {value:"333", mode:"css", lineNumbers: true, theme:"dracula"});
+        
+        //let cm = CodeMirror.fromTextArea(this.refs.textarea1, {value:'222', mode:"css", lineNumbers: true, theme:"dracula"});
         //let cm = CodeMirror(this, {value:"333\n22", mode:"css", lineNumbers: true, theme:"dracula"})
     }
 
     render(){
         return /*html*/ `
-            <hr class="separator1" />
             <div class="grid_title_2_columns">
                 <h2 class="title2" style="grid-area:title;">Counter Component</h2>
                 <div style="grid-area:left;">
                     <div class="message message_blue">Create simple reactive component extending any class from CuppaComponent is simplle and pure vanilla javascript.</div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/vYydQeJ?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/vYydQeJ?&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
             </div>
-            <hr class="separator1" />
-            <div class="grid_title_2_columns" >
+            <hr class="separator1"/>
+            <div class="grid_title_2_columns">
                 <h2 class="title2" style="grid-area:title;">Todo Implementation</h2>
                 <div style="grid-area:left;">
                     <div class="message message_blue">Lets implement something a little bit more complex using different components.</div>
@@ -39,7 +39,24 @@ export default class BasicComponents extends CuppaComponent {
                         </ul>
                     </div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/XWNZOdY?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/XWNZOdY?&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+            </div>
+            <hr class="separator1"/>
+            <div class="grid_title_2_columns">
+                <h2 class="title2" style="grid-area:title;">Use Components On Any Place</h2>
+                <div style="grid-area:left;">
+                    <div class="message message_blue">
+                        <p>An advantage to create components using standard libraries is it don't require reimplement again for each framework, it will works for all projects or frameworks</p>
+                        <p>Next example import <strong>cuppa.switch</strong> component in reactjs, the component is only <strong>3kb gzipped</strong></p>
+                    </div>
+                    <div class="message message_yellow m-t-10">
+                        The best and easy way is adding the script tag in <strong>[header]</strong> or <strong>[body]</strong>, but here there is an example importing the component in ReactJS.
+                        <textarea class="textarea-code">
+                            <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>
+                        </textarea>
+                    </div>
+                </div>
+                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/rNWZKxa?height=265&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>             
             </div>
         `;
     }

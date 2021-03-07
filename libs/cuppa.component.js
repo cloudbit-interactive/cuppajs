@@ -108,7 +108,7 @@ export class CuppaComponent extends HTMLElement {
 
     draw(newNode, newNodeIndex, newNodeParent, realParentNode){
         let realNode = realParentNode.childNodes[newNodeIndex];
-        let isComponent = (newNode.nodeName.indexOf("-") != -1);
+        let isComponent = (newNode && newNode.nodeName && newNode.nodeName.indexOf("-") != -1) ? true : false;
         if(!realNode){
             if(newNode && newNode.nodeType == 3){
                 realParentNode.insertAdjacentText('beforeend', newNode.nodeValue);
