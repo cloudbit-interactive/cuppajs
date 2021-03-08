@@ -1,41 +1,58 @@
 import {CuppaComponent} from "../../../../../libs/cuppa.component.js"
 
-export default class SimpleTodo extends CuppaComponent {
+export class SimpleTodoComponent extends CuppaComponent {
     value = "";
-    todoList = ['Todo1', 'Todo2', 'Todo3'];
-
-    onAdd(e){
-        e.preventDefault();
-        if(!this.value.trim()) return;
-        let todoList = [...this.todoList, this.value];
-        this.todoList = todoList;
-        this.value = "";
-    }
-
-    onDelete(index){
-        let todoList = this.todoList;
-            todoList.splice(index, 1);
-        this.todoList = todoList;
+    list = ["Task1", "Task2", "Task3"];
+  
+    onAdd(e) {
+      if(!this.value || !this.value.trim()) return;
+      this.list.push(this.value);
+      this.list = this.list;
+      this.value = "";
     }
     
-    render(){
-        return /*html*/`
-            <div>
-                <h2>Simple Todo &nbsp;</h2>
-                <form onsubmit="this.onAdd">
-                    <input value="${this.value}" oninput="(e)=>{ this.value = e.target.value }" placeholder="Type any word..." />
-                    <button>Add</button>
-                </form>
-                <ul>
-                    ${ this.todoList.map((todoItem, index)=>{
-                        return /*html*/`
-                            <li>
-                                <span>${todoItem}</span>
-                                <button onclick="this.onDelete(${index})" >Delete</button>
-                            </li>`
-                    }).join("") }
-                </ul>
-            </div>`
+    onDelete(e){
+      this.list.splice(e.target.index, 1);
+      this.list = this.list;
     }
-}
-customElements.define('simple-todo', SimpleTodo);
+  
+    render() {
+      return /*html*/`
+            <div>
+              <span>Add: </span>
+              <input value="${this.value}" oninput="e => this.value = e.target.value" placeholder="Write something..."/>
+              <button onclick="this.onAdd" >Add</button>
+            </div>
+            <h3>List</h3>
+            <ul>
+              ${this.list.map((item, index) => {
+                return /*html*/`
+                    <li>
+                      <simple-todo-item ondelete="this.onDelete" text="${item}" index="${index}"></simple-todo-item>
+                    </li>
+                  `;
+              }).join("")}
+            </ul>
+          `;
+    }
+  }
+  customElements.define("simple-todo", SimpleTodoComponent);
+  
+  export class SimpleTodoItem extends CuppaComponent {
+    text = ""; index = 0;
+    
+    static get observedAttributes() { return ['text', 'index']; }
+    attributeChangedCallback(attr, oldVal, newVal) { this[attr] = newVal; this.forceRender(); }
+    
+    onDelete(e){
+      this.dispatchEvent(new Event('delete'));
+    }
+    
+    render() {
+      return /*html*/`
+        <span>${this.text}</span>
+        <button onclick="this.onDelete">Delete</button>
+      `;
+    }
+  }
+  customElements.define("simple-todo-item", SimpleTodoItem);

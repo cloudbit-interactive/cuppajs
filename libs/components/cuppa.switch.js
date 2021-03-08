@@ -19,9 +19,10 @@ export default class CuppaSwitch extends CuppaComponent {
     }
 
     onChange(e){
+        e.stopPropagation();
         this.checked = e.currentTarget.checked;
         this.setAttribute("checked", this.checked);
-        this.dispatchEvent(new Event('onchange'));
+        this.dispatchEvent(new Event('change'));
     }
 
     render(){

@@ -28,13 +28,6 @@ export class CuppaComponent extends HTMLElement {
     autoDefineObservables = true;
     _getStorageDictionary = {};
     _parser = new DOMParser();
-    _eventAttr = {
-        onclick:1, ondblclick:1, onmousedown:1, onmousemove:1, onmouseout:1, onmouseover:1, onmouseup:1, onwheel:1, onmouseenter:1, onmouseleave:1,
-        onblur:1, onchange:1, oncontextmenu:1, onfocus:1, oninput:1, oninvalid:1, onreset:1, onsearch:1, onselect:1, onsubmit:1,
-        onkeydown:1, onkeypress:1, onkeyup:1,
-        ondrag:1, ondragend:1, ondragenter:1, ondragleave:1, ondragover:1, ondragstart:1, ondrop:1, onscroll:1,
-        oncopy:1, oncut:1, onpaste:1,
-    }
 
     constructor() {
         super();
@@ -187,26 +180,26 @@ export class CuppaComponent extends HTMLElement {
                 }else if(!value){
                     element.removeAttribute(name);
                 }else if(oldValue != value){
-                    if(this._eventAttr[name]){
+                    if(name.indexOf("on") === 0 && name.length > 2){
+                        let eventName = name.replace("on","");
                         if(value.indexOf("=>") != -1){
-                            element[name] = eval(value);
+                            element.removeEventListener(eventName, eval(value));
+                            element.addEventListener(eventName, eval(value));
                         }else{
                             let functionName = value.replace("this.", "");
                             let paramsStartAt = functionName.indexOf("(");
                             if(paramsStartAt == -1){
-                                element[name] = this[functionName].bind(this);
+                                element.removeEventListener(eventName, this[functionName]);
+                                element.addEventListener(eventName, this[functionName]);
                             }else{
                                 let params = functionName.slice(paramsStartAt+1, functionName.indexOf(")"));
                                     params = params.split(",");
                                     params = params.map(param => param.trim());
                                 functionName = functionName.slice(0, paramsStartAt);
-                                element[name] = ()=>this[functionName](...params);
+                                element.removeEventListener(eventName, ()=>this[functionName](...params));
+                                element.addEventListener(eventName, ()=>this[functionName](...params));
                             }
-                        }                        
-                    }else if(name.indexOf("on") === 0 && name.length > 2){
-                        let functionName = value.replace("this.", "");
-                        element.removeEventListener(name, this[functionName]);
-                        element.addEventListener(name, this[functionName]);
+                        }
                     }else{
                         element.setAttribute(name, value);
                     }
