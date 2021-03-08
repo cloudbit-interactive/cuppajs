@@ -28,13 +28,6 @@ export class CuppaComponent extends HTMLElement {
     autoDefineObservables = true;
     _getStorageDictionary = {};
     _parser = new DOMParser();
-    _eventAttr = {
-        onclick:1, ondblclick:1, onmousedown:1, onmousemove:1, onmouseout:1, onmouseover:1, onmouseup:1, onwheel:1, onmouseenter:1, onmouseleave:1,
-        onblur:1, onchange:1, oncontextmenu:1, onfocus:1, oninput:1, oninvalid:1, onreset:1, onsearch:1, onselect:1, onsubmit:1,
-        onkeydown:1, onkeypress:1, onkeyup:1,
-        ondrag:1, ondragend:1, ondragenter:1, ondragleave:1, ondragover:1, ondragstart:1, ondrop:1, onscroll:1,
-        oncopy:1, oncut:1, onpaste:1,
-    }
 
     constructor() {
         super();
