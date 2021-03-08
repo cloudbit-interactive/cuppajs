@@ -179,9 +179,9 @@ export class CuppaComponent extends HTMLElement {
                     element.value = value;
                 }else if(!value){
                     element.removeAttribute(name);
-                }else if(oldValue != value && element["oldAttributeValue"] != value){
+                }else if(oldValue != value && element[`__old_event_${name}`] != value){
                     if(name.indexOf("on") === 0 && name.length > 2){
-                        element.oldAttributeValue = value;
+                        element[`__old_event_${name}`] = value;
                         let eventName = name.replace("on","");
                         if(value.indexOf("=>") != -1){
                             element.removeEventListener(eventName, eval(value));
