@@ -82,7 +82,7 @@ export default class Performance extends CuppaComponent {
                 <ul>
                     ${ this.state.list.map((item, index)=>{
                         return /*html*/`
-                            <li>
+                            <li key="${item}">
                                 ${item}
                                 <button onclick="this.onRemove" data-index="${index}">Remove</button>
                                 <button onclick="this.onRename" data-index="${index}">Rename</button>

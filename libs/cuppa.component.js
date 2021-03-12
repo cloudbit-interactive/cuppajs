@@ -81,7 +81,7 @@ export class CuppaComponent extends HTMLElement {
             let html = this.render();
                 if(this.autoAddChilds && this.childs) html += this.childs;
                 html = html.trim();
-                html = html.replace(/\s+/gi, " ");
+                //html = html.replace(/\s+/gi, " ");
                 html = html.replace(/<!--(.*?)-->/g, "");
                 html = html.replace(new RegExp("> <", 'g'), "><");
             let headNodes = this._parser.parseFromString(html, "text/html").head.childNodes;
@@ -276,33 +276,30 @@ export class CuppaComponent extends HTMLElement {
             if(!this.autoDefineObservables) return;
             Object.keys(this).map(key=>{
                 if(baseParamsMap[key]) return;
-                Observable(this, {[key]:this[key]});
+                this.observables( {[key]:this[key]} );
             });
         }, 0);
     }
 
     observables(object, callback) {
-        return Observable(this, object, callback);
+        let target = this;
+        if(!object) return;
+        let firstName;
+        Object.keys(object).map((name, index)=>{
+            if(!index) firstName = name;
+            let value = object[name];
+            let privateVar = "_" + name;
+            target[privateVar] = value;
+            Object.defineProperty(target, name, {
+                set: value => {
+                    target[privateVar] = value;
+                    if(target["forceRender"]) target.forceRender();
+                    if(callback) callback();
+                },
+                get: () => { return target[privateVar]; },
+                configurable:true,
+            });
+        })
+        return target[firstName];
     }
-};
-
-export function Observable(target, object, callback){
-    if(!object) return;
-    let firstName;
-    Object.keys(object).map((name, index)=>{
-        if(!index) firstName = name;
-        let value = object[name];
-        let privateVar = "_" + name;
-        target[privateVar] = value;
-        Object.defineProperty(target, name, {
-            set: value => {
-                target[privateVar] = value;
-                if(target["forceRender"]) target.forceRender();
-                if(callback) callback();
-            },
-            get: () => { return target[privateVar]; },
-            configurable:true,
-        });
-    })
-    return target[firstName];
 };

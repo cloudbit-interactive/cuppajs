@@ -1,5 +1,5 @@
+import { Utils } from "../../../controlers/Utils.js";
 import {CuppaComponent} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.js";
-//import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
 
 const CodeMirror = document.defaultView["CodeMirror"];
 
@@ -12,9 +12,8 @@ export default class BasicComponents extends CuppaComponent {
     }
 
     connected() {
-        
-        //let cm = CodeMirror.fromTextArea(this.refs.textarea1, {value:'222', mode:"css", lineNumbers: true, theme:"dracula"});
-        //let cm = CodeMirror(this, {value:"333\n22", mode:"css", lineNumbers: true, theme:"dracula"})
+        Utils.textAreaAutoHeight(document.querySelectorAll("textarea"));
+        Prism.highlightAll();
     }
 
     render(){
@@ -43,7 +42,7 @@ export default class BasicComponents extends CuppaComponent {
             </div>
             <hr class="separator1"/>
             <div class="grid_title_2_columns">
-                <h2 class="title2" style="grid-area:title;">Use Components On Any Place</h2>
+                <h2 class="title2" style="grid-area:title;">Use Components on any place</h2>
                 <div style="grid-area:left;">
                     <div class="message message_blue">
                         <p>An advantage to create components using standard libraries is it don't require reimplement again for each framework, it will works for all projects or frameworks</p>
@@ -51,9 +50,11 @@ export default class BasicComponents extends CuppaComponent {
                     </div>
                     <div class="message message_yellow m-t-10">
                         The best and easy way is adding the script tag in <strong>[header]</strong> or <strong>[body]</strong>, but here there is an example importing the component in ReactJS.
-                        <textarea class="textarea-code">
-                            <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>
-                        </textarea>
+                        <pre>
+                            <code class="language-markup">
+                               ${Utils.escapeHTML(' <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>')}
+                            </code>
+                        </pre>
                     </div>
                 </div>
                 <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/rNWZKxa?height=265&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>             

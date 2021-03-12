@@ -17,9 +17,6 @@ iframe{ border:none; display: block; width: 100%; }
 .title3{ font-size: 2rem; font-size: 600; margin:0; }
 .title4{ font-size: 1.8rem; font-size: 600; margin:0; }
 .link-clear{ color:var(--color-white1); text-decoration: none; cursor: pointer; }
-.m-t-5{ margin-top:0.5rem; } .m-l-5{ margin-left:0.5rem; } .m-r-5{ margin-right:0.5rem; } .m-b-5{ margin-bottom:0.5rem; }
-.m-t-10{ margin-top:1rem; } .m-l-10{ margin-left:1rem; } .m-r-10{ margin-right:1rem; } .m-b-10{ margin-bottom:1rem; }
-.m-t-20{ margin-top:2rem; } .m-l-20{ margin-left:2rem; } .m-r-20{ margin-right:1rem; } .m-b-20{ margin-bottom:2rem; }
 .wire, .wire *{ border:1px dotted #F00; }
 .separator1{ margin:2rem 0; border: none; height: 0; border-bottom: 1px solid #AAA; }
 .disabled{ opacity: 0.4; pointer-events: none; }
@@ -28,8 +25,7 @@ iframe{ border:none; display: block; width: 100%; }
 .CodeMirror{ margin:20px 0; padding:10px 0; height: auto !important; }
 li{ margin:0.5rem 0;}
 p{margin:1rem 0;}
-p:first-of-type{ margin:0 0 1rem; }
-.textarea-code{ width:100%; padding:1rem; resize:none; height:9rem; background:#1d1e22; color:#FFF; border:none; margin:1rem 0 0; }
+.textarea-code{ width:100%; padding:1rem; resize:none; height:9rem; background:#1d1e22; color:#FFF; border:none; border-radius: 5px; }
 
 app-comp{ display:grid; width: 100vw; min-height: 100vh; grid-template-columns: var(--nav-main-width) 1fr; grid-template-rows: 1fr; }
 navbar-comp{ background: var(--color-purple1); color:var(--color-white1); padding:2rem; font-size: 1.6rem; }
@@ -52,3 +48,9 @@ navbar-comp{ background: var(--color-purple1); color:var(--color-white1); paddin
 
 .grid-cards{ display: grid; grid-template-columns: repeat(3, 1fr); gap:1rem; }
 .grid_title_2_columns{ display: grid; column-gap:5rem; row-gap:1.4rem; grid-template-columns: 50rem 1fr; grid-template-rows: auto auto; grid-template-areas: "title title" "left right"; }
+.grid_title_1_column{ display: grid; column-gap:5rem; row-gap:1.4rem; grid-template-columns: 1fr; grid-template-rows: auto auto; grid-template-areas: "title" "content"; }
+
+.m-t-0{ margin-top:0; } .m-l-0{ margin-left:0; } .m-r-0{ margin-right:0; } .m-b-0{ margin-bottom:0; }
+.m-t-5{ margin-top:0.5rem; } .m-l-5{ margin-left:0.5rem; } .m-r-5{ margin-right:0.5rem; } .m-b-5{ margin-bottom:0.5rem; }
+.m-t-10{ margin-top:1rem; } .m-l-10{ margin-left:1rem; } .m-r-10{ margin-right:1rem; } .m-b-10{ margin-bottom:1rem; }
+.m-t-20{ margin-top:2rem; } .m-l-20{ margin-left:2rem; } .m-r-20{ margin-right:1rem; } .m-b-20{ margin-bottom:2rem; }

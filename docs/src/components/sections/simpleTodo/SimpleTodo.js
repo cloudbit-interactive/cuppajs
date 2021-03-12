@@ -27,7 +27,7 @@ export class SimpleTodoComponent extends CuppaComponent {
             <ul>
               ${this.list.map((item, index) => {
                 return /*html*/`
-                    <li>
+                    <li key="${item}" >
                       <simple-todo-item ondelete="this.onDelete" text="${item}" index="${index}"></simple-todo-item>
                     </li>
                   `;
