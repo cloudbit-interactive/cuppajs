@@ -23,30 +23,28 @@ export default class ComponentCicle extends CuppaComponent {
                 <h2 class="title2" style="grid-area:title">Component Cicle</h2>
                 <div style="grid-area:left">
                     <div class="message message_blue">Create simple reactive component extending any class from CuppaComponent is simplle and pure vanilla javascript.</div>
-                
-
-                    <pre >
-                        <code class="language-javascript">
-                            static get observedAttributes() { return ['attr1', 'attr2'] }]; \r\n
-                            attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal})
-                        </code>
-                    </pre>
                 </div>
                 <div class="grid-area:right">
                     <p class="m-t-0">dd</p>
-                    <pre>
-                        <code class="language-javascript">
-                            connected() { }
-                        </code>
-                    </pre>
+                    <pre>${Utils.prismCode("language-javascript",
+                    `
+connected() { }
+                    `
+                    )}</pre>
+
                     <p>dd</p>
-                    <pre>
-                        <code class="language-javascript">
-                            disconnected() { }
-                        </code>
-                    </pre>
+                    <pre>${Utils.prismCode("language-javascript",
+                    `
+disconnected() { }
+                    `
+                    )}</pre>
                     <p>dd</p>
-                    
+                    <pre>${Utils.prismCode("language-javascript",
+`
+static get observedAttributes() { return ['attr1', 'attr2'] }];
+attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal})
+`
+                    )}</pre>
                 </div>
             </div>
         `

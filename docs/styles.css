@@ -47,7 +47,7 @@ navbar-comp{ background: var(--color-purple1); color:var(--color-white1); paddin
 .message_yellow{ background: var(--color-yellow); color:var(--color-gray); }
 
 .grid-cards{ display: grid; grid-template-columns: repeat(3, 1fr); gap:1rem; }
-.grid_title_2_columns{ display: grid; column-gap:5rem; row-gap:1.4rem; grid-template-columns: 50rem 1fr; grid-template-rows: auto auto; grid-template-areas: "title title" "left right"; }
+.grid_title_2_columns{ display: grid; column-gap:5rem; row-gap:1.4rem; grid-template-columns: 50rem minmax(0, 1fr); grid-template-rows: auto auto; grid-template-areas: "title title" "left right"; }
 .grid_title_1_column{ display: grid; column-gap:5rem; row-gap:1.4rem; grid-template-columns: 1fr; grid-template-rows: auto auto; grid-template-areas: "title" "content"; }
 
 .m-t-0{ margin-top:0; } .m-l-0{ margin-left:0; } .m-r-0{ margin-right:0; } .m-b-0{ margin-bottom:0; }
