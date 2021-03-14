@@ -1,8 +1,7 @@
 import {CuppaComponent} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 import {CuppaRouter} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.router.min.js";
 import NavBar from "./common/NavBar.js";
-
-import("./sections/welcome/Welcome.js");
+import Welcome from "./sections/welcome/Welcome.js";
 import("./sections/basicComponents/BasicComponents.js");
 import("./sections/simpleTodo/SimpleTodo.js");
 import("./sections/todo/Todo.js");

@@ -1,20 +1,18 @@
 import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
 import {Utils} from "../../../controlers/Utils.js";
+import PrismCode from "../../common/PrismCode.js";
 
 export default class ComponentCicle extends CuppaComponent {
-
+    
     constructor(){ super(); }
 
     static get observedAttributes() { return ['attr1', 'attr2'] }
     attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal}) }
     
     connected() {
-        Utils.textAreaAutoHeight(document.querySelectorAll("textarea"));
         
-        console.log(Prism.plugins)
-        
-        Prism.highlightAll();
     }
+
     disconnected() { }
 
     render(){
@@ -25,26 +23,28 @@ export default class ComponentCicle extends CuppaComponent {
                     <div class="message message_blue">Create simple reactive component extending any class from CuppaComponent is simplle and pure vanilla javascript.</div>
                 </div>
                 <div class="grid-area:right">
-                    <p class="m-t-0">dd</p>
-                    <pre>${Utils.prismCode("language-javascript",
-                    `
-connected() { }
-                    `
-                    )}</pre>
+                    <p class="m-t-0">dd2</p>
+                    <prism-code 
+                        type="language-javascript" 
+                        content="connected2() { }"
+                    ></prism-code>
 
                     <p>dd</p>
-                    <pre>${Utils.prismCode("language-javascript",
-                    `
-disconnected() { }
-                    `
-                    )}</pre>
-                    <p>dd</p>
-                    <pre>${Utils.prismCode("language-javascript",
-`
+                    <prism-code 
+                        type="language-javascript" 
+                        content="disconnected() { }"
+                    ></prism-code>
+
+                    <p>dd2</p>
+                    <prism-code 
+                        type="language-javascript" 
+                        content="${
+                            `
 static get observedAttributes() { return ['attr1', 'attr2'] }];
 attributeChangedCallback(attr, oldVal, newVal) { this.setState({[attr]:newVal})
-`
-                    )}</pre>
+`                            
+                        }"
+                    ></prism-code>
                 </div>
             </div>
         `

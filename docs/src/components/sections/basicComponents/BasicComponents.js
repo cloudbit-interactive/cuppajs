@@ -4,12 +4,7 @@ import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
 const CodeMirror = document.defaultView["CodeMirror"];
 
 export default class BasicComponents extends CuppaComponent {
-    count = 0;
-    
-    constructor(){
-        super();
-        setInterval(() => { this.count++; }, 1000);
-    }
+    pure = true;
 
     connected() {
         Prism.highlightAll();
@@ -49,10 +44,8 @@ export default class BasicComponents extends CuppaComponent {
                     </div>
                     <div class="message message_yellow m-t-10">
                         The best and easy way is adding the script tag in <strong>[header]</strong> or <strong>[body]</strong>, but here there is an example importing the component in ReactJS.
-                        <pre>${Utils.prismCode("language-html",
-`
-<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>'
-`
+                        <pre>${Utils.prismCode('language-html',
+                            `<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>`
                         )}</pre>
                     </div>
                 </div>
