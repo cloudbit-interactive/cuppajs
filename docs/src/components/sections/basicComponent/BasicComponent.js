@@ -1,9 +1,8 @@
-import { Utils } from "../../../controlers/Utils.js";
-import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
+import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js"
 
 const CodeMirror = document.defaultView["CodeMirror"];
 
-export default class BasicComponents extends CuppaComponent {
+export default class BasicComponent extends CuppaComponent {
     pure = true;
 
     connected() {
@@ -44,15 +43,21 @@ export default class BasicComponents extends CuppaComponent {
                     </div>
                     <div class="message message_yellow m-t-10">
                         The best and easy way is adding the script tag in <strong>[header]</strong> or <strong>[body]</strong>, but here there is an example importing the component in ReactJS.
-                        <pre>${Utils.prismCode('language-html',
-                            `<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>`
-                        )}</pre>
+                        <iframe style="grid-are:right" height="200" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/gOLJbNq?theme-id=dark&default-tab=html" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe> 
+                        
                     </div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/rNWZKxa?height=265&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>             
+                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/rNWZKxa?theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>             
+            </div>
+            <hr class="separator1"/>
+            <div class="grid_title_1_column">
+                <h2 class="title2" style="grid-area:title;">Component Structure</h2>
+                <div style="grid-area:content;">
+                    <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/VwmOwGj?theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>  
+                </div>
             </div>
         `;
     }
 }
 
-customElements.define('basic-components', BasicComponents);
+customElements.define('basic-component', BasicComponent);

@@ -1,6 +1,6 @@
 {
   "name": "cuppajs",
-  "version": "0.0.66",
+  "version": "0.0.67",
   "description": "Standard Vanilla Libraries that work with everything.",
   "main": "index.js",
   "scripts": {

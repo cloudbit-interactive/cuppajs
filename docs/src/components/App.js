@@ -1,38 +1,29 @@
-import {CuppaComponent} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
-import {CuppaRouter} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.router.min.js";
+import {CuppaComponent} from "../../libs/cuppa/cuppa.component.js";
+import {CuppaRouter} from "../../libs/cuppa/cuppa.router.js";
 import NavBar from "./common/NavBar.js";
-import Welcome from "./sections/welcome/Welcome.js";
-import("./sections/basicComponents/BasicComponents.js");
-import("./sections/simpleTodo/SimpleTodo.js");
-import("./sections/todo/Todo.js");
+import("./sections/welcome/Welcome.js");
+import("./sections/basicComponent/BasicComponent.js");
 import("./sections/performance/Performance.js");
-import("./sections/useComponents/UseComponents.js");
-import("./sections/componentCicle/ComponentCicle.js");
 
-export const router = new CuppaRouter({root:"/docs/", hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
+export const router = new CuppaRouter({root:"/", hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
 
 export default class App extends CuppaComponent {
-    state = { path:null }
+    path;
 
     constructor(){
         super();
-        router.addListener(path=>this.setState({path}));
+        router.addListener(path=>this.path = path);
         router.resolve();
-        
     }
 
     render(){
         return /*html*/`
             <navbar-comp></navbar-comp>
             <section style="padding:2rem">
-                ${ this.state.path == "simple-todo" ? "<simple-todo></simple-todo>"
-                    : (this.state.path == "basic-components") ? "<basic-components></basic-components>" 
-                    : (this.state.path == "simple-todo") ? "<simple-todo></simple-todo>" 
-                    : (this.state.path == "todo") ? "<todo-comp></todo-comp>" 
-                    : (this.state.path == "performance") ? "<performance-comp></performance-comp>" 
-                    : (this.state.path == "shopping-cart") ? "<div>Shopping cart</div>" 
-                    : (this.state.path == "use-components") ? "<use-components></use-components>" 
-                    : (this.state.path == "component-cicle") ? "<component-cicle></component-cicle>" 
+                ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
+                    : (this.path == "basic-component") ? "<basic-component></basic-component>" 
+                    : (this.path == "performance") ? "<performance-comp></performance-comp>" 
+                    : (this.path == "shopping-cart") ? "<div>Shopping cart</div>" 
                     : "<welcome-comp></welcome-comp>"
                 }
             </section>

@@ -1,4 +1,4 @@
-import {CuppaComponent} from "//cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
+import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js";
 import { router } from "../../App.js";
 
 export default class Welcome extends CuppaComponent {
@@ -26,7 +26,7 @@ export default class Welcome extends CuppaComponent {
                 </ul>
             </div>
             <div class="grid-cards m-t-10 ">
-                <a class="button-alpha message message_red" href="basic-components">
+                <a class="button-alpha message message_red" href="basic-component">
                     <h3 class="title3"><i class="fas fa-puzzle-piece message_icon"></i> Cuppa Component</h3>
                     <p>Small class boilerplate aims to not leave footprint in your component and geeting best performance (~2.5kB gzipped)</p>
                     <p>Here you can found some examples using Cuppa Components, a standard vanilla implementation inpired of Reactive Component based on Observable or state.</p>    
