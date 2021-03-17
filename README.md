@@ -10,9 +10,9 @@ CuppaComponent: Standard vanilla implementation of reactive component with the a
     * Small size (6KB minified / 2KB gzipped).
     * No extra syntaxis "@click, v-on:, ng-, :(" just the code that you know.
 
-# Example
+# Documentation
 
-Online: https://repl.it/@tufik2/CuppaComponent#index.html
+Online: http://cuppajs.cloudbit.co/
 
 ```
 import {CuppaComponent} from "https://unpkg.com/cuppa-component/libs/cuppa.component.min.js"
