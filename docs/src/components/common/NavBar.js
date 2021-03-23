@@ -11,13 +11,12 @@ export default class NavBar extends CuppaComponent {
     }
 
     render(){
-        console.log("render", this.path)
         return /*html*/`
             <h1 class="title1">
                 <a class="link-clear" href="/">DOC.</a>
             </h1>
             <ul class="menu">
-                <h3 class="title3"><a class="menu-item-clear" href="basic-components">Basic</a></h3>
+                <h3 class="title3"><a class="menu-item-clear" href="basic-component">Basic</a></h3>
                 <li class="menu-item ${ this.path == "basic-component" ? "selected" : "" }" >
                     <a class="menu-item-link" href="basic-component" >Component</a>
                     <div class="menu-item-underline"></div>
@@ -26,10 +25,6 @@ export default class NavBar extends CuppaComponent {
                 <h3 class="title3 m-t-20">More</h3>
                 <li class="menu-item  ${ this.path == "performance" ? "selected" : "" }" >
                     <a class="menu-item-link" href="performance" >Component Performance</a>
-                    <div class="menu-item-underline"></div>
-                </li>
-                <li class="menu-item ${ this.path == "shopping-cart" ? "selected" : "" }" >
-                    <a class="menu-item-link" href="shopping-cart" >Shopping Cart</a>
                     <div class="menu-item-underline"></div>
                 </li>
             </ul>

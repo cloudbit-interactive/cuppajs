@@ -13,7 +13,7 @@ export default class Welcome extends CuppaComponent {
     render(){
         return /*html*/`
             <div class="message ">
-                <h2 class="title2">Hey...</h2>
+                <h2 class="title2">CuppaJS...</h2>
                 <p>Yes, another set of libraries to create amazing javascript projects, but regardless others this is use a full standard implementation and his main focus is give standards tool to create standard code and reuse that code anywere, not matter your toolset (reactj, angular, vue, svelte, vanilla), will work with all of theme.</p>
                 <p>There are thons of good frameworks and libraries implementations out there to create amazing projects, but one of the biggest paint for fron-end developers is fount standard libraries or components, if you are using Angular (need to use the Angular Component solution), but if you will switch or create a new project in React, need to go to the market and found an alternative that supply youe needed in React and so.</p>
                 <p>This library aims give to all developers a base set to create his globals compoents in pure vanilla and simply import it in his projects not matter the framework.</p>
@@ -28,8 +28,8 @@ export default class Welcome extends CuppaComponent {
             <div class="grid-cards m-t-10 ">
                 <a class="button-alpha message message_red" href="basic-component">
                     <h3 class="title3"><i class="fas fa-puzzle-piece message_icon"></i> Cuppa Component</h3>
-                    <p>Small class boilerplate aims to not leave footprint in your component and geeting best performance (~2.5kB gzipped)</p>
-                    <p>Here you can found some examples using Cuppa Components, a standard vanilla implementation inpired of Reactive Component based on Observable or state.</p>    
+                    <p>A standard vanilla class implementation based on Observables or State.</p>    
+                    <p>Small boilerplate that help you to develop fast reactive vanilla components and reuse anywhere reaching good performance with a small footprint. (~2.5kB gzipped)</p>
                 </a>
                 <div class="message message_blue disabled">
                     <h3 class="title3"><i class="fas fa-map-signs message_icon"></i> Cuppa Router</h3>

@@ -5,10 +5,6 @@ const CodeMirror = document.defaultView["CodeMirror"];
 export default class BasicComponent extends CuppaComponent {
     pure = true;
 
-    connected() {
-        Prism.highlightAll();
-    }
-
     render(){
         return /*html*/ `
             <div class="grid_title_2_columns">
@@ -42,8 +38,8 @@ export default class BasicComponent extends CuppaComponent {
                         <p>Next example import <strong>cuppa.switch</strong> component in reactjs, the component is only <strong>3kb gzipped</strong></p>
                     </div>
                     <div class="message message_yellow m-t-10">
-                        The best and easy way is adding the script tag in <strong>[header]</strong> or <strong>[body]</strong>, but here there is an example importing the component in ReactJS.
-                        <iframe style="grid-are:right" height="200" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/gOLJbNq?theme-id=dark&default-tab=html" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe> 
+                        The best and easy way is adding the script tag but  in the right pannel there is an example importing the component in ReactJS.
+                        <iframe style="grid-are:right; margin-top:10px;" height="380" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/gOLJbNq?theme-id=dark&default-tab=html" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe> 
                         
                     </div>
                 </div>

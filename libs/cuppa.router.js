@@ -5,7 +5,7 @@
  *  <script src="cuppa.router.js" type="module"></script>
  * **/
 
-export class CuppaRouter{
+ export class CuppaRouter{
     opts;
     routes = [];
     callbackSet = new Set();
@@ -14,6 +14,7 @@ export class CuppaRouter{
         this.opts = {...{root:"", hash:"", resolveAll:false, titlesMap:{} }, ...opts};
         if(!this.opts.root) this.opts.root = "/";
         window.addEventListener("popstate", this.onHistory.bind(this));
+        this.setTitle();
     }
 
     updateLinks(elements){
@@ -47,10 +48,9 @@ export class CuppaRouter{
         else path = this.opts.hash+path;
 
         if(!title && path == " ") title = this.opts.titlesMap[""] || this.opts.titlesMap["/"] || this.opts.titlesMap["*"];
-        if(!title && path) title = this.opts.titlesMap[path]
+        if(!title && path) title = this.opts.titlesMap[path];
         if(title == undefined) title = "";
-        if(title) document.title = title;
-
+        this.setTitle(title, path);
         if(addToHistory) window.history.pushState(path, title, path);
         this.resolve();
     }
@@ -65,6 +65,15 @@ export class CuppaRouter{
             path = path.replace(this.opts.root,"");
             path = path.replace(this.opts.hash,"");
         return path;
+    }
+
+    setTitle(value, path){
+        if(!path) path = this.getPath();
+        if(path) path = path.replace("#/", "");
+        if(!value && this.opts.titlesMap){
+            value = this.opts.titlesMap[path];
+        }
+        if(value) document.title = value;
     }
 
     onHistory(e){
@@ -90,7 +99,7 @@ export class CuppaRouter{
             }
             if(resolved && !this.opts.resolveAll) break;
         }
-        this.callbackSet.forEach((func)=>{ func(this.getPath()) })
+        this.callbackSet.forEach((func)=>{ func(this.getPath()) });
     }
 
     match(path, route, exact = true, strict = false){

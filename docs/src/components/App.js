@@ -5,7 +5,13 @@ import("./sections/welcome/Welcome.js");
 import("./sections/basicComponent/BasicComponent.js");
 import("./sections/performance/Performance.js");
 
-export const router = new CuppaRouter({root:"/", hash:"#/", titlesMap:{"/":"Cuppa Examples"}});
+const titlesMap = {
+    "/":"CuppaJS Doc.",
+    "basic-component":"Basic Component",
+    "performance":"Performance"
+}
+
+export const router = new CuppaRouter({root:"/docs/", hash:"#/", titlesMap});
 
 export default class App extends CuppaComponent {
     path;
