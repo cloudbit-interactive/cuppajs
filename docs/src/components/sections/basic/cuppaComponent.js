@@ -1,8 +1,6 @@
-import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js"
+import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js";
 
-const CodeMirror = document.defaultView["CodeMirror"];
-
-export default class BasicComponent extends CuppaComponent {
+export default class CuppaComponentDoc extends CuppaComponent {
     pure = true;
 
     render(){
@@ -12,7 +10,7 @@ export default class BasicComponent extends CuppaComponent {
                 <div style="grid-area:left;">
                     <div class="message message_blue">Create simple reactive component extending any class from CuppaComponent is simplle and pure vanilla javascript.</div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/vYydQeJ?&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/vYydQeJ?&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
             </div>
             <hr class="separator1"/>
             <div class="grid_title_2_columns">
@@ -27,7 +25,7 @@ export default class BasicComponent extends CuppaComponent {
                         </ul>
                     </div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/XWNZOdY?&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/XWNZOdY?&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
             </div>
             <hr class="separator1"/>
             <div class="grid_title_2_columns">
@@ -39,21 +37,19 @@ export default class BasicComponent extends CuppaComponent {
                     </div>
                     <div class="message message_yellow m-t-10">
                         The best and easy way is adding the script tag but  in the right pannel there is an example importing the component in ReactJS.
-                        <iframe style="grid-are:right; margin-top:10px;" height="380" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/gOLJbNq?theme-id=dark&default-tab=html" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe> 
+                        <iframe style="grid-are:right; margin-top:10px;" height="380" style="width: 100%;" src="https://codepen.io/tufik2/embed/gOLJbNq?theme-id=dark&default-tab=html" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe> 
                         
                     </div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/rNWZKxa?theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>             
+                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/rNWZKxa?theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>             
             </div>
             <hr class="separator1"/>
             <div class="grid_title_1_column">
                 <h2 class="title2" style="grid-area:title;">Component Structure</h2>
-                <div style="grid-area:content;">
-                    <iframe style="grid-are:right" height="550" style="width: 100%;" scrolling="no" title="vYydQeJ" src="https://codepen.io/tufik2/embed/VwmOwGj?theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>  
-                </div>
+                <iframe style="grid-are:content" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/VwmOwGj?theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>  
             </div>
         `;
     }
 }
 
-customElements.define('basic-component', BasicComponent);
+customElements.define('cuppa-component', CuppaComponentDoc);

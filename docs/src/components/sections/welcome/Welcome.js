@@ -26,16 +26,16 @@ export default class Welcome extends CuppaComponent {
                 </ul>
             </div>
             <div class="grid-cards m-t-10 ">
-                <a class="button-alpha message message_red" href="basic-component">
+                <a class="button-alpha message message_red" href="cuppa-component">
                     <h3 class="title3"><i class="fas fa-puzzle-piece message_icon"></i> Cuppa Component</h3>
                     <p>A standard vanilla class implementation based on Observables or State.</p>    
                     <p>Small boilerplate that help you to develop fast reactive vanilla components and reuse anywhere reaching good performance with a small footprint. (~2.5kB gzipped)</p>
                 </a>
-                <div class="message message_blue disabled">
+                <a class="button-alpha message message_blue" href="cuppa-router">
                     <h3 class="title3"><i class="fas fa-map-signs message_icon"></i> Cuppa Router</h3>
                     <p>Simple Router for Vanilla Projects (~2.5kB gzipped)</p>
                     <p>Here you can found some examples using Cuppa Components, a standard vanilla implementation inpired of Reactive Component based on Observable or state.</p>    
-                </div>
+                </a>
                 <div class="message message_purple disabled">
                     <h3 class="title3"><i class="fas fa-toolbox message_icon"></i> Cuppa Storage</h3>
                     <p>Global storages that advice to his subscribers when his data state (~2.5kB gzipped)</p>

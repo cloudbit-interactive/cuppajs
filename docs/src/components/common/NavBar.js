@@ -16,9 +16,14 @@ export default class NavBar extends CuppaComponent {
                 <a class="link-clear" href="/">DOC.</a>
             </h1>
             <ul class="menu">
-                <h3 class="title3"><a class="menu-item-clear" href="basic-component">Basic</a></h3>
-                <li class="menu-item ${ this.path == "basic-component" ? "selected" : "" }" >
-                    <a class="menu-item-link" href="basic-component" >Component</a>
+                <h3 class="title3"><a class="menu-item-clear" href="cuppa-component">Basic</a></h3>
+                <li class="menu-item ${ this.path == "cuppa-component" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="cuppa-component" ><i class="fas fa-puzzle-piece message_icon" ></i> Component</a>
+                    <div class="menu-item-underline"></div>
+                </li>
+
+                <li class="menu-item ${ this.path == "cuppa-router" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="cuppa-router" ><i class="fas fa-map-signs message_icon"></i> Router</a>
                     <div class="menu-item-underline"></div>
                 </li>
                 
