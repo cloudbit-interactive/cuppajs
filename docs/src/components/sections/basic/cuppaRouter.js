@@ -1,4 +1,4 @@
-import {CuppaComponent} from "../../../../../libs/cuppa.component.js";
+import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js";
 
 export default class CuppaRouter extends CuppaComponent {
 
