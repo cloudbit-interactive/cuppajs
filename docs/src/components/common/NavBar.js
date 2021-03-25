@@ -33,6 +33,10 @@ export default class NavBar extends CuppaComponent {
                     <a class="menu-item-link" href="performance" >Component Performance</a>
                     <div class="menu-item-underline"></div>
                 </li>
+                <li class="menu-item disabled ${ this.path == "shopping-list" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="shopping-list" >Shipping List</a>
+                    <div class="menu-item-underline"></div>
+                </li>
             </ul>
             `
     }

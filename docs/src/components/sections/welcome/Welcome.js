@@ -13,8 +13,8 @@ export default class Welcome extends CuppaComponent {
     render(){
         return /*html*/`
             <div class="message ">
-                <h2 class="title2">CuppaJS...</h2>
-                <p>Yes, another set of libraries to create amazing javascript projects, but regardless others this is use a full standard implementation and his main focus is give standards tool to create standard code and reuse that code anywere, not matter your toolset (reactj, angular, vue, svelte, vanilla), will work with all of theme.</p>
+                <h2 class="title2">CuppaJS</h2>
+                <p>Another set of libraries to create amazing javascript projects, but regardless others It is compromised with the standard implementation and his main focus is give standard tools to create standard code and reuse that code anywere, not matter your toolset (reactj, angular, vue, svelte, vanilla), will work with all of theme.</p>
                 <p>There are thons of good frameworks and libraries implementations out there to create amazing projects, but one of the biggest paint for fron-end developers is fount standard libraries or components, if you are using Angular (need to use the Angular Component solution), but if you will switch or create a new project in React, need to go to the market and found an alternative that supply youe needed in React and so.</p>
                 <p>This library aims give to all developers a base set to create his globals compoents in pure vanilla and simply import it in his projects not matter the framework.</p>
                 
@@ -38,13 +38,9 @@ export default class Welcome extends CuppaComponent {
                 </a>
                 <div class="message message_purple disabled">
                     <h3 class="title3"><i class="fas fa-toolbox message_icon"></i> Cuppa Storage</h3>
-                    <p>Global storages that advice to his subscribers when his data state (~2.5kB gzipped)</p>
-                    <p>Store data in: memory, localStorage, sessionStorage, Cache or register your own middleware to extend the storage option.</p>    
                 </div>
                 <div class="message message_purple disabled">
                     <h3 class="title3"><i class="fas fa-toolbox message_icon"></i> Cuppa Tools</h3>
-                    <p>Small Toolset with usefull resources.</p>
-                    <p>Store data in: memory, localStorage, sessionStorage, Cache or register your own middleware to extend the storage option.</p>    
                 </div>
             </div>
             `
