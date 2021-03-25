@@ -13,7 +13,7 @@ const titlesMap = {
     "performance":"Performance",
 }
 
-export const router = new CuppaRouter({root:"/", hash:"#/", titlesMap});
+export const router = new CuppaRouter({root:(document.location.hostname == "127.0.0.1") ? "/docs/" : "/", hash:"#/", titlesMap});
 
 export default class App extends CuppaComponent {
     path;

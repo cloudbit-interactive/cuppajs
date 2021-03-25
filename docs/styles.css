@@ -9,9 +9,10 @@
     --color-purple1: #676778;
     --color-yellow: #ffbe0f;
     --color-gray:#444;
+    --color-gray2:#DDD;
 }
 html, body{ margin:0; padding:0; color:var(--color-gray); font-family: Arial, Helvetica, sans-serif; font-size: 1.4rem; line-height: normal; letter-spacing: 0.5px; line-height: 2rem; overflow-x: hidden; }
-iframe{ border:none; display: block; width: 100%; }
+iframe{ border:1px solid var(--color-gray); display: block; width: 100%; }
 li{ margin:0.5rem 0; }
 p{margin:1rem 0; }
 a{ color:#FFF; }
@@ -46,6 +47,7 @@ navbar-comp{ background: var(--color-purple1); color:var(--color-white1); paddin
 .message_blue{ background: var(--color-blue1); color:var(--color-white1); }
 .message_purple{ background: var(--color-purple1); color:var(--color-white1); }
 .message_yellow{ background: var(--color-yellow); color:var(--color-gray); }
+.message_gray{ background: var(--color-gray2); color:var(--color-gray); }
 
 .grid-cards{ display: grid; grid-template-columns: repeat(3, 1fr); gap:1rem; }
 .grid_title_2_columns{ display: grid; column-gap:2rem; row-gap:1.4rem; grid-template-columns: 50rem minmax(0, 1fr); grid-template-rows: auto auto; grid-template-areas: "title title" "left right"; }
