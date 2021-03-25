@@ -9,7 +9,7 @@ export default class CuppaRouter extends CuppaComponent {
                 <div style="grid-area:left">
                     <div class="message message_blue">Create simple router in pure vanilla javascript or integrate it in any framework.</div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://stackblitz.com/edit/web-platform-cuppa-router?embed=1&file=script.js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://stackblitz.com/edit/web-platform-cuppa-router?embed=1&file=script.js" ></iframe>
             </div>
             <hr class="separator1"/>
             <div class="grid_title_1_column">

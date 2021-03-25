@@ -12,8 +12,9 @@ export default class NavBar extends CuppaComponent {
 
     render(){
         return /*html*/`
-            <h1 class="title1">
+            <h1 class="title1" style="display:flex; justify-content:space-between; align-items:center;">
                 <a class="link-clear" href="/">DOC.</a>
+                <a class="button-alpha" href="https://github.com/cloudbit-interactive/cuppajs" target="_blank"><i class="fab fa-github" style="font-size:30px"></i></a>
             </h1>
             <ul class="menu">
                 <h3 class="title3"><a class="menu-item-clear" href="cuppa-component">Basic</a></h3>
