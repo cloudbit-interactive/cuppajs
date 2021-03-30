@@ -27,7 +27,6 @@ export default class App extends CuppaComponent {
 
     render(){
         return /*html*/`
-            <navbar-comp></navbar-comp>
             <section style="padding:2rem">
                 ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
                     : (this.path == "cuppa-component") ? "<cuppa-component></cuppa-component>" 
@@ -38,6 +37,7 @@ export default class App extends CuppaComponent {
                     : "<welcome-comp></welcome-comp>"
                 }
             </section>
+            <navbar-comp></navbar-comp>
         `
     }
 }
