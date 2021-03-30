@@ -18,7 +18,7 @@
     }
 
     updateLinks(elements){
-        if(!elements) elements = document.querySelectorAll("a");
+        if(!elements) elements = document.querySelectorAll("a:not(.no-router)");
         elements.forEach(element => {
             element.onclick = this.onClick.bind(this)
         });

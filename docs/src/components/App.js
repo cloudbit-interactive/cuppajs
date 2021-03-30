@@ -4,6 +4,7 @@ import NavBar from "./common/NavBar.js";
 import("./sections/welcome/Welcome.js");
 import("./sections/basic/cuppaComponent.js");
 import("./sections/basic/cuppaRouter.js");
+import("./sections/basic/cuppaStorage.js");
 import("./sections/performance/Performance.js");
 
 const titlesMap = {
@@ -30,7 +31,8 @@ export default class App extends CuppaComponent {
             <section style="padding:2rem">
                 ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
                     : (this.path == "cuppa-component") ? "<cuppa-component></cuppa-component>" 
-                    : (this.path == "cuppa-router") ? "<cuppa-router></cuppa-router>" 
+                    : (this.path == "cuppa-router") ? "<cuppa-router></cuppa-router>"
+                    : (this.path == "cuppa-storage") ? "<cuppa-storage></cuppa-storage>" 
                     : (this.path == "performance") ? "<performance-comp></performance-comp>" 
                     : (this.path == "shopping-cart") ? "<div>Shopping cart</div>" 
                     : "<welcome-comp></welcome-comp>"

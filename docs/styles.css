@@ -1,7 +1,7 @@
 *{ box-sizing: border-box; }
 :root{ 
     font-size: 62.5%; 
-    --nav-main-width:27rem; 
+    --nav-main-width:30rem; 
     --color-purple1:#494ca2; 
     --color-white1:#FFF;
     --color-red1:#ff3e00;
@@ -22,7 +22,7 @@ a{ color:#FFF; }
 .link-clear{ color:var(--color-white1); text-decoration: none; cursor: pointer; }
 .wire, .wire *{ border:1px dotted #F00; }
 .separator1{ margin:2rem 0; border: none; height: 0; border-bottom: 1px solid #AAA; }
-.disabled{ opacity: 0.4; pointer-events: none; }
+.disabled{ opacity: 0.3 !important; pointer-events: none; }
 .button-alpha{ cursor: pointer; text-decoration: none; transition: 0.3s opacity; }
     .button-alpha:hover{ opacity: 0.7; }
 .CodeMirror{ margin:20px 0; padding:10px 0; height: auto !important; }
@@ -35,7 +35,7 @@ navbar-comp{ background: var(--color-purple1); color:var(--color-white1); paddin
 .menu-item{ transition: 0.3s opacity; opacity: 0.6;  border-bottom: 1px solid rgba(255,255,255,0.3); position: relative; user-select: none; }
 .menu-item:hover{ opacity: 1; }
 .menu-item.selected{  opacity: 1; }
-.menu-item-link{ text-decoration: none; display: block; color:var(--color-white1); cursor: pointer; padding:1.3rem 0.8rem; }
+.menu-item-link{ text-decoration: none; display: grid; grid-template-columns: 3rem auto; grid-template-rows: auto; grid-template-areas: "icon text";  color:var(--color-white1); cursor: pointer; padding:1.3rem 0.8rem; }
 .menu-item-underline{ transition: 0.3s width; position: absolute; left:0; bottom:-1; width: 0%; height: 0; border-bottom: 1px solid #FFF; }
 .menu-item.selected .menu-item-underline{ width:100%; }
 .menu-item-clear{ color:#FFF; text-decoration: none; }

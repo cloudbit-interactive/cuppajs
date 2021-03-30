@@ -57,8 +57,8 @@ export default class Performance extends CuppaComponent {
 
     render(){
         return  /*html*/`
-            <div style="padding:20px">
-                <h1>Performance Test</h1>
+            <div>
+                <h1 class="title2 m-b-20">Performance Test</h1>
                 <button onclick="()=>this.forceRender()">Force Update</button>
                 <h3>Add new values</h3>
                 <div>
@@ -89,7 +89,8 @@ export default class Performance extends CuppaComponent {
                             </li>`
                     }).join("")}
                 </ul>
-            </div>`
+            </div>
+        `
     }
 }
 
