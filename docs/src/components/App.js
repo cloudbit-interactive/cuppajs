@@ -27,7 +27,7 @@ export default class App extends CuppaComponent {
 
     render(){
         return /*html*/`
-            <section style="padding:2rem">
+            <section class="main-section">
                 ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
                     : (this.path == "cuppa-component") ? "<cuppa-component></cuppa-component>" 
                     : (this.path == "cuppa-router") ? "<cuppa-router></cuppa-router>"

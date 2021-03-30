@@ -28,7 +28,7 @@ a{ color:#FFF; }
 .CodeMirror{ margin:20px 0; padding:10px 0; height: auto !important; }
 .code{ width:100%; padding:1rem; resize:none; height:9rem; background:#1d1e22; color:#FFF; border:none; border-radius: 5px; }
 
-app-comp{ display:grid; width: 100vw; min-height: 100vh; grid-template-columns: 1fr; grid-template-rows: 1fr; padding-left:var(--nav-main-width); }
+.main-section{ display:block; padding:2rem; padding-left:calc(var(--nav-main-width) + 2rem); }
 navbar-comp{  width: var(--nav-main-width); position: fixed;  top:0; left:0; bottom:0; background: var(--color-purple1); color:var(--color-white1); padding:2rem; font-size: 1.6rem; }
 
 .menu{ padding:0; list-style: none; margin:4rem 0 0; font-weight: 300; }
@@ -47,8 +47,7 @@ navbar-comp{  width: var(--nav-main-width); position: fixed;  top:0; left:0; bot
 .message_purple{ background: var(--color-purple1); color:var(--color-white1); }
 .message_yellow{ background: var(--color-yellow); color:var(--color-gray); }
 
-.grid-cards{ display: grid; grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr)); min-width: 30rem; gap:1rem; }
-
+.grid-cards{ display: grid; grid-template-columns: repeat(auto-fill, minmax(40rem, 1fr)); gap:1rem; }
 .grid_title_2_columns{ display: grid; column-gap:2rem; row-gap:1.4rem; grid-template-columns: 50rem minmax(0, 1fr); grid-template-rows: auto auto; grid-template-areas: "title title" "left right"; }
 .grid_title_1_column{ display: grid; column-gap:5rem; row-gap:1.4rem; grid-template-columns: 1fr; grid-template-rows: auto auto; grid-template-areas: "title" "content"; }
 
@@ -58,10 +57,14 @@ navbar-comp{  width: var(--nav-main-width); position: fixed;  top:0; left:0; bot
 .m-t-20{ margin-top:2rem; } .m-l-20{ margin-left:2rem; } .m-r-20{ margin-right:1rem; } .m-b-20{ margin-bottom:2rem; }
 
 @media (max-width:1400px){
-    .grid_title_2_columns{ }
+
 }
 
 @media (max-width:1000px){
-    app-comp{ padding:0; }
+    .main-section{ padding:1rem; }
     navbar-comp{ left:calc(var(--nav-main-width) * -1)}
+}
+
+@media (max-width:500px){
+    .grid-cards{ grid-template-columns: 1fr; }
 }
