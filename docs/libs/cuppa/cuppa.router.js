@@ -62,7 +62,7 @@
         let path = window.location.href;
             if(base && base != "/") path = path.replace(base, "");
             path = path.replace(url.origin, "");
-            if(this.opts.root !== "/") path = path.replace(this.opts.root, "");
+            if(path.indexOf(this.opts.root) === 0) path = path.replace(this.opts.root, "");
             path = path.replace(this.opts.hash,"");
         return path;
     }
