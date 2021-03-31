@@ -1,4 +1,5 @@
 import {CuppaComponent} from "../../../libs/cuppa/cuppa.component.js";
+import { Utils } from "../../controlers/Utils.js";
 import { router } from "../App.js";
 
 export default class NavBar extends CuppaComponent {
@@ -6,8 +7,13 @@ export default class NavBar extends CuppaComponent {
     
     connected() {
         router.updateLinks();
-        router.addListener( path=>this.path = path );
+        router.addListener( this.onRouter );
         router.resolve();
+    }
+
+    onRouter(path){
+        this.path = path;
+        Utils.openMenu(false);
     }
 
     render(){

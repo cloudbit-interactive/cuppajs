@@ -1,6 +1,7 @@
 import {CuppaComponent} from "../../libs/cuppa/cuppa.component.js";
 import {CuppaRouter} from "../../libs/cuppa/cuppa.router.js";
 import NavBar from "./common/NavBar.js";
+import BarTop from "./common/BarTop.js";
 import("./sections/welcome/Welcome.js");
 import("./sections/basic/cuppaComponent.js");
 import("./sections/basic/cuppaRouter.js");
@@ -37,6 +38,7 @@ export default class App extends CuppaComponent {
                     : "<welcome-comp></welcome-comp>"
                 }
             </section>
+            <bar-top></bar-top>
             <navbar-comp></navbar-comp>
         `
     }

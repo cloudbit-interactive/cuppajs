@@ -19,7 +19,8 @@ export default class Template extends CuppaComponent {
         return /*html*/`
             <div>
                 Template
-            </div>`
+            </div>
+        `
     }
 }
 
