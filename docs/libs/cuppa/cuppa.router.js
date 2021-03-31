@@ -12,7 +12,7 @@
 
     constructor(opts){
         this.opts = {...{root:"", hash:"", resolveAll:false, titlesMap:{} }, ...opts};
-        if(!this.opts.root) this.opts.root = "/";
+        if(!this.opts.root) this.opts.root = "";
         window.addEventListener("popstate", this.onHistory.bind(this));
         this.setTitle();
     }
@@ -62,7 +62,7 @@
         let path = window.location.href;
             if(base && base != "/") path = path.replace(base, "");
             path = path.replace(url.origin, "");
-            path = path.replace(this.opts.root,"");
+            if(this.opts.root !== "/") path = path.replace(this.opts.root, "");
             path = path.replace(this.opts.hash,"");
         return path;
     }
