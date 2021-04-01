@@ -13,7 +13,7 @@ export default class CuppaRouter extends CuppaComponent {
             </div>
             <hr class="separator1"/>
             <div class="grid_title_1_column">
-                <h2 class="title2" style="grid-area:title">Using On Method</h2>
+                <h2 class="title2" style="grid-area:title">Using On Method and Hash Configuration</h2>
                 <iframe height="550" style="width: 100%;" src="https://codesandbox.io/embed/cupparouter-resolver-7v1us?fontsize=14&theme=dark" ></iframe>
             </div>
             <hr class="separator1"/>
