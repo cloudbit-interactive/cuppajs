@@ -12,6 +12,7 @@
 
     constructor(opts){
         this.opts = {...{root:"", hash:"", resolveAll:false, titlesMap:{} }, ...opts};
+        if(this.opts.root) this.opts.root = `/${this.opts.root}`;
         if(!this.opts.root) this.opts.root = "/";
         window.addEventListener("popstate", this.onHistory.bind(this));
         this.setTitle();
