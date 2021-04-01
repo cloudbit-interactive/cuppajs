@@ -12,7 +12,7 @@
 
     constructor(opts){
         this.opts = {...{root:"", hash:"", resolveAll:false, titlesMap:{} }, ...opts};
-        if(!this.opts.root) this.opts.root = "";
+        if(!this.opts.root) this.opts.root = "/";
         window.addEventListener("popstate", this.onHistory.bind(this));
         this.setTitle();
     }
@@ -38,8 +38,7 @@
 
     setPath(path, title, addToHistory = true){
         if(!path){
-            let url = new URL(window.location.href);
-            path = window.location.href.replace(url.origin, "");
+            path = document.defaultView.location.href.replace(document.defaultView.location.origin, "");
             path = path.replace(this.opts.root,"");
             path = path.replace(this.opts.hash,"");
         }
@@ -51,17 +50,16 @@
         if(!title && path) title = this.opts.titlesMap[path];
         if(title == undefined) title = "";
         this.setTitle(title, path);
-        if(addToHistory) window.history.pushState(path, title, path);
+        if(addToHistory){
+            let completePath = `${document.defaultView.location.origin}${this.opts.root}${path}`;
+            window.history.pushState(path, title, completePath);
+        }
         this.resolve();
     }
 
     getPath(){
-        let base = document.querySelector("base");
-            base = (base) ? base.href : "";
-        let url = new URL(window.location.href);
-        let path = window.location.href;
-            if(base && base != "/") path = path.replace(base, "");
-            path = path.replace(url.origin, "");
+        let path = document.defaultView.location.href;
+            path = path.replace(document.defaultView.location.origin, "");
             if(path.indexOf(this.opts.root) === 0) path = path.replace(this.opts.root, "");
             path = path.replace(this.opts.hash,"");
         return path;
@@ -125,18 +123,17 @@
 
     getPathData(path){
         if(!path) path = this.getPath();
-        let url = new URL(window.location.href);
-        let obj = {url:window.location.href};
+        let obj = {url:document.defaultView.location.href};
         // path
             if(path.indexOf("?") != -1) path = path.substr(0, path.indexOf("?"));
             obj.path = path;
             obj.pathArray = path.split("/");
             obj.pathArray = obj.pathArray.filter(item=>item);
         // domain
-            obj.domain = url.host;
+            obj.domain = document.defaultView.location.host;
         // protocol / port
-            obj.protocol = url.protocol;
-            obj.port = url.port;
+            obj.protocol = document.defaultView.location.protocol;
+            obj.port = document.defaultView.location.port;
         // get data
             let dataStr = path;
             if(dataStr.indexOf("?") != -1 || dataStr.indexOf("#") != -1){
