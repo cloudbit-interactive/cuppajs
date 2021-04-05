@@ -1,3 +1,4 @@
+
 # CuppaJS - Standard libraries that work with everything out there.
 
 A set of libraries to create any kind of javascript projects but regardless to other libraries, it is focus in vanilla javascript giving standard tools to built code and reuse it anywere, not matter the toolset (reactj, angular, vue, svelte).
@@ -16,7 +17,7 @@ There are thons of good frameworks and libraries implementations out there to cr
 
 Online: http://cuppajs.cloudbit.co/
 
-# CuppaComponent ~2.5kB gzipped
+# Cuppa Component ~2.5kB gzipped
 ```
 // Load or embed the cuppa.component.js library
 import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.64/libs/cuppa.component.js";
@@ -65,5 +66,25 @@ export default class MyComponent extends CuppaComponent {
 
 // Standard way to defines a new custom element.
 customElements.define('my-component', MyComponent);
+```
+# Cuppa Router ~2.5kB gzipped
+```
+const router = new CuppaRouter();
+	router.addListener(onRouterUpdated);
+	router.updateLinks();
+	router.resolve();
 
+function  onRouterUpdated(path)  {
+	let content = document.getElementById("content");
+		content.innerHTML =  "";
+		
+	if(router.match(path,  "/"))  {
+		content.innerHTML = "Home Page";
+	}else if(router.match(path, "works"))  {
+		content.innerHTML = "Works";
+	}else if(router.match(path, "works/:alias"))  {
+		let data = router.match(path, "works/:alias");
+		content.innerHTML = `<strong>Work Alias:</strong> ${data.params.alias}`;
+	}
+}
 ```
