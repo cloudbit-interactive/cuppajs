@@ -14,6 +14,7 @@ CuppaComponent: Standard vanilla implementation of reactive component with the a
 
 Online: http://cuppajs.cloudbit.co/
 
+# CuppaComponent ~2.5kB gzipped
 ```
 // Load or embed the cuppa.component.js library
 import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.64/libs/cuppa.component.js";
