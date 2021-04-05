@@ -1,6 +1,8 @@
 # CuppaJS - Standard libraries that work with everything out there.
 
-CuppaComponent: Standard vanilla implementation of reactive component with the advantage of update node based in State or Observers.
+A set of libraries to create any kind of javascript projects but regardless to other libraries, it is focus in vanilla javascript giving standard tools to built code and reuse it anywere, not matter the toolset (reactj, angular, vue, svelte).
+
+There are thons of good frameworks and libraries implementations out there to create amazing projects and one of the biggest problems is found solid mature standard resources that works with alls of them, for example: if you are using Angular the way to go is found an Angular Component that solve your needed, but if you need switch or create a new project using other technology base "React", needs to found an alternative that supply your needs in that specific framework.
 
 # Advantages
 
