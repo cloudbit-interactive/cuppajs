@@ -65,5 +65,3 @@ export default class MyComponent extends CuppaComponent {
 customElements.define('my-component', MyComponent);
 
 ```
-
-Check-out the ./examples/ folder to see more complex code
