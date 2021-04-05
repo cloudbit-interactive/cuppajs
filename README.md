@@ -9,7 +9,7 @@ There are thons of good frameworks and libraries implementations out there to cr
     * Compatible with any other framework or libraries due is just standard code.
     * Faster performance.
     * No pre-compilation process.
-    * Small size (6KB minified / 2KB gzipped).
+    * Small size.
     * No extra syntaxis "@click, v-on:, ng-, :(" just the code that you know.
 
 # Documentation
