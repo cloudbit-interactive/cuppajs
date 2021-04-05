@@ -20,7 +20,7 @@ Online: http://cuppajs.cloudbit.co/
 # Cuppa Component ~2.5kB gzipped
 ```
 // Load or embed the cuppa.component.js library
-import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.64/libs/cuppa.component.js";
+import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 
 export default class MyComponent extends CuppaComponent {
     pure = false;               // false (default), true will render one time using insertAdjacentHTML and user should update the component manually
@@ -69,6 +69,9 @@ customElements.define('my-component', MyComponent);
 ```
 # Cuppa Router ~2.5kB gzipped
 ```
+// Load or embed the cuppa.component.js library
+import { CuppaRouter } from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.router.min.js";
+
 const router = new CuppaRouter();
 router.addListener(onRouterUpdated);
 router.updateLinks();
