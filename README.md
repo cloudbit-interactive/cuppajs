@@ -70,9 +70,9 @@ customElements.define('my-component', MyComponent);
 # Cuppa Router ~2.5kB gzipped
 ```
 const router = new CuppaRouter();
-	router.addListener(onRouterUpdated);
-	router.updateLinks();
-	router.resolve();
+router.addListener(onRouterUpdated);
+router.updateLinks();
+router.resolve();
 
 function  onRouterUpdated(path)  {
 	let content = document.getElementById("content");
