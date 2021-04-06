@@ -2,7 +2,7 @@
     CuppaComponent
  
     class fields
-        cuppa = null;
+        cuppaStorage = null;
         pure = false;                   // false, true 'will render only 1 time'
         shadow = false;                 // false, true
         refs = {};
@@ -19,6 +19,7 @@
 
 export class CuppaComponent extends HTMLElement {
     cuppa = null;
+    cuppaStorage = null;
     pure = false;
     shadow = false;
     state = {};
@@ -211,6 +212,7 @@ export class CuppaComponent extends HTMLElement {
     }
 
     setData(name, opts){
+        if(!this.cuppa && this.cuppaStorage) this.cuppa = this.cuppaStorage;
         if(!this.cuppa) return;
         this.cuppa.setData(name, opts);
     }
@@ -218,6 +220,7 @@ export class CuppaComponent extends HTMLElement {
     setStorage(name, opts){ this.setData(name, opts) }
 
     getData(name, opts){
+        if(!this.cuppa && this.cuppaStorage) this.cuppa = this.cuppaStorage;
         if(!this.cuppa) return;
         if(opts && opts.callback){
             this.cuppa.getData(name, opts);
@@ -230,6 +233,7 @@ export class CuppaComponent extends HTMLElement {
     getStorage(name, opts){ return this.getData(name, opts) }
 
     removeStorage(){
+        if(!this.cuppa && this.cuppaStorage) this.cuppa = this.cuppaStorage;
         if(!this.cuppa) return;
         Object.entries(this._getStorageDictionary).map(([key, value])=>{
             if(value && value.callback) this.cuppa.removeListener(key, value.callback);

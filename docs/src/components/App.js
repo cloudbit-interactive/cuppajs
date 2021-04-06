@@ -32,7 +32,7 @@ export default class App extends CuppaComponent {
                 ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
                     : (this.path == "cuppa-component") ? "<cuppa-component></cuppa-component>" 
                     : (this.path == "cuppa-router") ? "<cuppa-router></cuppa-router>"
-                    : (this.path == "cuppa-storage") ? "<cuppa-storage></cuppa-storage>" 
+                    : (this.path == "cuppa-storage") ? "<cuppa-storage-base></cuppa-storage-base>" 
                     : (this.path == "performance") ? "<performance-comp></performance-comp>" 
                     : (this.path == "shopping-cart") ? "<div>Shopping cart</div>" 
                     : "<welcome-comp></welcome-comp>"

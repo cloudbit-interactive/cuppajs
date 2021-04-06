@@ -3,7 +3,7 @@
  * 
  * **/
 
- export class CuppaStorage{
+export class CuppaStorage{
     static setData(name, opts){
         cuppa.setData(name, opts);
     }
