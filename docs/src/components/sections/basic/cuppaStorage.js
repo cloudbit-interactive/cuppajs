@@ -13,7 +13,6 @@ export default class CuppaStorageBase extends CuppaComponent {
     }
 
     onUpdateStorage(data){
-        console.log("--")
         this.storeData =  data;
     }
     

@@ -31,6 +31,7 @@ export default class Welcome extends CuppaComponent {
                 </a>
                 <a class="button-alpha message message_purple" href="cuppa-storage">
                     <h3 class="title3"><i class="fas fa-database message_icon"></i> Cuppa Storage</h3>
+                    <p>(~1.5kB gzipped)</p>
                 </a>
                 <div class="message message_purple disabled">
                     <h3 class="title3"><i class="fas fa-toolbox message_icon"></i> Cuppa Tools</h3>
