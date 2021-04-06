@@ -20,7 +20,8 @@ Online: http://cuppajs.cloudbit.co/
 # Cuppa Component ~2.5kB gzipped
 ```
 // Load or embed the cuppa.component.js library
-import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
+// Load or embed the cuppa.component.js library
+import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.64/libs/cuppa.component.js";
 
 export default class MyComponent extends CuppaComponent {
     pure = false;               // false (default), true will render one time using insertAdjacentHTML and user should update the component manually
@@ -66,6 +67,9 @@ export default class MyComponent extends CuppaComponent {
 
 // Standard way to defines a new custom element.
 customElements.define('my-component', MyComponent);
+
+// Ok, now we can add a instance of our component and see the result
+document.body.append(new MyComponent())
 ```
 # Cuppa Router ~2.5kB gzipped
 ```
