@@ -20,7 +20,7 @@ CuppaComponent.js | CuppaRouter.js | CuppaStore.js
 Online: http://cuppajs.cloudbit.co/
 
 # Cuppa Component ~2.5kB gzipped
-```
+```javascript
 // Load or embed the cuppa.component.js library
 import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.64/libs/cuppa.component.js";
 
@@ -73,7 +73,7 @@ customElements.define('my-component', MyComponent);
 document.body.append(new MyComponent())
 ```
 # Cuppa Router ~2.5kB gzipped
-```
+```javascript
 // Load or embed the cuppa.component.js library
 import { CuppaRouter } from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.router.min.js";
 
@@ -84,7 +84,7 @@ router.resolve();
 
 function  onRouterUpdated(path)  {
 	let content = document.getElementById("content");
-		content.innerHTML =  "";
+	content.innerHTML =  "";
 		
 	if(router.match(path,  "/"))  {
 		content.innerHTML = "Home Page";
