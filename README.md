@@ -20,7 +20,6 @@ Online: http://cuppajs.cloudbit.co/
 # Cuppa Component ~2.5kB gzipped
 ```
 // Load or embed the cuppa.component.js library
-// Load or embed the cuppa.component.js library
 import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.64/libs/cuppa.component.js";
 
 export default class MyComponent extends CuppaComponent {
