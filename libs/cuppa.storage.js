@@ -12,7 +12,7 @@
         return cuppa.getData(name, opts);
     }
 
-    static deleteData = function(name, opts){
+    static deleteData(name, opts){
         cuppa.deleteData(name, opts);
     };
 
@@ -20,8 +20,12 @@
         cuppa.removeListener(name, callback);
     }
 
-    static removeListener(name,callback){
+    static removeListener(name, callback){
         CuppaStorage.removeCallback(name, callback);
+    }
+
+    static removeAllCallbacks(name){
+        cuppa.removeListenerGroup(name);
     }
 }
 

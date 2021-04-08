@@ -10,7 +10,7 @@ export default class CuppaComponentDoc extends CuppaComponent {
                 <div style="grid-area:left;">
                     <div class="message message_blue">Create simple reactive component extending any class from CuppaComponent is simplle and pure vanilla javascript.</div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/vYydQeJ?&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/vYydQeJ?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
             </div>
             <hr class="separator1"/>
             <div class="grid_title_2_columns">
@@ -25,7 +25,7 @@ export default class CuppaComponentDoc extends CuppaComponent {
                         </ul>
                     </div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/XWNZOdY?&theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/XWNZOdY?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
             </div>
             <hr class="separator1"/>
             <div class="grid_title_2_columns">
@@ -41,7 +41,7 @@ export default class CuppaComponentDoc extends CuppaComponent {
                         
                     </div>
                 </div>
-                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/rNWZKxa?theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>             
+                <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/rNWZKxa?theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>             
             </div>
             <hr class="separator1"/>
             <div class="grid_title_1_column">

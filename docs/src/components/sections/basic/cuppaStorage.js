@@ -28,7 +28,8 @@ export default class CuppaStorageBase extends CuppaComponent {
             </div>
             <hr class="separator1"/>
             <div class="grid_title_1_column">
-                <h2 class="title2" style="grid-area:title;">Using with ReactJS</h2>
+                <h2 class="title2" style="grid-area:title;">Storage with ReactJS</h2>
+                <iframe style="grid-are:content" height="450" style="width: 100%;" src="https://codepen.io/tufik2/embed/abpLjOQ?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
             </div>
         `
     }
