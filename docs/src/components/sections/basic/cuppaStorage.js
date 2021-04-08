@@ -22,13 +22,14 @@ export default class CuppaStorageBase extends CuppaComponent {
 
     render(){
         return /*html*/`
-            <div class="grid_title_2_columns">
-                <h2 class="title2" style="grid-area:title;">Centralize Data</h2>
-                <div style="grid-area:left;">
-                    ${this.storeData}
-                </div>
-                <button onclick="this.updateData">UpdateData</button>
-            </div>    
+            <div class="grid_title_1_column">
+                <h2 class="title2" style="grid-area:title;">Basic Usage</h2>
+                <iframe style="grid-are:content" height="450" style="width: 100%;" src="https://codepen.io/tufik2/embed/poRWKPE?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
+            </div>
+            <hr class="separator1"/>
+            <div class="grid_title_1_column">
+                <h2 class="title2" style="grid-area:title;">Using with ReactJS</h2>
+            </div>
         `
     }
 }

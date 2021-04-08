@@ -152,7 +152,7 @@
     }
 }
 
-window.CuppaRouter = CuppaRouter;
+document.defaultView.CuppaRouter = CuppaRouter;
 
 // DEPENDENCIES
 const cache = {};

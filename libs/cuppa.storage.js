@@ -25,6 +25,8 @@
     }
 }
 
+document.defaultView.CuppaStorage = CuppaStorage;
+
 export class GetStorage extends HTMLElement{
     name;
     store;
@@ -56,6 +58,7 @@ export class GetStorage extends HTMLElement{
 }
 
 customElements.define('get-storage', GetStorage);
+document.defaultView.GetStorage = GetStorage;
 
 /*  DataCenter
     add and remove data in one place

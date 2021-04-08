@@ -3,7 +3,7 @@
  * 
  * **/
 
-export class CuppaStorage{
+ export class CuppaStorage{
     static setData(name, opts){
         cuppa.setData(name, opts);
     }
@@ -24,6 +24,8 @@ export class CuppaStorage{
         CuppaStorage.removeCallback(name, callback);
     }
 }
+
+document.defaultView.CuppaStorage = CuppaStorage;
 
 export class GetStorage extends HTMLElement{
     name;
@@ -56,6 +58,7 @@ export class GetStorage extends HTMLElement{
 }
 
 customElements.define('get-storage', GetStorage);
+document.defaultView.GetStorage = GetStorage;
 
 /*  DataCenter
     add and remove data in one place
