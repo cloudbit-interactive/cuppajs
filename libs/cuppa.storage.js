@@ -148,7 +148,7 @@ cuppa.addListener = function(name, callback){
 cuppa.removeListener = function(name, callback, toString){
     if(!cuppa.listeners[name]) cuppa.listeners[name] = [];
     let array = cuppa.listeners[name];
-    for(let i = 0 ; i < array.length; i++ ){
+    for(let i = 0; i < array.length; i++ ){
         if(toString){
             if(array[i].toString() === callback.toString()){
                 array.splice(i, 1);
