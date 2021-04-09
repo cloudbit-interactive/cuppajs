@@ -4,16 +4,16 @@
  * **/
 
  export class CuppaStorage{
-    static setData(name, opts){
-        cuppa.setData(name, opts);
+    static async setData(name, opts){
+        return await cuppa.setData(name, opts);
     }
 
-    static getData(name, opts){
-        return cuppa.getData(name, opts);
+    static async getData(name, opts){
+        return await cuppa.getData(name, opts);
     }
 
-    static deleteData(name, opts){
-        cuppa.deleteData(name, opts);
+    static async deleteData(name, opts){
+        await cuppa.deleteData(name, opts);
     };
 
     static removeCallback(name, callback){
@@ -28,6 +28,10 @@
         cuppa.removeListenerGroup(name);
     }
 }
+
+CuppaStorage.LOCAL = "LOCAL";
+CuppaStorage.SESSION = "SESSION";
+CuppaStorage.INDEXED_DB = "INDEXED_DB";
 
 document.defaultView.CuppaStorage = CuppaStorage;
 
@@ -74,7 +78,7 @@ const cuppa = document.defaultView.cuppa || {};
 cuppa.dataDefault = cuppa.dataDefault || {};
 cuppa.data = cuppa.data || {};
 
-cuppa.setData = function(name, opts){
+cuppa.setData = async function(name, opts){
     opts = {...{storage:'', silence:false, data:null}, ...opts};
     if(opts.store != undefined) opts.storage = opts.store;
 
@@ -89,26 +93,30 @@ cuppa.setData = function(name, opts){
     }
 
     cuppa.data[name] = opts.data;
-    if(opts.storage === "local"){
+    if(String(opts.storage).toUpperCase() === CuppaStorage.LOCAL){
         localStorage.setItem(name, JSON.stringify(opts.data));
-    }else if(opts.storage === "session"){
+    }else if(String(opts.storage).toUpperCase() === CuppaStorage.SESSION){
         sessionStorage.setItem(name, JSON.stringify(opts.data));
-    };
+    }else if(String(opts.storage).toUpperCase() === CuppaStorage.INDEXED_DB){
+        await CuppaStorage.db.add(name, opts.data);
+    }
 
     if(!opts.silence) cuppa.executeListener(name, opts.data);
 };
 
-cuppa.getData = function(name, opts){
+cuppa.getData = async function(name, opts){
     opts = {...{storage:'', callback:null, "default":null}, ...opts};
     if(opts.store != undefined) opts.storage = opts.store;
 
     let data = cuppa.data[name];
-    if(opts.storage === "local"){
+    if(String(opts.storage).toUpperCase() === CuppaStorage.LOCAL){
         let ls = localStorage.getItem(name);
         if(ls) data = JSON.parse(ls);
-    }else if(opts.storage === "session"){
+    }else if(String(opts.storage).toUpperCase() === CuppaStorage.SESSION){
         let st = sessionStorage.getItem(name);
         if(st) data = JSON.parse(st);
+    }else if(String(opts.storage).toUpperCase() === CuppaStorage.INDEXED_DB){
+       data = await CuppaStorage.db.get(name);
     }
 
     if(data === undefined){ data = opts["default"]; }
@@ -118,15 +126,8 @@ cuppa.getData = function(name, opts){
     return data;
 };
 
-cuppa.getDataSync = function(name, opts){
-    opts = cuppa.mergeObjects([{"default":null}, opts]);
-    let data = cuppa.data[name];
-    if(data === undefined) data = opts["default"];
-    return data;
-};
-
-cuppa.deleteData = function(name, opts){
-    opts = cuppa.mergeObjects([{storage:''}, opts]);
+cuppa.deleteData = async function(name, opts){
+    opts = {...{storage:''}, ...opts};
     if(opts.store != undefined) opts.storage = opts.store;
     cuppa.data[name] = null;
 
@@ -134,7 +135,9 @@ cuppa.deleteData = function(name, opts){
         localStorage.removeItem(name);
     }else if(opts.storage === "session"){
         sessionStorage.removeItem(name);
-    };
+    }else if(String(opts.storage).toUpperCase() === CuppaStorage.INDEXED_DB){
+        await CuppaStorage.db.delete(name);
+    }
 };
 
 // add / remove / execute global listeners
@@ -172,3 +175,90 @@ cuppa.executeListener = function(name, data){
         array[i](data);
     };
 };
+
+class CuppaStorageInnoDB{
+    config = {db:"cuppa_db", storage:"cuppa_storage", version:1, update:false};
+    db;
+
+    constructor(config){
+        this.config = {...this.config, ...config};
+        this._binAll(this);
+    }
+
+    async connect(){
+        let config = this.config;
+        let currentDB = await indexedDB.databases();
+            currentDB = currentDB.filter(db=>db.name == config.db)[0];
+            config.version = (currentDB && config.update) ? currentDB.version + 1 : (currentDB) ? currentDB.version : config.version;
+        const request = indexedDB.open(config.db, config.version);
+        request.onupgradeneeded = this.onUpdateDB;
+        return await new Promise((resolve) => {
+            request.onsuccess = (e)=>{
+                this.db = e.target.result;
+                resolve(this);
+            };
+        });
+    }
+
+    async onUpdateDB(e){
+        this.db = e.target.result;
+        let {db, config} = this;
+        if (!db.objectStoreNames.contains(config.storage)) {
+            db.createObjectStore(config.storage, {keyPath: 'name'});
+        }
+    }
+
+    async add(name, value, returnValue){
+        if(!this.db) await this.connect();
+        let {db, config} = this;
+        let transaction = db.transaction(config.storage, "readwrite");
+        let storage = transaction.objectStore(config.storage); 
+        let data = {name, value};
+        await new Promise((resolve) => {
+            let request = storage.put(data);
+                request.onsuccess = ()=>{
+                    resolve(request.result);
+                };
+                request.onerror = (err)=>{
+                    resolve(null, err.target.error);
+                };
+        });
+        return await this.get(name, returnValue);
+    }
+    
+    async get(name, returnValue){
+        if(returnValue == undefined) returnValue = true;
+        if(!this.db) await this.connect();
+        let {db, config} = this;
+        let transaction = db.transaction(config.storage, "readwrite");
+        let storage = transaction.objectStore(config.storage); 
+        let result = await new Promise((resolve) => {
+            let request = storage.get(name);
+            request.onsuccess = ()=>{ 
+                resolve(returnValue && request.result ? request.result.value : request.result);
+            };
+            request.onerror = (err)=>{ resolve(null) };
+        });
+        return result;
+    }
+
+    async delete(name){
+        if(!this.db) await this.connect();
+        let {db, config} = this;
+        let transaction = db.transaction(config.storage, "readwrite");
+        let storage = transaction.objectStore(config.storage); 
+        storage.delete(name);
+    }
+
+    _binAll(element, isFunction){
+        let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+        if(isFunction)  propertyNames = Object.keys(element);
+        for(let i = 0; i < propertyNames.length; i++){
+            if(typeof element[propertyNames[i]] == "function"){
+                element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+            };
+        };
+    };
+}
+
+CuppaStorage.db = new CuppaStorageInnoDB();
