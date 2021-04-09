@@ -33,7 +33,7 @@ export default class Welcome extends CuppaComponent {
                 <a class="button-alpha message message_purple" href="cuppa-storage">
                     <h3 class="title3"><i class="fas fa-database message_icon"></i> Cuppa Storage</h3>
                     <p>Centralize data and automatique update all listeners when data change.</p>
-                    <p>Make data persistence using localStorage or sessionStorage.</p>
+                    <p>Make data persistence using localStorage, sessionStorage or InexedDB.</p>
                     <p>Small size (~1.5kB gzipped).</p>
                 </a>
                 <div class="message message_purple disabled">
