@@ -34,7 +34,7 @@ export default class Welcome extends CuppaComponent {
                     <h3 class="title3"><i class="fas fa-database message_icon"></i> Cuppa Storage</h3>
                     <p>Centralize data and automatique update all listeners when data change.</p>
                     <p>Make data persistence using localStorage, sessionStorage or InexedDB.</p>
-                    <p>Small size (~1.5kB gzipped).</p>
+                    <p>Small size (~2kB gzipped).</p>
                 </a>
                 <div class="message message_purple disabled">
                     <h3 class="title3"><i class="fas fa-toolbox message_icon"></i> Cuppa Tools</h3>
