@@ -12,6 +12,7 @@ const titlesMap = {
     "/":"CuppaJS Doc.",
     "cuppa-component":"Cuppa Component",
     "cuppa-router":"Cuppa Router",
+    "cuppa-storage":"Cuppa Storage",
     "performance":"Performance",
 }
 
