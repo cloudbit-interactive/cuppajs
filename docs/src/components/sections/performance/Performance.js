@@ -72,7 +72,7 @@ export default class Performance extends CuppaComponent {
                         <option value="middle" ${(this.state.position == "middle") ? "selected='1'" : ""}>Middle</option>
                     </select>
                 </div>
-                <div style="margin:10px 0">
+                <div style="margin:10px 0;">
                     <button onclick="this.onAdd">Add</button>
                     <button onclick="this.onRemoveAll">Remove All</button>
                     <button onclick="this.onRenameAll">Rename All</button>

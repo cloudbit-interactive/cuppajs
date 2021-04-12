@@ -12,7 +12,7 @@ export default class Welcome extends CuppaComponent {
 
     render(){
         return /*html*/`
-            <div class="message ">
+            <div class="message">
                 <h2 class="title2">CuppaJS</h2>
                 <p>A set of libraries to create any kind of javascript projects but regardless to other libraries, it is focus in vanilla javascript giving standard tools to built code and reuse it anywere, not matter the toolset (reactj, angular, vue, svelte).</p>
                 <p>There are thons of good frameworks and libraries implementations out there to create amazing projects and one of the biggest problems is found solid mature standard resources that works with alls of them, for example: if you are using Angular the way to go is found an Angular Component that solve your needed, but if you need switch or create a new project using other technology base "React", needs to found an alternative that supply your needs in that specific framework.</p>
@@ -36,9 +36,6 @@ export default class Welcome extends CuppaComponent {
                     <p>Make data persistence using localStorage, sessionStorage or InexedDB.</p>
                     <p>Small size (~2kB gzipped).</p>
                 </a>
-                <div class="message message_purple disabled">
-                    <h3 class="title3"><i class="fas fa-toolbox message_icon"></i> Cuppa Tools</h3>
-                </div>
             </div>
             `
     }

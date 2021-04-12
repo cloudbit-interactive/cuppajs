@@ -31,10 +31,11 @@ a{ color:#FFF; }
 .code{ width:100%; padding:1rem; resize:none; height:9rem; background:#1d1e22; color:#FFF; border:none; border-radius: 5px; }
 .button1{ transition: 0.3s; display:flex; justify-content: center; align-items: center; cursor: pointer; font-size: 1.8rem; color:var(--color-purple1); background: var(--color-white1); border:0; height: 4.3rem; min-width: 4.3rem; border-radius: 0.3rem; }
 .button1:hover{ background: var(--color-gray2); }
+button{ border: none; background: #268bce; color:#FFF; padding:0.7rem 1rem; text-transform: uppercase; margin:0 0.2rem; border-radius: 0.3rem; }
 
 .main-section{ display:block; padding:2rem; padding-left:calc(var(--nav-main-width) + 2rem); }
 bar-top{ transition: 0.2s; padding:0 0.2rem; position:fixed; display: none; justify-content: space-between; align-items: center; left:0; top:0; right:0; height:4.3rem; background: var(--color-white1); box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }
-navbar-comp{ transition: 0.2s; width: var(--nav-main-width); position: fixed;  top:0; left:0; bottom:0; background: var(--color-purple1); color:var(--color-white1); padding:2rem; font-size: 1.6rem; box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }
+navbar-comp{ transition: 0.2s; width: var(--nav-main-width); position: fixed;  top:0; left:0; bottom:0; background: var(--color-purple1); color:var(--color-white1); padding:2rem; font-size: 1.6rem; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
 .open-menu navbar-comp{ left:0; }
 .open-menu bar-top{ top:-4.3rem; }
 
@@ -47,7 +48,7 @@ navbar-comp{ transition: 0.2s; width: var(--nav-main-width); position: fixed;  t
 .menu-item.selected .menu-item-underline{ width:100%; }
 .menu-item-clear{ color:#FFF; text-decoration: none; }
 
-.message{ padding:2rem; background:#EEE; border-radius: 5px; }
+.message{ padding:2rem; background:#EEE; border-radius: 5px; box-shadow: 0 0.2rem 0.6rem rgba(0,0,0,0.2); border:4px solid #FFF; }
 .message_icon{ margin:0 10px 0 0; }
 .message_red{ background: var(--color-red1); color:var(--color-white1); }
 .message_blue{ background: var(--color-blue1); color:var(--color-white1); }
