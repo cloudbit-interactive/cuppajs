@@ -3,6 +3,7 @@ export class CuppaComponent extends HTMLElement{cuppa=null;pure=!1;shadow=!1;sta
 export default class CuppaSwitch extends CuppaComponent {
     name = false;
     checked = false;
+    callback = null;
 
     constructor(name, checked = false){
         super();
@@ -23,6 +24,7 @@ export default class CuppaSwitch extends CuppaComponent {
         this.checked = e.currentTarget.checked;
         this.setAttribute("checked", this.checked);
         this.dispatchEvent(new Event('change'));
+        if(this.callback) this.callback(this);
     }
 
     render(){
