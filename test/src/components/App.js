@@ -1,15 +1,13 @@
 import {CuppaComponent} from "../../../libs/cuppa.component.js";
 import {CuppaTab, CuppaTabs} from "../../../libs/components/cuppa.tabs.js"
+import CuppaCountDown from "../../../libs/components/cuppa.countdown.js";
 
 export default class App extends CuppaComponent {
 
     render(){
 
         return /*html*/`
-            <cuppa-tabs selected="tab1">
-                <cuppa-tab value='tab1'>Tab1</cuppa-tab>
-                <cuppa-tab value='tab2'>Tab2</cuppa-tab>
-            </cuppa-tabs>
+            <cuppa-countdown time="2021-06-01 23:20:30" ></cuppa-countdown>
         `
     }
 }
