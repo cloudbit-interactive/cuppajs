@@ -4,10 +4,12 @@ export default class CuppaCountDown extends CuppaComponent {
     countDown;
     time;                           // 2099:01:01 18:30:40, 18:30:40
     type = 'default';               //  default, inline
+    callback;
     ["show-days"] = true;
     ["show-hours"] = true;
     ["show-minutes"] = true;
     ["show-seconds"] = true;
+    ["auto-remove"] = false;
 
     constructor(){ super(); }
 
@@ -15,7 +17,7 @@ export default class CuppaCountDown extends CuppaComponent {
         this.updateCountdown();
     }
 
-    static get observedAttributes() { return ['time', 'show-days', 'show-hours', 'show-minutes', 'show-seconds', 'type'] }
+    static get observedAttributes() { return ['time', 'show-days', 'show-hours', 'show-minutes', 'show-seconds', 'type', 'auto-remove'] }
     attributeChangedCallback(attr, oldVal, newVal) {
         this[attr] = newVal;
         if(attr == "time"){ this.updateCountdown(); }
@@ -28,7 +30,13 @@ export default class CuppaCountDown extends CuppaComponent {
         this.countDown = new countdown(date, ()=>{
             if(!this.countDown) return;
             this.forceRender();
-        });
+            this.dispatchEvent(new Event('onupdate'));
+        }, this.onComplete);
+    }
+
+    onComplete(){
+        this.dispatchEvent(new Event('oncomplete'));
+        if(this.callback) this.callback(this);
     }
 
     disconnected() {
@@ -36,85 +44,84 @@ export default class CuppaCountDown extends CuppaComponent {
     }
 
     render(){
-        console.log(this.type)
         return /*html*/`
             <style>
                 cuppa-countdown{ display: inline-flex; }
                 cuppa-countdown, cuppa-countdown *{ box-sizing: border-box; }
-                cuppa-countdown .countDownBox{ position:relative; margin:0 10px 0 0; border-radius: 5px; background: #29303D;  box-shadow: 0 3px 6px rgba(0,0,0,0.2); display: inline-flex; width: 46px; height: 46px; justify-content: center; align-items: center; }
-                cuppa-countdown .countDownBox:last-of-type{ margin:0; }
-                cuppa-countdown .overline{ display: block; width: 100%; position: absolute; height: 1px; background:#29303D; top:calc(50% - 1px); }
+                cuppa-countdown .box{ position:relative; margin:0 10px 0 0; border-radius: 5px; background: #29303D;  box-shadow: 0 3px 6px rgba(0,0,0,0.2); display: inline-flex; width: 46px; height: 46px; justify-content: center; align-items: center; }
+                cuppa-countdown .box:last-of-type{ margin:0; }
+                cuppa-countdown .overline{ display: block; width: 100%; position: absolute; height: 1px; background:#29303D; top:50%; }
                 cuppa-countdown .number{ color:#FFF; font-size: 31px; }
                 cuppa-countdown .text{ top:calc(100% + 5px); font-size: 11px; position: absolute; display: block; color:#444; font-weight: 700; }
 
-                cuppa-countdown .inline{ display:inline-flex; align-items:baseline; margin:0 15px 0 0; }
-                cuppa-countdown .inline:last-of-type{ margin:0;}
+                cuppa-countdown .inline-box{ display:inline-flex; align-items:baseline; margin:0 15px 0 0; }
+                cuppa-countdown .inline-box:last-of-type{ margin:0;}
                 cuppa-countdown .inline-number{ font-size: 40px;}
                 cuppa-countdown .inline-text{ font-size:18px; }
             </style>
-            
-            ${ this.type == 'inline' ? /*html*/`
-                ${ !this["show-days"] ? '' : /*html*/`
-                    <div class="inline">
-                        <span class="inline-number">${( this.countDown ? this.countDown.days : 0 )}</span>
-                        <span class="inline-text">d</span>
-                    </div>
+            <div class="${this.type}">
+                ${ this.type == 'inline' ? /*html*/`
+                    ${ !boolean(this["show-days"]) || (boolean(this["auto-remove"]) && !val(this.countDown, 'days')) ? '' : /*html*/`
+                        <div class="inline-box days">
+                            <span class="inline-number">${( this.countDown ? this.countDown.days : 0 )}</span>
+                            <span class="inline-text">d</span>
+                        </div>
+                    `}
+    
+                    ${ !boolean(this["show-hours"]) || (boolean(this["auto-remove"]) && !val(this.countDown, 'hours') && !val(this.countDown, 'days')) ? '' : /*html*/`
+                        <div class="inline-box hours">
+                            <span class="inline-number">${( this.countDown ? this.countDown.hours : 0 )}</span>
+                            <span class="inline-text">h</span>
+                        </div>
+                    `}
+    
+                    ${ !boolean(this["show-minutes"]) || (boolean(this["auto-remove"]) && !val(this.countDown, 'minutes') && !val(this.countDown, 'hours') && !val(this.countDown, 'days')) ? '' : /*html*/`
+                        <div class="inline-box minutes">
+                            <span class="inline-number">${( this.countDown ? this.countDown.minutes : 0 )}</span>
+                            <span class="inline-text">m</span>
+                        </div>
+                    `}
+    
+                    ${ !boolean(this["show-seconds"]) || (boolean(this["auto-remove"]) && !val(this.countDown, 'seconds') &&  !val(this.countDown, 'minutes') && !val(this.countDown, 'hours') && !val(this.countDown, 'days')) ? '' : /*html*/`
+                        <div class="inline-box seconds">
+                            <span class="inline-number">${( this.countDown ? this.countDown.seconds : 0 )}</span>
+                            <span class="inline-text">s</span>
+                        </div>
+                    `}
+                ` : /*html*/`
+                    ${ !boolean(this["show-days"]) || (boolean(this["auto-remove"]) && !val(this.countDown, 'days')) ? '' : /*html*/`
+                        <div class="box days" >
+                            <span class="number">${left0( this.countDown ? this.countDown.days : 0 )}</span>
+                            <div class="overline"></div>
+                            <span class="text">Days</span>
+                        </div>
+                    ` }
+                    
+                    ${ !boolean(this["show-hours"]) || (boolean(this["auto-remove"]) && !val(this.countDown, 'hours') && !val(this.countDown, 'days')) ? '' : /*html*/`
+                        <div class="box hours" >
+                            <span class="number">${left0( this.countDown ? this.countDown.hours : 0 )}</span>
+                            <div class="overline"></div>
+                            <span class="text">Hours</span>
+                        </div>
+                    `}
+    
+                    ${ !boolean(this["show-minutes"]) || (boolean(this["auto-remove"]) && !val(this.countDown, 'minutes') && !val(this.countDown, 'hours') && !val(this.countDown, 'days')) ? '' : /*html*/`
+                        <div class="box minutes" >
+                            <span class="number">${left0( this.countDown ? this.countDown.minutes :  0 )}</span>
+                            <div class="overline"></div>
+                            <span class="text">Minutes</span>
+                        </div>
+                    `}
+    
+                    ${ !boolean(this["show-seconds"]) || (boolean(this["auto-remove"]) && !val(this.countDown, 'seconds') &&  !val(this.countDown, 'minutes') && !val(this.countDown, 'hours') && !val(this.countDown, 'days')) ? '' : /*html*/`
+                        <div class="box seconds" >
+                            <span class="number">${left0( this.countDown ? this.countDown.seconds :  0 )}</span>
+                            <div class="overline"></div>
+                            <span class="text">Seconds</span>
+                        </div>
+                    `}
                 `}
-
-                ${ !this["show-hours"] ? '' : /*html*/`
-                    <div class="inline">
-                        <span class="inline-number">${( this.countDown ? this.countDown.hours : 0 )}</span>
-                        <span class="inline-text">h</span>
-                    </div>
-                `}
-
-                ${ !this["show-minutes"] ? '' : /*html*/`
-                    <div class="inline">
-                        <span class="inline-number">${( this.countDown ? this.countDown.minutes : 0 )}</span>
-                        <span class="inline-text">m</span>
-                    </div>
-                `}
-
-                ${ !this["show-seconds"] ? '' : /*html*/`
-                    <div class="inline">
-                        <span class="inline-number">${( this.countDown ? this.countDown.seconds : 0 )}</span>
-                        <span class="inline-text">s</span>
-                    </div>
-                `}
-            ` : /*html*/`
-                ${ !this["show-days"] ? '' : /*html*/`
-                    <div class="countDownBox days" >
-                        <span class="number">${left0( this.countDown ? this.countDown.days : 0 )}</span>
-                        <div class="overline"></div>
-                        <span class="text">Days</span>
-                    </div>
-                ` }
-                
-                ${ !this["show-hours"] ? '' : /*html*/`
-                    <div class="countDownBox hours" >
-                        <span class="number">${left0( this.countDown ? this.countDown.hours : 0 )}</span>
-                        <div class="overline"></div>
-                        <span class="text">Hours</span>
-                    </div>
-                `}
-
-                ${ !this["show-minutes"] ? '' : /*html*/`
-                    <div class="countDownBox minutes" >
-                        <span class="number">${left0( this.countDown ? this.countDown.minutes :  0 )}</span>
-                        <div class="overline"></div>
-                        <span class="text">Minutes</span>
-                    </div>
-                `}
-
-                ${ !this["show-seconds"] ? '' : /*html*/`
-                    <div class="countDownBox seconds" >
-                        <span class="number">${left0( this.countDown ? this.countDown.seconds :  0 )}</span>
-                        <div class="overline"></div>
-                        <span class="text">Seconds</span>
-                    </div>
-                `}
-            `}
-
+            </div>
             
         `
     }
@@ -194,3 +201,28 @@ let timeToDate = function(value){
         date.setSeconds(seconds);
     return date;
 }
+
+let boolean = function(value){
+    let result = value;
+    if(result === "false" || result === false || result === 0 || result === "0" || result === undefined || result === null || result === "") result = false;
+    else result = true;
+    return result;
+}
+
+let val = function(data, path, defaultValue){
+    if(!data) return defaultValue;
+    if(data && !path) return data;
+    path = trim(path).split(".");
+    let element = data;
+    for(let i = 0; i < path.length; i++){
+        try{ element = element[path[i]]; }catch(err){ element = ""; break; }
+    }
+    if(element){ let tmp = JSON.stringify(element); if(tmp == "{}" || tmp == "[]" || tmp == undefined || tmp == null) element = ""; }
+    if((element === "" || element === null || element === undefined) && defaultValue != undefined) element = defaultValue;
+    return element;
+};
+
+let trim = function(string){
+    if(string) return string.replace(/^\s+|\s+$/g, '');
+    else return "";
+};
