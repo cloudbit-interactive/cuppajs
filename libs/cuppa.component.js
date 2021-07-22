@@ -276,6 +276,16 @@ export class CuppaComponent extends HTMLElement {
         };
     };
 
+    bind(element){
+        let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+        for(let i = 0; i < propertyNames.length; i++){
+            if(typeof element[propertyNames[i]] == "function"){
+                if(this[propertyNames[i]]) continue;
+                this[propertyNames[i]] = element[propertyNames[i]].bind(element);
+            };
+        };
+    }
+
     autoSetObservables(){
         let baseParamsMap = {}; 
         Object.keys(this).map(key=>baseParamsMap[key] = 1);
