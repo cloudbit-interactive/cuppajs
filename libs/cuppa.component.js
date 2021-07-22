@@ -29,6 +29,7 @@ export class CuppaComponent extends HTMLElement {
     autoDefineObservables = true;
     _getStorageDictionary = {};
     _parser = new DOMParser();
+    renderedCount = 0;
 
     constructor() {
         super();
@@ -72,6 +73,7 @@ export class CuppaComponent extends HTMLElement {
 
     forceRender(callback) {
         if(this.pure){
+            if(this.renderedCount) return;
             if(this.shadow){
                 this.shadowRoot.innerHTML = "shadow not supported in pure component";
             }else{
@@ -98,6 +100,7 @@ export class CuppaComponent extends HTMLElement {
         this.processRefs(this, this.refs, "ref");
         if(callback) callback();
         if(this.rendered) this.rendered(this);
+        this.renderedCount++;
     }
 
     draw(newNode, newNodeIndex, newNodeParent, realParentNode){
