@@ -44,8 +44,8 @@ export default class NavBar extends CuppaComponent {
                     <a class="menu-item-link" href="performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
                     <div class="menu-item-underline"></div>
                 </li>
-                <li class="menu-item disabled ${ this.path == "shopping-list" ? "selected" : "" }" >
-                    <a class="menu-item-link no-router" href="shopping-list" ><i class="fab fa-medapps"></i> Shipping List</a>
+                <li class="menu-item ${ this.path == "shopping-list" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="shopping-list" target="_blank" ><i class="fab fa-medapps"></i> Shipping List</a>
                     <div class="menu-item-underline"></div>
                 </li>
             </ul>

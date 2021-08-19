@@ -2,12 +2,15 @@ import {CuppaComponent} from "../../../libs/cuppa.component.js";
 import CuppaNotification from "../../../libs/components/cuppa.notification.js";
 import CuppaCollapsible from "../../../libs/components/cuppa.collapsible.js";
 import {cuppa} from "../../../libs/cuppa.js";
+import IncreaseDecreaseNumber from "./IncreaseDecreaseNumber.js";
+import { CuppaTabs, CuppaTab } from "../../../libs/components/cuppa.tabs.js";
 
 export default class App extends CuppaComponent {
+    form = this.observable("form", {tab:"tab2"});
 
     onclickButton(e){
         e.preventDefault(); e.stopPropagation();
-        console.log("----", e.currentTarget)
+        console.log("onclickButton", e.currentTarget)
     }
 
     connected(){
@@ -25,8 +28,14 @@ export default class App extends CuppaComponent {
     }
 
     render(){
+        console.log(this.form)
         return /*html*/`
-           
+            <increase-decrease-number></increase-decrease-number>
+            <cuppa-tabs selected="${this.form.tab}" onchange="(e)=>{ this.form.tab = e.target.selected; this.forceRender(); }">
+                <cuppa-tab value="tab1">Tab1</cuppa-tab>
+                <cuppa-tab value="tab2">Tab2</cuppa-tab>
+            </cuppa-tabs>
+            <button onclick="()=>{ this.form.tab = 'tab1'; this.forceRender(); }">Reset Cuppa Tabs</button>
         `
     }
 }
