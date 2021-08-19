@@ -101,7 +101,8 @@
         this.callbackSet.forEach((func)=>{ func(this.getPath()) });
     }
 
-    match(path, route, exact = true, strict = false){
+    match(route, path, exact = true, strict = false){
+        if(path == undefined) path = this.getPath();
         if(route == "*"){
             return {path};
         }else{
