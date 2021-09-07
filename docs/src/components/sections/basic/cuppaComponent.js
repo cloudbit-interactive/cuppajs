@@ -46,7 +46,7 @@ export default class CuppaComponentDoc extends CuppaComponent {
             <hr class="separator1"/>
             <div class="grid_title_1_column">
                 <h2 class="title2" style="grid-area:title;">Component Structure</h2>
-                <iframe style="grid-are:content" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/VwmOwGj?theme-id=dark&default-tab=js" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>  
+                <iframe style="grid-are:content" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/VwmOwGj?theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>  
             </div>
         `;
     }
