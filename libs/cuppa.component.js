@@ -85,7 +85,7 @@ export class CuppaComponent extends HTMLElement {
             let html = this.render();
                 if(this.autoAddChildren && this.childrenList) html += this.childrenList;
                 html = html.trim();
-                html = html.replace(/\s+/gi, " ");
+                html = html.replace(/>\s+|\s+</g, function(m) { return m.trim(); });
                 html = html.replace(/<!--(.*?)-->/g, "");
                 html = html.replace(new RegExp("> <", 'g'), "><");
             let headNodes = this._parser.parseFromString(html, "text/html").head.childNodes;

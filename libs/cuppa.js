@@ -1542,8 +1542,9 @@ var Base64 = {
         return string;
     }
     
-    cuppa.htmlEntitiesEncode = function(string) {
+    cuppa.htmlEntitiesEncode = function(string, encodeSpaces = false, trim = false) {
         let entityMap = cuppa.htmlEntitiesMap;
+        if(encodeSpaces === false) delete entityMap[" "];
         string = string.replace(/&/g, '&amp;');
         string = string.replace(/"/g, '&quot;');
         for (let key in entityMap) {
@@ -1551,6 +1552,7 @@ var Base64 = {
             let regex = new RegExp(key, 'g');
             string = string.replace(regex, entity);
         }
+        if(trim) string = cuppa.trim(string);
         return string;
     }
  // global
