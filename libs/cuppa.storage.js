@@ -46,6 +46,25 @@ export class CuppaStorage{
         return data;
     }
 
+    static getDataSync({name = 'default', callback = null, store = '', defaultValue = null,}){
+        let data;
+        if(String(store).toUpperCase() === CuppaStorage.LOCAL){
+            let ls = localStorage.getItem(name);
+            if(ls) data = JSON.parse(ls);
+        }else if(String(store).toUpperCase() === CuppaStorage.SESSION){
+            let st = sessionStorage.getItem(name);
+            if(st) data = JSON.parse(st);
+        }else{
+            data = CuppaStorage.data[name];
+        }
+
+        if(data === undefined){ data = defaultValue; }
+
+        if(data != undefined && callback){ callback(data); };
+        if(callback){ CuppaStorage.addCallback({name, callback}); };
+        return data;
+    }
+
     static removeCallback({name, callback, toString = false}){
         if(!CuppaStorage.callbacks[name]) return;
         let array = CuppaStorage.callbacks[name];
