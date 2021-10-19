@@ -99,6 +99,10 @@ if(!document.defaultView.CuppaStorage){
     document.defaultView.CuppaStorage = CuppaStorage;
 };
 
+/*
+    const storage = {name:"STORAGE_TODO", store:CuppaStorage.INDEXED_DB};
+    <get-storage name="${storage.name}"  store="${storage.store}" onupdate="this.onUpdate"></get-storage>
+*/
 export class GetStorage extends HTMLElement{
     name;
     store;
