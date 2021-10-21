@@ -149,9 +149,13 @@ class CuppaStorageInnoDB{
 
     async connect(){
         let config = this.config;
-        let currentDB = await indexedDB.databases();
-            currentDB = currentDB.filter(db=>db.name == config.db)[0];
-            config.version = (currentDB && config.update) ? currentDB.version + 1 : (currentDB) ? currentDB.version : config.version;
+        if(indexedDB.databases){
+            let currentDB = await indexedDB.databases();
+                currentDB = currentDB.filter(db=>db.name == config.db)[0];
+                config.version = (currentDB && config.update) ? currentDB.version + 1 : (currentDB) ? currentDB.version : config.version;
+        }else{
+            config.version = config.version;
+        }
         const request = indexedDB.open(config.db, config.version);
         request.onupgradeneeded = this.onUpdateDB;
         return await new Promise((resolve) => {
