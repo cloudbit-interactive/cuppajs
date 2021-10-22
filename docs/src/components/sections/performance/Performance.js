@@ -1,58 +1,58 @@
 import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js";
 
 export default class Performance extends CuppaComponent {
-    state = {list:[], q:1000, position:"start"};
+    quantity = 1000;
+    position = "start";
+    positions = ["start", "end", "middle"];
+    list = this.observable("list", []);
 
     constructor(){
         super();
     }
 
     onAdd(e){
-        this.startTime = new Date();
-        
-        let list = [...this.state.list];
-
+        let list = [...this.list];
         let newValues = [];
-        for(let i = 0; i < this.state.q; i++){
+        for(let i = 0; i < this.quantity; i++){
             newValues.push(`Task ${Math.random()}`);
         }
 
-        if(this.state.position == "end"){
+        if(this.position == "end"){
             list = [...list, ...newValues];
-        }else if(this.state.position == "start"){
+        }else if(this.position == "start"){
             list = [...newValues, ...list];
-        }else if(this.state.position == "middle"){
+        }else if(this.position == "middle"){
             let index = Math.floor(list.length/2);
             list.splice(index, 0, ...newValues);
         }
-
-        this.setState({list});
+        
+        this.list = list;
     }
 
     onRemove(e){
         let index = e.target.getAttribute("data-index");
-        let list = [...this.state.list];
+        let list = [...this.list];
             list.splice(index, 1);
-        this.setState({list});
+        this.list = list;
     }
 
     onRemoveAll(e){
-        this.setState({list:[]})
+        this.list = [];
     }
 
     onRename(e){
         let index = e.target.getAttribute("data-index");
-        let list = [...this.state.list];
+        let list = [...this.list];
             list[index] = "Task Renamed " + Math.random();
-        this.setState({list});
+        this.list = list;
     }
     
     onRenameAll(e){
-        let list = [...this.state.list];
+        let list = [...this.list];
         for(let i = 0; i < list.length; i++){
             list[i] = `Task ${Math.random()}`;
         }
-        this.setState({list});
+        this.list = list;
     }
 
     render(){
@@ -62,14 +62,11 @@ export default class Performance extends CuppaComponent {
                 <button onclick="()=>this.forceRender()">Force Update</button>
                 <h3>Add new values</h3>
                 <div>
-                    <!-- comment 1 -->
                     <label for="quantity">Quantity: </label>
-                    <input value="${this.state.q}" name="quantity" onchange="${e=>this.setState({q:e.target.value})}" />
+                    <input value="${this.quantity}" name="quantity" onchange="${e=>this.quantity= parseInt(e.target.value) || 1}" />
                     <label for="position" style="margin:0 0 0 10px">Position: </label>
-                    <select ref="txtPosition" name="position" style="margin:0 0 0 10px" onchange="${e=>this.setState({position:e.target.value})}">
-                        <option value="end" ${(this.state.position == "end") ? "selected='1'" : ""} >End</option>
-                        <option value="start" ${(this.state.position == "start") ? "selected='1'" : ""} >Start</option>
-                        <option value="middle" ${(this.state.position == "middle") ? "selected='1'" : ""}>Middle</option>
+                    <select ref="txtPosition" name="position" style="margin:0 0 0 10px" onchange="${e=>this.position=e.target.value}">
+                        ${this.positions.map(p=>`<option value="${p}" ${p==this.position ? "selected='1'" : ""}>${p}</option>`)}
                     </select>
                 </div>
                 <div style="margin:10px 0;">
@@ -77,10 +74,9 @@ export default class Performance extends CuppaComponent {
                     <button onclick="this.onRemoveAll">Remove All</button>
                     <button onclick="this.onRenameAll">Rename All</button>
                 </div>
-                <h1>Total: ${this.state.list.length}</h1>
-                <!-- comment 2 -->
+                <h1>Total: ${this.list.length}</h1>
                 <ul>
-                    ${ this.state.list.map((item, index)=>{
+                    ${ this.list.map((item, index)=>{
                         return /*html*/`
                             <li key="${item}">
                                 ${item}
