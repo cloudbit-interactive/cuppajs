@@ -16,10 +16,11 @@ const titlesMap = {
     "performance":"Performance",
 }
 
-export const router = new CuppaRouter({root:(document.location.hostname == "localhost" || document.location.hostname.indexOf("127.0.0.1") != -1) ? "docs/" : "", hash:"#/", titlesMap});
+
+export const router = new CuppaRouter({root:(document.location.hostname.indexOf("127.0.0.1") != -1) ? "docs/" : "", hash:"#/", titlesMap});
 
 export default class App extends CuppaComponent {
-    path;
+    path = this.observable("path");
 
     constructor(){
         super();

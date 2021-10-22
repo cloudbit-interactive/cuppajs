@@ -7,8 +7,8 @@
         shadow = false;                 // false, true
         refs = {};
         updatedCallback = null;
-        autoDefineObservables = true    // true, false 'will avoid auto create set / get for class declaration variables'
-        autoAddChilds = true;
+        autoDefineObservables = false    // false, true 'will avoid auto create set / get for class declaration variables'
+        autoAddChildren = false;
         [Others]
         state = {};                     // also is possible work with state object and use this.setState({}) to update the object
 
@@ -25,10 +25,11 @@ export class CuppaComponent extends HTMLElement {
     state = {};
     refs = {};
     updatedCallback = null;
-    autoAddChilds = true;
-    autoDefineObservables = true;
+    autoAddChildren = false;
+    autoDefineObservables = false;
     _getStorageDictionary = {};
     _parser = new DOMParser();
+    renderedCount = 0;
 
     constructor() {
         super();
@@ -59,6 +60,7 @@ export class CuppaComponent extends HTMLElement {
             if(this.shadow) this.attachShadow({mode: this.shadow});
             this.forceRender();
             if(this.connected) this.connected(this);
+            if(this.mounted) this.mounted(this);
         }, 0);
     }
 
@@ -72,6 +74,7 @@ export class CuppaComponent extends HTMLElement {
 
     forceRender(callback) {
         if(this.pure){
+            if(this.renderedCount) return;
             if(this.shadow){
                 this.shadowRoot.innerHTML = "shadow not supported in pure component";
             }else{
@@ -80,7 +83,7 @@ export class CuppaComponent extends HTMLElement {
             }
         }else{
             let html = this.render();
-                if(this.autoAddChilds && this.childs) html += this.childs;
+                if(this.autoAddChildren && this.childrenList) html += this.childrenList;
                 html = html.trim();
                 html = html.replace(/>\s+|\s+</g, function(m) { return m.trim(); });
                 html = html.replace(/<!--(.*?)-->/g, "");
@@ -98,6 +101,7 @@ export class CuppaComponent extends HTMLElement {
         this.processRefs(this, this.refs, "ref");
         if(callback) callback();
         if(this.rendered) this.rendered(this);
+        this.renderedCount++;
     }
 
     draw(newNode, newNodeIndex, newNodeParent, realParentNode){
@@ -144,7 +148,7 @@ export class CuppaComponent extends HTMLElement {
         // apply attribute changes to node
         this.setAttributes(realNode, newNode);
 
-        // render childs
+        // render children
         if(newNode && isComponent){ return; }
 
         let i = 0; let length = (newNode) ? newNode.childNodes.length : 0;
@@ -163,7 +167,7 @@ export class CuppaComponent extends HTMLElement {
 
     createRealNode(newNode, isComponent){
         let realNode = document.createElement(newNode.nodeName);
-        if(isComponent){ realNode.childs = newNode.innerHTML; }
+        if(isComponent){ realNode.childrenList = newNode.innerHTML; }
         return realNode;
     }
 
@@ -248,6 +252,7 @@ export class CuppaComponent extends HTMLElement {
     disconnectedCallback() {
         if(this.destroy) this.destroy();
         if(this.disconnected) this.disconnected(this);
+        if(this.unmounted) this.unmounted(this);
     }
 
     processRefs(html, addTo, tagAttr){
@@ -273,6 +278,16 @@ export class CuppaComponent extends HTMLElement {
         };
     };
 
+    bind(element){
+        let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+        for(let i = 0; i < propertyNames.length; i++){
+            if(typeof element[propertyNames[i]] == "function"){
+                if(this[propertyNames[i]]) continue;
+                this[propertyNames[i]] = element[propertyNames[i]].bind(element);
+            };
+        };
+    }
+
     autoSetObservables(){
         let baseParamsMap = {}; 
         Object.keys(this).map(key=>baseParamsMap[key] = 1);
@@ -288,6 +303,13 @@ export class CuppaComponent extends HTMLElement {
     observables(object, callback) {
         let target = this;
         if(!object) return;
+        if(Array.isArray(object)){
+            object.forEach(varName => {
+                this.observable(varName, this[varName]);
+            });
+            return;
+        }
+        
         let firstName;
         Object.keys(object).map((name, index)=>{
             if(!index) firstName = name;
@@ -305,5 +327,13 @@ export class CuppaComponent extends HTMLElement {
             });
         })
         return target[firstName];
+    }
+
+    observable(varName, defaultValue){
+        setTimeout(()=>{
+            if(!defaultValue) defaultValue = this[varName];
+            this.observables( {[varName]:defaultValue} );
+        }, 0)
+        return defaultValue;
     }
 };

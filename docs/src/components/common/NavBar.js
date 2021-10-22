@@ -3,7 +3,7 @@ import { Utils } from "../../controlers/Utils.js";
 import { router } from "../App.js";
 
 export default class NavBar extends CuppaComponent {
-    path; 
+    path = this.observable("path"); 
     
     connected() {
         router.updateLinks();
