@@ -72,6 +72,13 @@ export class CuppaComponent extends HTMLElement {
         }
     }
 
+    setVariables(args){
+        Object.entries(args).map(([name, value])=>{
+            this[`_${name}`] = value;
+        });
+        this.forceRender();
+    }
+
     forceRender(callback) {
         if(this.pure){
             if(this.renderedCount) return;
