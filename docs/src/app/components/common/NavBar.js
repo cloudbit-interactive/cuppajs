@@ -1,14 +1,14 @@
-import {CuppaComponent} from "../../../libs/cuppa/cuppa.component.js";
+import {CuppaComponent} from "../../../cuppa/cuppa.component.js";
+import { Globals } from "../../controlers/Globals.js";
 import { Utils } from "../../controlers/Utils.js";
-import { router } from "../App.js";
 
-export default class NavBar extends CuppaComponent {
+export class NavBar extends CuppaComponent {
     path = this.observable("path"); 
     
-    connected() {
-        router.updateLinks();
-        router.addListener( this.onRouter );
-        router.resolve();
+    mounted() {
+        Globals.router.updateLinks();
+        Globals.router.addListener( this.onRouter );
+        Globals.router.resolve();
     }
 
     onRouter(path){

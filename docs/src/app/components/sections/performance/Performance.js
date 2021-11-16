@@ -1,6 +1,6 @@
-import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js";
+import {CuppaComponent} from "../../../../cuppa/cuppa.component.js";
 
-export default class Performance extends CuppaComponent {
+export class Performance extends CuppaComponent {
     quantity = 1000;
     position = "start";
     positions = ["start", "end", "middle"];

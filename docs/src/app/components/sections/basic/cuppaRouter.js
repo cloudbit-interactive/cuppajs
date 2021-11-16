@@ -1,6 +1,6 @@
-import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js";
+import {CuppaComponent} from "../../../../cuppa/cuppa.component.js";
 
-export default class CuppaRouter extends CuppaComponent {
+export class CuppaRouter extends CuppaComponent {
 
     render(){
         return /*html*/`

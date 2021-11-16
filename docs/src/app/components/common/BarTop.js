@@ -1,7 +1,7 @@
-import {CuppaComponent} from "../../../libs/cuppa/cuppa.component.js";
+import {CuppaComponent} from "../../../cuppa/cuppa.component.js";
 import { Utils } from "../../controlers/Utils.js";
 
-export default class BarTop extends CuppaComponent {
+export class BarTop extends CuppaComponent {
 
     toggleMenu(e){
         Utils.toggleMenu();

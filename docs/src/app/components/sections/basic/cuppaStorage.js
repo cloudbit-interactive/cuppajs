@@ -1,9 +1,9 @@
-import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js";
-import {CuppaStorage} from "../../../../libs/cuppa/cuppa.storage.js"
+import {CuppaComponent} from "../../../../cuppa/cuppa.component.js";
+import {CuppaStorage} from "../../../../cuppa/cuppa.storage.js"
 
 const STORAGE = {NAME:"STORAGE_NAME", STORE:"session"};
 
-export default class CuppaStorageBase extends CuppaComponent {
+export class CuppaStorageBase extends CuppaComponent {
     cuppaStorage = CuppaStorage;
 
     onUpdateStorage(data){

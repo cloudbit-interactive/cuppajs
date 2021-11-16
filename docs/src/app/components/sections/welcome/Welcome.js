@@ -1,13 +1,13 @@
-import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js";
-import { router } from "../../App.js";
+import {CuppaComponent} from "../../../../cuppa/cuppa.component.js";
+import { Globals } from "../../../controlers/Globals.js";
 
-export default class Welcome extends CuppaComponent {
+export class Welcome extends CuppaComponent {
     constructor(){
         super();
     }
 
-    connected() { 
-        router.updateLinks();
+    mounted() { 
+        Globals.router.updateLinks();
     }
 
     render(){

@@ -1,16 +1,11 @@
 /**
     CuppaComponent
- 
+
     class fields
-        cuppaStorage = null;
         pure = false;                   // false, true 'will render only 1 time'
-        shadow = false;                 // false, true
+        shadow = null;                  // null, open, close
         refs = {};
-        updatedCallback = null;
-        autoDefineObservables = false    // false, true 'will avoid auto create set / get for class declaration variables'
-        autoAddChildren = false;
-        [Others]
-        state = {};                     // also is possible work with state object and use this.setState({}) to update the object
+        childrenList =                  // children components
 
     import CuppaComponent from "cuppa.component.js";
     import "cuppa.component.js"
@@ -18,58 +13,40 @@
 **/
 
 export class CuppaComponent extends HTMLElement {
-    cuppa = null;
-    cuppaStorage = null;
     pure = false;
-    shadow = false;
-    state = {};
+    shadow = null;
     refs = {};
-    updatedCallback = null;
-    autoAddChildren = false;
-    autoDefineObservables = false;
-    _getStorageDictionary = {};
     _parser = new DOMParser();
     renderedCount = 0;
+    childrenList = null;
 
     constructor() {
         super();
         this.binAll = this.binAll.bind(this);
         this.connectedCallback = this.connectedCallback.bind(this);
-        this.setState = this.setState.bind(this);
         this.forceRender = this.forceRender.bind(this);
         this.draw = this.draw.bind(this);
         this.createRealNode = this.createRealNode.bind(this);
         this.setAttributes = this.setAttributes.bind(this);
-        this.setData = this.setData.bind(this);
-        this.setStorage =this.setStorage.bind(this);
-        this.getData = this.getData.bind(this);
-        this.getStorage = this.getStorage.bind(this);
-        this.removeStorage = this.removeStorage.bind(this);
-        this.destroy = this.destroy.bind(this);
         this.disconnectedCallback = this.disconnectedCallback.bind(this);
         this.processRefs = this.processRefs.bind(this);
-        this.autoSetObservables = this.autoSetObservables.bind(this);
         this.observables = this.observables.bind(this);
         this.binAll(this);
-        this.autoSetObservables();
     }
 
     connectedCallback() {
         setTimeout(()=>{
-            if(this.shadow === true) this.shadow = "open";
             if(this.shadow) this.attachShadow({mode: this.shadow});
             this.forceRender();
-            if(this.connected) this.connected(this);
             if(this.mounted) this.mounted(this);
         }, 0);
     }
 
-    setState(state, callback){
-        let newState = {...this.state, ...state};
-        if(JSON.stringify(newState) != JSON.stringify(this.state)){
-            this.state = newState;
-            this.forceRender(callback);
-        }
+    setVariables(args){
+        Object.entries(args).map(([name, value])=>{
+            this[`_${name}`] = value;
+        });
+        this.forceRender();
     }
 
     forceRender(callback) {
@@ -83,14 +60,13 @@ export class CuppaComponent extends HTMLElement {
             }
         }else{
             let html = this.render();
-                if(this.autoAddChildren && this.childrenList) html += this.childrenList;
                 html = html.trim();
                 html = html.replace(/>\s+|\s+</g, function(m) { return m.trim(); });
                 html = html.replace(/<!--(.*?)-->/g, "");
                 html = html.replace(new RegExp("> <", 'g'), "><");
             let headNodes = this._parser.parseFromString(html, "text/html").head.childNodes;
             let bodyNodes = this._parser.parseFromString(html, "text/html").body.childNodes;
-            let rootNodes = [...headNodes, ...bodyNodes]
+            let rootNodes = [...headNodes, ...bodyNodes];
             if(this.shadow){
                 this.shadowRoot.append("");
                 rootNodes.map(node=>this.draw(node, 0, null, this));
@@ -136,7 +112,7 @@ export class CuppaComponent extends HTMLElement {
             }
         }else if(newNode && realNode.nodeName != newNode.nodeName.toUpperCase()){
             if(newNode.nodeType == 3) {
-                realParentNode.insertBefore(newNode, realNode);
+                realNode.insertAdjacentText('beforebegin', newNode.nodeValue);
                 return;
             }else if(newNode.nodeType == 1){
                 let newRealNode = this.createRealNode(newNode, isComponent);
@@ -174,16 +150,15 @@ export class CuppaComponent extends HTMLElement {
     setAttributes(element, newDomMap){
         if(!element || element.nodeType != 1) return;
         if(newDomMap && newDomMap.attributes != null){
-            let i = 0; let length = newDomMap.attributes.length;
-            while (i < length) {
+            let attrProcessedMap = {};
+            for(let i = 0; i < newDomMap.attributes.length; i++){
                 let name = newDomMap.attributes[i].nodeName;
                 let value = newDomMap.attributes[i].nodeValue;
                 let oldValue = element.getAttribute(name);
+                attrProcessedMap[name] = value;
                 
                 if(name == "value" && element.value){
                     element.value = value;
-                }else if(!value){
-                    element.removeAttribute(name);
                 }else if(oldValue != value && element[`__old_event_${name}`] != value){
                     if(name.indexOf("on") === 0 && name.length > 2){
                         element[`__old_event_${name}`] = value;
@@ -210,48 +185,18 @@ export class CuppaComponent extends HTMLElement {
                         element.setAttribute(name, value);
                     }
                 }
-                i++;
+            }
+
+            let attrs = Array.from(element.attributes);
+            for(let i = 0; i < attrs.length; i++) {
+                if(attrProcessedMap[attrs[i].nodeName] === undefined){
+                    element.removeAttribute(attrs[i].nodeName);
+                }
             }
         }
     }
 
-    setData(name, opts){
-        if(!this.cuppa && this.cuppaStorage) this.cuppa = this.cuppaStorage;
-        if(!this.cuppa) return;
-        this.cuppa.setData(name, opts);
-    }
-
-    setStorage(name, opts){ this.setData(name, opts) }
-
-    getData(name, opts){
-        if(!this.cuppa && this.cuppaStorage) this.cuppa = this.cuppaStorage;
-        if(!this.cuppa) return;
-        if(opts && opts.callback){
-            this.cuppa.getData(name, opts);
-            this._getStorageDictionary[name] = opts;
-        }else{
-            return this.cuppa.getData(name, opts);
-        }
-    }
-    
-    getStorage(name, opts){ return this.getData(name, opts) }
-
-    removeStorage(){
-        if(!this.cuppa && this.cuppaStorage) this.cuppa = this.cuppaStorage;
-        if(!this.cuppa) return;
-        Object.entries(this._getStorageDictionary).map(([key, value])=>{
-            if(value && value.callback) this.cuppa.removeListener(key, value.callback);
-            delete this._getStorageDictionary[key];
-        });
-    }
-
-    destroy(){
-        this.removeStorage();
-    }
-
     disconnectedCallback() {
-        if(this.destroy) this.destroy();
-        if(this.disconnected) this.disconnected(this);
         if(this.unmounted) this.unmounted(this);
     }
 
@@ -286,18 +231,6 @@ export class CuppaComponent extends HTMLElement {
                 this[propertyNames[i]] = element[propertyNames[i]].bind(element);
             };
         };
-    }
-
-    autoSetObservables(){
-        let baseParamsMap = {}; 
-        Object.keys(this).map(key=>baseParamsMap[key] = 1);
-        setTimeout(()=>{ 
-            if(!this.autoDefineObservables) return;
-            Object.keys(this).map(key=>{
-                if(baseParamsMap[key]) return;
-                this.observables( {[key]:this[key]} );
-            });
-        }, 0);
     }
 
     observables(object, callback) {

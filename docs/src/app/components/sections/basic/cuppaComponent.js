@@ -1,6 +1,6 @@
-import {CuppaComponent} from "../../../../libs/cuppa/cuppa.component.js";
+import {CuppaComponent} from "../../../../cuppa/cuppa.component.js";
 
-export default class CuppaComponentDoc extends CuppaComponent {
+export class CuppaComponentDoc extends CuppaComponent {
     pure = true;
 
     render(){
