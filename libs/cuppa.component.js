@@ -66,7 +66,7 @@ export class CuppaComponent extends HTMLElement {
                 html = html.replace(new RegExp("> <", 'g'), "><");
             let headNodes = this._parser.parseFromString(html, "text/html").head.childNodes;
             let bodyNodes = this._parser.parseFromString(html, "text/html").body.childNodes;
-            let rootNodes = [...headNodes, ...bodyNodes]
+            let rootNodes = [...headNodes, ...bodyNodes];
             if(this.shadow){
                 this.shadowRoot.append("");
                 rootNodes.map(node=>this.draw(node, 0, null, this));
@@ -112,7 +112,7 @@ export class CuppaComponent extends HTMLElement {
             }
         }else if(newNode && realNode.nodeName != newNode.nodeName.toUpperCase()){
             if(newNode.nodeType == 3) {
-                realParentNode.insertBefore(newNode, realNode);
+                realNode.insertAdjacentText('beforebegin', newNode.nodeValue);
                 return;
             }else if(newNode.nodeType == 1){
                 let newRealNode = this.createRealNode(newNode, isComponent);
@@ -159,8 +159,6 @@ export class CuppaComponent extends HTMLElement {
                 
                 if(name == "value" && element.value){
                     element.value = value;
-                }else if(!value){
-                    element.removeAttribute(name);
                 }else if(oldValue != value && element[`__old_event_${name}`] != value){
                     if(name.indexOf("on") === 0 && name.length > 2){
                         element[`__old_event_${name}`] = value;
