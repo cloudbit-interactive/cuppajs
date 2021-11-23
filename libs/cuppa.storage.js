@@ -1,7 +1,8 @@
-/** 
+/**
  *  CuppaStorage
- * 
+ *
  * **/
+
 export class CuppaStorage{
     static LOCAL = "LOCAL";
     static SESSION = "SESSION";
@@ -65,14 +66,17 @@ export class CuppaStorage{
         return data;
     }
 
-    static removeCallback({name, callback, toString = false}){
+    static removeCallback({name, callback, likeString = false}){
         if(!CuppaStorage.callbacks[name]) return;
         let array = CuppaStorage.callbacks[name];
         for(let i = 0 ; i < array.length; i++ ){
-            if(toString){
+            if(likeString){
                 if(array[i].toString() === callback.toString()){ array.splice(i, 1); };
             }else{
-                if(array[i] === callback){ array.splice(i, 1); };
+                if(array[i] === callback){
+                    Globals.log("Yes REMOVE this", callback);
+                    array.splice(i, 1);
+                };
             }
         };
     };
