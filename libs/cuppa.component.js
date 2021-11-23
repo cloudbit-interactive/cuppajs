@@ -149,6 +149,7 @@ export class CuppaComponent extends HTMLElement {
 
     setAttributes(element, newDomMap){
         if(!element || element.nodeType != 1) return;
+        if(!element["__events"]) element["__events"] = {};
         if(newDomMap && newDomMap.attributes != null){
             let attrProcessedMap = {};
             for(let i = 0; i < newDomMap.attributes.length; i++){
@@ -169,17 +170,21 @@ export class CuppaComponent extends HTMLElement {
                         }else{
                             let functionName = value.replace("this.", "");
                             let paramsStartAt = functionName.indexOf("(");
+                            let functionRef;
                             if(paramsStartAt == -1){
-                                element.removeEventListener(eventName, this[functionName]);
-                                element.addEventListener(eventName, this[functionName]);
+                                functionRef = this[functionName];
+                                element.removeEventListener(eventName, functionRef);
+                                element.addEventListener(eventName, functionRef);
                             }else{
                                 let params = functionName.slice(paramsStartAt+1, functionName.indexOf(")"));
                                     params = params.split(",");
                                     params = params.map(param => param.trim());
                                 functionName = functionName.slice(0, paramsStartAt);
-                                element.removeEventListener(eventName, ()=>this[functionName](...params));
-                                element.addEventListener(eventName, ()=>this[functionName](...params));
+                                functionRef = ()=>{this[functionName](...params);};
+                                element.removeEventListener(eventName, functionRef);
+                                element.addEventListener(eventName, functionRef);
                             }
+                            element["__events"][name] = functionRef;
                         }
                     }else{
                         element.setAttribute(name, value);
@@ -193,6 +198,14 @@ export class CuppaComponent extends HTMLElement {
                     element.removeAttribute(attrs[i].nodeName);
                 }
             }
+
+            Object.keys(element["__events"]).forEach(eventName => {
+                if(attrProcessedMap[`${eventName}`] === undefined){
+                    element.removeEventListener(eventName.replace("on",""), element["__events"][eventName]);
+                    delete element["__events"][eventName];
+                    delete element[`__old_event_${eventName}`];
+                }
+            });
         }
     }
 

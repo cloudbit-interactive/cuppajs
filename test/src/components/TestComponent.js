@@ -3,6 +3,10 @@ import { CuppaComponent } from "../../../libs/cuppa.component.js";
 export default class TestComponent extends CuppaComponent {
     flag = this.observable('flag', false);
 
+    onclick(e){
+        console.log(e);
+    }
+
     render(){
         return /*html*/`
             <div>
@@ -10,10 +14,10 @@ export default class TestComponent extends CuppaComponent {
                 <input type="checkbox" ${ this.flag ? 'checked' : '' } onchange="(e)=>this.flag = e.target.checked" />
                 
                 ${ this.flag ? /*html*/`
-                    <div>
+                    <div data-name="data" >
                         <span>Flag is ${this.flag}</span>
                     </div>
-                ` : /*html*/`<div>Flag is ${this.flag}</div>` }
+                ` : /*html*/`<div data-name="data" onclick=this.onclick>Flag is ${this.flag}</div>` }
             </div>
         `
     }
