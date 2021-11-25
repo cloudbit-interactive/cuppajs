@@ -1,6 +1,8 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
+import {repeat} from "https://unpkg.com/lit-html@2.0.2/directives/repeat.js";
 
 export class Performance extends CuppaComponent {
+    id = 1;
     quantity = 1000;
     positions = { start: "start", middle: "middle", end: "end" };
     position = this.positions.start;
@@ -14,7 +16,9 @@ export class Performance extends CuppaComponent {
         let list = [...this.list];
         let newValues = [];
         for(let i = 0; i < this.quantity; i++){
-            newValues.push(`Task ${Math.random()}`);
+            let item = {name:`Task ${Math.random()}`, id:this.id};
+            newValues.push(item);
+            this.id++;
         }
 
         if(this.position === this.positions.end){
@@ -29,9 +33,9 @@ export class Performance extends CuppaComponent {
         this.list = list;
     }
 
-    onRemove(e){
-        let index = e.target.getAttribute("data-index");
+    onRemove(id){
         let list = [...this.list];
+        let index = list.findIndex(item=>item.id=id);
             list.splice(index, 1);
         this.list = list;
     }
@@ -40,17 +44,17 @@ export class Performance extends CuppaComponent {
         this.list = [];
     }
 
-    onRename(e){
-        let index = e.target.getAttribute("data-index");
+    onRename(id){
         let list = [...this.list];
-            list[index] = "Task Renamed " + Math.random();
+        let index = list.findIndex(item=>item.id=id);
+            list[index].name = `Task ${Math.random()}`;
         this.list = list;
     }
     
     onRenameAll(e){
         let list = [...this.list];
         for(let i = 0; i < list.length; i++){
-            list[i] = `Task ${Math.random()}`;
+            list[i].name = `Task ${Math.random()}`;
         }
         this.list = list;
     }
@@ -78,14 +82,13 @@ export class Performance extends CuppaComponent {
                 </div>
                 <h1>Total: ${this.list.length}</h1>
                 <ul>
-                    ${ this.list.map((item, index)=>{
-                        return html`
-                            <li id=${item}>
-                                ${item}
-                                <button @click="${this.onRemove}" data-index="${index}">Remove</button>
-                                <button @click="${this.onRename}" data-index="${index}">Rename</button>
-                            </li>`
-                    })}
+                    ${ repeat(this.list, item=>item.id, item=>html`
+                        <li id="${item.id}">
+                            <span>${item.id} | ${item.name}</span>
+                            <button @click="${()=>this.onRemove(item.id)}">Remove</button>
+                            <button @click="${()=>this.onRename(item.id)}">Rename</button>
+                        </li>`) }
+                   
                 </ul>
             </div>
         `
