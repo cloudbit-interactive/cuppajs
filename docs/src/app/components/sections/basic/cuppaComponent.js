@@ -1,9 +1,12 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
+import {Utils} from "../../../controlers/Utils.js";
 import {cuppa} from "../../../../cuppa/cuppa.min.js";
-cuppa.requiereCSS("./src/prism/prism.css");
-cuppa.requiereJS("./src/prism/prism.js");
 
 export class CuppaComponentDoc extends CuppaComponent {
+
+    mounted(){
+        Utils.loadPrism();
+    }
 
     render(){
         return html `
@@ -29,8 +32,8 @@ export class CuppaComponentDoc extends CuppaComponent {
                 </div>
                 <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/XWNZOdY?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
             </div>
+            
             <hr class="separator1"/>
-            <pre><code class="language-html">let var = 2</code></pre>
             
             <div class="grid_title_2_columns">
                 <h2 class="title2" style="grid-area:title;">Use Components on any place</h2>
@@ -41,8 +44,19 @@ export class CuppaComponentDoc extends CuppaComponent {
                     </div>
                     <div class="message message_yellow m-t-10">
                         The best and easy way is adding the script tag but  in the right pannel there is an example importing the component in ReactJS.
-                        <iframe style="grid-are:right; margin-top:10px;" height="380" style="width: 100%;" src="https://codepen.io/tufik2/embed/gOLJbNq?theme-id=dark&default-tab=html" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe> 
                         
+                        ${Utils.prismCode({removeTabsCount:7,code:`
+                            <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>
+                            <cuppa-switch id="switch1" checked="true"></cuppa-switch>
+                            <div>Output: <span id="status">true</span></div>
+                            
+                            <script>
+                              document.getElementById("switch1").addEventListener("change", onChange);
+                              function onChange(e){
+                                document.getElementById("status").innerHTML = e.target.checked;
+                              }
+                            </script>
+                        `})}
                     </div>
                 </div>
                 <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/rNWZKxa?theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>             
