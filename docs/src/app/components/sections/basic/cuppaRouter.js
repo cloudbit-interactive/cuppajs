@@ -1,9 +1,9 @@
-import {CuppaComponent} from "../../../../cuppa/cuppa.component.js";
+import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 
 export class CuppaRouter extends CuppaComponent {
 
     render(){
-        return /*html*/`
+        return html`
             <div class="grid_title_1_column">
                 <h2 class="title2" style="grid-area:title">Cuppa Router</h2>
                 <div style="grid-area:content">

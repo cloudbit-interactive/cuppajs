@@ -1,8 +1,6 @@
-import {CuppaComponent} from "../../cuppa/cuppa.component.js";
-import {CuppaRouter} from "../../cuppa/cuppa.router.js";
-import {NavBar} from "./common/NavBar.js";
-import {BarTop} from "./common/BarTop.js";
+import {CuppaComponent, html} from "../../cuppa/cuppa.component.min.js";
 import {Globals} from "../controlers/Globals.js";
+import {NavBar} from "./common/NavBar.js";
 import("./sections/welcome/Welcome.js");
 import("./sections/basic/cuppaComponent.js");
 import("./sections/basic/cuppaRouter.js");
@@ -19,18 +17,17 @@ export class App extends CuppaComponent {
     }
 
     render(){
-        return /*html*/`
+        return html`
             <section class="main-section">
                 ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
-                    : (this.path == "cuppa-component") ? "<cuppa-component></cuppa-component>" 
-                    : (this.path == "cuppa-router") ? "<cuppa-router></cuppa-router>"
-                    : (this.path == "cuppa-storage") ? "<cuppa-storage-base></cuppa-storage-base>" 
-                    : (this.path == "performance") ? "<performance-comp></performance-comp>" 
+                    : (this.path == "cuppa-component") ? html`<cuppa-component></cuppa-component>`
+                    : (this.path == "cuppa-router") ? html`<cuppa-router></cuppa-router>`
+                    : (this.path == "cuppa-storage") ? html`<cuppa-storage-base></cuppa-storage-base>`
+                    : (this.path == "performance") ? html`<performance-comp></performance-comp>`
                     : (this.path == "shopping-cart") ? "<div>Shopping cart</div>" 
-                    : "<welcome-comp></welcome-comp>"
+                    : html`<welcome-comp></welcome-comp>`
                 }
             </section>
-            <bar-top></bar-top>
             <navbar-comp></navbar-comp>
         `
     }

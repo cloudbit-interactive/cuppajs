@@ -1,9 +1,9 @@
-import {CuppaComponent} from "../../../../cuppa/cuppa.component.js";
+import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 
 export class Performance extends CuppaComponent {
     quantity = 1000;
-    position = "start";
-    positions = ["start", "end", "middle"];
+    positions = { start: "start", middle: "middle", end: "end" };
+    position = this.positions.start;
     list = this.observable("list", []);
 
     constructor(){
@@ -17,11 +17,11 @@ export class Performance extends CuppaComponent {
             newValues.push(`Task ${Math.random()}`);
         }
 
-        if(this.position == "end"){
+        if(this.position === this.positions.end){
             list = [...list, ...newValues];
-        }else if(this.position == "start"){
+        }else if(this.position === this.positions.start){
             list = [...newValues, ...list];
-        }else if(this.position == "middle"){
+        }else if(this.position === this.positions.middle){
             let index = Math.floor(list.length/2);
             list.splice(index, 0, ...newValues);
         }
@@ -56,34 +56,36 @@ export class Performance extends CuppaComponent {
     }
 
     render(){
-        return  /*html*/`
+        return  html`
             <div>
                 <h1 class="title2 m-b-20">Performance Test</h1>
-                <button onclick="()=>this.forceRender()">Force Update</button>
+                <button @click=${()=>this.forceRender()}>Force Update</button>
                 <h3>Add new values</h3>
                 <div>
                     <label for="quantity">Quantity: </label>
-                    <input value="${this.quantity}" name="quantity" onchange="${e=>this.quantity= parseInt(e.target.value) || 1}" />
+                    <input value=${this.quantity} name="quantity" @change="${e=>this.quantity= parseInt(e.target.value) || 1}" />
                     <label for="position" style="margin:0 0 0 10px">Position: </label>
-                    <select ref="txtPosition" name="position" style="margin:0 0 0 10px" onchange="${e=>this.position=e.target.value}">
-                        ${this.positions.map(p=>`<option value="${p}" ${p==this.position ? "selected='1'" : ""}>${p}</option>`)}
+                    <select ref="txtPosition" name="position" style="margin:0 0 0 10px" @change=${e=>this.position=e.target.value}>
+                        ${Object.keys(this.positions).map(position=>{
+                            return html`<option value=${position} ?selected=${ position === this.position} >${position}</option>`
+                        })}
                     </select>
                 </div>
                 <div style="margin:10px 0;">
-                    <button onclick="this.onAdd">Add</button>
-                    <button onclick="this.onRemoveAll">Remove All</button>
-                    <button onclick="this.onRenameAll">Rename All</button>
+                    <button @click="${this.onAdd}">Add</button>
+                    <button @click="${this.onRemoveAll}">Remove All</button>
+                    <button @click="${this.onRenameAll}">Rename All</button>
                 </div>
                 <h1>Total: ${this.list.length}</h1>
                 <ul>
                     ${ this.list.map((item, index)=>{
-                        return /*html*/`
-                            <li key="${item}">
+                        return html`
+                            <li id=${item}>
                                 ${item}
-                                <button onclick="this.onRemove" data-index="${index}">Remove</button>
-                                <button onclick="this.onRename" data-index="${index}">Rename</button>
+                                <button @click="${this.onRemove}" data-index="${index}">Remove</button>
+                                <button @click="${this.onRename}" data-index="${index}">Rename</button>
                             </li>`
-                    }).join("")}
+                    })}
                 </ul>
             </div>
         `

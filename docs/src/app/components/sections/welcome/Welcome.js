@@ -1,5 +1,5 @@
-import {CuppaComponent} from "../../../../cuppa/cuppa.component.js";
-import { Globals } from "../../../controlers/Globals.js";
+import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
+import {Globals} from "../../../controlers/Globals.js";
 
 export class Welcome extends CuppaComponent {
     constructor(){
@@ -11,11 +11,11 @@ export class Welcome extends CuppaComponent {
     }
 
     render(){
-        return /*html*/`
+        return html`
             <div class="message">
                 <h2 class="title2">CuppaJS</h2>
                 <p>A set of libraries to create any kind of javascript projects but regardless to other libraries, it is focus in vanilla javascript giving standard tools to built code and reuse it anywere, not matter the toolset (reactj, angular, vue, svelte).</p>
-                <p>There are thons of good frameworks and libraries implementations out there to create amazing projects and one of the biggest problems is found solid mature standard resources that works with alls of them, for example: if you are using Angular the way to go is found an Angular Component that solve your needed, but if you need switch or create a new project using other technology base "React", needs to found an alternative that supply your needs in that specific framework.</p>
+                <p>There are tons of good frameworks and libraries implementations out there to create amazing projects and one of the biggest problems is found solid mature standard resources that works with alls of them, for example: if you are using Angular the way to go is found an Angular Component that solve your needed, but if you need switch or create a new project using other technology base "React", needs to found an alternative that supply your needs in that specific framework.</p>
             </div>
             <div class="grid-cards m-t-10 ">
                 <a class="button-alpha message message_red" href="cuppa-component">

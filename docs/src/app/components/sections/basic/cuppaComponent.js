@@ -1,10 +1,12 @@
-import {CuppaComponent} from "../../../../cuppa/cuppa.component.js";
+import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
+import {cuppa} from "../../../../cuppa/cuppa.min.js";
+cuppa.requiereCSS("./src/prism/prism.css");
+cuppa.requiereJS("./src/prism/prism.js");
 
 export class CuppaComponentDoc extends CuppaComponent {
-    pure = true;
 
     render(){
-        return /*html*/ `
+        return html `
             <div class="grid_title_2_columns">
                 <h2 class="title2" style="grid-area:title;">Counter Component</h2>
                 <div style="grid-area:left;">
@@ -28,6 +30,8 @@ export class CuppaComponentDoc extends CuppaComponent {
                 <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/XWNZOdY?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
             </div>
             <hr class="separator1"/>
+            <pre><code class="language-html">let var = 2</code></pre>
+            
             <div class="grid_title_2_columns">
                 <h2 class="title2" style="grid-area:title;">Use Components on any place</h2>
                 <div style="grid-area:left;">
