@@ -1,5 +1,4 @@
-import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {repeat} from "https://unpkg.com/lit-html@2.0.2/directives/repeat.js";
+import {CuppaComponent, html, repeat} from "../../../../cuppa/cuppa.component.min.js";
 
 export class Performance extends CuppaComponent {
     id = 1;
@@ -83,12 +82,12 @@ export class Performance extends CuppaComponent {
                 <h1>Total: ${this.list.length}</h1>
                 <ul>
                     ${ repeat(this.list, item=>item.id, item=>html`
-                        <li id="${item.id}">
-                            <span>${item.id} | ${item.name}</span>
+                        <li>
+                            ${item.id} | ${item.name}
                             <button @click="${()=>this.onRemove(item.id)}">Remove</button>
                             <button @click="${()=>this.onRename(item.id)}">Rename</button>
-                        </li>`) }
-                   
+                        </li>`
+                    )}
                 </ul>
             </div>
         `
