@@ -21,8 +21,8 @@ export class Welcome extends CuppaComponent {
                 <a class="button-alpha message message_red" href="cuppa-component">
                     <h3 class="title3"><i class="fas fa-puzzle-piece message_icon"></i> Cuppa Component</h3>
                     <p>A standard vanilla class implementation based on observables or state.</p>    
-                    <p>Small boilerplate that help you to develop fast reactive vanilla components and reuse anywhere reaching good performance with a small footprint. (~2.5kB gzipped)</p>
-                    <p>Faster, it doesn't use virtual DOM instead use the real DOM.</p>
+                    <p>Small boilerplate that help you to develop fast reactive vanilla components and reuse anywhere reaching good performance with a small footprint. (~5.5kB gzipped)</p>
+                    <p>Faster, thanks to lit-html a simple, modern, safe, small and fast HTML templating library for JavaScript.</p>
                     <p>Create your own components just 1 time and re-use it anywhere.</p>
                 </a>
                 <a class="button-alpha message message_blue" href="cuppa-router">

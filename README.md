@@ -3,7 +3,7 @@
 
 A set of libraries to create any kind of javascript projects but regardless to other libraries, it is focus in vanilla javascript giving standard tools to built code and reuse it anywere, not matter the toolset (reactj, angular, vue, svelte).
 
-There are thons of good frameworks and libraries implementations out there to create amazing projects and one of the biggest problems is found solid mature standard resources that works with alls of them, for example: if you are using Angular the way to go is found an Angular Component that solve your needed, but if you need switch or create a new project using other technology base "React", needs to found an alternative that supply your needs in that specific framework.
+There are tons of good frameworks and libraries implementations out there to create amazing projects and one of the biggest problems is found solid mature standard resources that works with alls of them, for example: if you are using Angular the way to go is found an Angular Component that solve your needed, but if you need switch or create a new project using other technology base "React", needs to found an alternative that supply your needs in that specific framework.
 
 CuppaComponent.js | CuppaRouter.js | CuppaStorage.js
 
@@ -13,20 +13,19 @@ CuppaComponent.js | CuppaRouter.js | CuppaStorage.js
  - Faster performance.
  - No pre-compilation process.
  - Small size.
- - No extra syntaxis "@click, v-on:, ng-, :(" just the code that you know.
+ - No dependencies.
 
 # Documentation
 
 Online: http://cuppajs.cloudbit.co/
 
-# Cuppa Component ~2.5kB gzipped
+# Cuppa Component ~5.5kB gzipped
 ```javascript
 // Load or embed the cuppa.component.js library
 import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.64/libs/cuppa.component.js";
 
 export default class MyComponent extends CuppaComponent {
-    pure = false;               // false (default), true will render one time using insertAdjacentHTML and user should update the component manually
-    shadow = false;             // false (default), true/open
+    shadow = false;             // null (default), open, close
     myText = "Hellow There";
   
     /*  By default the component react to all variables defined in class level, 
