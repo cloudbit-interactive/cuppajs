@@ -13,7 +13,7 @@ export class CuppaComponentDoc extends CuppaComponent {
             <div class="grid_title_2_columns">
                 <h2 class="title2" style="grid-area:title;">Counter Component</h2>
                 <div style="grid-area:left;">
-                    <div class="message message_blue">Create simple reactive component extending any class from CuppaComponent is simplle and pure vanilla javascript.</div>
+                    <div class="message message_blue">Create simple reactive component extending any class from CuppaComponent is simple.</div>
                 </div>
                 <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/vYydQeJ?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
             </div>
@@ -25,8 +25,8 @@ export class CuppaComponentDoc extends CuppaComponent {
                     <div class="message message_yellow m-t-10">
                         <h3 class="title4">Note:</h3>
                         <ul>
-                            <li>Is possible add event listeners in render templating and dispach those events from inside the compoent.</li>
-                            <li>All events should follow the standard declaration adding a <strong>"on"</strong> at beginning of the attribute name <strong>"ondelete"</strong>, <strong>"onremove"</strong>.</li>
+                            <li>Is possible add event listeners in render templating and dispatch those events from inside the component.</li>
+                            <li>All events should follow the lit-html standard <strong>(@click, @change)</strong>.</li>
                         </ul>
                     </div>
                 </div>

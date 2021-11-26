@@ -28,7 +28,6 @@ export class Performance extends CuppaComponent {
             let index = Math.floor(list.length/2);
             list.splice(index, 0, ...newValues);
         }
-        
         this.list = list;
     }
 

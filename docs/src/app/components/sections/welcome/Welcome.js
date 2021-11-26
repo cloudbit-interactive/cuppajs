@@ -20,21 +20,21 @@ export class Welcome extends CuppaComponent {
             <div class="grid-cards m-t-10 ">
                 <a class="button-alpha message message_red" href="cuppa-component">
                     <h3 class="title3"><i class="fas fa-puzzle-piece message_icon"></i> Cuppa Component</h3>
-                    <p>A standard vanilla class implementation based on observables or state.</p>    
-                    <p>Small boilerplate that help you to develop fast reactive vanilla components and reuse anywhere reaching good performance with a small footprint. (~5.5kB gzipped)</p>
+                    <p>A standard web component class implementation based on lit-html and observables.</p>    
+                    <p>Small boilerplate that help you to develop fast reactive vanilla components and reuse anywhere reaching good performance with a small footprint. (~5.5kb gzipped)</p>
                     <p>Faster, thanks to lit-html a simple, modern, safe, small and fast HTML templating library for JavaScript.</p>
                     <p>Create your own components just 1 time and re-use it anywhere.</p>
                 </a>
                 <a class="button-alpha message message_blue" href="cuppa-router">
                     <h3 class="title3"><i class="fas fa-map-signs message_icon"></i> Cuppa Router</h3>
-                    <p>Simple Vanilla Router for any kind of projects (~2.5kB gzipped).</p>
+                    <p>Simple Vanilla Router for any kind of projects (~2.5kb gzipped).</p>
                     <p>Small size (~2.5kB gzipped).</p>
                 </a>
                 <a class="button-alpha message message_purple" href="cuppa-storage">
                     <h3 class="title3"><i class="fas fa-database message_icon"></i> Cuppa Storage</h3>
-                    <p>Centralize data and automatique update all listeners when data change.</p>
-                    <p>Make data persistence using localStorage, sessionStorage or InexedDB.</p>
-                    <p>Small size (~2kB gzipped).</p>
+                    <p>Centralize data and automatic update all listeners when data change.</p>
+                    <p>Make data persistence using localStorage, sessionStorage or IndexedDB.</p>
+                    <p>Small size (~2kb gzipped).</p>
                 </a>
             </div>
             `
