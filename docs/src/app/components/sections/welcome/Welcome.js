@@ -22,7 +22,7 @@ export class Welcome extends CuppaComponent {
                     <h3 class="title3"><i class="fas fa-puzzle-piece message_icon"></i> Cuppa Component</h3>
                     <p>A standard web component class implementation based on lit-html and observables.</p>    
                     <p>Small boilerplate that help you to develop fast reactive vanilla components and reuse anywhere reaching good performance with a small footprint. (~5.5kb gzipped)</p>
-                    <p>Faster, thanks to lit-html a simple, modern, safe, small and fast HTML templating library for JavaScript.</p>
+                    <p>Faster, thanks to lit-html a simple, modern and fast HTML templeating.</p>
                     <p>Create your own components just 1 time and re-use it anywhere.</p>
                 </a>
                 <a class="button-alpha message message_blue" href="cuppa-router">

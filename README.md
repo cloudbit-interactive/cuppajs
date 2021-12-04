@@ -10,7 +10,7 @@ CuppaComponent.js | CuppaRouter.js | CuppaStorage.js
 # Advantages
 
  - Compatible with any other framework or libraries due is just standard code.
- - Faster performance.
+ - Faster performance thanks to lit-html a simple, modern and fast HTML templeating.
  - No pre-compilation process.
  - Small size.
  - No dependencies.
@@ -22,24 +22,12 @@ Online: http://cuppajs.cloudbit.co/
 # Cuppa Component ~5.5kB gzipped
 ```javascript
 // Load or embed the cuppa.component.js library
-import { CuppaComponent } from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.64/libs/cuppa.component.js";
+import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 
 export default class MyComponent extends CuppaComponent {
-    shadow = false;             // null (default), open, close
-    myText = "Hellow There";
-  
-    /*  By default the component react to all variables defined in class level, 
-        but is possible define and control the observed variables manually 
-        using this.observables({variableName:defaultValue, ...})
-        
-        autoDefineObservables = false;  
-        myObservableVariable;
-        constructor(){ 
-          super(); 
-          this.observables({myObservableVariable:'Default value', myText:this.myText});
-        }
-    */
-    
+    count = this.observable("count", 0);
+    refs = {myDivRef:null};
+
     constructor(){ super(); }
 
     // Standard webComponent to observe attributes
@@ -47,20 +35,20 @@ export default class MyComponent extends CuppaComponent {
     attributeChangedCallback(attr, oldVal, newVal) { this[attr] = newVal }
     
     // Invoked when the custom element is first connected to the document's DOM.
-    connected() { }   
+    mounted() { }   
     
     // Invoked when the custom element is disconnected from the document's DOM.
-    disconnected() { }
+    unmounted() { }
   
     // Invoked after render execution
     rendered(){ }             
    
     render(){
-        return /*html*/`
-            <!-- Use ref attribute to create a htmlNode reference. It will be accesible after connected() invocation -->
-            <div ref="rootRef">    
-                <h1>${this.myText}</h1>
-                <button onclick="()=>this.myText = 'Keep safe'">Click to Change Text</button>
+        return html`
+            <div ref="myDivRef">    
+                <button @click=${ ()=>this.count-- }>+</button>
+                <span>Count: ${this.count}</span>
+                <button @click=${ ()=>this.count++ }>+</button>
             </div>`
     }
 }
@@ -70,6 +58,7 @@ customElements.define('my-component', MyComponent);
 
 // Ok, now we can add a instance of our component and see the result
 document.body.append(new MyComponent())
+
 ```
 # Cuppa Router ~2.5kB gzipped
 ```javascript
