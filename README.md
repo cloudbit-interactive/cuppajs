@@ -21,7 +21,7 @@ Online: http://cuppajs.cloudbit.co/
 
 # Cuppa Component ~5.5kB gzipped
 ```javascript
-// Load or embed the cuppa.component.js library
+// Load or embed the library
 import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 
 export default class MyComponent extends CuppaComponent {
@@ -62,7 +62,7 @@ document.body.append(new MyComponent())
 ```
 # Cuppa Router ~2.5kB gzipped
 ```javascript
-// Load or embed the cuppa.component.js library
+// Load or embed the library
 import { CuppaRouter } from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.router.min.js";
 
 const router = new CuppaRouter();
@@ -83,4 +83,23 @@ function  onRouterUpdated(path)  {
 		content.innerHTML = `<strong>Work Alias:</strong> ${data.params.alias}`;
 	}
 }
+```
+# Cuppa Storage ~2.0kB gzipped
+```javascript
+// Load or embed the cuppa.component.js library
+import {CuppaStorage} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js";
+
+// Register a callback that will be automatically updated when value change
+// store = null, LOCAL, SESSION, INDEXED_DB
+CuppaStorage.getData({name:"user", store:CuppaStorage.LOCAL, defaultValue:null, callback:(data)=>{
+    console.log(data);
+}})
+
+// Set the value in the storage
+CuppaStorage.setData({name:"user", data:{name:"Tufik", age:36}, store:CuppaStorage.LOCAL});
+
+// Also is possible ge the value directly.
+let value = await CuppaStorage.getData({name:"user", store:CuppaStorage.LOCAL, defaultValue:null});
+// CuppaStorage.getDataSync doesn't support store CuppaStorage.INDEXED_DB due IndexedDB is async
+let value = CuppaStorage.getDataSync({name:"user", store:CuppaStorage.LOCAL});
 ```
