@@ -44,10 +44,17 @@ export class NavBar extends CuppaComponent {
                     <a class="menu-item-link" href="performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
                     <div class="menu-item-underline"></div>
                 </li>
-                <li class="menu-item ${ this.path == "shopping-list" ? "selected" : "" }" >
-                    <a class="menu-item-link" href="shopping-list" target="_blank" ><i class="fab fa-medapps"></i> Shipping List</a>
+                
+                <h3 class="title3 m-t-20">Cuppa Components</h3>
+                <li class="menu-item ${ this.path == "cuppa-alert" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="cuppa-alert" ><i class="fas fa-puzzle-piece"></i> Cuppa Alert</a>
                     <div class="menu-item-underline"></div>
                 </li>
+                <li class="menu-item ${ this.path == "cuppa-switch" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="cuppa-switch" ><i class="fas fa-puzzle-piece"></i> Cuppa Switch</a>
+                    <div class="menu-item-underline"></div>
+                </li>
+
             </ul>
             `
     }
