@@ -34,7 +34,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                     <thead>
                         <tr>
                             <th>
-                                <div class="tag">Property</div> <div class="tag tag-white">attribute</div>  
+                                <div class="tag-1">Property</div> <div class="tag-1 tag-1-white">attribute</div>  
                             </th>
                             <th>Type</th>
                             <th>Default</th>
@@ -44,7 +44,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                     <tbody>
                         <tr>
                             <td>
-                                <div class="tag">name</div>
+                                <div class="tag-1">name</div>
                             </td>
                             <td>string</td>
                             <td></td>
@@ -52,7 +52,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">checked</div>
+                                <div class="tag-1">checked</div>
                             </td>
                             <td>boolean</td>
                             <td>false</td>
@@ -60,7 +60,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">disabled</div>
+                                <div class="tag-1">disabled</div>
                             </td>
                             <td>boolean</td>
                             <td>false</td>
@@ -68,7 +68,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">@change</div>
+                                <div class="tag-1">@change</div>
                             </td>
                             <td>Event</td>
                             <td></td>

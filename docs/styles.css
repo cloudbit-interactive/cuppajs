@@ -27,15 +27,15 @@ pre{ border-radius: 0.5rem; }
 .separator-1, .separator-h{ margin:2rem 0; border: none; height: 0; border-bottom: 1px solid #AAA; }
 .separator-v{ width:0; border-right: 1px solid #aaa; height: 3rem; margin:0 1rem; }
 .disabled{ opacity: 0.3 !important; pointer-events: none; }
+.button-1{ border: none; background: #268bce; color:#FFF; padding:0.7rem 1rem; text-transform: uppercase; margin:0 0.2rem; border-radius: 0.3rem; }
 .button-alpha{ cursor: pointer; text-decoration: none; transition: 0.3s opacity; }
     .button-alpha:hover{ opacity: 0.7; }
 .code{ width:100%; padding:1rem; resize:none; height:9rem; background:#1d1e22; color:#FFF; border:none; border-radius: 5px; }
-.tag{ display: inline-block; padding:0.2rem 0.5rem; border-radius: 0.3rem; background: var(--color-gray-clear-1); color:var(--color-gray-dark-1); border:1px solid #ccc; box-shadow: 0 0.1rem 0.3rem rgba(0,0,0,0.1); }
-.tag-white{ background: var(--color-white); color:var(--color-gray-dark-1); }
-.tag-green{ background: var(--color-green-1); color:var(--color-white); border:none; }
-.tag-yellow{ background: var(--color-yellow-1); color:var(--color-gray-dark-1); border:none; }
-.tag-blue{ background: var(--color-blue1); color:var(--color-white); border:none; }
-.button-1{ border: none; background: #268bce; color:#FFF; padding:0.7rem 1rem; text-transform: uppercase; margin:0 0.2rem; border-radius: 0.3rem; }
+.tag-1{ display: inline-block; padding:0.2rem 0.5rem; border-radius: 0.3rem; background: var(--color-gray-clear-1); color:var(--color-gray-dark-1); border:1px solid #ccc; box-shadow: 0 0.1rem 0.3rem rgba(0,0,0,0.1); }
+.tag-1-white{ background: var(--color-white); color:var(--color-gray-dark-1); }
+.tag-1-green{ background: var(--color-green-1); color:var(--color-white); border:none; }
+.tag-1-yellow{ background: var(--color-yellow-1); color:var(--color-gray-dark-1); border:none; }
+.tag-1-blue{ background: var(--color-blue1); color:var(--color-white); border:none; }
 
 .main-section{ display:block; padding: 2rem 2rem 2rem calc(var(--nav-main-width) + 2rem); }
 bar-top{ transition: 0.2s; padding:0 0.2rem; position:fixed; display: none; justify-content: space-between; align-items: center; left:0; top:0; right:0; height:4.3rem; background: var(--color-white); box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }

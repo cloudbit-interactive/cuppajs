@@ -1,5 +1,6 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.js";
+import {Utils} from "../../../controlers/Utils.js";
 
 export class CuppaAlertDoc extends CuppaComponent {
     alertResult = this.observable("alertResult");
@@ -14,11 +15,15 @@ export class CuppaAlertDoc extends CuppaComponent {
             cancelText: "Cancel",
             inputText: "",
             placeholder: "Type your message here",
-            callback:(value, text)=>{
-                this.alertResult = {value, text};
+            callback:(res)=>{
+                this.alertResult = res;
             }
         });
         document.body.append(alert);
+    }
+
+    mounted(){
+        Utils.loadPrism();
     }
 
     render(){
@@ -33,11 +38,29 @@ export class CuppaAlertDoc extends CuppaComponent {
                     `}
                 </div>
                 <hr class="separator-1" />
+                <h2 class="title-3 mb-20">Code Example</h2>
+                ${Utils.prismCode({removeTabsCount:5, code:`
+                    <!-- IMPORTING COMPONENT -->
+                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
+                    <!-- USING WITH HTML TAG -->
+                    <cuppa-alert title="Message" message="Hello There!" @close="${(e)=>console.log(e.detail)}" ></cuppa-alert>
+                    <!-- USING WHIT JS -->
+                    <script type="module">
+                        let alert = new CuppaAlert({
+                            title: 'Message',
+                            message: 'My message',
+                            callback:(res)=>{ console.log(res); }
+                        });
+                        document.body.append(alert);
+                    </script>
+                `})}
+                
+                <hr class="separator-1" />
                 <table class="table-1 mt-20" >
                     <thead>
                         <tr>
                             <th>
-                                <div class="tag">Property</div> <div class="tag tag-white">attribute</div>
+                                <div class="tag-1">Property</div> <div class="tag-1 tag-1-white">attribute</div>
                             </th>
                             <th>Type</th>
                             <th>Default</th>
@@ -47,7 +70,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                     <tbody>
                         <tr>
                             <td>
-                                <div class="tag">title</div>
+                                <div class="tag-1">title</div>
                             </td>
                             <td>string</td>
                             <td></td>
@@ -55,7 +78,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">message</div>
+                                <div class="tag-1">message</div>
                             </td>
                             <td>string</td>
                             <td></td>
@@ -63,7 +86,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">acceptText</div> <div class="tag tag-white">accept-text</div>
+                                <div class="tag-1">acceptText</div> <div class="tag-1 tag-1-white">accept-text</div>
                             </td>
                             <td>string</td>
                             <td>accept</td>
@@ -71,7 +94,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">cancelText</div> <div class="tag tag-white">cancel-text</div>
+                                <div class="tag-1">cancelText</div> <div class="tag-1 tag-1-white">cancel-text</div>
                             </td>
                             <td>string</td>
                             <td></td>
@@ -79,7 +102,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">backdropEnabled</div> <div class="tag tag-white">backdrop-enabled</div>
+                                <div class="tag-1">backdropEnabled</div> <div class="tag-1 tag-1-white">backdrop-enabled</div>
                             </td>
                             <td>boolean</td>
                             <td>false</td>
@@ -87,7 +110,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">inputText</div> <div class="tag tag-white">input-text</div>
+                                <div class="tag-1">inputText</div> <div class="tag-1 tag-1-white">input-text</div>
                             </td>
                             <td>string</td>
                             <td>null</td>
@@ -95,7 +118,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">placeholder</div>
+                                <div class="tag-1">placeholder</div>
                             </td>
                             <td>string</td>
                             <td></td>
@@ -103,7 +126,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag">callback</div>
+                                <div class="tag-1">callback</div>
                             </td>
                             <td>function</td>
                             <td></td>
@@ -115,6 +138,14 @@ export class CuppaAlertDoc extends CuppaComponent {
                                     inputText: string
                                 }
                             </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="tag-1">@close</div>
+                            </td>
+                            <td>Event</td>
+                            <td></td>
+                            <td>Fires when alert closed.</td>
                         </tr>
                     </tbody>
                 </table>

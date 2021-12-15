@@ -28,7 +28,9 @@ export class CuppaAlert extends CuppaComponent {
      }
 
     onClick(value){
-        if(this.callback) this.callback(value, this.inputText, this);
+        let data = {value, inputText: this.inputText};
+        this.dispatchEvent(new CustomEvent("close",{detail:data}));
+        if(this.callback) this.callback(data, this);
         this.close();
     }
 
