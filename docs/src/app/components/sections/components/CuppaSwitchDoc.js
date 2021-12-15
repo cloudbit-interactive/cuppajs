@@ -13,27 +13,29 @@ export class CuppaSwitchDoc extends CuppaComponent {
     render(){
         return html`
             <div>
-                <h1 class="title2">Cuppa Switch</h1>
-                <div class="message m-t-20" style="display: flex; align-items: center;">
+                <h1 class="title-2">Cuppa Switch</h1>
+                <div class="message mt-20" style="display: flex; align-items: center;">
                     <cuppa-switch 
                         name="switch" 
                         checked=${this.checked} 
                         disabled=${this.disabled} 
                         @change=${e=>this.checked=e.target.checked }
                     ></cuppa-switch>
-                    <div class="separatorV"></div>
-                    <button @click=${ ()=>this.disabled = !this.disabled }>
+                    <div class="separator-v"></div>
+                    <button class="button-1" @click=${ ()=>this.disabled = !this.disabled }>
                         ${ this.disabled ? 'enable' : 'disable' }
                     </button>
-                    <button @click=${ ()=>this.checked = !this.checked }>
+                    <button class="button-1" @click=${ ()=>this.checked = !this.checked }>
                         ${ this.checked ? 'uncheck' : 'check' }
                     </button>
                 </div>
-                <hr class="separator1" />
-                <table class="table1 m-t-20" >
+                <hr class="separator-1" />
+                <table class="table-1 mt-20" >
                     <thead>
                         <tr>
-                            <th>Property</th>
+                            <th>
+                                <div class="tag">Property</div> <div class="tag tag-white">attribute</div>  
+                            </th>
                             <th>Type</th>
                             <th>Default</th>
                             <th>Description</th>
@@ -41,25 +43,33 @@ export class CuppaSwitchDoc extends CuppaComponent {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>name</td>
+                            <td>
+                                <div class="tag">name</div>
+                            </td>
                             <td>string</td>
                             <td></td>
                             <td>Specify a checkbox name.</td>
                         </tr>
                         <tr>
-                            <td>checked</td>
+                            <td>
+                                <div class="tag">checked</div>
+                            </td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>If true, the switch is checked.</td>
                         </tr>
                         <tr>
-                            <td>disabled</td>
+                            <td>
+                                <div class="tag">disabled</div>
+                            </td>
                             <td>boolean</td>
                             <td>false</td>
                             <td>If true, the switch is disabled.</td>
                         </tr>
                         <tr>
-                            <td>@change</td>
+                            <td>
+                                <div class="tag">@change</div>
+                            </td>
                             <td>Event</td>
                             <td></td>
                             <td>Fires when the switch is checked or unchecked.</td>

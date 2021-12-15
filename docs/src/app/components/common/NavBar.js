@@ -18,12 +18,12 @@ export class NavBar extends CuppaComponent {
 
     render(){
         return html`
-            <h1 class="title1" style="display:flex; justify-content:space-between; align-items:center;">
+            <h1 class="title-1" style="display:flex; justify-content:space-between; align-items:center;">
                 <a class="link-clear" href="/">DOC.</a>
                 <a class="button-alpha" href="https://github.com/cloudbit-interactive/cuppajs" target="_blank"><i class="fab fa-github" style="font-size:30px"></i></a>
             </h1>
             <ul class="menu">
-                <h3 class="title3"><a class="menu-item-clear" href="cuppa-component">Basic</a></h3>
+                <h3 class="title-3"><a class="menu-item-clear" href="cuppa-component">Basic</a></h3>
                 <li class="menu-item ${ this.path == "cuppa-component" ? "selected" : "" }" >
                     <a class="menu-item-link" href="cuppa-component" ><i class="fas fa-puzzle-piece" ></i> Component</a>
                     <div class="menu-item-underline"></div>
@@ -39,13 +39,13 @@ export class NavBar extends CuppaComponent {
                     <div class="menu-item-underline"></div>
                 </li>
                 
-                <h3 class="title3 m-t-20">More</h3>
+                <h3 class="title-3 mt-20">More</h3>
                 <li class="menu-item  ${ this.path == "performance" ? "selected" : "" }" >
                     <a class="menu-item-link" href="performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
                     <div class="menu-item-underline"></div>
                 </li>
                 
-                <h3 class="title3 m-t-20">Cuppa Components</h3>
+                <h3 class="title-3 mt-20">Cuppa Components</h3>
                 <li class="menu-item ${ this.path == "cuppa-alert" ? "selected" : "" }" >
                     <a class="menu-item-link" href="cuppa-alert" ><i class="fas fa-puzzle-piece"></i> Cuppa Alert</a>
                     <div class="menu-item-underline"></div>

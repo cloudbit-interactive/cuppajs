@@ -60,7 +60,7 @@ export class Performance extends CuppaComponent {
     render(){
         return  html`
             <div>
-                <h1 class="title2 m-b-20">Performance Test</h1>
+                <h1 class="title-2 mb-20">Performance Test</h1>
                 <button @click=${()=>this.forceRender()}>Force Update</button>
                 <h3>Add new values</h3>
                 <div>
