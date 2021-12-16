@@ -1,9 +1,9 @@
 /**
  CuppaComponent
 
-     class fields
-         shadow = null;                  // null (default), open, close
-         refs = {};
+ class fields
+ shadow = null;                  // null (default), open, close
+ refs = {};
 
  import {CuppaComponent} from 'cuppa.component.js';
  import 'cuppa.component.js'
@@ -28,8 +28,9 @@ export class CuppaComponent extends HTMLElement {
 
     connectedCallback() {
         if(this.shadow) this.attachShadow({mode: this.shadow});
-        this.forceRender();
+        this.forceRender(null, false);
         if(this.mounted) this.mounted(this);
+        if(this.rendered) this.rendered(this);
     }
 
     disconnectedCallback() {
@@ -43,7 +44,7 @@ export class CuppaComponent extends HTMLElement {
         this.forceRender();
     }
 
-    forceRender(callback) {
+    forceRender(callback, dispatchRender = true){
         if(!this._template){ this._template = () => this.render(); }
         if(this.shadowRoot){
             render(this._template(), this.shadowRoot);
@@ -52,7 +53,7 @@ export class CuppaComponent extends HTMLElement {
         }
         this.processRefs(this, this.refs, "ref");
         if(callback) callback();
-        if(this.rendered) this.rendered(this);
+        if(this.rendered && dispatchRender) this.rendered(this);
         this.renderedCount++;
     }
 

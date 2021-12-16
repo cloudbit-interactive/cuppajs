@@ -54,6 +54,10 @@ export class NavBar extends CuppaComponent {
                     <a class="menu-item-link" href="cuppa-switch" ><i class="fas fa-puzzle-piece"></i> Cuppa Switch</a>
                     <div class="menu-item-underline"></div>
                 </li>
+                <li>
+                    <a class="menu-item-link" href="cuppa-tabs" ><i class="fas fa-puzzle-piece"></i> Cuppa Tabs</a>
+                    <div class="menu-item-underline"></div>
+                </li>
 
             </ul>
             `

@@ -8,6 +8,7 @@ import("./sections/basic/cuppaStorage.js");
 import("./sections/performance/Performance.js");
 import("./sections/components/CuppaAlertDoc.js");
 import("./sections/components/CuppaSwitchDoc.js");
+import("./sections/components/CuppaTabsDoc.js");
 
 export class App extends CuppaComponent {
     path = this.observable("path");
@@ -29,6 +30,7 @@ export class App extends CuppaComponent {
                     : (this.path == "shopping-cart") ? "<div>Shopping cart</div>" 
                     : (this.path == "cuppa-alert") ? html`<cuppa-alert-doc></cuppa-alert-doc>`
                     : (this.path == "cuppa-switch") ? html`<cuppa-switch-doc></cuppa-switch-doc>`
+                    : (this.path == "cuppa-tabs") ? html`<cuppa-tabs-doc></cuppa-tabs-doc>`
                     : html`<welcome-comp></welcome-comp>`
                 }
             </section>

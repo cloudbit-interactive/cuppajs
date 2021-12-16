@@ -1,14 +1,14 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaSwitch} from "../../../../cuppa/components/cuppa.switch.js";
+import {Utils} from "../../../controlers/Utils.js";
 
 export class CuppaSwitchDoc extends CuppaComponent {
     checked = this.observable("checked", false);
     disabled = this.observable("disabled", false);
 
-    constructor(){ super(); }
-
-    static get observedAttributes() { return ['attr1', 'attr2'] }
-    attributeChangedCallback(attr, oldVal, newVal) { this[attr] = newVal; }
+    mounted(){
+        Utils.loadPrism();
+    }
 
     render(){
         return html`
@@ -30,6 +30,16 @@ export class CuppaSwitchDoc extends CuppaComponent {
                     </button>
                 </div>
                 <hr class="separator-1" />
+                <h2 class="title-3 mb-20">Code Example</h2>
+                ${Utils.prismCode({removeTabsCount:5, code:`
+                    <!-- Import component -->
+                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>
+                    
+                    <!-- Use with HTML Tag -->
+                    <cuppa-switch name="switch" @change="${ (e)=>console.log(e.target.checked, e.target.name) }"></cuppa-switch>
+                `})}
+                <hr class="separator-1" />
+                <h2 class="title-3 mb-20">Properties</h2>
                 <table class="table-1 mt-20" >
                     <thead>
                         <tr>
@@ -65,6 +75,18 @@ export class CuppaSwitchDoc extends CuppaComponent {
                             <td>boolean</td>
                             <td>false</td>
                             <td>If true, the switch is disabled.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="tag-1">callback</div>
+                            </td>
+                            <td>function</td>
+                            <td></td>
+                            <td>
+                                Callback function when user switch.
+                                <br />
+                                return: {name:string, checked: boolean, ref:Component}
+                            </td>
                         </tr>
                         <tr>
                             <td>

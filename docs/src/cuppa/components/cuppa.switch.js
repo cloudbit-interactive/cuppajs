@@ -3,6 +3,7 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 export class CuppaSwitch extends CuppaComponent {
     name = "";
     checked = this.observable("checked", false);
+    callback = null;
 
     static get observedAttributes() { return ['checked', 'name', 'disabled'] }
     attributeChangedCallback(attr, oldVal, newVal) {
@@ -17,6 +18,7 @@ export class CuppaSwitch extends CuppaComponent {
         this.checked = e.currentTarget.checked;
         this.setAttribute("checked", this.checked);
         this.dispatchEvent(new Event('change'));
+        if(this.callback) this.callback({name:this.name, checked:this.checked, ref:this});
     }
 
     render(){

@@ -5,7 +5,9 @@ import {Utils} from "../../../controlers/Utils.js";
 export class CuppaAlertDoc extends CuppaComponent {
     alertResult = this.observable("alertResult");
 
-    constructor(){ super(); }
+    mounted(){
+        Utils.loadPrism();
+    }
 
     showAlert(){
         let alert = new CuppaAlert({
@@ -22,29 +24,25 @@ export class CuppaAlertDoc extends CuppaComponent {
         document.body.append(alert);
     }
 
-    mounted(){
-        Utils.loadPrism();
-    }
-
     render(){
         return html`
             <div>
-                <h1 class="title-2">Cuppa Alert Component</h1>
+                <h1 class="title-2">Cuppa Alert</h1>
                 <div class="message mt-20" style="display: flex; align-items: center;">
                     <button class="button-1" @click="${this.showAlert}" >Show Alert</button>
                     <div class="separator-v"></div>
-                    ${ !this.alertResult ? '' : html`
-                        <div>Result: ${JSON.stringify(this.alertResult)}</div>
-                    `}
+                    <div><strong>Result:</strong> ${JSON.stringify(this.alertResult)}</div>
                 </div>
                 <hr class="separator-1" />
                 <h2 class="title-3 mb-20">Code Example</h2>
                 ${Utils.prismCode({removeTabsCount:5, code:`
-                    <!-- IMPORTING COMPONENT -->
+                    <!-- Import component -->
                     <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
-                    <!-- USING WITH HTML TAG -->
+                    
+                    <!-- Use with HTML Tag -->
                     <cuppa-alert title="Message" message="Hello There!" @close="${(e)=>console.log(e.detail)}" ></cuppa-alert>
-                    <!-- USING WHIT JS -->
+                    
+                    <!-- Use with JS -->
                     <script type="module">
                         let alert = new CuppaAlert({
                             title: 'Message',
@@ -56,6 +54,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                 `})}
                 
                 <hr class="separator-1" />
+                <h2 class="title-3 mb-20">Properties</h2>
                 <table class="table-1 mt-20" >
                     <thead>
                         <tr>
@@ -131,12 +130,9 @@ export class CuppaAlertDoc extends CuppaComponent {
                             <td>function</td>
                             <td></td>
                             <td>
-                                Callback function when the user click accept/cancel/close button.
+                                Callback function when the user click on accept, cancel or close button.
                                 <br />
-                                return {
-                                    value: boolean,
-                                    inputText: string
-                                }
+                                return {value: boolean, inputText: string}
                             </td>
                         </tr>
                         <tr>

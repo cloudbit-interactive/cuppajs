@@ -38,7 +38,6 @@ pre{ border-radius: 0.5rem; }
 .tag-1-blue{ background: var(--color-blue1); color:var(--color-white); border:none; }
 
 .main-section{ display:block; padding: 2rem 2rem 2rem calc(var(--nav-main-width) + 2rem); }
-bar-top{ transition: 0.2s; padding:0 0.2rem; position:fixed; display: none; justify-content: space-between; align-items: center; left:0; top:0; right:0; height:4.3rem; background: var(--color-white); box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }
 navbar-comp{ transition: 0.2s; width: var(--nav-main-width); position: fixed;  top:0; left:0; bottom:0; background: var(--color-purple-1); color:var(--color-white); padding:2rem; font-size: 1.6rem; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
 .open-menu navbar-comp{ left:0; }
 .open-menu bar-top{ top:-4.3rem; }
