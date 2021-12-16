@@ -1,5 +1,5 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.js";
+import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.min.js";
 import {Utils} from "../../../controlers/Utils.js";
 
 export class CuppaAlertDoc extends CuppaComponent {
