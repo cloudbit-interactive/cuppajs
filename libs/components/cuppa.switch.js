@@ -7,6 +7,7 @@ export class CuppaSwitch extends CuppaComponent {
 
     static get observedAttributes() { return ['checked', 'name', 'disabled'] }
     attributeChangedCallback(attr, oldVal, newVal) {
+        if(oldVal === newVal) return;
         if(attr == "checked" || attr=="disabled"){ 
             newVal = (newVal == "true" || newVal == "1") ? true : false;
         }

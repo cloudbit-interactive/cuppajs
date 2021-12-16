@@ -5,7 +5,10 @@ export class Template extends CuppaComponent {
     constructor(){ super(); }
 
     static get observedAttributes() { return ['attr1', 'attr2'] }
-    attributeChangedCallback(attr, oldVal, newVal) { this[attr] = newVal; }
+    attributeChangedCallback(attr, oldVal, newVal) {
+        if(oldVal === newVal) return;
+        this[attr] = newVal;
+    }
 
     render(){
         return html`

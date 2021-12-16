@@ -7,7 +7,7 @@ export class CuppaTabs extends CuppaComponent {
 
     static get observedAttributes() { return ['selected'] }
     attributeChangedCallback(attr, oldVal, newVal) {
-        if(newVal == oldVal) return;
+        if(oldVal === newVal) return;
         this[attr] = newVal;
     }
 

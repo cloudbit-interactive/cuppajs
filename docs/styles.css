@@ -3,8 +3,8 @@
     font-size: 62.5%; 
     --nav-main-width:30rem;
     --color-white:#FFF;
-    --color-red1:#ff3e00;
-    --color-blue1:#268bce;
+    --color-red-1:#ff3e00;
+    --color-blue-1:#268bce;
     --color-purple-1: #6f6f7a;
     --color-purple-1-dark: #484855;
     --color-yellow-1: #ffbe0f;
@@ -35,7 +35,7 @@ pre{ border-radius: 0.5rem; }
 .tag-1-white{ background: var(--color-white); color:var(--color-gray-dark-1); }
 .tag-1-green{ background: var(--color-green-1); color:var(--color-white); border:none; }
 .tag-1-yellow{ background: var(--color-yellow-1); color:var(--color-gray-dark-1); border:none; }
-.tag-1-blue{ background: var(--color-blue1); color:var(--color-white); border:none; }
+.tag-1-blue{ background: var(--color-blue-1); color:var(--color-white); border:none; }
 
 .main-section{ display:block; padding: 2rem 2rem 2rem calc(var(--nav-main-width) + 2rem); }
 navbar-comp{ transition: 0.2s; width: var(--nav-main-width); position: fixed;  top:0; left:0; bottom:0; background: var(--color-purple-1); color:var(--color-white); padding:2rem; font-size: 1.6rem; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
@@ -53,8 +53,8 @@ navbar-comp{ transition: 0.2s; width: var(--nav-main-width); position: fixed;  t
 
 .message{ padding:2rem; background:#EEE; border-radius: 5px; box-shadow: 0 0.2rem 0.6rem rgba(0,0,0,0.2); border:4px solid #FFF; }
 .message_icon{ margin:0 10px 0 0; }
-.message_red{ background: var(--color-red1); color:var(--color-white); }
-.message_blue{ background: var(--color-blue1); color:var(--color-white); }
+.message_red{ background: var(--color-red-1); color:var(--color-white); }
+.message_blue{ background: var(--color-blue-1); color:var(--color-white); }
 .message_purple{ background: var(--color-purple-1); color:var(--color-white); }
 .message_yellow{ background: var(--color-yellow-1); color:var(--color-gray-dark-1); }
 
@@ -68,7 +68,7 @@ navbar-comp{ transition: 0.2s; width: var(--nav-main-width); position: fixed;  t
 .mt-20{ margin-top:2rem; } .ml-20{ margin-left:2rem; } .mr-20{ margin-right:1rem; } .mb-20{ margin-bottom:2rem; }
 
 .table-1{ width:100%; border-collapse: collapse; border-radius: 0.5rem; overflow: hidden; font-size: 1.4rem; }
-.table-1 th{ font-size: 1.3rem; text-align: left; text-transform: uppercase; padding:1rem 1.2rem; color:#767676; background: var(--color-blue1); color: var(--color-white); border: 0.01rem solid #DADDE1; }
+.table-1 th{ font-size: 1.3rem; text-align: left; text-transform: uppercase; padding:1rem 1.2rem; color:#767676; background: var(--color-blue-1); color: var(--color-white); border: 0.01rem solid #DADDE1; }
 .table-1 td{ padding:1rem 1.2rem; border: 0.01rem solid #DADDE1; color:#333; }
 .table-1 tr:nth-child(even) {background: var(--color-gray-clear-1); }
 

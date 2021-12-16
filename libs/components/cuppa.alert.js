@@ -24,6 +24,7 @@ export class CuppaAlert extends CuppaComponent {
 
     static get observedAttributes() { return ['title', 'message', 'accept-text', 'cancel-text', 'backdrop-enabled', 'input-text', 'placeholder'] }
     attributeChangedCallback(attr, oldVal, newVal) {
+        if(oldVal === newVal) return;
         this[camelize(attr)] = newVal;
     }
 
@@ -83,7 +84,7 @@ export class CuppaAlert extends CuppaComponent {
             </style>
         `
     }
-}
+};
 
 customElements.define('cuppa-alert', CuppaAlert);
 document.defaultView.CuppaAlert = CuppaAlert;
