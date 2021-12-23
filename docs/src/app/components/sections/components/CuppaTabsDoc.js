@@ -40,7 +40,7 @@ export class CuppaTabsDoc extends CuppaComponent {
                 <table class="table-1" >
                     <thead>
                         <tr>
-                            <th>
+                            <th style="width: 30rem">
                                 <div class="tag-1">Property</div> 
                                 <div class="tag-1 tag-1-white">attribute</div>
                                 <div class="tag-1 tag-1-yellow">event</div>

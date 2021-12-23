@@ -69,7 +69,8 @@ navbar-comp{ transition: 0.2s; width: var(--nav-main-width); position: fixed;  t
 
 .table-1{ width:100%; border-collapse: collapse; border-radius: 0.5rem; overflow: hidden; font-size: 1.4rem; }
 .table-1 th{ font-size: 1.3rem; text-align: left; text-transform: uppercase; padding:1rem 1.2rem; color:#767676; background: var(--color-blue-1); color: var(--color-white); border: 0.01rem solid #DADDE1; }
-.table-1 td{ padding:1rem 1.2rem; border: 0.01rem solid #DADDE1; color:#333; }
+.table-1 th .tag-1{ font-size: 1.3rem; }
+.table-1 td{ padding:1rem 1.2rem; border: 0.01rem solid #DADDE1; color:#333; vertical-align: top; }
 .table-1 tr:nth-child(even) {background: var(--color-gray-clear-1); }
 
 @media (max-width:1400px){
