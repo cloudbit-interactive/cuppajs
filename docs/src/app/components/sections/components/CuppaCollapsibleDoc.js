@@ -63,8 +63,8 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
                         </cuppa-collapsible>
                     </div>
                     <div style="flex:1; position: relative">
-                        <div class="tag-1" style="position: absolute;">Output</div>
-                        <textarea ref="textarea" class="code" style="margin: 1.3rem 0 0; padding-top: 2rem;" >${JSON.stringify(this.collapsibleStatus, null, 2)}</textarea>
+                        <div class="tag-1" style="position: absolute; right:2px; top:2px;">Output</div>
+                        <textarea ref="textarea" class="code" >${JSON.stringify(this.collapsibleStatus, null, 2)}</textarea>
                     </div>
                 </div>
                 <hr class="separator-1" />
