@@ -13,8 +13,8 @@ export class CuppaSwitchDoc extends CuppaComponent {
     render(){
         return html`
             <div>
-                <h1 class="title-2">Cuppa Switch</h1>
-                <div class="message mt-20" style="display: flex; align-items: center;">
+                <h1 class="title-2 mb-10">Cuppa Switch</h1>
+                <div class="message" style="display: flex; align-items: center;">
                     <cuppa-switch 
                         name="switch" 
                         checked=${this.checked} 
@@ -30,21 +30,23 @@ export class CuppaSwitchDoc extends CuppaComponent {
                     </button>
                 </div>
                 <hr class="separator-1" />
-                <h2 class="title-3 mb-20">Code Example</h2>
+                <h2 class="title-3 mb-10">Code Example</h2>
                 ${Utils.prismCode({removeTabsCount:5, code:`
                     <!-- Import component -->
                     <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>
                     
                     <!-- Use with HTML Tag -->
-                    <cuppa-switch name="switch" @change="${ (e)=>console.log(e.target.checked, e.target.name) }"></cuppa-switch>
+                    <cuppa-switch name="switch" onchange="console.log(this.checked, this.name)"></cuppa-switch>
                 `})}
                 <hr class="separator-1" />
-                <h2 class="title-3 mb-20">Properties</h2>
-                <table class="table-1 mt-20" >
+                <h2 class="title-3 mb-10">Properties</h2>
+                <table class="table-1" >
                     <thead>
                         <tr>
                             <th>
-                                <div class="tag-1">Property</div> <div class="tag-1 tag-1-white">attribute</div>  
+                                <div class="tag-1">Property</div> 
+                                <div class="tag-1 tag-1-white">attribute</div>
+                                <div class="tag-1 tag-1-yellow">event</div>
                             </th>
                             <th>Type</th>
                             <th>Default</th>
@@ -55,6 +57,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                         <tr>
                             <td>
                                 <div class="tag-1">name</div>
+                                <div class="tag-1 tag-1-white">name</div>
                             </td>
                             <td>string</td>
                             <td></td>
@@ -63,6 +66,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                         <tr>
                             <td>
                                 <div class="tag-1">checked</div>
+                                <div class="tag-1 tag-1-white">checked</div>
                             </td>
                             <td>boolean</td>
                             <td>false</td>
@@ -71,6 +75,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                         <tr>
                             <td>
                                 <div class="tag-1">disabled</div>
+                                <div class="tag-1 tag-1-white">disabled</div>
                             </td>
                             <td>boolean</td>
                             <td>false</td>
@@ -90,7 +95,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag-1">@change</div>
+                                <div class="tag-1 tag-1-yellow">onchange</div>
                             </td>
                             <td>Event</td>
                             <td></td>

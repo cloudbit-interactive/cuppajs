@@ -31,7 +31,7 @@ pre{ border-radius: 0.5rem; }
 .button-alpha{ cursor: pointer; text-decoration: none; transition: 0.3s opacity; }
     .button-alpha:hover{ opacity: 0.7; }
 .code{ width:100%; padding:1rem; resize:none; height:9rem; background:#1d1e22; color:#FFF; border:none; border-radius: 5px; }
-.tag-1{ display: inline-block; padding:0.2rem 0.5rem; border-radius: 0.3rem; background: var(--color-gray-clear-1); color:var(--color-gray-dark-1); border:1px solid #ccc; box-shadow: 0 0.1rem 0.3rem rgba(0,0,0,0.1); }
+.tag-1{ font-size: 1.4rem; display: inline-block; padding:0.2rem 0.5rem; border-radius: 0.3rem; background: var(--color-gray-clear-1); color:var(--color-gray-dark-1); border:1px solid #ccc; box-shadow: 0 0.1rem 0.3rem rgba(0,0,0,0.1); }
 .tag-1-white{ background: var(--color-white); color:var(--color-gray-dark-1); }
 .tag-1-green{ background: var(--color-green-1); color:var(--color-white); border:none; }
 .tag-1-yellow{ background: var(--color-yellow-1); color:var(--color-gray-dark-1); border:none; }

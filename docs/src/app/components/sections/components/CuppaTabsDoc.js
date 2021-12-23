@@ -12,9 +12,9 @@ export class CuppaTabsDoc extends CuppaComponent {
     render(){
         return html`
             <div>
-                <h1 class="title-2">Cuppa Tabs</h1>
-                <div class="message mt-20" style="display: flex; align-items: center;">
-                    <cuppa-tabs selected="${this.tabSelected}" @change="${ e=>{ this.tabSelected = e.detail.selected } }" >
+                <h1 class="title-2 mb-10">Cuppa Tabs</h1>
+                <div class="message" style="display: flex; align-items: center;">
+                    <cuppa-tabs selected="${this.tabSelected}" onchange="${ e=>{ this.tabSelected = e.detail.selected } }" >
                         <cuppa-tab value="apple" >Apple</cuppa-tab>
                         <cuppa-tab value="microsoft" >Microsoft</cuppa-tab>
                         <cuppa-tab value="google" >Google</cuppa-tab>
@@ -23,18 +23,57 @@ export class CuppaTabsDoc extends CuppaComponent {
                     <div><strong>Tab Selected:</strong> ${this.tabSelected}</div>
                 </div>
                 <hr class="separator-1" />
-                <h2 class="title-3 mb-20">Code Example</h2>
+                <h2 class="title-3 mb-10">Code Example</h2>
                 ${Utils.prismCode({removeTabsCount:5, code:`
                     <!-- Import component -->
                     <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tabs.min.js" type="module"></script>
                     
                     <!-- Use with HTML Tag -->
-                    <cuppa-tabs selected="microsoft" @change="${ e=>console.log(e.detail) }" >
+                    <cuppa-tabs selected="microsoft" onchange="console.log(this.selected)" >
                         <cuppa-tab value="apple" >Apple</cuppa-tab>
                         <cuppa-tab value="microsoft" >Microsoft</cuppa-tab>
                         <cuppa-tab value="google" >Google</cuppa-tab>
                     </cuppa-tabs>
                 `})}
+                <hr class="separator-1" />
+                <h2 class="title-3 mb-10">Properties <div class="tag-1 tag-1-blue">cuppa-tabs</div></h2>
+                <table class="table-1" >
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="tag-1">Property</div> 
+                                <div class="tag-1 tag-1-white">attribute</div>
+                                <div class="tag-1 tag-1-yellow">event</div>
+                            </th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                        <tbody>
+                            <tr>
+                                <td class="text-left">
+                                    <div class="tag-1">selected</div>
+                                    <div class="tag-1 tag-1-white">selected</div>
+                                </td>
+                                <td>string</td>
+                                <td></td>
+                                <td>
+                                    The value of the tab that will be selected by default.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 
+                                    <div class="tag-1 tag-1-yellow">onchange</div>
+                                </td>
+                                <td> event </td>
+                                <td></td>
+                                <td> 
+                                    Event that will be triggered when the selected tab changes.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </thead>
+                </table>
             </div>
         `
     }

@@ -1,8 +1,13 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaCollapsible} from "../../../../cuppa/components/cuppa.collapsible.min.js";
+import {Utils} from "../../../controlers/Utils.js";
 
 export class CuppaCollapsibleDoc extends CuppaComponent {
     collapsibleStatus = this.observable("collapsibleStatus", {});
+
+    mounted(){
+        Utils.loadPrism();
+    }
 
     onChange(e){
         let data = e.detail;
@@ -29,7 +34,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
             </style>
             <div>
                 <h1 class="title-2">Cuppa Collapsible</h1>
-                <div class="message mt-20" style="display: flex; justify-content: space-between; gap:1rem">
+                <div class="message mt-10" style="display: flex; justify-content: space-between; gap:1rem">
                     <div style="max-width: 400px;">
                         <cuppa-collapsible header="Collapsible Title 1"
                                            content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
@@ -47,12 +52,40 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
                                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                             </cuppa-collapsible-content>
                         </cuppa-collapsible>
+                        <cuppa-collapsible @change=${ this.onChange }
+                                           group="collapsible-group-1"
+                                           name="collapsible-3"
+                        >
+                            <cuppa-collapsible-header>Collapsible Title 3</cuppa-collapsible-header>
+                            <cuppa-collapsible-content>
+                                <img width="100%" height="auto" src="https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313__340.jpg" />
+                           </cuppa-collapsible-content>
+                        </cuppa-collapsible>
                     </div>
-                    <div style="flex:1">
-                        <h3 class="title-4 mb-10">Output</h3>
-                        <textarea ref="textarea" class="code" >${JSON.stringify(this.collapsibleStatus, null, 2)}</textarea>
+                    <div style="flex:1; position: relative">
+                        <div class="tag-1" style="position: absolute;">Output</div>
+                        <textarea ref="textarea" class="code" style="margin: 1.3rem 0 0; padding-top: 2rem;" >${JSON.stringify(this.collapsibleStatus, null, 2)}</textarea>
                     </div>
                 </div>
+                <hr class="separator-1" />
+                <h2 class="title-3 mb-10">Code Example</h2>
+                ${Utils.prismCode({removeTabsCount:5, code:`
+                    <!-- Import component -->
+                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
+                    
+                    <!-- Use with HTML Tag -->
+                    <cuppa-alert title="Message" message="Hello There!" @close="${(e)=>console.log(e.detail)}" ></cuppa-alert>
+                    
+                    <!-- Use with JS -->
+                    <script type="module">
+                        let alert = new CuppaAlert({
+                            title: 'Message',
+                            message: 'My message',
+                            callback:(res)=>{ console.log(res); }
+                        });
+                        document.body.append(alert);
+                    </script>
+                `})}
             </div>
         `
     }

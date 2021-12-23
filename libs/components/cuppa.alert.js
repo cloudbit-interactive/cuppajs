@@ -9,6 +9,7 @@ export class CuppaAlert extends CuppaComponent {
     inputText = null;
     placeholder = "";
     callback = null;
+    value = false;
 
     constructor({title = "", message = "", acceptText = "Accept", cancelText = "", backdropEnabled = false, inputText = null, placeholder = "", callback = null} = {}) {
         super();
@@ -20,6 +21,11 @@ export class CuppaAlert extends CuppaComponent {
         this.inputText = inputText;
         this.placeholder = placeholder;
         this.callback = callback;
+        this.onclick = ()=>{
+            if(this.backdropEnabled === true || this.backdropEnabled === "true"){
+                this.onClick(false);
+            }
+        }
     }
 
     static get observedAttributes() { return ['title', 'message', 'accept-text', 'cancel-text', 'backdrop-enabled', 'input-text', 'placeholder'] }
@@ -29,6 +35,7 @@ export class CuppaAlert extends CuppaComponent {
     }
 
     onClick(value){
+        this.value = value;
         let data = {value, inputText: this.inputText};
         this.dispatchEvent(new CustomEvent("close",{detail:data}));
         if(this.callback) this.callback(data, this);
@@ -41,8 +48,8 @@ export class CuppaAlert extends CuppaComponent {
 
     render(){
         return html`
-            <div class="cuppa_alert_blockade" @click=${ (this.backdropEnabled === true || this.backdropEnabled === "true") ? ()=>this.onClick(false) : null }></div>
-            <div class="cuppa_alert_modal">
+            <div class="cuppa_alert_blockade"></div>
+            <div class="cuppa_alert_modal" @click=${e=>e.stopPropagation()}>
                 ${this.title ? html`<div class="cuppa_alert_title">${  html`${this.title}` }</div>` : ''}
                 <div class="cuppa_alert_message">${ html`${this.message}` }</div>
                 ${this.inputText == undefined ? '' : html`
@@ -70,9 +77,19 @@ export class CuppaAlert extends CuppaComponent {
 
             <style>
                 html, body{ overflow:hidden; }
-                cuppa-alert{ animation-name: cuppa_alert_animation; animation-duration: 0.2s; position:fixed; left:0; right:0; top:0; bottom:0; display:flex; justify-content:center; align-items:center; padding:20px; overflow:auto; }
-                .cuppa_alert_blockade{ background:rgba(0,0,0,0.5); position:fixed; left:0; right:0; top:0; bottom:0; }
-                .cuppa_alert_modal{ position:relative; background: #FFF; width:100%; max-width:500px; padding:30px 40px; overflow: hidden; border-radius: 5px; box-shadow: 0px 3px 10px rgba(0,0,0,0.3); }
+                cuppa-alert{  
+                    animation-name: cuppa_alert_animation; 
+                    animation-duration: 0.2s; 
+                    position:fixed; 
+                    left:0; right:0; top:0; bottom:0; 
+                    display:flex; 
+                    justify-content:center; 
+                    align-items:center; 
+                    padding:20px; 
+                    overflow:auto;
+                    background:rgba(0,0,0,0.5);
+                }
+                .cuppa_alert_modal{ margin:auto; position:relative; background: #FFF; width:100%; max-width:500px; padding:30px 40px; overflow: hidden; border-radius: 5px; box-shadow: 0px 3px 10px rgba(0,0,0,0.3); }
                 .cuppa_alert_title{ font-size: 22px; font-weight: 700; margin:0 0 10px; }
                 .cuppa_alert_input{ width:100%; height:32px; width: 100%; margin:10px 0 0; background: #FFF; color: #333; border-radius: 3px; border: 1px solid #CCC; box-shadow:inset 0 1px 1px rgba(0,0,0,.075); padding:0 10px;  font-weight: 500;  }
                 .cuppa_alert_buttons{ margin:10px 0 0; display:flex; justify-content:flex-end; }
