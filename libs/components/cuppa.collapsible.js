@@ -49,8 +49,12 @@ export class CuppaCollapsible extends CuppaComponent{
     }
 
     addChilds(){
+        let childrenHeader = this.querySelectorAll("cuppa-collapsible-header");
+        if(childrenHeader.length){
+            childrenHeader.forEach(childHeader => { this.refs.headerWrap.append(childHeader); });
+        }
         let childs = this.querySelectorAll("cuppa-collapsible-content");
-        if(childs){
+        if(childs.length){
             childs.forEach(child => { this.refs.contentWrap.append(child); });
         }
     }
@@ -58,14 +62,14 @@ export class CuppaCollapsible extends CuppaComponent{
     change(status){
         if(!status){ status = (this.status == CuppaCollapsible.CLOSE) ? CuppaCollapsible.OPEN : CuppaCollapsible.CLOSE; }
         //++ close other collapsibles
-        if(status == CuppaCollapsible.OPEN && this.group){
-            let elements = document.querySelectorAll("cuppa-collapsible[group='"+this.group+"']");
-            for(let i = 0; i < elements.length; i++){
-                if(elements[i] != this){
-                    elements[i].change(CuppaCollapsible.CLOSE);
+            if(status == CuppaCollapsible.OPEN && this.group){
+                let elements = document.querySelectorAll("cuppa-collapsible[group='"+this.group+"']");
+                for(let i = 0; i < elements.length; i++){
+                    if(elements[i] != this){
+                        elements[i].change(CuppaCollapsible.CLOSE);
+                    }
                 }
             }
-        }
         //--
         this.setAttribute("status", this.status);
         this.status = status;
@@ -82,14 +86,14 @@ export class CuppaCollapsible extends CuppaComponent{
         gsap.killTweensOf(content);
         if(this.status == CuppaCollapsible.OPEN) {
             let tl = gsap.timeline({onComplete:this.onComplete});
-            tl.to(this.refs.content, {duration, height:content.scrollHeight, ease:this.ease});
-            tl.set(this.refs.content, {height:"auto"});
+                tl.to(this.refs.content, {duration, height:content.scrollHeight, ease:this.ease});
+                tl.set(this.refs.content, {height:"auto"});
             if(this.refs.arrow){
                 tl.to(this.refs.arrow, {duration, rotation:180, ease:this.ease}, 0);
             }
         }else{
             let tl = gsap.timeline({onComplete:this.onComplete});
-            tl.to(this.refs.content, {duration, height:0, ease:this.ease});
+                tl.to(this.refs.content, {duration, height:0, ease:this.ease});
             if(this.refs.arrow){
                 tl.to(this.refs.arrow, {duration, rotation:0, ease:this.ease}, 0);
             }
@@ -104,23 +108,26 @@ export class CuppaCollapsible extends CuppaComponent{
     render(){
         return html`
             <div @click="${()=>this.change()}" class="cuppa-collapsible_header" >
-                <div class="cuppa-collapsible_header-content"> ${ html`${this.header}` }</div>
+                <div ref="headerWrap" class="cuppa-collapsible_header-content"> 
+                    ${ html`${this.header}` }
+                </div>
                 ${ !this.arrowURL ? '' : html`
                     <img ref="arrow" class="cuppa-collapsible_arrow" src="${this.arrowURL}" />
                 ` }
             </div>
             <div ref="content" class="cuppa-collapsible_content">
-                <div ref="contentWrap" class="cuppa-collapsible_content-data">
-                    ${ html`${this.content}` }
-                </div>
+               <div ref="contentWrap" class="cuppa-collapsible_content-data">
+                   ${ html`${this.content}` }
+               </div>
             </div>
             <style>
                 cuppa-collapsible{ display: block; border-radius: 5px; overflow: hidden; width:100%; }
                 cuppa-collapsible .cuppa-collapsible_header{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; background: #eee; }
-                cuppa-collapsible .cuppa-collapsible_header-content{ display: flex; flex:1; justify-content: flex-start; align-items: center; padding:10px; }
+                cuppa-collapsible .cuppa-collapsible_header-content{ flex:1; padding:10px; }
                 cuppa-collapsible .cuppa-collapsible_arrow{ width: auto; height: 20px; padding:0 10px; }
                 cuppa-collapsible .cuppa-collapsible_content{ height:0; overflow: hidden; background: #f6f6f6;  }
                 cuppa-collapsible .cuppa-collapsible_content-data{ padding:10px; }
+                cuppa-collapsible cuppa-collapsible-header{ display: block; position: relative; }
                 cuppa-collapsible cuppa-collapsible-content{ display: block; position: relative; }
             </style>
         `

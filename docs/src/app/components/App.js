@@ -1,4 +1,4 @@
-import {CuppaComponent, html} from "../../cuppa/cuppa.component.min.js";
+import {CuppaComponent, html, camelize} from "../../cuppa/cuppa.component.min.js";
 import {Globals} from "../controlers/Globals.js";
 import {NavBar} from "./common/NavBar.js";
 import("./sections/welcome/Welcome.js");
