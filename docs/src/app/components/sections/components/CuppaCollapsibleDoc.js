@@ -204,7 +204,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag-1 tag-1-yellow">change</div>
+                                <div class="tag-1 tag-1-yellow">onchange</div>
                             </td>
                             <td>event</td>
                             <td></td>
@@ -214,7 +214,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
                         </tr>
                         <tr>
                             <td>
-                                <div class="tag-1 tag-1-yellow">ended</div>
+                                <div class="tag-1 tag-1-yellow">onended</div>
                             </td>
                             <td>event</td>
                             <td></td>
