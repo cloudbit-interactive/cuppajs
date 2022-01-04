@@ -20,8 +20,23 @@ export class CuppaNavBarDoc extends CuppaComponent {
                     <button class="button-1" @click="${this.openNavBar}" >Open NavBar</button>
                     <div class="separator-v"></div>
                 </div>
+                <div style="background: #DDD; height: 1000px"></div>
                 <cuppa-navbar ref="navBar">
-                    <cuppa-navbar-content style="padding:2rem;">Menu</cuppa-navbar-content>
+                    <cuppa-navbar-content style="padding:2rem;">
+                        <h2 class="title-2" style="margin:0 0 10px 0;">Menu</h2>
+                        ${  [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30].map(item=>{
+                            return html`
+                                <button class="button-1" 
+                                        style="display: block; width: 100%; margin:2px 0;"
+                                        @click="${()=>{
+                                            alert(`Clicked item ${item}`);
+                                        }}"
+                                >
+                                    Item ${item}
+                                </button>
+                            `
+                        }) }
+                    </cuppa-navbar-content>
                 </cuppa-navbar>
             </div>
         `
