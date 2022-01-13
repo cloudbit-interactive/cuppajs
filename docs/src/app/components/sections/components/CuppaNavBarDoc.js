@@ -22,10 +22,10 @@ export class CuppaNavBarDoc extends CuppaComponent {
                     <div class="separator-v"></div>
                 </div>
                 <div style="background: #DDD; height: 1000px"></div>
-                <cuppa-navbar ref="navBar">
+                <cuppa-navbar ref="navBar" >
                     <cuppa-navbar-content style="display:flex; height: 100%; flex-direction: column;">
                         <h2 class="title-2" style="padding:1rem;">Menu</h2>
-                        <div style="overflow: auto; padding: 1rem; flex:1;">
+                        <div class="scroll-1" style="overflow: auto; padding: 1rem; flex:1;">
                             ${ data.map(item=>{
                                 return html`
                                 <button class="button-1" 
