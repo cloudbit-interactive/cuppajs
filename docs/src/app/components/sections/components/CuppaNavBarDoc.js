@@ -13,6 +13,7 @@ export class CuppaNavBarDoc extends CuppaComponent {
     }
 
     render(){
+        let data = []; for(let i = 1; i <= 40; i++){ data.push(i); }
         return html`
             <div>
                 <h1 class="title-2 mb-10">Cuppa NavBar</h1>
@@ -22,20 +23,22 @@ export class CuppaNavBarDoc extends CuppaComponent {
                 </div>
                 <div style="background: #DDD; height: 1000px"></div>
                 <cuppa-navbar ref="navBar">
-                    <cuppa-navbar-content style="padding:2rem;">
-                        <h2 class="title-2" style="margin:0 0 10px 0;">Menu</h2>
-                        ${  [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30].map(item=>{
-                            return html`
+                    <cuppa-navbar-content style="display:flex; height: 100%; flex-direction: column;">
+                        <h2 class="title-2" style="padding:1rem;">Menu</h2>
+                        <div style="overflow: auto; padding: 1rem; flex:1;">
+                            ${ data.map(item=>{
+                                return html`
                                 <button class="button-1" 
                                         style="display: block; width: 100%; margin:2px 0;"
                                         @click="${()=>{
-                                            alert(`Clicked item ${item}`);
-                                        }}"
+                                    alert(`Clicked item ${item}`);
+                                }}"
                                 >
                                     Item ${item}
                                 </button>
                             `
-                        }) }
+                            }) }
+                        </div>
                     </cuppa-navbar-content>
                 </cuppa-navbar>
             </div>
