@@ -42,7 +42,7 @@ pre{ border-radius: 0.5rem; }
 .scroll-1::-webkit-scrollbar-thumb { background: var(--color-blue-1); }
 .scroll-1::-webkit-scrollbar-thumb:hover { background: var(--color-blue-1-dark); }
 
-.main-section{ display:block; padding: 2rem 2rem 2rem calc(var(--nav-main-width) + 2rem); }
+.main-section{ display:block; position: relative; padding: 2rem 2rem 2rem calc(var(--nav-main-width) + 2rem); }
 navbar-comp{ transition: 0.2s; width: var(--nav-main-width); position: fixed;  top:0; left:0; bottom:0; background: var(--color-purple-1); color:var(--color-white); padding:2rem; font-size: 1.6rem; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
 .open-menu navbar-comp{ left:0; }
 .open-menu bar-top{ top:-4.3rem; }
