@@ -14,15 +14,6 @@ export class Utils{
         "xml": "language-xml"
     }
 
-    static openMenu(value = true){
-        if(value) document.body.classList.add("open-menu");
-        else document.body.classList.remove("open-menu");
-    }
-
-    static toggleMenu(){
-        document.body.classList.toggle("open-menu");
-    }
-
     static prismCode({code = "", type=Utils.prismCodeTypes.html, removeTabsCount = 0}){
         if(removeTabsCount > 0){
             let tabs = ' '.repeat(Constants.TAB_SPACE).repeat(removeTabsCount);

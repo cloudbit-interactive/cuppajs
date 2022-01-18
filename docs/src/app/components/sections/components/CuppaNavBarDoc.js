@@ -37,6 +37,10 @@ export class CuppaNavBarDoc extends CuppaComponent {
                                 </button>
                             `
                             }) }
+
+                            <div style="padding:1rem;">
+                                End of menu
+                            </div>
                         </div>
                     </cuppa-navbar-content>
                 </cuppa-navbar>

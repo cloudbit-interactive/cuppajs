@@ -2,9 +2,9 @@ import {CuppaComponent, html} from "../../../cuppa/cuppa.component.min.js";
 import { Globals } from "../../controlers/Globals.js";
 import { Utils } from "../../controlers/Utils.js";
 
-export class NavBar extends CuppaComponent {
-    path = this.observable("path"); 
-    
+export class Menu extends CuppaComponent {
+    path = this.observable("path");
+
     mounted() {
         Globals.router.updateLinks();
         Globals.router.addListener( this.onRouter );
@@ -13,7 +13,7 @@ export class NavBar extends CuppaComponent {
 
     onRouter(path){
         this.path = path;
-        Utils.openMenu(false);
+        if(Globals.menuMobile) Globals.menuMobile.close();
     }
 
     render(){
@@ -67,8 +67,20 @@ export class NavBar extends CuppaComponent {
                     <div class="menu-item-underline"></div>
                 </li>
             </ul>
+            
+            <style>
+                menu-comp{ display: block; color:var(--color-white); padding:2rem; font-size: 1.6rem;  }
+                menu-comp .menu{ padding:0; list-style: none; margin:4rem 0 0; font-weight: 300; }
+                menu-comp .menu-item{ transition: 0.3s opacity; opacity: 0.6;  border-bottom: 1px solid rgba(255,255,255,0.3); position: relative; user-select: none; }
+                menu-comp .menu-item:hover{ opacity: 1; }
+                menu-comp .menu-item.selected{  opacity: 1; }
+                menu-comp  .menu-item-link{ text-decoration: none; display: grid; grid-template-columns: 3rem auto; grid-template-rows: auto; grid-template-areas: "icon text";  color:var(--color-white); cursor: pointer; padding:1.3rem 0.8rem; }
+                menu-comp .menu-item-underline{ transition: 0.3s width; position: absolute; left:0; bottom:-1px; width: 0%; height: 0; border-bottom: 1px solid #FFF; }
+                menu-comp .menu-item.selected .menu-item-underline{ width:100%; }
+                menu-comp .menu-item-clear{ color:#FFF; text-decoration: none; }
+            </style>
             `
     }
 }
 
-customElements.define('navbar-comp', NavBar);
+customElements.define('menu-comp', Menu);

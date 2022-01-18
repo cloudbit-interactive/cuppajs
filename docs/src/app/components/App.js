@@ -1,6 +1,7 @@
 import {CuppaComponent, html, camelize} from "../../cuppa/cuppa.component.min.js";
 import {Globals} from "../controlers/Globals.js";
-import {NavBar} from "./common/NavBar.js";
+import {Menu} from "./common/Menu.js";
+import {CuppaNavBar} from "../../cuppa/components/cuppa.navbar.min.js";
 import("./sections/welcome/Welcome.js");
 import("./sections/basic/cuppaComponent.js");
 import("./sections/basic/cuppaRouter.js");
@@ -21,10 +22,28 @@ export class App extends CuppaComponent {
         Globals.router.resolve();
     }
 
+    mounted(){
+        Globals.menuMobile = this.refs.menuMobile;
+    }
+
     render(){
         return html`
-            <section class="main-section">
-                ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
+            <!-- desktop menu -->
+                <nav class="nav-main">
+                    <menu-comp></menu-comp>
+                </nav>
+            <!-- mobile menu -->
+                <nav class="nav-top">
+                    <button class="button-icon" @click=${ (e)=>{ Globals.menuMobile.open() } }><i class="fas fa-bars"></i></button>
+                </nav>
+                <cuppa-navbar ref="menuMobile" class="nav-mobile" >
+                    <cuppa-navbar-content>
+                        <menu-comp></menu-comp>
+                    </cuppa-navbar-content>
+                </cuppa-navbar>
+            <!-- main section -->
+                <section class="main-section">
+                    ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
                     : (this.path == "cuppa-component") ? html`<cuppa-component></cuppa-component>`
                     : (this.path == "cuppa-router") ? html`<cuppa-router></cuppa-router>`
                     : (this.path == "cuppa-storage") ? html`<cuppa-storage-base></cuppa-storage-base>`
@@ -35,10 +54,8 @@ export class App extends CuppaComponent {
                     : (this.path == "cuppa-tabs") ? html`<cuppa-tabs-doc></cuppa-tabs-doc>`
                     : (this.path == "cuppa-collapsible") ? html`<cuppa-collapsible-doc></cuppa-collapsible-doc>`   
                     : (this.path == "cuppa-navbar") ? html`<cuppa-navbar-doc></cuppa-navbar-doc>`                                                                            
-                    : html`<welcome-comp></welcome-comp>`
-                }
-            </section>
-            <navbar-comp></navbar-comp>
+                    : html`<welcome-comp></welcome-comp>`}
+                </section>
         `
     }
 }
