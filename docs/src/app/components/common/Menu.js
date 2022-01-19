@@ -74,7 +74,7 @@ export class Menu extends CuppaComponent {
                 menu-comp .menu-item{ transition: 0.3s opacity; opacity: 0.6;  border-bottom: 1px solid rgba(255,255,255,0.3); position: relative; user-select: none; }
                 menu-comp .menu-item:hover{ opacity: 1; }
                 menu-comp .menu-item.selected{  opacity: 1; }
-                menu-comp  .menu-item-link{ text-decoration: none; display: grid; grid-template-columns: 3rem auto; grid-template-rows: auto; grid-template-areas: "icon text";  color:var(--color-white); cursor: pointer; padding:1.3rem 0.8rem; }
+                menu-comp .menu-item-link{ text-decoration: none; background: rgba(0,0,0,0); display: grid; grid-template-columns: 3rem auto; grid-template-rows: auto; grid-template-areas: "icon text";  color:var(--color-white); cursor: pointer; padding:1.3rem 0.8rem; }
                 menu-comp .menu-item-underline{ transition: 0.3s width; position: absolute; left:0; bottom:-1px; width: 0%; height: 0; border-bottom: 1px solid #FFF; }
                 menu-comp .menu-item.selected .menu-item-underline{ width:100%; }
                 menu-comp .menu-item-clear{ color:#FFF; text-decoration: none; }

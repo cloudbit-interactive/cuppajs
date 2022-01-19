@@ -36,7 +36,7 @@ export class App extends CuppaComponent {
                 <nav class="nav-top">
                     <button class="button-icon" @click=${ (e)=>{ Globals.menuMobile.open() } }><i class="fas fa-bars"></i></button>
                 </nav>
-                <cuppa-navbar ref="menuMobile" class="nav-mobile" >
+                <cuppa-navbar ref="menuMobile" class="nav-mobile" drag-enabled="false" >
                     <cuppa-navbar-content>
                         <menu-comp></menu-comp>
                     </cuppa-navbar-content>

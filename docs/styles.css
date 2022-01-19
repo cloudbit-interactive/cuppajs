@@ -2,7 +2,7 @@
 :root{
     font-size: 62.5%;
     --nav-main-width:30rem;
-    --nav-top-height:4rem;
+    --nav-top-height:5.4rem;
     --color-white:#FFF;
     --color-red-1:#ff3e00;
     --color-blue-1:#268bce;
@@ -32,7 +32,7 @@ pre{ border-radius: 0.5rem; }
 .button-1{ border: none; background: #268bce; color:#FFF; padding:0.7rem 1rem; text-transform: uppercase; margin:0 0.2rem; border-radius: 0.3rem; cursor: pointer; }
 .button-alpha{ cursor: pointer; text-decoration: none; transition: 0.3s opacity; cursor: pointer; }
     .button-alpha:hover{ opacity: 0.7; }
-.button-icon{ cursor: pointer; transition: 0.3s background-color; background: rgba(0,0,0,0); color: var(--color-white); font-size: 1.8rem; border: 0; width: var(--nav-top-height); height: var(--nav-top-height); }
+.button-icon{ cursor: pointer; transition: 0.3s background-color; background: rgba(0,0,0,0); color: var(--color-white); font-size: 2.2rem; border: 0; width: var(--nav-top-height); height: var(--nav-top-height); }
     .button-icon:hover{ background: rgba(0,0,0,0.2); }
 .code{ width:100%; padding:1rem; resize:none; height:9rem; background:#1d1e22; color:#FFF; border:none; border-radius: 5px; }
 .tag-1{ font-size: 1.4rem; display: inline-block; padding:0.2rem 0.5rem; border-radius: 0.3rem; background: var(--color-gray-clear-1); color:var(--color-gray-dark-1); border:1px solid #ccc; box-shadow: 0 0.1rem 0.3rem rgba(0,0,0,0.1); }
@@ -46,8 +46,8 @@ pre{ border-radius: 0.5rem; }
 .scroll-1::-webkit-scrollbar-thumb:hover { background: var(--color-blue-1-dark); }
 
 .nav-main{ transition: 0.2s; width: var(--nav-main-width); position: fixed; top:0; left:0; bottom:0; background: var(--color-purple-1); z-index: 1; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
-.nav-top{ display: none; position: fixed; top:0; left: 0; right: 0; justify-content: space-between; align-items: center; height: var(--nav-top-height); background: var(--color-purple-1); z-index: 1; box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }
-.nav-mobile{ display: none; color: var(--color-white); }
+.nav-top{ display: none; z-index: 1; position: fixed; top:0; left: 0; right: 0; justify-content: space-between; align-items: center; height: var(--nav-top-height); background: var(--color-purple-1); box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }
+.nav-mobile{ display: none; color: var(--color-white); z-index: 99; }
 .nav-mobile .navbar_content_wrap{ background: var(--color-purple-1);  }
 .main-section{ display:block; position: relative; padding: 2rem 2rem 2rem calc(var(--nav-main-width) + 2rem); }
 
