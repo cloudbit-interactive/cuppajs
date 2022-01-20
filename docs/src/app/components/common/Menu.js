@@ -70,7 +70,7 @@ export class Menu extends CuppaComponent {
             
             <style>
                 menu-comp{ display: block; color:var(--color-white); padding:2rem; font-size: 1.6rem;  }
-                menu-comp .menu{ padding:0; list-style: none; margin:4rem 0 0; font-weight: 300; }
+                menu-comp .menu{ padding:0; list-style: none; margin:2rem 0 0; font-weight: 300; }
                 menu-comp .menu-item{ transition: 0.3s opacity; opacity: 0.6;  border-bottom: 1px solid rgba(255,255,255,0.3); position: relative; user-select: none; }
                 menu-comp .menu-item:hover{ opacity: 1; }
                 menu-comp .menu-item.selected{  opacity: 1; }

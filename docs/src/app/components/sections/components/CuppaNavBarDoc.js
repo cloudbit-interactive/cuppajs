@@ -21,7 +21,7 @@ export class CuppaNavBarDoc extends CuppaComponent {
                     <button class="button-1" @click="${this.openNavBar}" >Open NavBar</button>
                     <div class="separator-v"></div>
                 </div>
-                <cuppa-navbar ref="navBar"  >
+                <cuppa-navbar ref="navBar" disable-content=".nav-top, .nav-main, .main-section" >
                     <cuppa-navbar-content style="display:flex; height: 100%; flex-direction: column;">
                         <h2 class="title-2" style="padding:1rem;">Menu</h2>
                         <div class="scroll-1" style="overflow: auto; padding: 1rem; flex:1;">
