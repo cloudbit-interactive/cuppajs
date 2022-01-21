@@ -39,12 +39,6 @@ export class Menu extends CuppaComponent {
                     <div class="menu-item-underline"></div>
                 </li>
                 
-                <h3 class="title-3 mt-20">More</h3>
-                <li class="menu-item  ${ this.path == "performance" ? "selected" : "" }" >
-                    <a class="menu-item-link" href="performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
-                    <div class="menu-item-underline"></div>
-                </li>
-                
                 <h3 class="title-3 mt-20">Cuppa Components</h3>
                 <li class="menu-item ${ this.path == "cuppa-alert" ? "selected" : "" }" >
                     <a class="menu-item-link" href="cuppa-alert" ><i class="fas fa-puzzle-piece"></i> Cuppa Alert</a>
@@ -64,6 +58,12 @@ export class Menu extends CuppaComponent {
                 </li>
                 <li class="menu-item ${ this.path == "cuppa-navbar" ? "selected" : "" }">
                     <a class="menu-item-link" href="cuppa-navbar" ><i class="fas fa-puzzle-piece"></i> Cuppa NavBar</a>
+                    <div class="menu-item-underline"></div>
+                </li>
+
+                <h3 class="title-3 mt-20">More</h3>
+                <li class="menu-item  ${ this.path == "performance" ? "selected" : "" }" >
+                    <a class="menu-item-link" href="performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
                     <div class="menu-item-underline"></div>
                 </li>
             </ul>
