@@ -8,7 +8,7 @@ export class CuppaSwitch extends CuppaComponent {
     static get observedAttributes() { return ['checked', 'name', 'disabled'] }
     attributeChangedCallback(attr, oldVal, newVal) {
         if(oldVal === newVal) return;
-        if(attr == "checked" || attr=="disabled"){ 
+        if(attr == "checked" || attr=="disabled"){
             newVal = (newVal == "true" || newVal == "1") ? true : false;
         }
         this[attr] = newVal;
@@ -33,10 +33,9 @@ export class CuppaSwitch extends CuppaComponent {
                 <div class="background"></div>
                 <div class="ball"></div>
             </label>
-            
             <style>
                 cuppa-switch, cuppa-switch *{ box-sizing: border-box; }
-                cuppa-switch{ cursor: pointer; overflow: hidden; user-select: none; display:inline-flex; position:relative; }
+                cuppa-switch{ cursor: pointer; overflow: hidden; -webkit-user-select: none; user-select: none; display:inline-flex; position:relative; }
                 cuppa-switch input{ position: absolute; top:0; left:0; opacity: 0; }
                 cuppa-switch .background{ transition: 0.3s; border:2px solid #BBB; width: 50px; height: 30px; border-radius: 30px; background: #DDD; overflow: hidden;  }
                     cuppa-switch input:checked + .background{ background: #2196F3; border:1px solid #0b76ca;  }

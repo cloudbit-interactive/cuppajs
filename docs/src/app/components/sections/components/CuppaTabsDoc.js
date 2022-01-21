@@ -37,11 +37,63 @@ export class CuppaTabsDoc extends CuppaComponent {
                 `})}
                 <hr class="separator-1" />
                 <h2 class="title-3 mb-10">Properties <div class="tag-1 tag-1-blue">cuppa-tabs</div></h2>
-                <table class="table-1" >
-                    <thead>
+                <div style="overflow: auto;">
+                    <table class="table-1 min-width" >
+                        <thead>
+                            <tr>
+                                <th style="width: 30rem">
+                                    <div class="tag-1">Property</div> 
+                                    <div class="tag-1 tag-1-white">attribute</div>
+                                    <div class="tag-1 tag-1-yellow">event</div>
+                                </th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-left">
+                                    <div class="tag-1">selected</div>
+                                    <div class="tag-1 tag-1-white">selected</div>
+                                </td>
+                                <td>string</td>
+                                <td></td>
+                                <td>
+                                    The value of the tab that will be selected by default.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">callback</div>
+                                </td>
+                                <td>function</td>
+                                <td></td>
+                                <td> 
+                                    The callback function that will be called when the tab is selected.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> 
+                                    <div class="tag-1 tag-1-yellow">onchange</div>
+                                </td>
+                                <td> event </td>
+                                <td></td>
+                                <td> 
+                                    Event that will be triggered when the selected tab changes.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr class="separator-1" />
+                <h2 class="title-3 mb-10">Properties <div class="tag-1 tag-1-blue">cuppa-tab</div></h2>
+                <div style="overflow: auto;">
+                    <table class="table-1 min-width" >
+                        <thead>
                         <tr>
-                            <th style="width: 30rem">
-                                <div class="tag-1">Property</div> 
+                            <th>
+                                <div class="tag-1">Property</div>
                                 <div class="tag-1 tag-1-white">attribute</div>
                                 <div class="tag-1 tag-1-yellow">event</div>
                             </th>
@@ -49,69 +101,21 @@ export class CuppaTabsDoc extends CuppaComponent {
                             <th>Default</th>
                             <th>Description</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-left">
-                                <div class="tag-1">selected</div>
-                                <div class="tag-1 tag-1-white">selected</div>
-                            </td>
-                            <td>string</td>
-                            <td></td>
-                            <td>
-                                The value of the tab that will be selected by default.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="tag-1">callback</div>
-                            </td>
-                            <td>function</td>
-                            <td></td>
-                            <td> 
-                                The callback function that will be called when the tab is selected.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td> 
-                                <div class="tag-1 tag-1-yellow">onchange</div>
-                            </td>
-                            <td> event </td>
-                            <td></td>
-                            <td> 
-                                Event that will be triggered when the selected tab changes.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <hr class="separator-1" />
-                <h2 class="title-3 mb-10">Properties <div class="tag-1 tag-1-blue">cuppa-tab</div></h2>
-                <table class="table-1" >
-                    <thead>
-                    <tr>
-                        <th>
-                            <div class="tag-1">Property</div>
-                            <div class="tag-1 tag-1-white">attribute</div>
-                            <div class="tag-1 tag-1-yellow">event</div>
-                        </th>
-                        <th>Type</th>
-                        <th>Default</th>
-                        <th>Description</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="tag-1">value</div>
-                            </td>
-                            <td>string</td>
-                            <td></td>
-                            <td>
-                                The value of the tab.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">value</div>
+                                </td>
+                                <td>string</td>
+                                <td></td>
+                                <td>
+                                    The value of the tab.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         `
     }

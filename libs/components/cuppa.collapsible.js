@@ -16,7 +16,7 @@ export class CuppaCollapsible extends CuppaComponent{
     status = this.observable("status");
     arrowURL;
     maxHeight = 999999;
-    duration = 0;
+    duration = 0.5;
     ease = "Power2.easeInOut";
     group;
 
@@ -102,7 +102,7 @@ export class CuppaCollapsible extends CuppaComponent{
 
     onComplete(){
         let data = {status:this.status, name:this.name, group:this.group, ref:this}
-        this.dispatchEvent(new CustomEvent("complete",{detail:data}));
+        this.dispatchEvent(new CustomEvent("ended",{detail:data}));
     }
 
     render(){

@@ -26,11 +26,11 @@ export class CuppaNavBarDoc extends CuppaComponent {
                         <h2 class="title-2" style="padding:1rem;">Menu</h2>
                         <div class="scroll-1" style="overflow: auto; padding: 1rem; flex:1;">
                             <a class="button-1"
-                               style="display: block; width: 100%; margin:2px 0;"
+                               style="display: block; width: 100%; margin:2px 0; text-align: center;"
                                @click="${()=>{
                                    alert(`Clicked item`);
                                }}"
-                            >Tag a</a>
+                            >Item a Tag</a>
                             ${ data.map(item=>{
                                 return html`
                                     <button class="button-1" 

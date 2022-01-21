@@ -29,7 +29,7 @@ pre{ border-radius: 0.5rem; }
 .separator-1, .separator-h{ margin:2rem 0; border: none; height: 0; border-bottom: 1px solid #AAA; }
 .separator-v{ width:0; border-right: 1px solid #aaa; height: 3rem; margin:0 1rem; }
 .disabled{ opacity: 0.3 !important; pointer-events: none; }
-.button-1{ border: none; background: #268bce; color:#FFF; padding:0.7rem 1rem; text-transform: uppercase; margin:0 0.2rem; border-radius: 0.3rem; cursor: pointer; }
+.button-1{ border: none; background: #268bce; color:#FFF; padding:0.7rem 1rem; margin:0 0.2rem; border-radius: 0.3rem; cursor: pointer; }
 .button-alpha{ cursor: pointer; text-decoration: none; transition: 0.3s opacity; cursor: pointer; }
     .button-alpha:hover{ opacity: 0.7; }
 .button-icon{ cursor: pointer; transition: 0.3s background-color; background: rgba(0,0,0,0); color: var(--color-white); font-size: 2.2rem; border: 0; width: var(--nav-top-height); height: var(--nav-top-height); }
@@ -72,6 +72,7 @@ pre{ border-radius: 0.5rem; }
 .table-1 th .tag-1{ font-size: 1.3rem; }
 .table-1 td{ padding:1rem 1.2rem; border: 0.01rem solid #DADDE1; color:#333; vertical-align: top; }
 .table-1 tr:nth-child(even) {background: var(--color-gray-clear-1); }
+.table-1.min-width{ min-width: 80rem; }
 
 @media (max-width:1400px){
     .grid_title_2_columns{ grid-template-columns: auto; grid-template-rows: auto auto auto; grid-template-areas: " title" "left" "right"; }

@@ -61,105 +61,107 @@ export class CuppaAlertDoc extends CuppaComponent {
                 
                 <hr class="separator-1" />
                 <h2 class="title-3 mb-10">Properties</h2>
-                <table class="table-1" >
-                    <thead>
-                        <tr>
-                            <th style="width: 30rem">
-                                <div class="tag-1">Property</div> 
-                                <div class="tag-1 tag-1-white">attribute</div>
-                                <div class="tag-1 tag-1-yellow">event</div>
-                            </th>
-                            <th>Type</th>
-                            <th>Default</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="tag-1">title</div>
-                                <div class="tag-1 tag-1-white">title</div>
-                            </td>
-                            <td>string</td>
-                            <td></td>
-                            <td>Title of the alert.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="tag-1">message</div>
-                                <div class="tag-1 tag-1-white">message</div>
-                            </td>
-                            <td>string</td>
-                            <td></td>
-                            <td>Message of the alert.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="tag-1">acceptText</div>
-                                <div class="tag-1 tag-1-white">accept-text</div>
-                            </td>
-                            <td>string</td>
-                            <td>accept</td>
-                            <td>Text of the accept button.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="tag-1">cancelText</div>
-                                <div class="tag-1 tag-1-white">cancel-text</div>
-                            </td>
-                            <td>string</td>
-                            <td></td>
-                            <td>Text of the cancel button, if it is empty the alert don't show the button.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="tag-1">backdropEnabled</div>
-                                <div class="tag-1 tag-1-white">backdrop-enabled</div>
-                            </td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>If true the alert will close when user click outside alert.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="tag-1">inputText</div>
-                                <div class="tag-1 tag-1-white">input-text</div>
-                            </td>
-                            <td>string</td>
-                            <td>null</td>
-                            <td>If is '' or any text, the alert show an input-text.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="tag-1">placeholder</div>
-                                <div class="tag-1 tag-1-white">placeholder</div>
-                            </td>
-                            <td>string</td>
-                            <td></td>
-                            <td>Placeholder of the input-text.</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="tag-1">callback</div>
-                            </td>
-                            <td>function</td>
-                            <td></td>
-                            <td>
-                                Callback function when the user click on accept, cancel or close button.
-                                <br />
-                                return {value: boolean, inputText: string}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="tag-1 tag-1-yellow">onclose</div>
-                            </td>
-                            <td>Event</td>
-                            <td></td>
-                            <td>Fires when alert closed.</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div style="overflow: auto;">
+                    <table class="table-1 min-width" >
+                        <thead>
+                            <tr>
+                                <th style="width: 30rem">
+                                    <div class="tag-1">Property</div> 
+                                    <div class="tag-1 tag-1-white">attribute</div>
+                                    <div class="tag-1 tag-1-yellow">event</div>
+                                </th>
+                                <th>Type</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">title</div>
+                                    <div class="tag-1 tag-1-white">title</div>
+                                </td>
+                                <td>string</td>
+                                <td></td>
+                                <td>Title of the alert.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">message</div>
+                                    <div class="tag-1 tag-1-white">message</div>
+                                </td>
+                                <td>string</td>
+                                <td></td>
+                                <td>Message of the alert.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">acceptText</div>
+                                    <div class="tag-1 tag-1-white">accept-text</div>
+                                </td>
+                                <td>string</td>
+                                <td>accept</td>
+                                <td>Text of the accept button.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">cancelText</div>
+                                    <div class="tag-1 tag-1-white">cancel-text</div>
+                                </td>
+                                <td>string</td>
+                                <td></td>
+                                <td>Text of the cancel button, if it is empty the alert don't show the button.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">backdropEnabled</div>
+                                    <div class="tag-1 tag-1-white">backdrop-enabled</div>
+                                </td>
+                                <td>boolean</td>
+                                <td>false</td>
+                                <td>If true the alert will close when user click outside alert.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">inputText</div>
+                                    <div class="tag-1 tag-1-white">input-text</div>
+                                </td>
+                                <td>string</td>
+                                <td>null</td>
+                                <td>If is '' or any text, the alert show an input-text.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">placeholder</div>
+                                    <div class="tag-1 tag-1-white">placeholder</div>
+                                </td>
+                                <td>string</td>
+                                <td></td>
+                                <td>Placeholder of the input-text.</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1">callback</div>
+                                </td>
+                                <td>function</td>
+                                <td></td>
+                                <td>
+                                    Callback function when the user click on accept, cancel or close button.
+                                    <br />
+                                    return {value: boolean, inputText: string}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1 tag-1-yellow">onclose</div>
+                                </td>
+                                <td>Event</td>
+                                <td></td>
+                                <td>Fires when alert closed.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         `
     }
