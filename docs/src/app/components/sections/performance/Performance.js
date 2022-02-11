@@ -65,12 +65,12 @@ export class Performance extends CuppaComponent {
         return  html`
             <div>
                 <h1 class="title-2 mb-20">Performance Test</h1>
-                <h3>Add new values</h3>
                 <div>
-                    <label for="quantity">Quantity: </label>
-                    <input value=${this.quantity} name="quantity" @change="${e=>this.quantity= parseInt(e.target.value) || 1}" />
+                    <span class="tag-1 bold">Add Values</span>
+                    <label for="quantity" style="margin:0 0 0 0.5rem">Quantity: </label>
+                    <input class="input-1" value=${this.quantity} name="quantity" @change="${e=>this.quantity= parseInt(e.target.value) || 1}" />
                     <label for="position" style="margin:0 0 0 10px">Position: </label>
-                    <select ref="txtPosition" name="position" style="margin:0 0 0 10px" @change=${e=>this.position=e.target.value}>
+                    <select class="input-1" ref="txtPosition" name="position" @change=${e=>this.position=e.target.value}>
                         ${Object.keys(this.positions).map(position=>{
                             return html`<option value=${position} ?selected=${ position === this.position} >${position}</option>`
                         })}
@@ -82,7 +82,8 @@ export class Performance extends CuppaComponent {
                     <button class="button-1" @click="${this.onRenameAll}">Rename All</button>
                     <button class="button-1" @click=${()=>this.forceRender()}>Force Update</button>
                 </div>
-                <h1>Total: ${this.list.length}</h1>
+                <hr class="separator-1" />
+                <div class="title-3"><strong>Total:</strong> ${this.list.length}</div>
                 <ul style="margin:0; padding:0;">
                     ${ repeat(this.list, item=>item.id, item=>html`
                         <li style="display:flex; align-items:center;">
