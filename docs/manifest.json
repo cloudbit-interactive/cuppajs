@@ -17,8 +17,8 @@
         }
   ],
   "start_url": ".",
-  "background_color": "#FFFFFF",
   "display": "standalone",
+  "background_color": "#FFFFFF",
   "theme_color": "#2c2c38",
   "shortcuts": [
     {
