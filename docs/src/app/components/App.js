@@ -1,7 +1,7 @@
 import {CuppaComponent, html, camelize} from "../../cuppa/cuppa.component.min.js";
 import {Globals} from "../controlers/Globals.js";
 import {Menu} from "./common/Menu.js";
-import {CuppaNavBar} from "../../cuppa/components/cuppa.navbar.min.js";
+import {CuppaDrawer} from "../../cuppa/components/cuppa.drawer.min.js";
 import("./sections/welcome/Welcome.js");
 import("./sections/basic/cuppaComponent.js");
 import("./sections/basic/cuppaRouter.js");
@@ -11,7 +11,7 @@ import("./sections/components/CuppaAlertDoc.js");
 import("./sections/components/CuppaSwitchDoc.js");
 import("./sections/components/CuppaTabsDoc.js");
 import("./sections/components/CuppaCollapsibleDoc.js");
-import("./sections/components/CuppaNavBarDoc.js");
+import("./sections/components/CuppaDrawerDoc.js");
 
 export class App extends CuppaComponent {
     path = this.observable("path");
@@ -36,11 +36,11 @@ export class App extends CuppaComponent {
                 <nav class="nav-top">
                     <button class="button-icon" @click=${ (e)=>{ Globals.menuMobile.open() } }><i class="fas fa-bars"></i></button>
                 </nav>
-                <cuppa-navbar ref="menuMobile" class="nav-mobile" disable-content=".nav-top, .main-section" >
-                    <cuppa-navbar-content>
+                <cuppa-drawer ref="menuMobile" class="nav-mobile" disable-content=".nav-top, .main-section" >
+                    <cuppa-drawer-content>
                         <menu-comp></menu-comp>
-                    </cuppa-navbar-content>
-                </cuppa-navbar>
+                    </cuppa-drawer-content>
+                </cuppa-drawer>
             <!-- main section -->
                 <section class="main-section">
                     ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
@@ -53,7 +53,7 @@ export class App extends CuppaComponent {
                     : (this.path == "cuppa-switch") ? html`<cuppa-switch-doc></cuppa-switch-doc>`
                     : (this.path == "cuppa-tabs") ? html`<cuppa-tabs-doc></cuppa-tabs-doc>`
                     : (this.path == "cuppa-collapsible") ? html`<cuppa-collapsible-doc></cuppa-collapsible-doc>`   
-                    : (this.path == "cuppa-navbar") ? html`<cuppa-navbar-doc></cuppa-navbar-doc>`                                                                            
+                    : (this.path == "cuppa-drawer") ? html`<cuppa-drawer-doc></cuppa-drawer-doc>`                                                                            
                     : html`<welcome-comp></welcome-comp>`}
                 </section>
         `
