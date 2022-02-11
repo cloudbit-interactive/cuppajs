@@ -1,0 +1,32 @@
+{
+    "name": "CuppaJS Doc.",
+    "short_name": "cuppajs", 
+    "description": "CuppaJS Documentation.",
+    "icons": [
+        {
+            "src": "media/images/icon-192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "maskable"
+        },
+        {
+            "src": "media/images/icon-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any"
+        }
+  ],
+  "start_url": ".",
+  "background_color": "#4B8DF8",
+  "display": "standalone",
+  "theme_color": "#4B8DF8",
+  "shortcuts": [
+    {
+      "name": "Shortcut #1",
+      "short_name": "Shortcut 1",
+      "description": "Shortcut 1 Description",
+      "url": "shortcut?value1=pwa",
+      "icons": [{ "src": "media/images/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
