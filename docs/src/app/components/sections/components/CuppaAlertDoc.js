@@ -39,10 +39,10 @@ export class CuppaAlertDoc extends CuppaComponent {
     render(){
         return html`
             <style>
-                .modal-1{ padding: 50px; }
+                .modal-1{ padding: 20px; }
                 .modal-1 .cuppa_alert_modal{ max-width: none; padding: 0rem; height: 100%; }
                 .modal-1 .cuppa_alert_top_bar{ border-bottom: 1px solid rgb(221, 221, 221); color: #fff; background: var(--color-menu-bg);  }
-                .modal-1 .cuppa_alert_message{ overflow: auto; height: calc(100% - 2.5rem); padding: 2rem; }
+                .modal-1 .cuppa_alert_message{ overflow: auto; height: calc(100% - 4.3rem); padding: 2rem; }
             </style>
             <div>
                 <h1 class="title-2 mb-10">Cuppa Alert</h1>
