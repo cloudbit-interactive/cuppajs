@@ -19,11 +19,12 @@ export class Menu extends CuppaComponent {
     render(){
         return html`
             <h1 class="title-1" style="display:flex; justify-content:space-between; align-items:center;">
-                <a class="link-clear" href="/">DOC.</a>
-                <a class="button-alpha" href="https://github.com/cloudbit-interactive/cuppajs" target="_blank"><i class="fab fa-github" style="font-size:30px"></i></a>
+                <a class="link-clear" href="/" aria-label="Home">DOC.</a>
+                <a class="button-alpha" href="https://github.com/cloudbit-interactive/cuppajs" aria-label="Github" target="_blank"><i class="fab fa-github" style="font-size:30px"></i></a>
             </h1>
+            
+            <h2 class="title-3 mt-20"><a class="menu-item-clear" href="cuppa-component">Basic</a></h2>
             <ul class="menu">
-                <h3 class="title-3"><a class="menu-item-clear" href="cuppa-component">Basic</a></h3>
                 <li class="menu-item ${ this.path == "cuppa-component" ? "selected" : "" }" >
                     <a class="menu-item-link" href="cuppa-component" ><i class="fas fa-puzzle-piece" ></i> Component</a>
                     <div class="menu-item-underline"></div>
@@ -38,8 +39,10 @@ export class Menu extends CuppaComponent {
                     <a class="menu-item-link" href="cuppa-storage" ><i class="fas fa-database"></i> Storage</a>
                     <div class="menu-item-underline"></div>
                 </li>
-                
-                <h3 class="title-3 mt-20">Cuppa Components</h3>
+            </ul>
+            
+            <h2 class="title-3 mt-20">Cuppa Components</h2>
+            <ul class="menu">
                 <li class="menu-item ${ this.path == "cuppa-alert" ? "selected" : "" }" >
                     <a class="menu-item-link" href="cuppa-alert" ><i class="fas fa-puzzle-piece"></i> Cuppa Alert</a>
                     <div class="menu-item-underline"></div>
@@ -60,8 +63,10 @@ export class Menu extends CuppaComponent {
                     <a class="menu-item-link" href="cuppa-drawer" ><i class="fas fa-puzzle-piece"></i> Cuppa Drawer</a>
                     <div class="menu-item-underline"></div>
                 </li>
-
-                <h3 class="title-3 mt-20">More</h3>
+            </ul>
+            
+            <h2 class="title-3 mt-20">More</h2>
+            <ul class="menu">
                 <li class="menu-item  ${ this.path == "performance" ? "selected" : "" }" >
                     <a class="menu-item-link" href="performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
                     <div class="menu-item-underline"></div>
@@ -70,7 +75,7 @@ export class Menu extends CuppaComponent {
             
             <style>
                 menu-comp{ display: block; color:var(--color-white); padding:2rem; font-size: 1.6rem;  }
-                menu-comp .menu{ padding:0; list-style: none; margin:2rem 0 0; font-weight: 300; }
+                menu-comp .menu{ padding:0; list-style: none; margin:0; font-weight: 300; }
                 menu-comp .menu-item{ transition: 0.3s opacity; opacity: 0.6;  border-bottom: 1px solid rgba(255,255,255,0.3); position: relative; user-select: none; }
                 menu-comp .menu-item:hover{ opacity: 1; }
                 menu-comp .menu-item.selected{  opacity: 1; }

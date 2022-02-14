@@ -34,7 +34,7 @@ export class App extends CuppaComponent {
                 </nav>
             <!-- mobile menu -->
                 <nav class="nav-top">
-                    <button class="button-icon" @click=${ (e)=>{ Globals.menuMobile.open() } }><i class="fas fa-bars"></i></button>
+                    <button class="button-icon" aria-label="Mobile Menu" @click=${ (e)=>{ Globals.menuMobile.open() } }><i class="fas fa-bars"></i></button>
                 </nav>
                 <cuppa-drawer ref="menuMobile" class="nav-mobile" disable-content=".nav-top, .main-section" >
                     <cuppa-drawer-content>
