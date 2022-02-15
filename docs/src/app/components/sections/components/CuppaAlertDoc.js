@@ -51,34 +51,6 @@ export class CuppaAlertDoc extends CuppaComponent {
                     <div class="separator-v"></div>
                     <div><strong>Result:</strong> ${JSON.stringify(this.alertResult)}</div>
                 </div>
-                <div class="message" style="display: flex; align-items: center; margin:1rem 0 0;">
-                    <button class="button-1" @click="${this.showAlertPersonalized}" >Personalized Alert</button>
-                </div>
-                <hr class="separator-1" />
-                <h2 class="title-3 mb-10">Code Example</h2>
-                ${Utils.prismCode({removeTabsCount:5, code:`
-                    <!-- Import component -->
-                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
-                    
-                    <!-- Use with HTML Tag -->
-                    <cuppa-alert 
-                        title="Message" 
-                        message="What is your name?" 
-                        input-text="" 
-                        cancel-text="Cancel" 
-                        onclose="console.log(this.value, this.inputText)" >
-                    </cuppa-alert>
-                    
-                    <!-- Use with JS -->
-                    <script type="module">
-                        let alert = new CuppaAlert({
-                            title: 'Message',
-                            message: 'My message',
-                            callback:(res)=>{ console.log(res); }
-                        });
-                        document.body.append(alert);
-                    </script>
-                `})}
                 
                 <hr class="separator-1" />
                 <h2 class="title-3 mb-10">Properties</h2>
@@ -183,6 +155,57 @@ export class CuppaAlertDoc extends CuppaComponent {
                         </tbody>
                     </table>
                 </div>
+
+                <hr class="separator-1" />
+                <h2 class="title-3 mb-10">Code Example</h2>
+                ${Utils.prismCode({removeTabsCount:5, code:`
+                    <!-- Import component -->
+                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
+                    
+                    <!-- Use with HTML Tag -->
+                    <cuppa-alert 
+                        title="Message" 
+                        message="What is your name?" 
+                        input-text="" 
+                        cancel-text="Cancel" 
+                        onclose="console.log(this.value, this.inputText)" >
+                    </cuppa-alert>
+                    
+                    <!-- Use with JS -->
+                    <script type="module">
+                        let alert = new CuppaAlert({
+                            title: 'Message',
+                            message: 'My message',
+                            callback:(res)=>{ console.log(res); }
+                        });
+                        document.body.append(alert);
+                    </script>
+                `})}
+
+                <div class="message" style="display: flex; align-items: center; margin:1rem 0 0;">
+                    <button class="button-1" @click="${this.showAlertPersonalized}" >Personalized Alert</button>
+                </div>
+                ${Utils.prismCode({removeTabsCount:5, code:`
+                    <style>
+                        .modal-1{ padding: 20px; }
+                        .modal-1 .cuppa_alert_modal{ max-width: none; padding: 0rem; height: 100%; }
+                        .modal-1 .cuppa_alert_top_bar{ border-bottom: 1px solid rgb(221, 221, 221); color: #fff; background: var(--color-menu-bg);  }
+                        .modal-1 .cuppa_alert_message{ overflow: auto; height: calc(100% - 4.3rem); padding: 2rem; }
+                    </style>
+                    <script>
+                        function showAlertPersonalized(){
+                            let alert = new CuppaAlert({
+                                message: getText(),
+                                backdropEnabled:false,
+                                acceptText:"",
+                                title:"Terms & Conditions",
+                                topBar:true,
+                                className:["modal-1"],
+                            });
+                            document.body.append(alert);
+                        }
+                    </script>
+                `})}
             </div>
         `
     }
