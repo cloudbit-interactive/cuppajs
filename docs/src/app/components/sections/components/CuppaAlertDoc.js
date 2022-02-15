@@ -24,14 +24,14 @@ export class CuppaAlertDoc extends CuppaComponent {
         document.body.append(alert);
     }
 
-    showHTMLAlert(){
+    showAlertPersonalized(){
         let alert = new CuppaAlert({
             message: getText(),
             backdropEnabled:false,
             acceptText:"",
             title:"Terms & Conditions",
             topBar:true,
-            className:"modal-1",
+            className:["modal-1"],
         });
         document.body.append(alert);
     }
@@ -51,8 +51,8 @@ export class CuppaAlertDoc extends CuppaComponent {
                     <div class="separator-v"></div>
                     <div><strong>Result:</strong> ${JSON.stringify(this.alertResult)}</div>
                 </div>
-                <div class="message" style="display: flex; align-items: center;">
-                    <button class="button-1" @click="${this.showHTMLAlert}" >Show Alert With HTML Content</button>
+                <div class="message" style="display: flex; align-items: center; margin:1rem 0 0;">
+                    <button class="button-1" @click="${this.showAlertPersonalized}" >Personalized Alert</button>
                 </div>
                 <hr class="separator-1" />
                 <h2 class="title-3 mb-10">Code Example</h2>
@@ -64,7 +64,7 @@ export class CuppaAlertDoc extends CuppaComponent {
                     <cuppa-alert 
                         title="Message" 
                         message="What is your name?" 
-                        input-text="dd" 
+                        input-text="" 
                         cancel-text="Cancel" 
                         onclose="console.log(this.value, this.inputText)" >
                     </cuppa-alert>
