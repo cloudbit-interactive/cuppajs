@@ -172,6 +172,16 @@ export class CuppaAlertDoc extends CuppaComponent {
                                 <td></td>
                                 <td>Fires when alert closed.</td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <div class="tag-1 tag-1-green">cuppa-alert-content</div>
+                                </td>
+                                <td>Component</td>
+                                <td></td>
+                                <td>
+                                    Use this tag to add HTML content to the alert
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

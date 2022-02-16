@@ -230,7 +230,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
                                 <td>sub-tag</td>
                                 <td></td>
                                 <td>
-                                    Use this tag to add html content to the collapsible.
+                                    Use this tag to add HTML content to the collapsible.
                                 </td>
                             </tr>
                         </tbody>

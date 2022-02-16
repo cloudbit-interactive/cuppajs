@@ -56,8 +56,16 @@ export class CuppaDrawer extends CuppaComponent {
 
     mounted(){
         this.addChilds();
-        if(this.status.toLowerCase() === CuppaDrawer.CLOSE.toLowerCase()){ this.close(0); }
-        if(this.dragEnabled) this.addEvents();
+        let status = this.status.toUpperCase();
+        if(status === CuppaDrawer.CLOSE){ 
+            this.close(0); 
+        }else if(status === CuppaDrawer.OPEN){ 
+            this.open(0); 
+        }
+
+        if(this.dragEnabled){
+            this.addEvents();
+        }
     }
 
     onStart(e){
@@ -91,6 +99,7 @@ export class CuppaDrawer extends CuppaComponent {
     }
 
     onMove(e){
+        let drawerPosition = this.position.toUpperCase();
         let {x,y, dx, dy} = this.setPosition(e);
         let internalStatus = this.getInternalStatus();
         if(internalStatus === CuppaDrawer.SCROLLING){ this.addExtraEvents(false); return; }
@@ -100,13 +109,13 @@ export class CuppaDrawer extends CuppaComponent {
         }
 
         this.blockContent(true);
-        if(this.position === CuppaDrawer.LEFT) {
+        if(drawerPosition === CuppaDrawer.LEFT) {
             if(dx > 0){ dx = 0; }
             if(dx < -this.width){ dx = -this.width; }
             gsap.set(this.refs.contentWrap, {left:dx});
             let opacity = 1 + (dx / this.width);
             gsap.set(this.refs.blockade, {opacity});
-        }else if(this.position === CuppaDrawer.RIGHT){
+        }else if(drawerPosition === CuppaDrawer.RIGHT){
             dx = 0 - dx;
             if(dx > 0){ dx = 0; }
             if(dx < -this.width){ dx = -this.width; }
@@ -121,6 +130,7 @@ export class CuppaDrawer extends CuppaComponent {
     onEnd(e){
         this.addExtraEvents(false);
         this.blockContent(false);
+        let drawerPosition = this.position.toUpperCase();
         let pos = this.getPosition();
         if(e.target.classList.contains("cuppa-drawer_blockade") && pos){
             let first = this.getPosition(CuppaDrawer.FIRST);
@@ -143,13 +153,13 @@ export class CuppaDrawer extends CuppaComponent {
 
         let [validSwipe, direction] = this.isValidSwipe(pos.vx, this.swipeConfig.velocityThreshold, pos.dy, this.swipeConfig.directionalOffsetThreshold);
         if(!validSwipe){
-            if(this.position === CuppaDrawer.LEFT){
+            if(drawerPosition === CuppaDrawer.LEFT){
                 if(Math.abs(pos.dx) > this.width*0.5){
                     this.close();
                 }else{
                     this.open();
                 }
-            }else if(this.position === CuppaDrawer.RIGHT){
+            }else if(drawerPosition === CuppaDrawer.RIGHT){
                 if(Math.abs(pos.dx) > this.width*0.5){
                     this.close();
                 }else{
@@ -159,10 +169,10 @@ export class CuppaDrawer extends CuppaComponent {
             return;
         }
 
-        if(this.position === CuppaDrawer.LEFT){
+        if(drawerPosition === CuppaDrawer.LEFT){
             if(direction < 0) this.close();
             else this.open();
-        }else if(this.position === CuppaDrawer.RIGHT){
+        }else if(drawerPosition === CuppaDrawer.RIGHT){
             if(direction > 0) this.close();
             else this.open();
         }
@@ -198,6 +208,7 @@ export class CuppaDrawer extends CuppaComponent {
     }
 
     open(duration = this.durationOpen){
+        let drawerPosition = this.position.toUpperCase();
         this.status = CuppaDrawer.OPEN;
         this.blockContent(false);
         this.setDisableContent(true);
@@ -208,9 +219,9 @@ export class CuppaDrawer extends CuppaComponent {
         this.tl = gsap.timeline({onUpdate:this.onUpdate});
         this.tl.set(this, { pointerEvents: 'none' });
         this.tl.to(this.refs.blockade, {duration, opacity:1, ease: this.easeOpen}, 0)
-        if(this.position === CuppaDrawer.LEFT) {
+        if(drawerPosition === CuppaDrawer.LEFT) {
             this.tl.to(this.refs.contentWrap, {duration, left: 0, ease: this.easeOpen}, 0);
-        }else if(this.position === CuppaDrawer.RIGHT){
+        }else if(drawerPosition === CuppaDrawer.RIGHT){
             this.tl.to(this.refs.contentWrap, {duration, right: 0, ease: this.easeOpen}, 0);
         }
         this.tl.set(this, { pointerEvents: 'auto' });
@@ -221,6 +232,7 @@ export class CuppaDrawer extends CuppaComponent {
     }
 
     close(duration = this.durationClose){
+        let drawerPosition = this.position.toUpperCase();
         this.status = CuppaDrawer.CLOSE;
         this.blockContent(false);
         this.setDisableContent(false);
@@ -231,9 +243,9 @@ export class CuppaDrawer extends CuppaComponent {
         this.tl = gsap.timeline({onUpdate:this.onUpdate});
         this.tl.set(this, { pointerEvents: 'none' });
         this.tl.to(this.refs.blockade, {duration, opacity:0, ease: this.easeClose}, 0);
-        if(this.position === CuppaDrawer.LEFT){
+        if(drawerPosition === CuppaDrawer.LEFT){
             this.tl.to(this.refs.contentWrap, {duration, left: -this.width, ease: this.easeClose}, 0);
-        }else if(this.position === CuppaDrawer.RIGHT){
+        }else if(drawerPosition === CuppaDrawer.RIGHT){
             this.tl.to(this.refs.contentWrap, {duration, right: -this.width, ease: this.easeClose}, 0);
         }
 
@@ -311,6 +323,7 @@ export class CuppaDrawer extends CuppaComponent {
     }
 
     render(){
+        let status = this.status;
         return html`
             <div ref="blockade" class="cuppa-drawer_blockade" @click=${(this.backdropEnabled) ? ()=>this.close() : null} ></div>
             <div ref="contentWrap" class="drawer_content_wrap"></div>
@@ -321,7 +334,7 @@ export class CuppaDrawer extends CuppaComponent {
                 cuppa-drawer .drawer_content_wrap{ position: absolute; overflow: auto; top: 0; bottom: 0; width: ${this.width}px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
                 cuppa-drawer-content{ display: block; }
                 cuppa-drawer.noscroll cuppa-drawer-content, cuppa-drawer.noscroll *{ overflow: hidden; }
-                ${this.status === CuppaDrawer.CLOSE ? `` : html`
+                ${status === CuppaDrawer.CLOSE ? `` : html`
                     html, body{ overflow:hidden; }
                 `}
             </style>

@@ -39,6 +39,8 @@ export class CuppaAlert extends CuppaComponent {
     static get observedAttributes() { return ['title', 'message', 'accept-text', 'cancel-text', 'backdrop-enabled', 'input-text', 'placeholder', 'top-bar', 'close-image'] }
     attributeChangedCallback(attr, oldVal, newVal) {
         if(oldVal === newVal) return;
+        if(newVal == 'false') newVal = false;
+        if(newVal == 'true') newVal = true;
         this[camelize(attr)] = newVal;
     }
 
