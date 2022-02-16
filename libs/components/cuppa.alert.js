@@ -108,6 +108,7 @@ export class CuppaAlert extends CuppaComponent {
 
             <style>
                 html, body{ overflow:hidden; }
+                cuppa-alert, cuppa-alert *{ box-sizing:border-box; }
                 cuppa-alert{  
                     animation-name: cuppa_alert_animation; 
                     animation-duration: 0.4s; 

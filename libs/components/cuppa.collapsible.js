@@ -121,6 +121,7 @@ export class CuppaCollapsible extends CuppaComponent{
                </div>
             </div>
             <style>
+                cuppa-collapsible, cuppa-collapsible *{ box-sizing: border-box; }
                 cuppa-collapsible{ display: block; border-radius: 5px; overflow: hidden; width:100%; }
                 cuppa-collapsible .cuppa-collapsible_header{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ccc; background: #eee; }
                 cuppa-collapsible .cuppa-collapsible_header-content{ flex:1; padding:10px; }

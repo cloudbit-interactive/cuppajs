@@ -328,6 +328,7 @@ export class CuppaDrawer extends CuppaComponent {
             <div ref="blockade" class="cuppa-drawer_blockade" @click=${(this.backdropEnabled) ? ()=>this.close() : null} ></div>
             <div ref="contentWrap" class="drawer_content_wrap"></div>
             <style>
+                cuppa-drawer, cuppa-drawer *{ box-sizing: border-box; }
                 cuppa-drawer{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 100; overflow: hidden; -webkit-user-select: none; user-select: none; }
                 cuppa-drawer *{ -webkit-user-select: none; user-select: none; }
                 cuppa-drawer .cuppa-drawer_blockade{ background: rgba(0,0,0,0.7); position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
