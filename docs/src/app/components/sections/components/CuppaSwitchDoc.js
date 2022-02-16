@@ -29,15 +29,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
                         ${ this.checked ? 'Uncheck' : 'Check' }
                     </button>
                 </div>
-                <hr class="separator-1" />
-                <h2 class="title-3 mb-10">Code Example</h2>
-                ${Utils.prismCode({removeTabsCount:5, code:`
-                    <!-- Import component -->
-                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>
-                    
-                    <!-- Use with HTML Tag -->
-                    <cuppa-switch name="switch" onchange="console.log(this.checked, this.name)"></cuppa-switch>
-                `})}
+                
                 <hr class="separator-1" />
                 <h2 class="title-3 mb-10">Properties</h2>
                 <div style="overflow: auto;">
@@ -105,6 +97,17 @@ export class CuppaSwitchDoc extends CuppaComponent {
                         </tbody>
                     </table>
                 </div>
+
+                <hr class="separator-1" />
+                <h2 class="title-3 mb-10">Code Example</h2>
+                ${Utils.prismCode({removeTabsCount:5, code:`
+                    <!-- Import component -->
+                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>
+                    
+                    <!-- Use with HTML Tag -->
+                    <cuppa-switch name="switch" onchange="console.log(this.checked, this.name)"></cuppa-switch>
+                `})}
+                
             </div>
         `
     }

@@ -6,6 +6,7 @@
     --color-menu-bg:#2c2c38;
     --color-white:#FFF;
     --color-red-1:#ff3e00;
+    --color-red-1-dark:#9c2700;
     --color-blue-1:#268bce;
     --color-blue-1-dark: #0e6fa2;
     --color-purple-1: #6f6f7a;
@@ -32,7 +33,7 @@ pre{ border-radius: 0.5rem; }
 .disabled{ opacity: 0.3 !important; pointer-events: none; }
 .bold{ font-weight: bold; }
 .button-1{ border: none; background: #268bce; color:#FFF; padding:0.7rem 1rem; margin:0 0.2rem; border-radius: 0.3rem; cursor: pointer; }
-.button-alpha{ cursor: pointer; text-decoration: none; transition: 0.3s opacity; cursor: pointer; }
+.button-alpha{ opacity: 1; cursor: pointer; text-decoration: none; transition: 0.3s opacity; cursor: pointer; }
     .button-alpha:hover{ opacity: 0.7; }
 .button-icon{ cursor: pointer; transition: 0.3s background-color; background: rgba(0,0,0,0); color: var(--color-white); font-size: 2.2rem; border: 0; width: var(--nav-top-height); height: var(--nav-top-height); }
     .button-icon:hover{ background: rgba(0,0,0,0.2); }

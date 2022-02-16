@@ -22,19 +22,7 @@ export class CuppaTabsDoc extends CuppaComponent {
                     <div class="separator-v"></div>
                     <div><strong>Tab Selected:</strong> ${this.tabSelected}</div>
                 </div>
-                <hr class="separator-1" />
-                <h2 class="title-3 mb-10">Code Example</h2>
-                ${Utils.prismCode({removeTabsCount:5, code:`
-                    <!-- Import component -->
-                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tabs.min.js" type="module"></script>
-                    
-                    <!-- Use with HTML Tag -->
-                    <cuppa-tabs selected="microsoft" onchange="console.log(this.selected)" >
-                        <cuppa-tab value="apple" >Apple</cuppa-tab>
-                        <cuppa-tab value="microsoft" >Microsoft</cuppa-tab>
-                        <cuppa-tab value="google" >Google</cuppa-tab>
-                    </cuppa-tabs>
-                `})}
+                
                 <hr class="separator-1" />
                 <h2 class="title-3 mb-10">Properties <div class="tag-1 tag-1-blue">cuppa-tabs</div></h2>
                 <div style="overflow: auto;">
@@ -86,6 +74,7 @@ export class CuppaTabsDoc extends CuppaComponent {
                         </tbody>
                     </table>
                 </div>
+
                 <hr class="separator-1" />
                 <h2 class="title-3 mb-10">Properties <div class="tag-1 tag-1-blue">cuppa-tab</div></h2>
                 <div style="overflow: auto;">
@@ -116,6 +105,20 @@ export class CuppaTabsDoc extends CuppaComponent {
                         </tbody>
                     </table>
                 </div>
+
+                <hr class="separator-1" />
+                <h2 class="title-3 mb-10">Code Example</h2>
+                ${Utils.prismCode({removeTabsCount:5, code:`
+                    <!-- Import component -->
+                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tabs.min.js" type="module"></script>
+                    
+                    <!-- Use with HTML Tag -->
+                    <cuppa-tabs selected="microsoft" onchange="console.log(this.selected)" >
+                        <cuppa-tab value="apple" >Apple</cuppa-tab>
+                        <cuppa-tab value="microsoft" >Microsoft</cuppa-tab>
+                        <cuppa-tab value="google" >Google</cuppa-tab>
+                    </cuppa-tabs>
+                `})}
             </div>
         `
     }
