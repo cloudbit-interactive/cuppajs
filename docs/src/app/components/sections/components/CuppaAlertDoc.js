@@ -26,7 +26,7 @@ export class CuppaAlertDoc extends CuppaComponent {
 
     showAlertPersonalized(){
         let alert = new CuppaAlert({
-            message: html`<iframe src="http://www.pdf995.com/samples/pdf.pdf"></iframe>`,
+            message: html`<iframe src="media/docs/pdf.pdf"></iframe>`,
             backdropEnabled:false,
             acceptText:"",
             title:"PDF Preview",
@@ -222,11 +222,14 @@ export class CuppaAlertDoc extends CuppaComponent {
                         .modal-1 .cuppa-alert_top-bar{ color: var(--color-menu-bg); }
                         .modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
                         .modal-1 iframe{ width:100%; height:100%; border:0; }
+                        @media (max-width:500px){
+                            .modal-1{ padding: 2rem; }
+                        }
                     </style>
                     <script>
                         showAlertPersonalized(){
                             let alert = new CuppaAlert({
-                                message: html\`<iframe src="http://www.pdf995.com/samples/pdf.pdf"></iframe>\`,
+                                message: html\`<iframe src="media/docs/pdf.pdf"></iframe>\`,
                                 backdropEnabled:false,
                                 acceptText:"",
                                 title:"PDF Preview",
