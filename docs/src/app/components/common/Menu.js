@@ -20,7 +20,10 @@ export class Menu extends CuppaComponent {
         return html`
             <h1 class="title-1" style="display:flex; justify-content:space-between; align-items:center;">
                 <a class="link-clear" href="/" aria-label="Home">DOC.</a>
-                <a class="button-alpha" href="https://github.com/cloudbit-interactive/cuppajs" aria-label="Github" target="_blank"><i class="fab fa-github" style="font-size:30px"></i></a>
+                <div>
+                    <a class="button-alpha" href="https://www.npmjs.com/package/cuppajs" aria-label="NPM" target="_blank"><i class="fab fa-npm" style="font-size:30px"></i></a>
+                    <a class="button-alpha" href="https://github.com/cloudbit-interactive/cuppajs" aria-label="Github" target="_blank"><i class="fab fa-github" style="font-size:30px"></i></a>
+                </div>
             </h1>
             
             <h2 class="title-3 mt-20"><a class="menu-item-clear" href="cuppa-component">Basic</a></h2>
