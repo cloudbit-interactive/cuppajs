@@ -17,10 +17,10 @@ CuppaComponent.js | CuppaRouter.js | CuppaStorage.js
 
 # Documentation
 
-Doc [http://cuppajs.cloudbit.co/](https://cuppajs.cloudbit.co/)
-Git [https://github.com/cloudbit-interactive/cuppajs](https://github.com/cloudbit-interactive/cuppajs)
-Npm [https://www.npmjs.com/package/cuppajs](https://www.npmjs.com/package/cuppajs)
-
+Doc [http://cuppajs.cloudbit.co/](https://cuppajs.cloudbit.co/) <br />
+Git [https://github.com/cloudbit-interactive/cuppajs](https://github.com/cloudbit-interactive/cuppajs) <br />
+Npm [https://www.npmjs.com/package/cuppajs](https://www.npmjs.com/package/cuppajs) <br />
+WebComponents [https://www.webcomponents.org/element/cuppajs-elements] https://www.webcomponents.org/element/cuppajs-elements
 
 # Cuppa Component ~5.5kB gzipped
 ```javascript
