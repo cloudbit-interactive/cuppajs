@@ -1,6 +1,6 @@
 {
   "name": "cuppajs",
-  "version": "0.0.98",
+  "version": "0.0.99",
   "description": "Standard Vanilla Libraries that work with everything.",
   "main": "index.js",
   "scripts": {
@@ -11,17 +11,23 @@
     "url": "git+https://github.com/cloudbit-interactive/cuppajs.git"
   },
   "keywords": [
+    "angular",
     "reactjs",
     "cuppajs",
     "javascript",
     "vanilla",
     "reactive",
     "component",
+    "svelte",
+    "stencil",
     "web",
-    "component"
+    "component",
+    "web-components",
+    "utility",
+    "element-collection"
   ],
-  "author": "Tufik Chediak",
-  "license": "ISC",
+  "author": "Tufik Chediak Sanchez <tufik2@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/cloudbit-interactive/CuppaComponent/issues"
   },
