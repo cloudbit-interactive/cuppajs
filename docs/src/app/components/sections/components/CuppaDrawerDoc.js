@@ -1,5 +1,5 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {Utils} from "../../../controlers/Utils.js";
+import {Utils} from "../../../controllers/Utils.js";
 import {CuppaDrawer} from "../../../../cuppa/components/cuppa.drawer.min.js";
 
 export class CuppaDrawerDoc extends CuppaComponent {

@@ -1,6 +1,6 @@
 import {CuppaComponent, html} from "../../../cuppa/cuppa.component.min.js";
-import { Globals } from "../../controlers/Globals.js";
-import { Utils } from "../../controlers/Utils.js";
+import { Globals } from "../../controllers/Globals.js";
+import { Utils } from "../../controllers/Utils.js";
 
 export class Menu extends CuppaComponent {
     path = this.observable("path");

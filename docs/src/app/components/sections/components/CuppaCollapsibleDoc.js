@@ -1,6 +1,6 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaCollapsible} from "../../../../cuppa/components/cuppa.collapsible.min.js";
-import {Utils} from "../../../controlers/Utils.js";
+import {Utils} from "../../../controllers/Utils.js";
 
 export class CuppaCollapsibleDoc extends CuppaComponent {
     collapsibleStatus = this.observable("collapsibleStatus", {});

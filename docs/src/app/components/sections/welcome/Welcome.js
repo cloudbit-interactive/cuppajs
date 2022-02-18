@@ -1,5 +1,5 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {Globals} from "../../../controlers/Globals.js";
+import {Globals} from "../../../controllers/Globals.js";
 
 export class Welcome extends CuppaComponent {
     constructor(){

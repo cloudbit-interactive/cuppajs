@@ -1,5 +1,5 @@
 import {CuppaComponent, html, camelize} from "../../cuppa/cuppa.component.min.js";
-import {Globals} from "../controlers/Globals.js";
+import {Globals} from "../controllers/Globals.js";
 import {Menu} from "./common/Menu.js";
 import {CuppaDrawer} from "../../cuppa/components/cuppa.drawer.min.js";
 import("./sections/welcome/Welcome.js");
