@@ -25,7 +25,7 @@ export class CuppaDrawerDoc extends CuppaComponent {
                 <div>
                     <cuppa-drawer ref="drawer" disable-content=".nav-top, .nav-main, .main-section" >
                         <cuppa-drawer-content style="display:flex; height: 100%; flex-direction: column;">
-                            <h2 class="title-2" style="padding:1rem;">Menu</h2>
+                            <h2 class="title-2" style="padding:1rem; padding-top: calc(env(safe-area-inset-top) + 1rem);">Menu</h2>
                             <div class="scroll-1" style="overflow: auto; padding: 1rem; flex:1;">
                                 <a class="button-1"
                                    style="display: block; width: 100%; margin:2px 0; text-align: center;"
