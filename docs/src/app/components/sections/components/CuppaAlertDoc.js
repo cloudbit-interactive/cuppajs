@@ -242,13 +242,13 @@ export class CuppaAlertDoc extends CuppaComponent {
                 `})}
             </div>
             <style>
-                .modal-1{ padding: calc(4rem + env(safe-area-inset-top)) 4rem 4rem; }
+                .modal-1{ padding: calc(4rem + env(safe-area-inset-top)) 4rem calc(env(safe-area-inset-bottom) + 4rem); }
                 .modal-1 .cuppa-alert_modal{ max-width: none; padding: 0rem; height: 100%; display: flex; flex-direction: column;}
                 .modal-1 .cuppa-alert_top-bar{ color: var(--color-menu-bg); }
                 .modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
                 .modal-1 iframe{ width:100%; height:100%; border:0; }
                 @media (max-width:500px){
-                    .modal-1{ padding: calc(env(safe-area-inset-top) + 1rem) 1rem 1rem; }
+                    .modal-1{ padding: calc(env(safe-area-inset-top) + 1rem) 1rem calc(env(safe-area-inset-bottom) + 1rem); }
                 }
             </style>
         `
