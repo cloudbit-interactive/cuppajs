@@ -33,15 +33,13 @@ export class CuppaDrawerDoc extends CuppaComponent {
                                        alert(`Clicked item`);
                                    }}"
                                 >Item a Tag</a>
-
                                 <a class="button-1"
                                    style="display: block; width: 100%; margin:2px 0; text-align: center; text-decoration: none;"
                                    href="https://www.google.com"
                                    target="_blank"
                                 >
                                   <span style="pointer-events: none;">Item external link</span>
-                                </a>  
-                              
+                                </a>
                                 ${ data.map(item=>{
                                     return html`
                                         <button class="button-1" 
