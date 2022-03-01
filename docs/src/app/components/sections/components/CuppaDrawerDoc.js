@@ -23,7 +23,7 @@ export class CuppaDrawerDoc extends CuppaComponent {
                 </div>
                 
                 <div>
-                    <cuppa-drawer ref="drawer" disable-content=".nav-top, .nav-main, .main-section" >
+                    <cuppa-drawer ref="drawer" disable-content=".nav-top, .nav-main, .main-section"  disable-scroll=".scroll-1">
                         <cuppa-drawer-content style="display:flex; height: 100%; flex-direction: column;">
                             <h2 class="title-2" style="padding:1rem; padding-top: calc(env(safe-area-inset-top) + 1rem);">Menu</h2>
                             <div class="scroll-1" style="overflow: auto; padding: 1rem; flex:1;">
@@ -33,6 +33,15 @@ export class CuppaDrawerDoc extends CuppaComponent {
                                        alert(`Clicked item`);
                                    }}"
                                 >Item a Tag</a>
+
+                                <a class="button-1"
+                                   style="display: block; width: 100%; margin:2px 0; text-align: center; text-decoration: none;"
+                                   href="https://www.google.com"
+                                   target="_blank"
+                                >
+                                  <span style="pointer-events: none;">Item external link</span>
+                                </a>  
+                              
                                 ${ data.map(item=>{
                                     return html`
                                         <button class="button-1" 
@@ -226,7 +235,7 @@ export class CuppaDrawerDoc extends CuppaComponent {
                     <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.drawer.min.js" type="module"></script>
                     
                     <!-- Use with HTML Tag -->
-                    <cuppa-drawer status="open" position="right" disable-content=".nav-top, .nav-main, .main-section" >
+                    <cuppa-drawer status="open" position="right" disable-content=".nav-top, .nav-main, .main-section" disable-scroll=".scroll-1, body" >
                         <cuppa-drawer-content style="display:flex; height: 100%; flex-direction: column; padding:10px;">
                             <h1 style="margin:0">Menu</h1>
                             <ul>

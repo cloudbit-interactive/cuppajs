@@ -48,6 +48,8 @@ pre{ border-radius: 0.5rem; }
 .scroll-1::-webkit-scrollbar-track { background: transparent; }
 .scroll-1::-webkit-scrollbar-thumb { background: var(--color-blue-1); }
 .scroll-1::-webkit-scrollbar-thumb:hover { background: var(--color-blue-1-dark); }
+.relative{ position: relative; }
+.d-block{ display: block; }
 
 .nav-main{ transition: 0.2s; width: var(--nav-main-width); position: fixed; top:0; left:0; bottom:0; background: var(--color-menu-bg); z-index: 1; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
 .nav-top{ display: none; z-index: 1; position: fixed; top:0; left: 0; right: 0; justify-content: space-between; align-items: center; height: calc(var(--nav-top-height) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); background: var(--color-menu-bg); box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }
