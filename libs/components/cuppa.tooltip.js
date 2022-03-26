@@ -7,10 +7,10 @@ export class CuppaTooltip extends CuppaComponent {
     posX = CuppaTooltip.POSITION.CENTER;
     posY = CuppaTooltip.POSITION.BOTTOM;
     arrow = CuppaTooltip.ARROW.UP;
-    arrowStyle = ""
+    styleArrow = "";
     target;
 
-    static get observedAttributes() { return ['target', 'text', 'pos-x', 'pos-y', 'arrow', 'arrow-style'] }
+    static get observedAttributes() { return ['target', 'text', 'pos-x', 'pos-y', 'arrow', 'style-arrow'] }
     attributeChangedCallback(attr, oldVal, newVal) {
         if(oldVal === newVal) return;
         this[camelize(attr)] = newVal;
@@ -91,7 +91,7 @@ export class CuppaTooltip extends CuppaComponent {
     render(){
         return html`
             ${this.arrow === "" || this.arrow.toUpperCase() === CuppaTooltip.ARROW.NONE ? `` : html`
-                <svg class="cuppa-tooltip_arrow ${this.arrow.toLowerCase()}" width="10" height="5" viewBox="0 0 18 9" preserveAspectRatio="none" style="${this.arrowStyle}" >
+                <svg class="cuppa-tooltip_arrow ${this.arrow.toLowerCase()}" width="10" height="5" viewBox="0 0 18 9" preserveAspectRatio="none" style="${this.styleArrow}" >
                     <path data-name="Icon ionic-md-arrow-dropup" d="M9,22.5l9-9,9,9Z" transform="translate(-9 -13.5)"/>
                 </svg>
             `}
