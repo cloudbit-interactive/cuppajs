@@ -628,37 +628,37 @@ html, body {
 }
 
 .disable {
-  opacity: 0.4;
-  pointer-events: none;
-  -webkit-user-select: none;
-  user-select: none;
-  outline: none;
+  opacity: 0.4 !important;
+  pointer-events: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  outline: none !important;
 }
 
 .disable * {
-  outline: none;
+  outline: none !important;
 }
 
 .disable-interaction {
-  pointer-events: none;
-  -webkit-user-select: none;
-  user-select: none;
-  outline: none;
+  pointer-events: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  outline: none !important;
 }
 
 .disable-interaction * {
-  outline: none;
+  outline: none !important;
 }
 
 .select-none {
-  -webkit-user-select: none;
-  user-select: none;
-  outline: none;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  outline: none !important;
 }
 
 .select-text {
-  -webkit-user-select: text;
-  user-select: text;
+  -webkit-user-select: text !important;
+  user-select: text !important;
 }
 
 .no-scroll-all, .no-scroll-all * {
@@ -2356,7 +2356,7 @@ label.error:before, .form-error-message:before {
     flex-direction: column-reverse !important;
   }
 
-  /* dimentions */
+  /* dimension */
   .w-auto-s1300 {
     width: auto !important;
   }
@@ -3980,7 +3980,7 @@ label.error:before, .form-error-message:before {
     flex-direction: column-reverse !important;
   }
 
-  /* dimentions */
+  /* dimension */
   .w-auto-s1100 {
     width: auto !important;
   }
@@ -5576,7 +5576,7 @@ label.error:before, .form-error-message:before {
     flex-direction: column-reverse !important;
   }
 
-  /* dimentions */
+  /* dimension */
   .w-auto-s750 {
     width: auto !important;
   }
@@ -7158,7 +7158,7 @@ label.error:before, .form-error-message:before {
     flex-direction: column-reverse !important;
   }
 
-  /* dimentions */
+  /* dimension */
   .w-auto-s500 {
     width: auto !important;
   }
@@ -8376,3 +8376,5 @@ label.error:before, .form-error-message:before {
     transform: scale(1) !important;
   }
 }
+
+/*# sourceMappingURL=cuppa.css.map */
