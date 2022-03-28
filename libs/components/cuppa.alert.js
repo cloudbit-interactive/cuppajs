@@ -68,9 +68,9 @@ export class CuppaAlert extends CuppaComponent {
             <div class="cuppa-alert_blockade"></div>
             <div class="cuppa-alert_modal" @click=${e=>e.stopPropagation()}>
                 ${!this.topBar && this.title ?
-            html`<div class="cuppa-alert_title">${  html`${this.title}` }</div>`
-            : this.topBar ?
-                html`
+                    html`<div class="cuppa-alert_title">${  html`${this.title}` }</div>`
+                : this.topBar ?
+                    html`
                         <div class="cuppa-alert_top-bar">
                             <div class="cuppa-alert_top-bar_left">${ html`${this.title}` }</div>
                             ${!this.closeImage ? '' : html`
