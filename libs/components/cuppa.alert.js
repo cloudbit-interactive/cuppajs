@@ -67,10 +67,10 @@ export class CuppaAlert extends CuppaComponent {
         return html`
             <div class="cuppa-alert_blockade"></div>
             <div class="cuppa-alert_modal" @click=${e=>e.stopPropagation()}>
-                ${!this.topBar && this.title ? 
-                    html`<div class="cuppa-alert_title">${  html`${this.title}` }</div>` 
-                : this.topBar ?
-                    html`
+                ${!this.topBar && this.title ?
+            html`<div class="cuppa-alert_title">${  html`${this.title}` }</div>`
+            : this.topBar ?
+                html`
                         <div class="cuppa-alert_top-bar">
                             <div class="cuppa-alert_top-bar_left">${ html`${this.title}` }</div>
                             ${!this.closeImage ? '' : html`
@@ -107,7 +107,7 @@ export class CuppaAlert extends CuppaComponent {
             </div>
 
             <style>
-                html, body{ overflow:hidden; }
+                html, body{ overflow:hidden; touch-action: none; overscroll-behavior: none; -webkit-overflow-scrolling: auto; }
                 cuppa-alert, cuppa-alert *{ box-sizing:border-box; }
                 cuppa-alert{  
                     animation-name: cuppa_alert_animation; 
