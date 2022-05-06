@@ -3,7 +3,7 @@
  *
  * **/
 
-export class CuppaStorage{
+ export class CuppaStorage{
     static LOCAL = "LOCAL";
     static SESSION = "SESSION";
     static INDEXED_DB = "INDEXED_DB";
@@ -74,7 +74,6 @@ export class CuppaStorage{
                 if(array[i].toString() === callback.toString()){ array.splice(i, 1); };
             }else{
                 if(array[i] === callback){
-                    Globals.log("Yes REMOVE this", callback);
                     array.splice(i, 1);
                 };
             }
@@ -114,8 +113,7 @@ export class GetStorage extends HTMLElement{
     data;
 
     constructor(){
-        super();
-        this.onUpdateStorage = this.onUpdateStorage.bind(this);
+        super(); bindAll(this);
     };
 
     connectedCallback() {
@@ -123,7 +121,7 @@ export class GetStorage extends HTMLElement{
             this.name = this.getAttribute("name");
             this.store = this.getAttribute("store");
             this.default = this.getAttribute("default");
-            CuppaStorage.getData({name:this.name, callback:this.onUpdateStorage.bind(this), default:this.default, store:this.store}).then();
+            CuppaStorage.getData({name:this.name, callback:this.onUpdateStorage, default:this.default, store:this.store}).then();
         }, 0);
     };
 
@@ -148,7 +146,7 @@ class CuppaStorageInnoDB{
 
     constructor(config){
         this.config = {...this.config, ...config};
-        this._binAll(this);
+        bindAll(this);
     };
 
     async connect(){
@@ -219,16 +217,16 @@ class CuppaStorageInnoDB{
         let storage = transaction.objectStore(config.storage); 
         storage.delete(name);
     };
-
-    _binAll(element, isFunction){
-        let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
-        if(isFunction)  propertyNames = Object.keys(element);
-        for(let i = 0; i < propertyNames.length; i++){
-            if(typeof element[propertyNames[i]] == "function"){
-                element[propertyNames[i]]= element[propertyNames[i]].bind(element);
-            };
-        };
-    };
 };
 
 CuppaStorage.db = new CuppaStorageInnoDB();
+
+function bindAll(element, isFunction){
+    let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+    if(isFunction)  propertyNames = Object.keys(element);
+    for(let i = 0; i < propertyNames.length; i++){
+        if(typeof element[propertyNames[i]] == "function"){
+            element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+        };
+    };
+};
