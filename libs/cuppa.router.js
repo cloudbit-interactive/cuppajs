@@ -152,6 +152,20 @@
             }else{ obj.data = {}; };
         return obj;
     }
+
+    value(name, url){
+        if(url){ url = "&"+url;
+        }else{ url = this.getPath(); }
+		let regexS = "[\\?&]"+name+"=([^&#]*)";
+		let regex = new RegExp(regexS,"i");
+		let tmpURL = url;
+        let result = regex.exec(tmpURL);
+        if(result == null) return "";
+            result = result[1];
+            result = result.replaceAll("%20", " ");
+            result = result.replaceAll("\\+", " ");
+		return result;
+    };
 }
 
 document.defaultView.CuppaRouter = CuppaRouter;
