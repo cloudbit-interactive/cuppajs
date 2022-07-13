@@ -106,6 +106,7 @@
         if(route == "*"){
             return {path};
         }else{
+            if(path.indexOf("?") != -1 && exact === false) path = path.substr(0, path.indexOf("?"));
             let match = matchPath(path, {path: route, exact, strict});
             return match;
         }
