@@ -2,7 +2,7 @@ import {CuppaComponent, html, repeat} from "../../../../cuppa/cuppa.component.mi
 
 export class Performance extends CuppaComponent {
     id = 1;
-    quantity = 1000;
+    quantity = 100;
     positions = { start: "start", middle: "middle", end: "end" };
     position = this.positions.start;
     list = this.observable("list", []);
@@ -33,7 +33,7 @@ export class Performance extends CuppaComponent {
 
     onRemove(id){
         let list = [...this.list];
-        let index = list.findIndex(item=>item.id=id);
+        let index = list.findIndex(item=>item.id==id);
             list.splice(index, 1);
         this.list = list;
     }
@@ -44,7 +44,7 @@ export class Performance extends CuppaComponent {
 
     onRename(id){
         let list = [...this.list];
-        let index = list.findIndex(item=>item.id=id);
+        let index = list.findIndex(item=>item.id==id);
             list[index].name = this.getRandomName();
         this.list = list;
     }
