@@ -30,12 +30,11 @@ export default class CuppaCountDown extends CuppaComponent {
         this.countDown = new countdown(date, ()=>{
             if(!this.countDown) return;
             this.forceRender();
-            this.dispatchEvent(new Event('onupdate'));
         }, this.onComplete);
     }
 
     onComplete(){
-        this.dispatchEvent(new Event('oncomplete'));
+        this.dispatchEvent(new Event('complete'));
         if(this.callback) this.callback(this);
     }
 
