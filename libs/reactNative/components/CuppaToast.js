@@ -5,7 +5,6 @@ this.ref.show('message', {duration:6});
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {cuppa} from '../../cuppa';
 import {Text, View} from 'react-native';
 import {gsap, AutoKillTweens} from "gsap-rn";
 
@@ -16,7 +15,7 @@ export class CuppaToast extends Component{
 	tweens = {tween1:null};
 
 	constructor(props){
-		super(props); cuppa.bindAll(this);
+		super(props); bindAll(this);
 	}
 
 	show(message, opts){
@@ -42,3 +41,13 @@ export class CuppaToast extends Component{
 		)
 	}
 }
+
+function bindAll(element, isFunction){
+  let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+  if(isFunction)  propertyNames = Object.keys(element);
+  for(let i = 0; i < propertyNames.length; i++){
+    if(typeof element[propertyNames[i]] == "function"){
+      element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+    };
+  };
+};

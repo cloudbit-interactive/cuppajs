@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {View} from "react-native";
-import {cuppa, log} from "../../cuppa";
 import {CuppaDraggable} from "./CuppaDraggable";
 import {gsap, Power2, AutoKillTweens} from "gsap-rn";
 
@@ -31,7 +30,7 @@ export default class CuppaZoom extends Component {
 	onTransition = false;
 
 	constructor(props) {
-		super(props); cuppa.bindAll(this);
+		super(props); bindAll(this);
 	}
 
 	componentDidMount() {
@@ -161,3 +160,14 @@ export default class CuppaZoom extends Component {
 		)
 	}
 }
+
+
+function bindAll(element, isFunction){
+  let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+  if(isFunction)  propertyNames = Object.keys(element);
+  for(let i = 0; i < propertyNames.length; i++){
+    if(typeof element[propertyNames[i]] == "function"){
+      element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+    };
+  };
+};

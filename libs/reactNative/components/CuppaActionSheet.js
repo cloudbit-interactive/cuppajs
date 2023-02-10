@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {BackHandler, Dimensions, Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
 import PropTypes from "prop-types";
-import {cuppa, log} from '../../cuppa';
 import {CuppaDraggable} from './CuppaDraggable';
 import {AutoKillTweens, gsap, Linear, Power2} from 'gsap-rn';
 
@@ -16,7 +15,7 @@ export class CuppaActionSheet extends Component{
 	CuppaActionSheet
 
 	constructor(props) {
-		super(props); cuppa.bindAll(this);
+		super(props); bindAll(this);
 		Keyboard.dismiss();
 	}
 
@@ -136,3 +135,12 @@ export const CuppaActionSheetStyles = StyleSheet.create({
 	handler:{width:80, height:5, backgroundColor:'#ccc', marginVertical:25, borderRadius:10},
 })
 
+function bindAll(element, isFunction){
+	let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+	if(isFunction)  propertyNames = Object.keys(element);
+	for(let i = 0; i < propertyNames.length; i++){
+		if(typeof element[propertyNames[i]] == "function"){
+			element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+		};
+	};
+};

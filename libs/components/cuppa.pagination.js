@@ -72,7 +72,6 @@ export class CuppaPagination extends CuppaComponent {
 customElements.define('cuppa-pagination', CuppaPagination);
 document.defaultView.CuppaPagination = CuppaPagination;
 
-
 function arrayFromTo(from, to, fillWith){
     if(from == undefined || to === undefined) return [];
     let array = [];

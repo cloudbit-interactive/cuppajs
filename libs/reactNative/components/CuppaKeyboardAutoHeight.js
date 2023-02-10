@@ -1,7 +1,6 @@
 import {Keyboard, Platform, View} from 'react-native';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {cuppa} from '../../cuppa';
 
 export class CuppaKeyboardAutoHeight extends Component {
 	static propTypes = {style:PropTypes.any, offset:PropTypes.number, callback:PropTypes.func, callbackOnly:PropTypes.bool}
@@ -9,7 +8,7 @@ export class CuppaKeyboardAutoHeight extends Component {
 	state = {height:0}
 
 	constructor(props){
-		super(props); cuppa.bindAll(this);
+		super(props); bindAll(this);
 	}
 
 	componentDidMount(){
@@ -40,3 +39,13 @@ export class CuppaKeyboardAutoHeight extends Component {
 		)
 	}
 }
+
+function bindAll(element, isFunction){
+	let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+	if(isFunction)  propertyNames = Object.keys(element);
+	for(let i = 0; i < propertyNames.length; i++){
+		if(typeof element[propertyNames[i]] == "function"){
+			element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+		};
+	};
+};

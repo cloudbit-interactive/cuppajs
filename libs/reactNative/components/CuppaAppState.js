@@ -1,7 +1,6 @@
 import {AppState} from 'react-native';
 import {Component} from 'react';
 import PropTypes from 'prop-types';
-import {cuppa} from '../../cuppa';
 
 export class CuppaAppState extends Component{
 	static propTypes = {callback:PropTypes.func};
@@ -9,7 +8,7 @@ export class CuppaAppState extends Component{
 	subscription;
 
 	constructor(props) {
-		super(); cuppa.bindAll(this);
+		super(); bindAll(this);
 	}
 
 	componentDidMount(){
@@ -28,3 +27,13 @@ export class CuppaAppState extends Component{
 		return null;
 	}
 }
+
+function bindAll(element, isFunction){
+	let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+	if(isFunction)  propertyNames = Object.keys(element);
+	for(let i = 0; i < propertyNames.length; i++){
+		if(typeof element[propertyNames[i]] == "function"){
+			element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+		};
+	};
+};

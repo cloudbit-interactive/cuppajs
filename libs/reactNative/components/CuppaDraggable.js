@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {PanResponder, View} from "react-native";
 import PropTypes from 'prop-types';
-import {log, cuppa, val} from "../../cuppa";
 import {gsap, AutoKillTweens} from 'gsap-rn';
 
 export class CuppaDraggable extends Component {
@@ -16,7 +15,7 @@ export class CuppaDraggable extends Component {
 	longPressTime = 500;
 
 	constructor(props){
-		super(props); cuppa.bindAll(this);
+		super(props); bindAll(this);
 		this.panResponder = PanResponder.create({
 			onMoveShouldSetPanResponder: (evt, state) => {
 				if(this.props.disabled) return false;
@@ -111,3 +110,14 @@ export class CuppaDraggable extends Component {
 		)
 	}
 }
+
+
+function bindAll(element, isFunction){
+  let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+  if(isFunction)  propertyNames = Object.keys(element);
+  for(let i = 0; i < propertyNames.length; i++){
+    if(typeof element[propertyNames[i]] == "function"){
+      element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+    };
+  };
+};

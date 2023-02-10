@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {cuppa} from "../../cuppa";
 import {StyleSheet, View} from "react-native";
 import {gsap, AutoKillTweens, Expo} from "gsap-rn";
 import PropTypes from "prop-types";
@@ -10,7 +9,7 @@ export class CuppaProgressLinear extends Component{
 	state = {visible:this.props.visible};
 
 	constructor(props) {
-		super(props); cuppa.bindAll(this);
+		super(props); bindAll(this);
 	}
 
 	componentDidMount(){
@@ -49,3 +48,13 @@ export class CuppaProgressLinear extends Component{
 const CuppaProgressLinearStyle =  StyleSheet.create({
 	cover:{position:'absolute', left:0, top:0, right:0, bottom:0}
 })
+
+function bindAll(element, isFunction){
+  let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+  if(isFunction)  propertyNames = Object.keys(element);
+  for(let i = 0; i < propertyNames.length; i++){
+    if(typeof element[propertyNames[i]] == "function"){
+      element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+    };
+  };
+};

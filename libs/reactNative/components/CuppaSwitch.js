@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Pressable, StyleSheet, Text, View} from "react-native";
-import {cuppa, log, val} from "../../cuppa";
 import {gsap, AutoKillTweens, Expo, Linear} from "gsap-rn";
 
 export class CuppaSwitch extends Component {
@@ -12,7 +11,7 @@ export class CuppaSwitch extends Component {
     borderRef;
 
     constructor(props){
-        super(props); cuppa.bindAll(this);
+        super(props); bindAll(this);
         let style = {...styles.style, ...props.style};
         let styleBall = {...styles.styleBall, ...props.styleBall};
         this.state = {checked:false, style, styleBall};
@@ -89,3 +88,13 @@ const styles = StyleSheet.create({
     styleBall:{borderRadius:22, width:22, height:22, backgroundColor:"#EBEBEB", left:2, elevation:3},
     line:{position:"absolute", left:-3, right:-3, top:-3, bottom:-3, borderRadius:32, borderWidth:3, borderColor:"#FFF", opacity:0},
 })
+
+function bindAll(element, isFunction){
+    let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+    if(isFunction)  propertyNames = Object.keys(element);
+    for(let i = 0; i < propertyNames.length; i++){
+      if(typeof element[propertyNames[i]] == "function"){
+        element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+      };
+    };
+  };

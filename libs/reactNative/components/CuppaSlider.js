@@ -1,7 +1,6 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {cuppa, log} from '../../cuppa';
 import {CuppaDraggable} from './CuppaDraggable';
 import {gsap, AutoKillTweens, Power2, Back} from 'gsap-rn';
 
@@ -17,8 +16,8 @@ export class CuppaSlider extends Component {
 	tweens = {};
 
 	constructor(props) {
-		super(props); cuppa.bindAll(this);
-		this.values = cuppa.arrayFromTo(props.from, props.to);
+		super(props); bindAll(this);
+		this.values = arrayFromTo(props.from, props.to);
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
@@ -50,9 +49,9 @@ export class CuppaSlider extends Component {
 		if(pos > this.parentLayout.width - this.btnLayout.width){
 			pos = this.parentLayout.width - this.btnLayout.width
 		}
-		let percent = cuppa.percent(pos, 0, this.parentLayout.width-this.btnLayout.width);
+		let percent = percentFnc(pos, 0, this.parentLayout.width-this.btnLayout.width);
 		if(this.props.steps){
-			let number = cuppa.percentNumber(percent, this.props.from, this.props.to);
+			let number = percentNumber(percent, this.props.from, this.props.to);
 			this.setButton(number);
 		}else{
 			gsap.set(this.btnRef, {style:{left:pos}});
@@ -62,7 +61,7 @@ export class CuppaSlider extends Component {
 	setButton(number){
 		if(number === undefined) number = this.state.value;
 		if(!this.parentLayout.width || !this.btnLayout.width || !number) return;
-		let percent = cuppa.percent(number, this.props.from, this.props.to);
+		let percent = percentFnc(number, this.props.from, this.props.to);
 		let pos = (this.parentLayout.width-this.btnLayout.width)*percent;
 		this.setState({value:number});
 
@@ -132,3 +131,42 @@ export const CuppaSliderStyle = StyleSheet.create({
 	button:{width: 40, height:40, position:'absolute', borderRadius:40, backgroundColor:'#FFF', borderWidth:2, borderColor:'#4C7DE7', flexDirection: 'row', justifyContent: 'center', alignItems:'center'},
 	buttonText:{ fontWeight:'bold', color:'#666'},
 })
+
+function bindAll(element, isFunction){
+  let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+  if(isFunction)  propertyNames = Object.keys(element);
+  for(let i = 0; i < propertyNames.length; i++){
+    if(typeof element[propertyNames[i]] == "function"){
+      element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+    };
+  };
+};
+
+function arrayFromTo(from, to, fillWith){
+	if(from == undefined || to === undefined) return [];
+	let array = [];
+	for(let i = from; i <= to; i++){
+			let text = (fillWith !== undefined) ? fillWith : i;
+			array.push(text);
+	}
+	return array;
+}
+
+function percentFnc(n, min, max, invert){
+	let percent = (n-min)/(max-min);
+	if(percent < 0) percent = 0;
+	else if(percent > 1) percent = 1;
+	if(invert) percent = 1-percent;
+	return percent
+};
+
+
+// Get number between 2 and percent
+function percentNumber(percent, min, max, invert, type = 'round'){
+	if(invert){ let tmpMin = min; min = max; max = tmpMin; }
+	let number = 0;
+	if(type === 'round') number = Math.round(percent * (max - min)) + min;
+	else if(type === 'ceil') number = Math.ceil(percent * (max - min)) + min;
+	else number = Math.floor(percent * (max - min)) + min;
+	return number;
+}

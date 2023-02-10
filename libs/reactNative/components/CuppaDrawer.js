@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {BackHandler, PanResponder, StyleSheet, TouchableWithoutFeedback, View} from "react-native";
 import PropTypes from "prop-types";
-import {cuppa} from "../../cuppa";
 import {gsap, AutoKillTweens, Expo} from "gsap-rn";
 
 /* CuppaDrawer */
@@ -41,7 +40,7 @@ export class CuppaDrawer extends Component{
     swipeConfig = {velocityThreshold: 0.3, directionalOffsetThreshold: 80, gestureIsClickThreshold: 5};
 
     constructor(props){
-        super(props); cuppa.bindAll(this);
+        super(props); bindAll(this);
         this.state = {pointerEvents:"auto"};
         this.panResponder = PanResponder.create({
             onMoveShouldSetPanResponder: (evt, state) => {
@@ -220,3 +219,14 @@ export const _style = StyleSheet.create({
     cover:{ position:"absolute", top:0, left:0, right:0, bottom:0, },
     blockade:{position:"absolute", top:0, left:0, right:0, bottom:0, backgroundColor:"rgba(0,0,0,0.7)"},
 })
+
+function bindAll(element, isFunction){
+    let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+    if(isFunction)  propertyNames = Object.keys(element);
+    for(let i = 0; i < propertyNames.length; i++){
+      if(typeof element[propertyNames[i]] == "function"){
+        element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+      };
+    };
+  };
+  

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, TouchableWithoutFeedback, TextInput, StyleSheet, Keyboard } from "react-native";
 import PropTypes from "prop-types";
-import {cuppa, log, val} from '../../cuppa';
 import {CuppaBack} from './CuppaBack';
 import {Button} from '../../../app/components/common/fields/Button';
 import {CuppaAnimations} from '../CuppaAnimations';
@@ -32,7 +31,7 @@ export class CuppaAlert extends Component {
 	state = { inputText: this.props.inputText };
 
 	constructor(props) {
-		super(props); cuppa.bindAll(this);
+		super(props); bindAll(this);
 	}
 
 	componentDidMount() {
@@ -69,7 +68,7 @@ export class CuppaAlert extends Component {
 					<View ref={"main"} style={[styles.modal]} >
 						<View style={{ padding: 20 }}>
 							{(!this.props.title) ? null : <Text style={{ fontSize: 20, color: "#333" }}>{this.props.title}</Text>}
-							{(!this.props.message) ? null : <Text style={{ marginTop: 10, position: 'relative', color:"#333" }}> {this.props.message}</Text>}
+							{(!this.props.message) ? null : <Text style={{ marginTop: 10, position: 'relative', color:"#333" }}>{this.props.message}</Text>}
 							{(this.state.inputText === null) ? null : (
 								<TextInput
 									onChangeText={(inputText) => this.setState({ inputText })}
@@ -121,3 +120,13 @@ const styles =  StyleSheet.create({
 		borderRadius:15
 	}
 });
+
+function bindAll(element, isFunction){
+	let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+	if(isFunction)  propertyNames = Object.keys(element);
+	for(let i = 0; i < propertyNames.length; i++){
+		if(typeof element[propertyNames[i]] == "function"){
+			element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+		};
+	};
+};
