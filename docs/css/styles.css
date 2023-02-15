@@ -28,7 +28,7 @@ pre{ border-radius: 0.5rem; }
 .title-4{ font-size: 1.8rem; margin:0; }
 .link-clear{ color:var(--color-white); text-decoration: none; cursor: pointer; }
 .wire, .wire *{ border:1px dotted #F00; }
-.separator-1, .separator-h{ margin:2rem 0; border: none; height: 0; border-bottom: 1px solid #AAA; }
+hr, .separator-1, .separator-h{ margin:2rem 0; border: none; height: 0; border-bottom: 1px solid #AAA; }
 .separator-v{ width:0; border-right: 1px solid #aaa; height: 3rem; margin:0 1rem; }
 .disabled{ opacity: 0.3 !important; pointer-events: none; }
 .bold{ font-weight: bold; }

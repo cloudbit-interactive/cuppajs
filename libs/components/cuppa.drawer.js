@@ -6,363 +6,363 @@ var _config={autoSleep:120,force3D:"auto",nullTargetWarn:1,units:{lineHeight:""}
 var _win,_doc,_docElement,_pluginInitted,_tempDiv,_tempDivStyler,_recentSetterPlugin,_windowExists=function _windowExists(){return"undefined"!=typeof window},_transformProps={},_RAD2DEG=180/Math.PI,_DEG2RAD=Math.PI/180,_atan2=Math.atan2,_bigNum=1e8,_capsExp=/([A-Z])/g,_horizontalExp=/(?:left|right|width|margin|padding|x)/i,_complexExp=/[\s,\(]\S/,_propertyAliases={autoAlpha:"opacity,visibility",scale:"scaleX,scaleY",alpha:"opacity"},_renderCSSProp=function _renderCSSProp(ratio,data){return data.set(data.t,data.p,Math.round(1e4*(data.s+data.c*ratio))/1e4+data.u,data)},_renderPropWithEnd=function _renderPropWithEnd(ratio,data){return data.set(data.t,data.p,1===ratio?data.e:Math.round(1e4*(data.s+data.c*ratio))/1e4+data.u,data)},_renderCSSPropWithBeginning=function _renderCSSPropWithBeginning(ratio,data){return data.set(data.t,data.p,ratio?Math.round(1e4*(data.s+data.c*ratio))/1e4+data.u:data.b,data)},_renderRoundedCSSProp=function _renderRoundedCSSProp(ratio,data){var value=data.s+data.c*ratio;data.set(data.t,data.p,~~(value+(value<0?-.5:.5))+data.u,data)},_renderNonTweeningValue=function _renderNonTweeningValue(ratio,data){return data.set(data.t,data.p,ratio?data.e:data.b,data)},_renderNonTweeningValueOnlyAtEnd=function _renderNonTweeningValueOnlyAtEnd(ratio,data){return data.set(data.t,data.p,1!==ratio?data.b:data.e,data)},_setterCSSStyle=function _setterCSSStyle(target,property,value){return target.style[property]=value},_setterCSSProp=function _setterCSSProp(target,property,value){return target.style.setProperty(property,value)},_setterTransform=function _setterTransform(target,property,value){return target._gsap[property]=value},_setterScale=function _setterScale(target,property,value){return target._gsap.scaleX=target._gsap.scaleY=value},_setterScaleWithRender=function _setterScaleWithRender(target,property,value,data,ratio){var cache=target._gsap;cache.scaleX=cache.scaleY=value,cache.renderTransform(ratio,cache)},_setterTransformWithRender=function _setterTransformWithRender(target,property,value,data,ratio){var cache=target._gsap;cache[property]=value,cache.renderTransform(ratio,cache)},_transformProp="transform",_transformOriginProp=_transformProp+"Origin",_supports3D,_createElement=function _createElement(type,ns){var e=_doc.createElementNS?_doc.createElementNS((ns||"http://www.w3.org/1999/xhtml").replace(/^https/,"http"),type):_doc.createElement(type);return e.style?e:_doc.createElement(type)},_getComputedProperty=function _getComputedProperty(target,property,skipPrefixFallback){var cs=getComputedStyle(target);return cs[property]||cs.getPropertyValue(property.replace(_capsExp,"-$1").toLowerCase())||cs.getPropertyValue(property)||!skipPrefixFallback&&_getComputedProperty(target,_checkPropPrefix(property)||property,1)||""},_prefixes="O,Moz,ms,Ms,Webkit".split(","),_checkPropPrefix=function _checkPropPrefix(property,element,preferPrefix){var e,s=(element||_tempDiv).style,i=5;if(property in s&&!preferPrefix)return property;for(property=property.charAt(0).toUpperCase()+property.substr(1);i--&&!(_prefixes[i]+property in s););return i<0?null:(3===i?"ms":i>=0?_prefixes[i]:"")+property},_initCore=function _initCore(){_windowExists()&&window.document&&(_win=window,_doc=_win.document,_docElement=_doc.documentElement,_tempDiv=_createElement("div")||{style:{}},_tempDivStyler=_createElement("div"),_transformProp=_checkPropPrefix(_transformProp),_transformOriginProp=_transformProp+"Origin",_tempDiv.style.cssText="border-width:0;line-height:0;position:absolute;padding:0",_supports3D=!!_checkPropPrefix("perspective"),_pluginInitted=1)},_getBBoxHack=function _getBBoxHack(swapIfPossible){var svg=_createElement("svg",this.ownerSVGElement&&this.ownerSVGElement.getAttribute("xmlns")||"http://www.w3.org/2000/svg"),oldParent=this.parentNode,oldSibling=this.nextSibling,oldCSS=this.style.cssText,bbox;if(_docElement.appendChild(svg),svg.appendChild(this),this.style.display="block",swapIfPossible)try{bbox=this.getBBox(),this._gsapBBox=this.getBBox,this.getBBox=_getBBoxHack}catch(e){}else this._gsapBBox&&(bbox=this._gsapBBox());return oldParent&&(oldSibling?oldParent.insertBefore(this,oldSibling):oldParent.appendChild(this)),_docElement.removeChild(svg),this.style.cssText=oldCSS,bbox},_getAttributeFallbacks=function _getAttributeFallbacks(target,attributesArray){for(var i=attributesArray.length;i--;)if(target.hasAttribute(attributesArray[i]))return target.getAttribute(attributesArray[i])},_getBBox=function _getBBox(target){var bounds;try{bounds=target.getBBox()}catch(error){bounds=_getBBoxHack.call(target,!0)}return bounds&&(bounds.width||bounds.height)||target.getBBox===_getBBoxHack||(bounds=_getBBoxHack.call(target,!0)),!bounds||bounds.width||bounds.x||bounds.y?bounds:{x:+_getAttributeFallbacks(target,["x","cx","x1"])||0,y:+_getAttributeFallbacks(target,["y","cy","y1"])||0,width:0,height:0}},_isSVG=function _isSVG(e){return!(!e.getCTM||e.parentNode&&!e.ownerSVGElement||!_getBBox(e))},_removeProperty=function _removeProperty(target,property){if(property){var style=target.style;property in _transformProps&&property!==_transformOriginProp&&(property=_transformProp),style.removeProperty?("ms"!==property.substr(0,2)&&"webkit"!==property.substr(0,6)||(property="-"+property),style.removeProperty(property.replace(_capsExp,"-$1").toLowerCase())):style.removeAttribute(property)}},_addNonTweeningPT=function _addNonTweeningPT(plugin,target,property,beginning,end,onlySetAtEnd){var pt=new PropTween(plugin._pt,target,property,0,1,onlySetAtEnd?_renderNonTweeningValueOnlyAtEnd:_renderNonTweeningValue);return plugin._pt=pt,pt.b=beginning,pt.e=end,plugin._props.push(property),pt},_nonConvertibleUnits={deg:1,rad:1,turn:1},_convertToUnit=function _convertToUnit(target,property,value,unit){var curValue=parseFloat(value)||0,curUnit=(value+"").trim().substr((curValue+"").length)||"px",style=_tempDiv.style,horizontal=_horizontalExp.test(property),isRootSVG="svg"===target.tagName.toLowerCase(),measureProperty=(isRootSVG?"client":"offset")+(horizontal?"Width":"Height"),amount=100,toPixels="px"===unit,toPercent="%"===unit,px,parent,cache,isSVG;return unit===curUnit||!curValue||_nonConvertibleUnits[unit]||_nonConvertibleUnits[curUnit]?curValue:("px"!==curUnit&&!toPixels&&(curValue=_convertToUnit(target,property,value,"px")),isSVG=target.getCTM&&_isSVG(target),!toPercent&&"%"!==curUnit||!_transformProps[property]&&!~property.indexOf("adius")?(style[horizontal?"width":"height"]=100+(toPixels?curUnit:unit),parent=~property.indexOf("adius")||"em"===unit&&target.appendChild&&!isRootSVG?target:target.parentNode,isSVG&&(parent=(target.ownerSVGElement||{}).parentNode),parent&&parent!==_doc&&parent.appendChild||(parent=_doc.body),(cache=parent._gsap)&&toPercent&&cache.width&&horizontal&&cache.time===_ticker.time?_round(curValue/cache.width*100):((toPercent||"%"===curUnit)&&(style.position=_getComputedProperty(target,"position")),parent===target&&(style.position="static"),parent.appendChild(_tempDiv),px=_tempDiv[measureProperty],parent.removeChild(_tempDiv),style.position="absolute",horizontal&&toPercent&&((cache=_getCache(parent)).time=_ticker.time,cache.width=parent[measureProperty]),_round(toPixels?px*curValue/100:px&&curValue?100/px*curValue:0))):(px=isSVG?target.getBBox()[horizontal?"width":"height"]:target[measureProperty],_round(toPercent?curValue/px*100:curValue/100*px)))},_get=function _get(target,property,unit,uncache){var value;return _pluginInitted||_initCore(),property in _propertyAliases&&"transform"!==property&&~(property=_propertyAliases[property]).indexOf(",")&&(property=property.split(",")[0]),_transformProps[property]&&"transform"!==property?(value=_parseTransform(target,uncache),value="transformOrigin"!==property?value[property]:value.svg?value.origin:_firstTwoOnly(_getComputedProperty(target,_transformOriginProp))+" "+value.zOrigin+"px"):(!(value=target.style[property])||"auto"===value||uncache||~(value+"").indexOf("calc("))&&(value=_specialProps[property]&&_specialProps[property](target,property,unit)||_getComputedProperty(target,property)||_getProperty(target,property)||("opacity"===property?1:0)),unit&&!~(value+"").trim().indexOf(" ")?_convertToUnit(target,property,value,unit)+unit:value},_tweenComplexCSSString=function _tweenComplexCSSString(target,prop,start,end){if(!start||"none"===start){var p=_checkPropPrefix(prop,target,1),s=p&&_getComputedProperty(target,p,1);s&&s!==start?(prop=p,start=s):"borderColor"===prop&&(start=_getComputedProperty(target,"borderTopColor"))}var pt=new PropTween(this._pt,target.style,prop,0,1,_renderComplexString),index=0,matchIndex=0,a,result,startValues,startNum,color,startValue,endValue,endNum,chunk,endUnit,startUnit,relative,endValues;if(pt.b=start,pt.e=end,start+="","auto"===(end+="")&&(target.style[prop]=end,end=_getComputedProperty(target,prop)||end,target.style[prop]=start),a=[start,end],_colorStringFilter(a),end=a[1],startValues=(start=a[0]).match(_numWithUnitExp)||[],(endValues=end.match(_numWithUnitExp)||[]).length){for(;result=_numWithUnitExp.exec(end);)endValue=result[0],chunk=end.substring(index,result.index),color?color=(color+1)%5:"rgba("!==chunk.substr(-5)&&"hsla("!==chunk.substr(-5)||(color=1),endValue!==(startValue=startValues[matchIndex++]||"")&&(startNum=parseFloat(startValue)||0,startUnit=startValue.substr((startNum+"").length),(relative="="===endValue.charAt(1)?+(endValue.charAt(0)+"1"):0)&&(endValue=endValue.substr(2)),endNum=parseFloat(endValue),endUnit=endValue.substr((endNum+"").length),index=_numWithUnitExp.lastIndex-endUnit.length,endUnit||(endUnit=endUnit||_config.units[prop]||startUnit,index===end.length&&(end+=endUnit,pt.e+=endUnit)),startUnit!==endUnit&&(startNum=_convertToUnit(target,prop,startValue,endUnit)||0),pt._pt={_next:pt._pt,p:chunk||1===matchIndex?chunk:",",s:startNum,c:relative?relative*endNum:endNum-startNum,m:color&&color<4||"zIndex"===prop?Math.round:0});pt.c=index<end.length?end.substring(index,end.length):""}else pt.r="display"===prop&&"none"===end?_renderNonTweeningValueOnlyAtEnd:_renderNonTweeningValue;return _relExp.test(end)&&(pt.e=0),this._pt=pt,pt},_keywordToPercent={top:"0%",bottom:"100%",left:"0%",right:"100%",center:"50%"},_convertKeywordsToPercentages=function _convertKeywordsToPercentages(value){var split=value.split(" "),x=split[0],y=split[1]||"50%";return"top"!==x&&"bottom"!==x&&"left"!==y&&"right"!==y||(value=x,x=y,y=value),split[0]=_keywordToPercent[x]||x,split[1]=_keywordToPercent[y]||y,split.join(" ")},_renderClearProps=function _renderClearProps(ratio,data){if(data.tween&&data.tween._time===data.tween._dur){var target=data.t,style=target.style,props=data.u,cache=target._gsap,prop,clearTransforms,i;if("all"===props||!0===props)style.cssText="",clearTransforms=1;else for(i=(props=props.split(",")).length;--i>-1;)prop=props[i],_transformProps[prop]&&(clearTransforms=1,prop="transformOrigin"===prop?_transformOriginProp:_transformProp),_removeProperty(target,prop);clearTransforms&&(_removeProperty(target,_transformProp),cache&&(cache.svg&&target.removeAttribute("transform"),_parseTransform(target,1),cache.uncache=1))}},_specialProps={clearProps:function clearProps(plugin,target,property,endValue,tween){if("isFromStart"!==tween.data){var pt=plugin._pt=new PropTween(plugin._pt,target,property,0,0,_renderClearProps);return pt.u=endValue,pt.pr=-10,pt.tween=tween,plugin._props.push(property),1}}},_identity2DMatrix=[1,0,0,1,0,0],_rotationalProperties={},_isNullTransform=function _isNullTransform(value){return"matrix(1, 0, 0, 1, 0, 0)"===value||"none"===value||!value},_getComputedTransformMatrixAsArray=function _getComputedTransformMatrixAsArray(target){var matrixString=_getComputedProperty(target,_transformProp);return _isNullTransform(matrixString)?_identity2DMatrix:matrixString.substr(7).match(_numExp).map(_round)},_getMatrix=function _getMatrix(target,force2D){var cache=target._gsap||_getCache(target),style=target.style,matrix=_getComputedTransformMatrixAsArray(target),parent,nextSibling,temp,addedToDOM;return cache.svg&&target.getAttribute("transform")?"1,0,0,1,0,0"===(matrix=[(temp=target.transform.baseVal.consolidate().matrix).a,temp.b,temp.c,temp.d,temp.e,temp.f]).join(",")?_identity2DMatrix:matrix:(matrix!==_identity2DMatrix||target.offsetParent||target===_docElement||cache.svg||(temp=style.display,style.display="block",(parent=target.parentNode)&&target.offsetParent||(addedToDOM=1,nextSibling=target.nextSibling,_docElement.appendChild(target)),matrix=_getComputedTransformMatrixAsArray(target),temp?style.display=temp:_removeProperty(target,"display"),addedToDOM&&(nextSibling?parent.insertBefore(target,nextSibling):parent?parent.appendChild(target):_docElement.removeChild(target))),force2D&&matrix.length>6?[matrix[0],matrix[1],matrix[4],matrix[5],matrix[12],matrix[13]]:matrix)},_applySVGOrigin=function _applySVGOrigin(target,origin,originIsAbsolute,smooth,matrixArray,pluginToAddPropTweensTo){var cache=target._gsap,matrix=matrixArray||_getMatrix(target,!0),xOriginOld=cache.xOrigin||0,yOriginOld=cache.yOrigin||0,xOffsetOld=cache.xOffset||0,yOffsetOld=cache.yOffset||0,a=matrix[0],b=matrix[1],c=matrix[2],d=matrix[3],tx=matrix[4],ty=matrix[5],originSplit=origin.split(" "),xOrigin=parseFloat(originSplit[0])||0,yOrigin=parseFloat(originSplit[1])||0,bounds,determinant,x,y;originIsAbsolute?matrix!==_identity2DMatrix&&(determinant=a*d-b*c)&&(y=xOrigin*(-b/determinant)+yOrigin*(a/determinant)-(a*ty-b*tx)/determinant,xOrigin=x=xOrigin*(d/determinant)+yOrigin*(-c/determinant)+(c*ty-d*tx)/determinant,yOrigin=y):(xOrigin=(bounds=_getBBox(target)).x+(~originSplit[0].indexOf("%")?xOrigin/100*bounds.width:xOrigin),yOrigin=bounds.y+(~(originSplit[1]||originSplit[0]).indexOf("%")?yOrigin/100*bounds.height:yOrigin)),smooth||!1!==smooth&&cache.smooth?(tx=xOrigin-xOriginOld,ty=yOrigin-yOriginOld,cache.xOffset=xOffsetOld+(tx*a+ty*c)-tx,cache.yOffset=yOffsetOld+(tx*b+ty*d)-ty):cache.xOffset=cache.yOffset=0,cache.xOrigin=xOrigin,cache.yOrigin=yOrigin,cache.smooth=!!smooth,cache.origin=origin,cache.originIsAbsolute=!!originIsAbsolute,target.style[_transformOriginProp]="0px 0px",pluginToAddPropTweensTo&&(_addNonTweeningPT(pluginToAddPropTweensTo,cache,"xOrigin",xOriginOld,xOrigin),_addNonTweeningPT(pluginToAddPropTweensTo,cache,"yOrigin",yOriginOld,yOrigin),_addNonTweeningPT(pluginToAddPropTweensTo,cache,"xOffset",xOffsetOld,cache.xOffset),_addNonTweeningPT(pluginToAddPropTweensTo,cache,"yOffset",yOffsetOld,cache.yOffset)),target.setAttribute("data-svg-origin",xOrigin+" "+yOrigin)},_parseTransform=function _parseTransform(target,uncache){var cache=target._gsap||new GSCache(target);if("x"in cache&&!uncache&&!cache.uncache)return cache;var style=target.style,invertedScaleX=cache.scaleX<0,px="px",deg="deg",origin=_getComputedProperty(target,_transformOriginProp)||"0",x,y,z,scaleX,scaleY,rotation,rotationX,rotationY,skewX,skewY,perspective,xOrigin,yOrigin,matrix,angle,cos,sin,a,b,c,d,a12,a22,t1,t2,t3,a13,a23,a33,a42,a43,a32;return x=y=z=rotation=rotationX=rotationY=skewX=skewY=perspective=0,scaleX=scaleY=1,cache.svg=!(!target.getCTM||!_isSVG(target)),matrix=_getMatrix(target,cache.svg),cache.svg&&(t1=(!cache.uncache||"0px 0px"===origin)&&!uncache&&target.getAttribute("data-svg-origin"),_applySVGOrigin(target,t1||origin,!!t1||cache.originIsAbsolute,!1!==cache.smooth,matrix)),xOrigin=cache.xOrigin||0,yOrigin=cache.yOrigin||0,matrix!==_identity2DMatrix&&(a=matrix[0],b=matrix[1],c=matrix[2],d=matrix[3],x=a12=matrix[4],y=a22=matrix[5],6===matrix.length?(scaleX=Math.sqrt(a*a+b*b),scaleY=Math.sqrt(d*d+c*c),rotation=a||b?_atan2(b,a)*_RAD2DEG:0,(skewX=c||d?_atan2(c,d)*_RAD2DEG+rotation:0)&&(scaleY*=Math.abs(Math.cos(skewX*_DEG2RAD))),cache.svg&&(x-=xOrigin-(xOrigin*a+yOrigin*c),y-=yOrigin-(xOrigin*b+yOrigin*d))):(a32=matrix[6],a42=matrix[7],a13=matrix[8],a23=matrix[9],a33=matrix[10],a43=matrix[11],x=matrix[12],y=matrix[13],z=matrix[14],rotationX=(angle=_atan2(a32,a33))*_RAD2DEG,angle&&(t1=a12*(cos=Math.cos(-angle))+a13*(sin=Math.sin(-angle)),t2=a22*cos+a23*sin,t3=a32*cos+a33*sin,a13=a12*-sin+a13*cos,a23=a22*-sin+a23*cos,a33=a32*-sin+a33*cos,a43=a42*-sin+a43*cos,a12=t1,a22=t2,a32=t3),rotationY=(angle=_atan2(-c,a33))*_RAD2DEG,angle&&(cos=Math.cos(-angle),a43=d*(sin=Math.sin(-angle))+a43*cos,a=t1=a*cos-a13*sin,b=t2=b*cos-a23*sin,c=t3=c*cos-a33*sin),rotation=(angle=_atan2(b,a))*_RAD2DEG,angle&&(t1=a*(cos=Math.cos(angle))+b*(sin=Math.sin(angle)),t2=a12*cos+a22*sin,b=b*cos-a*sin,a22=a22*cos-a12*sin,a=t1,a12=t2),rotationX&&Math.abs(rotationX)+Math.abs(rotation)>359.9&&(rotationX=rotation=0,rotationY=180-rotationY),scaleX=_round(Math.sqrt(a*a+b*b+c*c)),scaleY=_round(Math.sqrt(a22*a22+a32*a32)),angle=_atan2(a12,a22),skewX=Math.abs(angle)>2e-4?angle*_RAD2DEG:0,perspective=a43?1/(a43<0?-a43:a43):0),cache.svg&&(t1=target.getAttribute("transform"),cache.forceCSS=target.setAttribute("transform","")||!_isNullTransform(_getComputedProperty(target,_transformProp)),t1&&target.setAttribute("transform",t1))),Math.abs(skewX)>90&&Math.abs(skewX)<270&&(invertedScaleX?(scaleX*=-1,skewX+=rotation<=0?180:-180,rotation+=rotation<=0?180:-180):(scaleY*=-1,skewX+=skewX<=0?180:-180)),cache.x=x-((cache.xPercent=x&&(cache.xPercent||(Math.round(target.offsetWidth/2)===Math.round(-x)?-50:0)))?target.offsetWidth*cache.xPercent/100:0)+px,cache.y=y-((cache.yPercent=y&&(cache.yPercent||(Math.round(target.offsetHeight/2)===Math.round(-y)?-50:0)))?target.offsetHeight*cache.yPercent/100:0)+px,cache.z=z+px,cache.scaleX=_round(scaleX),cache.scaleY=_round(scaleY),cache.rotation=_round(rotation)+deg,cache.rotationX=_round(rotationX)+deg,cache.rotationY=_round(rotationY)+deg,cache.skewX=skewX+deg,cache.skewY=skewY+deg,cache.transformPerspective=perspective+px,(cache.zOrigin=parseFloat(origin.split(" ")[2])||0)&&(style[_transformOriginProp]=_firstTwoOnly(origin)),cache.xOffset=cache.yOffset=0,cache.force3D=_config.force3D,cache.renderTransform=cache.svg?_renderSVGTransforms:_supports3D?_renderCSSTransforms:_renderNon3DTransforms,cache.uncache=0,cache},_firstTwoOnly=function _firstTwoOnly(value){return(value=value.split(" "))[0]+" "+value[1]},_addPxTranslate=function _addPxTranslate(target,start,value){var unit=getUnit(start);return _round(parseFloat(start)+parseFloat(_convertToUnit(target,"x",value+"px",unit)))+unit},_renderNon3DTransforms=function _renderNon3DTransforms(ratio,cache){cache.z="0px",cache.rotationY=cache.rotationX="0deg",cache.force3D=0,_renderCSSTransforms(ratio,cache)},_zeroDeg="0deg",_zeroPx="0px",_endParenthesis=") ",_renderCSSTransforms=function _renderCSSTransforms(ratio,cache){var _ref=cache||this,xPercent=_ref.xPercent,yPercent=_ref.yPercent,x=_ref.x,y=_ref.y,z=_ref.z,rotation=_ref.rotation,rotationY=_ref.rotationY,rotationX=_ref.rotationX,skewX=_ref.skewX,skewY=_ref.skewY,scaleX=_ref.scaleX,scaleY=_ref.scaleY,transformPerspective=_ref.transformPerspective,force3D=_ref.force3D,target=_ref.target,zOrigin=_ref.zOrigin,transforms="",use3D="auto"===force3D&&ratio&&1!==ratio||!0===force3D;if(zOrigin&&(rotationX!==_zeroDeg||rotationY!==_zeroDeg)){var angle=parseFloat(rotationY)*_DEG2RAD,a13=Math.sin(angle),a33=Math.cos(angle),cos;angle=parseFloat(rotationX)*_DEG2RAD,cos=Math.cos(angle),x=_addPxTranslate(target,x,a13*cos*-zOrigin),y=_addPxTranslate(target,y,-Math.sin(angle)*-zOrigin),z=_addPxTranslate(target,z,a33*cos*-zOrigin+zOrigin)}transformPerspective!==_zeroPx&&(transforms+="perspective("+transformPerspective+_endParenthesis),(xPercent||yPercent)&&(transforms+="translate("+xPercent+"%, "+yPercent+"%) "),(use3D||x!==_zeroPx||y!==_zeroPx||z!==_zeroPx)&&(transforms+=z!==_zeroPx||use3D?"translate3d("+x+", "+y+", "+z+") ":"translate("+x+", "+y+_endParenthesis),rotation!==_zeroDeg&&(transforms+="rotate("+rotation+_endParenthesis),rotationY!==_zeroDeg&&(transforms+="rotateY("+rotationY+_endParenthesis),rotationX!==_zeroDeg&&(transforms+="rotateX("+rotationX+_endParenthesis),skewX===_zeroDeg&&skewY===_zeroDeg||(transforms+="skew("+skewX+", "+skewY+_endParenthesis),1===scaleX&&1===scaleY||(transforms+="scale("+scaleX+", "+scaleY+_endParenthesis),target.style[_transformProp]=transforms||"translate(0, 0)"},_renderSVGTransforms=function _renderSVGTransforms(ratio,cache){var _ref2=cache||this,xPercent=_ref2.xPercent,yPercent=_ref2.yPercent,x=_ref2.x,y=_ref2.y,rotation=_ref2.rotation,skewX=_ref2.skewX,skewY=_ref2.skewY,scaleX=_ref2.scaleX,scaleY=_ref2.scaleY,target=_ref2.target,xOrigin=_ref2.xOrigin,yOrigin=_ref2.yOrigin,xOffset=_ref2.xOffset,yOffset=_ref2.yOffset,forceCSS=_ref2.forceCSS,tx=parseFloat(x),ty=parseFloat(y),a11,a21,a12,a22,temp;rotation=parseFloat(rotation),skewX=parseFloat(skewX),(skewY=parseFloat(skewY))&&(skewX+=skewY=parseFloat(skewY),rotation+=skewY),rotation||skewX?(rotation*=_DEG2RAD,skewX*=_DEG2RAD,a11=Math.cos(rotation)*scaleX,a21=Math.sin(rotation)*scaleX,a12=Math.sin(rotation-skewX)*-scaleY,a22=Math.cos(rotation-skewX)*scaleY,skewX&&(skewY*=_DEG2RAD,temp=Math.tan(skewX-skewY),a12*=temp=Math.sqrt(1+temp*temp),a22*=temp,skewY&&(temp=Math.tan(skewY),a11*=temp=Math.sqrt(1+temp*temp),a21*=temp)),a11=_round(a11),a21=_round(a21),a12=_round(a12),a22=_round(a22)):(a11=scaleX,a22=scaleY,a21=a12=0),(tx&&!~(x+"").indexOf("px")||ty&&!~(y+"").indexOf("px"))&&(tx=_convertToUnit(target,"x",x,"px"),ty=_convertToUnit(target,"y",y,"px")),(xOrigin||yOrigin||xOffset||yOffset)&&(tx=_round(tx+xOrigin-(xOrigin*a11+yOrigin*a12)+xOffset),ty=_round(ty+yOrigin-(xOrigin*a21+yOrigin*a22)+yOffset)),(xPercent||yPercent)&&(temp=target.getBBox(),tx=_round(tx+xPercent/100*temp.width),ty=_round(ty+yPercent/100*temp.height)),temp="matrix("+a11+","+a21+","+a12+","+a22+","+tx+","+ty+")",target.setAttribute("transform",temp),forceCSS&&(target.style[_transformProp]=temp)},_addRotationalPropTween=function _addRotationalPropTween(plugin,target,property,startNum,endValue,relative){var cap=360,isString=_isString(endValue),endNum=parseFloat(endValue)*(isString&&~endValue.indexOf("rad")?_RAD2DEG:1),change=relative?endNum*relative:endNum-startNum,finalValue=startNum+change+"deg",direction,pt;return isString&&("short"===(direction=endValue.split("_")[1])&&(change%=360)!==change%180&&(change+=change<0?360:-360),"cw"===direction&&change<0?change=(change+360*_bigNum)%360-360*~~(change/360):"ccw"===direction&&change>0&&(change=(change-360*_bigNum)%360-360*~~(change/360))),plugin._pt=pt=new PropTween(plugin._pt,target,property,startNum,change,_renderPropWithEnd),pt.e=finalValue,pt.u="deg",plugin._props.push(property),pt},_assign=function _assign(target,source){for(var p in source)target[p]=source[p];return target},_addRawTransformPTs=function _addRawTransformPTs(plugin,transforms,target){var startCache=_assign({},target._gsap),exclude="perspective,force3D,transformOrigin,svgOrigin",style=target.style,endCache,p,startValue,endValue,startNum,endNum,startUnit,endUnit;for(p in startCache.svg?(startValue=target.getAttribute("transform"),target.setAttribute("transform",""),style[_transformProp]=transforms,endCache=_parseTransform(target,1),_removeProperty(target,_transformProp),target.setAttribute("transform",startValue)):(startValue=getComputedStyle(target)[_transformProp],style[_transformProp]=transforms,endCache=_parseTransform(target,1),style[_transformProp]=startValue),_transformProps)(startValue=startCache[p])!==(endValue=endCache[p])&&exclude.indexOf(p)<0&&(startNum=(startUnit=getUnit(startValue))!==(endUnit=getUnit(endValue))?_convertToUnit(target,p,startValue,endUnit):parseFloat(startValue),endNum=parseFloat(endValue),plugin._pt=new PropTween(plugin._pt,endCache,p,startNum,endNum-startNum,_renderCSSProp),plugin._pt.u=endUnit||0,plugin._props.push(p));_assign(endCache,startCache)};_forEachName("padding,margin,Width,Radius",(function(name,index){var t="Top",r="Right",b="Bottom",l="Left",props=(index<3?[t,r,b,l]:[t+l,t+r,b+r,b+l]).map((function(side){return index<2?name+side:"border"+side+name}));_specialProps[index>1?"border"+name:name]=function(plugin,target,property,endValue,tween){var a,vars;if(arguments.length<4)return a=props.map((function(prop){return _get(plugin,prop,property)})),5===(vars=a.join(" ")).split(a[0]).length?a[0]:vars;a=(endValue+"").split(" "),vars={},props.forEach((function(prop,i){return vars[prop]=a[i]=a[i]||a[(i-1)/2|0]})),plugin.init(target,vars,tween)}}));export var CSSPlugin={name:"css",register:_initCore,targetTest:function targetTest(target){return target.style&&target.nodeType},init:function init(target,vars,tween,index,targets){var props=this._props,style=target.style,startAt=tween.vars.startAt,startValue,endValue,endNum,startNum,type,specialProp,p,startUnit,endUnit,relative,isTransformRelated,transformPropTween,cache,smooth,hasPriority;for(p in _pluginInitted||_initCore(),vars)if("autoRound"!==p&&(endValue=vars[p],!_plugins[p]||!_checkPlugin(p,vars,tween,index,target,targets)))if(type=typeof endValue,specialProp=_specialProps[p],"function"===type&&(type=typeof(endValue=endValue.call(tween,index,target,targets))),"string"===type&&~endValue.indexOf("random(")&&(endValue=_replaceRandom(endValue)),specialProp)specialProp(this,target,p,endValue,tween)&&(hasPriority=1);else if("--"===p.substr(0,2))startValue=(getComputedStyle(target).getPropertyValue(p)+"").trim(),endValue+="",_colorExp.lastIndex=0,_colorExp.test(startValue)||(startUnit=getUnit(startValue),endUnit=getUnit(endValue)),endUnit?startUnit!==endUnit&&(startValue=_convertToUnit(target,p,startValue,endUnit)+endUnit):startUnit&&(endValue+=startUnit),this.add(style,"setProperty",startValue,endValue,index,targets,0,0,p),props.push(p);else if("undefined"!==type){if(startAt&&p in startAt?(startValue="function"==typeof startAt[p]?startAt[p].call(tween,index,target,targets):startAt[p],p in _config.units&&!getUnit(startValue)&&(startValue+=_config.units[p]),_isString(startValue)&&~startValue.indexOf("random(")&&(startValue=_replaceRandom(startValue)),"="===(startValue+"").charAt(1)&&(startValue=_get(target,p))):startValue=_get(target,p),startNum=parseFloat(startValue),(relative="string"===type&&"="===endValue.charAt(1)?+(endValue.charAt(0)+"1"):0)&&(endValue=endValue.substr(2)),endNum=parseFloat(endValue),p in _propertyAliases&&("autoAlpha"===p&&(1===startNum&&"hidden"===_get(target,"visibility")&&endNum&&(startNum=0),_addNonTweeningPT(this,style,"visibility",startNum?"inherit":"hidden",endNum?"inherit":"hidden",!endNum)),"scale"!==p&&"transform"!==p&&~(p=_propertyAliases[p]).indexOf(",")&&(p=p.split(",")[0])),isTransformRelated=p in _transformProps)if(transformPropTween||((cache=target._gsap).renderTransform&&!vars.parseTransform||_parseTransform(target,vars.parseTransform),smooth=!1!==vars.smoothOrigin&&cache.smooth,(transformPropTween=this._pt=new PropTween(this._pt,style,_transformProp,0,1,cache.renderTransform,cache,0,-1)).dep=1),"scale"===p)this._pt=new PropTween(this._pt,cache,"scaleY",cache.scaleY,(relative?relative*endNum:endNum-cache.scaleY)||0),props.push("scaleY",p),p+="X";else{if("transformOrigin"===p){endValue=_convertKeywordsToPercentages(endValue),cache.svg?_applySVGOrigin(target,endValue,0,smooth,0,this):((endUnit=parseFloat(endValue.split(" ")[2])||0)!==cache.zOrigin&&_addNonTweeningPT(this,cache,"zOrigin",cache.zOrigin,endUnit),_addNonTweeningPT(this,style,p,_firstTwoOnly(startValue),_firstTwoOnly(endValue)));continue}if("svgOrigin"===p){_applySVGOrigin(target,endValue,1,smooth,0,this);continue}if(p in _rotationalProperties){_addRotationalPropTween(this,cache,p,startNum,endValue,relative);continue}if("smoothOrigin"===p){_addNonTweeningPT(this,cache,"smooth",cache.smooth,endValue);continue}if("force3D"===p){cache[p]=endValue;continue}if("transform"===p){_addRawTransformPTs(this,endValue,target);continue}}else p in style||(p=_checkPropPrefix(p)||p);if(isTransformRelated||(endNum||0===endNum)&&(startNum||0===startNum)&&!_complexExp.test(endValue)&&p in style)endNum||(endNum=0),(startUnit=(startValue+"").substr((startNum+"").length))!==(endUnit=getUnit(endValue)||(p in _config.units?_config.units[p]:startUnit))&&(startNum=_convertToUnit(target,p,startValue,endUnit)),this._pt=new PropTween(this._pt,isTransformRelated?cache:style,p,startNum,relative?relative*endNum:endNum-startNum,isTransformRelated||"px"!==endUnit&&"zIndex"!==p||!1===vars.autoRound?_renderCSSProp:_renderRoundedCSSProp),this._pt.u=endUnit||0,startUnit!==endUnit&&"%"!==endUnit&&(this._pt.b=startValue,this._pt.r=_renderCSSPropWithBeginning);else if(p in style)_tweenComplexCSSString.call(this,target,p,startValue,endValue);else{if(!(p in target)){_missingPlugin(p,endValue);continue}this.add(target,p,startValue||target[p],endValue,index,targets)}props.push(p)}hasPriority&&_sortPropTweensByPriority(this)},get:_get,aliases:_propertyAliases,getSetter:function getSetter(target,property,plugin){var p=_propertyAliases[property];return p&&p.indexOf(",")<0&&(property=p),property in _transformProps&&property!==_transformOriginProp&&(target._gsap.x||_get(target,"x"))?plugin&&_recentSetterPlugin===plugin?"scale"===property?_setterScale:_setterTransform:(_recentSetterPlugin=plugin||{})&&("scale"===property?_setterScaleWithRender:_setterTransformWithRender):target.style&&!_isUndefined(target.style[property])?_setterCSSStyle:~property.indexOf("-")?_setterCSSProp:_getSetter(target,property)},core:{_removeProperty:_removeProperty,_getMatrix:_getMatrix}};gsap.utils.checkPrefix=_checkPropPrefix,function(positionAndScale,rotation,others,aliases){var all=_forEachName(positionAndScale+","+rotation+","+others,(function(name){_transformProps[name]=1}));_forEachName(rotation,(function(name){_config.units[name]="deg",_rotationalProperties[name]=1})),_propertyAliases[all[13]]=positionAndScale+","+rotation,_forEachName(aliases,(function(name){var split=name.split(":");_propertyAliases[split[1]]=all[split[0]]}))}("x,y,z,scale,scaleX,scaleY,xPercent,yPercent","rotation,rotationX,rotationY,skewX,skewY","transform,transformOrigin,svgOrigin,force3D,smoothOrigin,transformPerspective","0:translateX,1:translateY,2:translateZ,8:rotate,8:rotationZ,8:rotateZ,9:rotateX,10:rotateY"),_forEachName("x,y,z,top,right,bottom,left,width,height,fontSize,padding,margin,perspective,transformPerspective",(function(name){_config.units[name]="px"})),gsap.registerPlugin(CSSPlugin);
 
 export class CuppaDrawer extends CuppaComponent {
-    static OPEN = "OPEN";
-    static CLOSE = "CLOSE";
-    static DRAGGING = "DRAGGING";
-    static LEFT = "LEFT";
-    static RIGHT = "RIGHT";
-    static TOP = "TOP";
-    static BOTTOM = "BOTTOM";
-    static FIRST = "FIRST";
-    static LAST = "LAST";
-    static CHECKING = "CHECKING";
-    static SCROLLING = "SCROLLING";
-    static DRAGGING = "DRAGGING";
-    status = CuppaDrawer.CLOSE;
-    position = CuppaDrawer.LEFT;
-    dragEnabled = true;
-    backdropEnabled = true;
-    disableContent = null;
-    disableScroll = '.drawer_content_wrap';
-    width = 300;
-    easeOpen = 'Expo.easeOut';
-    easeClose = 'Expo.easeOut';
-    durationOpen = 0.45;
-    durationClose = 0.3;
-    history = [];
-    tl;
-    internalStatus;
-    callback = null;
-    updateCallback = null;
-    swipeConfig = {
-        velocityThreshold: 2,
-        directionalOffsetThreshold: 80,
-        gestureIsClickThreshold: 5,
-        velocityIsClick:2000,
-        scrollingThreshold:10
-    };
+	static OPEN = "OPEN";
+	static CLOSE = "CLOSE";
+	static DRAGGING = "DRAGGING";
+	static LEFT = "LEFT";
+	static RIGHT = "RIGHT";
+	static TOP = "TOP";
+	static BOTTOM = "BOTTOM";
+	static FIRST = "FIRST";
+	static LAST = "LAST";
+	static CHECKING = "CHECKING";
+	static SCROLLING = "SCROLLING";
+	static DRAGGING = "DRAGGING";
+	status = CuppaDrawer.CLOSE;
+	position = CuppaDrawer.LEFT;
+	dragEnabled = true;
+	backdropEnabled = true;
+	disableContent = null;
+	disableScroll = '.drawer_content_wrap';
+	width = 300;
+	easeOpen = 'Expo.easeOut';
+	easeClose = 'Expo.easeOut';
+	durationOpen = 0.45;
+	durationClose = 0.3;
+	history = [];
+	tl;
+	internalStatus;
+	callback = null;
+	updateCallback = null;
+	swipeConfig = {
+		velocityThreshold: 2,
+		directionalOffsetThreshold: 80,
+		gestureIsClickThreshold: 5,
+		velocityIsClick:2000,
+		scrollingThreshold:10
+	};
 
-    static get observedAttributes() {
-        return ['status', 'width', 'drag-enabled',
-            'backdrop-enabled', 'position', 'disable-content', 'disable-scroll',
-            'ease-open', 'ease-close', 'duration-open', 'duration-close']
-    }
+	static get observedAttributes() {
+		return ['status', 'width', 'drag-enabled',
+			'backdrop-enabled', 'position', 'disable-content', 'disable-scroll',
+			'ease-open', 'ease-close', 'duration-open', 'duration-close']
+	}
 
-    attributeChangedCallback(attr, oldVal, newVal) {
-        if(oldVal === newVal) return;
-        if(newVal == 'false') newVal = false;
-        if(newVal == 'true') newVal = true;
-        this[camelize(attr)] = newVal;
-    }
+	attributeChangedCallback(attr, oldVal, newVal) {
+		if(oldVal === newVal) return;
+		if(newVal == 'false') newVal = false;
+		if(newVal == 'true') newVal = true;
+		this[camelize(attr)] = newVal;
+	}
 
-    mounted(){
-        this.addChilds();
-        let status = this.status.toUpperCase();
-        if(status === CuppaDrawer.CLOSE){
-            this.close(0);
-        }else if(status === CuppaDrawer.OPEN){
-            this.open(0);
-        }
+	mounted(){
+		this.addChilds();
+		let status = this.status.toUpperCase();
+		if(status === CuppaDrawer.CLOSE){
+			this.close(0);
+		}else if(status === CuppaDrawer.OPEN){
+			this.open(0);
+		}
 
-        if(this.dragEnabled){
-            this.addEvents();
-        }
-    }
+		if(this.dragEnabled){
+			this.addEvents();
+		}
+	}
 
-    onStart(e){
-        this.status = CuppaDrawer.DRAGGING;
-        this.updateInternalStatus(CuppaDrawer.CHECKING);
-        this.forceRender();
-        this.setPosition(e, true);
-        this.addExtraEvents(true);
-    }
+	onStart(e){
+		this.status = CuppaDrawer.DRAGGING;
+		this.updateInternalStatus(CuppaDrawer.CHECKING);
+		this.forceRender();
+		this.setPosition(e, true);
+		this.addExtraEvents(true);
+	}
 
-    updateInternalStatus(value){
-        if(value){
-            this.internalStatus = value;
-        }else{
-            let {dx, dy} = this.getPosition();
-            let {scrollingThreshold} = this.swipeConfig;
-            let internalStatus = this.getInternalStatus();
-            if(internalStatus === CuppaDrawer.CHECKING && Math.abs(dx) >= scrollingThreshold || Math.abs(dy) >= scrollingThreshold){
-                if(Math.abs(dy) >= Math.abs(dx)*0.75){
-                    this.updateInternalStatus(CuppaDrawer.SCROLLING);
-                }else{
-                    this.updateInternalStatus(CuppaDrawer.DRAGGING);
-                }
-            }
-        }
-        return this.internalStatus;
-    }
+	updateInternalStatus(value){
+		if(value){
+			this.internalStatus = value;
+		}else{
+			let {dx, dy} = this.getPosition();
+			let {scrollingThreshold} = this.swipeConfig;
+			let internalStatus = this.getInternalStatus();
+			if(internalStatus === CuppaDrawer.CHECKING && Math.abs(dx) >= scrollingThreshold || Math.abs(dy) >= scrollingThreshold){
+				if(Math.abs(dy) >= Math.abs(dx)*0.75){
+					this.updateInternalStatus(CuppaDrawer.SCROLLING);
+				}else{
+					this.updateInternalStatus(CuppaDrawer.DRAGGING);
+				}
+			}
+		}
+		return this.internalStatus;
+	}
 
-    getInternalStatus(){
-        return this.internalStatus;
-    }
+	getInternalStatus(){
+		return this.internalStatus;
+	}
 
-    onMove(e){
-        let drawerPosition = this.position.toUpperCase();
-        let {x,y, dx, dy} = this.setPosition(e);
-        let internalStatus = this.getInternalStatus();
-        if(internalStatus === CuppaDrawer.SCROLLING){ this.addExtraEvents(false); return; }
-        if(internalStatus === CuppaDrawer.CHECKING){
-            this.updateInternalStatus();
-            return;
-        }
+	onMove(e){
+		let drawerPosition = this.position.toUpperCase();
+		let {x,y, dx, dy} = this.setPosition(e);
+		let internalStatus = this.getInternalStatus();
+		if(internalStatus === CuppaDrawer.SCROLLING){ this.addExtraEvents(false); return; }
+		if(internalStatus === CuppaDrawer.CHECKING){
+			this.updateInternalStatus();
+			return;
+		}
 
-        this.blockContent(true);
-        if(drawerPosition === CuppaDrawer.LEFT) {
-            if(dx > 0){ dx = 0; }
-            if(dx < -this.width){ dx = -this.width; }
-            gsap.set(this.refs.contentWrap, {left:dx});
-            let opacity = 1 + (dx / this.width);
-            gsap.set(this.refs.blockade, {opacity});
-        }else if(drawerPosition === CuppaDrawer.RIGHT){
-            dx = 0 - dx;
-            if(dx > 0){ dx = 0; }
-            if(dx < -this.width){ dx = -this.width; }
-            gsap.set(this.refs.contentWrap, {right:dx});
-            let opacity = 1 + (dx / this.width);
-            gsap.set(this.refs.blockade, {opacity});
-        }
+		this.blockContent(true);
+		if(drawerPosition === CuppaDrawer.LEFT) {
+			if(dx > 0){ dx = 0; }
+			if(dx < -this.width){ dx = -this.width; }
+			gsap.set(this.refs.contentWrap, {left:dx});
+			let opacity = 1 + (dx / this.width);
+			gsap.set(this.refs.blockade, {opacity});
+		}else if(drawerPosition === CuppaDrawer.RIGHT){
+			dx = 0 - dx;
+			if(dx > 0){ dx = 0; }
+			if(dx < -this.width){ dx = -this.width; }
+			gsap.set(this.refs.contentWrap, {right:dx});
+			let opacity = 1 + (dx / this.width);
+			gsap.set(this.refs.blockade, {opacity});
+		}
 
-        this.onUpdate();
-    }
+		this.onUpdate();
+	}
 
-    onEnd(e){
-        this.addExtraEvents(false);
-        this.blockContent(false);
-        let drawerPosition = this.position.toUpperCase();
-        let pos = this.getPosition();
-        if(e.target.classList.contains("cuppa-drawer_blockade") && pos){
-            let first = this.getPosition(CuppaDrawer.FIRST);
-            if( Math.abs(pos.dx) <= this.swipeConfig.gestureIsClickThreshold
-                && Math.abs(pos.dy) <= this.swipeConfig.gestureIsClickThreshold
-                && Date.now() - first.timestamp <= this.swipeConfig.velocityIsClick
-            ){
-                return;
-            }
-        }
-        if(e.target.nodeName.toLowerCase() === "a" && pos){
-            let first = this.getPosition(CuppaDrawer.FIRST);
-            if( Math.abs(pos.dx) <= this.swipeConfig.gestureIsClickThreshold
-                && Math.abs(pos.dy) <= this.swipeConfig.gestureIsClickThreshold
-                && Date.now() - first.timestamp <= this.swipeConfig.velocityIsClick
-            ){
-                return;
-            }
-        }
+	onEnd(e){
+		this.addExtraEvents(false);
+		this.blockContent(false);
+		let drawerPosition = this.position.toUpperCase();
+		let pos = this.getPosition();
+		if(e.target.classList.contains("cuppa-drawer_blockade") && pos){
+			let first = this.getPosition(CuppaDrawer.FIRST);
+			if( Math.abs(pos.dx) <= this.swipeConfig.gestureIsClickThreshold
+				&& Math.abs(pos.dy) <= this.swipeConfig.gestureIsClickThreshold
+				&& Date.now() - first.timestamp <= this.swipeConfig.velocityIsClick
+			){
+				return;
+			}
+		}
+		if(e.target.nodeName.toLowerCase() === "a" && pos){
+			let first = this.getPosition(CuppaDrawer.FIRST);
+			if( Math.abs(pos.dx) <= this.swipeConfig.gestureIsClickThreshold
+				&& Math.abs(pos.dy) <= this.swipeConfig.gestureIsClickThreshold
+				&& Date.now() - first.timestamp <= this.swipeConfig.velocityIsClick
+			){
+				return;
+			}
+		}
 
-        let [validSwipe, direction] = this.isValidSwipe(pos.vx, this.swipeConfig.velocityThreshold, pos.dy, this.swipeConfig.directionalOffsetThreshold);
-        if(!validSwipe){
-            if(drawerPosition === CuppaDrawer.LEFT){
-                if(Math.abs(pos.dx) > this.width*0.5){
-                    this.close();
-                }else{
-                    this.open();
-                }
-            }else if(drawerPosition === CuppaDrawer.RIGHT){
-                if(Math.abs(pos.dx) > this.width*0.5){
-                    this.close();
-                }else{
-                    this.open();
-                }
-            }
-            return;
-        }
+		let [validSwipe, direction] = this.isValidSwipe(pos.vx, this.swipeConfig.velocityThreshold, pos.dy, this.swipeConfig.directionalOffsetThreshold);
+		if(!validSwipe){
+			if(drawerPosition === CuppaDrawer.LEFT){
+				if(Math.abs(pos.dx) > this.width*0.5){
+					this.close();
+				}else{
+					this.open();
+				}
+			}else if(drawerPosition === CuppaDrawer.RIGHT){
+				if(Math.abs(pos.dx) > this.width*0.5){
+					this.close();
+				}else{
+					this.open();
+				}
+			}
+			return;
+		}
 
-        if(drawerPosition === CuppaDrawer.LEFT){
-            if(direction < 0) this.close();
-            else this.open();
-        }else if(drawerPosition === CuppaDrawer.RIGHT){
-            if(direction > 0) this.close();
-            else this.open();
-        }
-    }
+		if(drawerPosition === CuppaDrawer.LEFT){
+			if(direction < 0) this.close();
+			else this.open();
+		}else if(drawerPosition === CuppaDrawer.RIGHT){
+			if(direction > 0) this.close();
+			else this.open();
+		}
+	}
 
-    isValidSwipe(velocity, velocityThreshold, directionalOffset, directionalOffsetThreshold) {
-        let result = Math.abs(velocity) > velocityThreshold && Math.abs(directionalOffset) < directionalOffsetThreshold;
-        return [result, velocity];
-    }
+	isValidSwipe(velocity, velocityThreshold, directionalOffset, directionalOffsetThreshold) {
+		let result = Math.abs(velocity) > velocityThreshold && Math.abs(directionalOffset) < directionalOffsetThreshold;
+		return [result, velocity];
+	}
 
-    addEvents(value = true){
-        if(value){
-            this.ontouchstart = this.onStart;
-            this.onmousedown = this.onStart;
-        }else{
-            this.ontouchstart = null;
-            this.onmousedown = null;
-        }
-    }
+	addEvents(value = true){
+		if(value){
+			this.ontouchstart = this.onStart;
+			this.onmousedown = this.onStart;
+		}else{
+			this.ontouchstart = null;
+			this.onmousedown = null;
+		}
+	}
 
-    addExtraEvents(value = true){
-        if(value){
-            this.ontouchmove = this.onMove;
-            this.ontouchend = this.onEnd;
-            this.onmousemove = this.onMove;
-            this.onmouseup = this.onEnd;
-        }else{
-            this.ontouchmove = null;
-            this.onmousemove = null;
-            this.ontouchend = null;
-            this.onmouseup = null;
-        }
-    }
+	addExtraEvents(value = true){
+		if(value){
+			this.ontouchmove = this.onMove;
+			this.ontouchend = this.onEnd;
+			this.onmousemove = this.onMove;
+			this.onmouseup = this.onEnd;
+		}else{
+			this.ontouchmove = null;
+			this.onmousemove = null;
+			this.ontouchend = null;
+			this.onmouseup = null;
+		}
+	}
 
-    open(duration = this.durationOpen){
-        let drawerPosition = this.position.toUpperCase();
-        this.status = CuppaDrawer.OPEN;
-        this.blockContent(false);
-        this.setDisableContent(true);
-        this.forceRender();
-        if(this.tl) this.tl.kill();
-        if(typeof this.easeOpen === "string"){ this.easeOpen = eval(this.easeOpen); }
+	open(duration = this.durationOpen){
+		let drawerPosition = this.position.toUpperCase();
+		this.status = CuppaDrawer.OPEN;
+		this.blockContent(false);
+		this.setDisableContent(true);
+		this.forceRender();
+		if(this.tl) this.tl.kill();
+		if(typeof this.easeOpen === "string"){ this.easeOpen = eval(this.easeOpen); }
 
-        this.tl = gsap.timeline({onUpdate:this.onUpdate});
-        this.tl.set(this, { pointerEvents: 'none' });
-        this.tl.to(this.refs.blockade, {duration, opacity:1, ease: this.easeOpen}, 0)
-        if(drawerPosition === CuppaDrawer.LEFT) {
-            this.tl.to(this.refs.contentWrap, {duration, left: 0, ease: this.easeOpen}, 0);
-        }else if(drawerPosition === CuppaDrawer.RIGHT){
-            this.tl.to(this.refs.contentWrap, {duration, right: 0, ease: this.easeOpen}, 0);
-        }
-        this.tl.set(this, { pointerEvents: 'auto' });
+		this.tl = gsap.timeline({onUpdate:this.onUpdate});
+		this.tl.set(this, { pointerEvents: 'none' });
+		this.tl.to(this.refs.blockade, {duration, opacity:1, ease: this.easeOpen}, 0)
+		if(drawerPosition === CuppaDrawer.LEFT) {
+			this.tl.to(this.refs.contentWrap, {duration, left: 0, ease: this.easeOpen}, 0);
+		}else if(drawerPosition === CuppaDrawer.RIGHT){
+			this.tl.to(this.refs.contentWrap, {duration, right: 0, ease: this.easeOpen}, 0);
+		}
+		this.tl.set(this, { pointerEvents: 'auto' });
 
-        let data = {status:this.status, ref:this}
-        this.dispatchEvent(new CustomEvent("change",{detail:data}));
-        if(this.callback) this.callback(data);
-    }
+		let data = {status:this.status, ref:this}
+		this.dispatchEvent(new CustomEvent("change",{detail:data}));
+		if(this.callback) this.callback(data);
+	}
 
-    close(duration = this.durationClose){
-        let drawerPosition = this.position.toUpperCase();
-        this.status = CuppaDrawer.CLOSE;
-        this.blockContent(false);
-        this.setDisableContent(false);
-        this.forceRender();
-        if(this.tl) this.tl.kill();
-        if(typeof this.easeClose === "string"){ this.easeClose = eval(this.easeClose); }
+	close(duration = this.durationClose){
+		let drawerPosition = this.position.toUpperCase();
+		this.status = CuppaDrawer.CLOSE;
+		this.blockContent(false);
+		this.setDisableContent(false);
+		this.forceRender();
+		if(this.tl) this.tl.kill();
+		if(typeof this.easeClose === "string"){ this.easeClose = eval(this.easeClose); }
 
-        this.tl = gsap.timeline({onUpdate:this.onUpdate});
-        this.tl.set(this, { pointerEvents: 'none' });
-        this.tl.to(this.refs.blockade, {duration, opacity:0, ease: this.easeClose}, 0);
-        if(drawerPosition === CuppaDrawer.LEFT){
-            this.tl.to(this.refs.contentWrap, {duration, left: -this.width, ease: this.easeClose}, 0);
-        }else if(drawerPosition === CuppaDrawer.RIGHT){
-            this.tl.to(this.refs.contentWrap, {duration, right: -this.width, ease: this.easeClose}, 0);
-        }
+		this.tl = gsap.timeline({onUpdate:this.onUpdate});
+		this.tl.set(this, { pointerEvents: 'none' });
+		this.tl.to(this.refs.blockade, {duration, opacity:0, ease: this.easeClose}, 0);
+		if(drawerPosition === CuppaDrawer.LEFT){
+			this.tl.to(this.refs.contentWrap, {duration, left: -this.width, ease: this.easeClose}, 0);
+		}else if(drawerPosition === CuppaDrawer.RIGHT){
+			this.tl.to(this.refs.contentWrap, {duration, right: -this.width, ease: this.easeClose}, 0);
+		}
 
-        let data = {status:this.status, ref:this}
-        this.dispatchEvent(new CustomEvent("change",{detail:data}));
-        if(this.callback) this.callback(data);
-    }
+		let data = {status:this.status, ref:this}
+		this.dispatchEvent(new CustomEvent("change",{detail:data}));
+		if(this.callback) this.callback(data);
+	}
 
-    onUpdate(){
-        let data = {status:this.status, ref:this, refs:this.refs}
-        this.dispatchEvent(new CustomEvent("update",{detail:data}));
-        if(this.updateCallback) this.updateCallback(data);
-    }
+	onUpdate(){
+		let data = {status:this.status, ref:this, refs:this.refs}
+		this.dispatchEvent(new CustomEvent("update",{detail:data}));
+		if(this.updateCallback) this.updateCallback(data);
+	}
 
-    setPosition(e, reset = false){
-        if(reset) this.history = [];
-        let first = this.getPosition(CuppaDrawer.FIRST);
-        let pre = this.getPosition();
-        let x = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
-        let y = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
-        if(!x && !y) return;
-        let dx = (first) ? x - first.x : 0;
-        let dy = (first) ? y - first.y : 0;
-        let vx = (pre) ? x - pre.x : 0;
-        let vy = (pre) ? y - pre.y : 0;
-        let position = {x, y, dx, dy, vx, vy, timestamp: Date.now()};
-        this.history.push(position);
-        return position;
-    }
+	setPosition(e, reset = false){
+		if(reset) this.history = [];
+		let first = this.getPosition(CuppaDrawer.FIRST);
+		let pre = this.getPosition();
+		let x = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+		let y = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+		if(!x && !y) return;
+		let dx = (first) ? x - first.x : 0;
+		let dy = (first) ? y - first.y : 0;
+		let vx = (pre) ? x - pre.x : 0;
+		let vy = (pre) ? y - pre.y : 0;
+		let position = {x, y, dx, dy, vx, vy, timestamp: Date.now()};
+		this.history.push(position);
+		return position;
+	}
 
-    getPosition(position = CuppaDrawer.LAST){
-        let pos = null;
-        if(position == CuppaDrawer.LAST && this.history.length){
-            pos = this.history[this.history.length-1];
-        }else if(position == CuppaDrawer.FIRST && this.history.length){
-            pos = this.history[0];
-        }
-        return pos;
-    }
+	getPosition(position = CuppaDrawer.LAST){
+		let pos = null;
+		if(position == CuppaDrawer.LAST && this.history.length){
+			pos = this.history[this.history.length-1];
+		}else if(position == CuppaDrawer.FIRST && this.history.length){
+			pos = this.history[0];
+		}
+		return pos;
+	}
 
-    blockContent(value = true){
-        if(!this.refs.contentWrap) return;
-        if(value === true){
-            this.refs.contentWrap.style.pointerEvents = 'none';
-            this.refs.blockade.style.pointerEvents = 'none';
-        }else{
-            this.refs.contentWrap.style.pointerEvents = '';
-            this.refs.blockade.style.pointerEvents = '';
-        }
-        if(isMobile()) this.setDisableScroll(value);
-    }
+	blockContent(value = true){
+		if(!this.refs.contentWrap) return;
+		if(value === true){
+			this.refs.contentWrap.style.pointerEvents = 'none';
+			this.refs.blockade.style.pointerEvents = 'none';
+		}else{
+			this.refs.contentWrap.style.pointerEvents = '';
+			this.refs.blockade.style.pointerEvents = '';
+		}
+		if(isMobile()) this.setDisableScroll(value);
+	}
 
-    setDisableScroll(value = true){
-        if(!this.disableScroll) return;
-        if(typeof this.disableScroll === "string"){ this.disableScroll = document.querySelectorAll(this.disableScroll); }
-        if(value === true){
-            this.disableScroll.forEach(item=>{
-                gsap.set(item, { overflow: 'hidden'});
-            })
-        }else if(value === false){
-            this.disableScroll.forEach(item=>{
-                gsap.set(item, { overflow: 'auto'});
-            })
-        }
-    }
+	setDisableScroll(value = true){
+		if(!this.disableScroll) return;
+		if(typeof this.disableScroll === "string"){ this.disableScroll = document.querySelectorAll(this.disableScroll); }
+		if(value === true){
+			this.disableScroll.forEach(item=>{
+				gsap.set(item, { overflow: 'hidden'});
+			})
+		}else if(value === false){
+			this.disableScroll.forEach(item=>{
+				gsap.set(item, { overflow: 'auto'});
+			})
+		}
+	}
 
-    setDisableContent(value = true){
-        if(!this.disableContent) return;
-        if(typeof this.disableContent === "string"){ this.disableContent = document.querySelectorAll(this.disableContent); }
+	setDisableContent(value = true){
+		if(!this.disableContent) return;
+		if(typeof this.disableContent === "string"){ this.disableContent = document.querySelectorAll(this.disableContent); }
 
-        if(value === true){
-            this.disableContent.forEach(item=>{
-                gsap.set(item, { pointerEvents: 'none', userSelect:'none' });
-            });
-        }else if(value === false){
-            this.disableContent.forEach(item=>{
-                gsap.set(item, { pointerEvents: 'auto', userSelect:'auto' });
-            });
+		if(value === true){
+			this.disableContent.forEach(item=>{
+				gsap.set(item, { pointerEvents: 'none', userSelect:'none' });
+			});
+		}else if(value === false){
+			this.disableContent.forEach(item=>{
+				gsap.set(item, { pointerEvents: 'auto', userSelect:'auto' });
+			});
 
-        }
-    }
+		}
+	}
 
-    addChilds(){
-        let childs = this.querySelectorAll("cuppa-drawer-content");
-        if(childs.length){
-            childs.forEach(child => { this.refs.contentWrap.append(child); });
-        }
-    }
+	addChilds(){
+		let childs = this.querySelectorAll("cuppa-drawer-content");
+		if(childs.length){
+			childs.forEach(child => { this.refs.contentWrap.append(child); });
+		}
+	}
 
-    render(){
-        let status = this.status;
-        return html`
-            <div ref="blockade" class="cuppa-drawer_blockade" @click=${(this.backdropEnabled) ? ()=>this.close() : null} ></div>
-            <div ref="contentWrap" class="drawer_content_wrap"></div>
-            <style>
-                cuppa-drawer, cuppa-drawer *{ box-sizing: border-box; }
-                cuppa-drawer{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 100; overflow: hidden; -webkit-user-select: none; user-select: none; }
-                cuppa-drawer *{ -webkit-user-select: none; user-select: none; }
-                cuppa-drawer .cuppa-drawer_blockade{ background: rgba(0,0,0,0.7); position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
-                cuppa-drawer .drawer_content_wrap{ position: absolute; overflow: auto; top: 0; bottom: 0; width: ${this.width}px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
-                cuppa-drawer-content{ display: block; }
-                ${status === CuppaDrawer.CLOSE ? `` : html`
+	render(){
+		let status = this.status;
+		return html`
+      <div ref="blockade" class="cuppa-drawer_blockade" @click=${(this.backdropEnabled) ? ()=>this.close() : null} ></div>
+      <div ref="contentWrap" class="drawer_content_wrap"></div>
+      <style>
+        cuppa-drawer, cuppa-drawer *{ box-sizing: border-box; }
+        cuppa-drawer{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 100; overflow: hidden; -webkit-user-select: none; user-select: none; }
+        cuppa-drawer *{ -webkit-user-select: none; user-select: none; }
+        cuppa-drawer .cuppa-drawer_blockade{ background: rgba(0,0,0,0.7); position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
+        cuppa-drawer .drawer_content_wrap{ position: absolute; overflow: auto; top: 0; bottom: 0; width: ${this.width}px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+        cuppa-drawer-content{ display: block; }
+        ${status === CuppaDrawer.CLOSE ? `` : html`
                     html, body{ overflow:hidden; touch-action: none; overscroll-behavior: none; -webkit-overflow-scrolling: auto; }
                 `}
-            </style>
-        `
-    }
+      </style>
+		`
+	}
 }
 
 customElements.define('cuppa-drawer', CuppaDrawer);
 document.defaultView.CuppaDrawer = CuppaDrawer;
 
 function isMobile() {
-    var check = false;
-    (function (a) {
-        if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
-    })(navigator.userAgent || navigator.vendor || window.opera);
-    return check;
+	var check = false;
+	(function (a) {
+		if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0, 4))) check = true;
+	})(navigator.userAgent || navigator.vendor || window.opera);
+	return check;
 };
