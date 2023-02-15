@@ -88,15 +88,16 @@ export class CuppaTooltip extends CuppaComponent {
 
 	render(){
 		return html`
-      ${this.arrow === "" || this.arrow.toUpperCase() === CuppaTooltip.ARROW.NONE ? `` : html`
-                <svg class="cuppa-tooltip_arrow ${this.arrow.toLowerCase()}" width="10" height="5" viewBox="0 0 18 9" preserveAspectRatio="none" style="${this.styleArrow}" >
-                    <path data-name="Icon ionic-md-arrow-dropup" d="M9,22.5l9-9,9,9Z" transform="translate(-9 -13.5)"/>
-                </svg>
-            `}
+      ${this.arrow === "" || this.arrow.toUpperCase() === CuppaTooltip.ARROW.NONE ? `` : 
+	      html`
+          <svg class="cuppa-tooltip_arrow ${this.arrow.toLowerCase()}" width="10" height="5" viewBox="0 0 18 9" preserveAspectRatio="none" style="${this.styleArrow}" >
+              <path data-name="Icon ionic-md-arrow-dropup" d="M9,22.5l9-9,9,9Z" transform="translate(-9 -13.5)"/>
+          </svg>
+        `}
       ${this.text ? html`${this.text}` : ``}
       <style>
         cuppa-tooltip{ transition: 0.3s opacity; opacity: 0; position: fixed; top:0; left: 0; background: #000; color:#FFF; padding:5px 8px; font-size: 14px; border-radius: 3px; pointer-events: none; z-index: 999; }
-        cuppa-tooltip.show{ transition: 0.3s opacity; opacity: 1 !important; visibility: visible; }
+        cuppa-tooltip.show{ opacity: 1 !important; visibility: visible; }
         cuppa-tooltip .cuppa-tooltip_arrow{ position: absolute; }
         cuppa-tooltip .cuppa-tooltip_arrow.up{ top:-4px; left:calc(50% - 5px); }
         cuppa-tooltip .cuppa-tooltip_arrow.left{ transform: rotate(-90deg); top:calc(50% - 3px); left:-7px; }
