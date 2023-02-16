@@ -189,28 +189,28 @@ export class CuppaAlertDoc extends CuppaComponent {
         <hr class="separator-1" />
         <h2 class="title-3 mb-10">Code Example</h2>
         ${Utils.prismCode({removeTabsCount:5, code:`
-                    <!-- Import component -->
-                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
-                    
-                    <!-- Use with HTML Tag -->
-                    <cuppa-alert 
-                        title="Message" 
-                        message="What is your name?" 
-                        input-text="" 
-                        cancel-text="Cancel" 
-                        onclose="console.log(this.value, this.inputText)" >
-                    </cuppa-alert>
-                    
-                    <!-- Use with JS -->
-                    <script type="module">
-                        let alert = new CuppaAlert({
-                            title: 'Message',
-                            message: 'My message',
-                            callback:(res)=>{ console.log(res); }
-                        });
-                        document.body.append(alert);
-                    </script>
-                `})}
+<!-- Import component -->
+<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
+
+<!-- Use with HTML Tag -->
+<cuppa-alert 
+  title="Message" 
+  message="What is your name?" 
+  input-text="" 
+  cancel-text="Cancel" 
+  onclose="console.log(this.value, this.inputText)" >
+</cuppa-alert>
+
+<!-- Use with JS -->
+<script type="module">
+  let alert = new CuppaAlert({
+    title: 'Message',
+    message: 'My message',
+    callback:(res)=>{ console.log(res); }
+  });
+  document.body.append(alert);
+</script>
+        `})}
 
         <div class="message " style="display: flex; align-items: center; margin:1rem 0 0;">
           <button class="button-1" @click="${this.showAlertPersonalized}" >Show Personalized Alert</button>

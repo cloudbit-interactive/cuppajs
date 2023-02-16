@@ -2,12 +2,14 @@ import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import {CuppaTooltip} from "../../../../cuppa/components/cuppa.tooltip.min.js";
+import {SandPack} from "../../common/Sandpack.js";
 
 export class CuppaTooltipDoc extends CuppaComponent {
 	alertResult = this.observable("alertResult");
 
 	mounted(){
 		Utils.loadPrism();
+
 	}
 
 	showAlert(){
@@ -76,20 +78,7 @@ export class CuppaTooltipDoc extends CuppaComponent {
         </div>
         <hr />
 				<div>
-          ${Utils.prismCode({
-	          removeTabsCount:2,
-	          code:`
-              <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
-							<cuppa-switch id="switch1" checked="true"></cuppa-switch>
-              <div>Output: <span id="status">true</span></div>
-							<script>
-								document.getElementById("switch1").addEventListener("change", onChange);
-								function onChange(e){
-									document.getElementById("status").innerHTML = e.target.checked;
-								}
-							</script>
-          	`
-					})}
+					<sand-pack></sand-pack>
 				</div>
 			</div>
 		`
