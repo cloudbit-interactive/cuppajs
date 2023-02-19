@@ -31,8 +31,5 @@
   "bugs": {
     "url": "https://github.com/cloudbit-interactive/CuppaComponent/issues"
   },
-  "homepage": "https://github.com/cloudbit-interactive/CuppaComponent#readme",
-  "dependencies": {
-    "@codesandbox/sandpack-client": "^1.20.9"
-  }
+  "homepage": "https://github.com/cloudbit-interactive/CuppaComponent#readme"
 }

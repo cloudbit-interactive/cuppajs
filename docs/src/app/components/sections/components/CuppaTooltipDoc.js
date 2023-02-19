@@ -2,7 +2,7 @@ import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import {CuppaTooltip} from "../../../../cuppa/components/cuppa.tooltip.min.js";
-import {SandPack} from "../../common/Sandpack.js";
+import {CuppaPreviewCode} from "../../common/CuppaPreviewCode.js";
 
 export class CuppaTooltipDoc extends CuppaComponent {
 	alertResult = this.observable("alertResult");
@@ -27,17 +27,6 @@ export class CuppaTooltipDoc extends CuppaComponent {
 		document.body.append(alert);
 	}
 
-	showAlertPersonalized(){
-		let alert = new CuppaAlert({
-			message: html`<iframe src="media/docs/pdf.pdf"></iframe>`,
-			backdropEnabled:false,
-			acceptText:"",
-			title:"PDF Preview",
-			topBar:true,
-			classes:["modal-1"],
-		});
-		document.body.append(alert);
-	}
 
 	render(){
 		return html`
@@ -78,7 +67,7 @@ export class CuppaTooltipDoc extends CuppaComponent {
         </div>
         <hr />
 				<div>
-					<sand-pack></sand-pack>
+					<cuppa-preview-code></cuppa-preview-code>
 				</div>
 			</div>
 		`
