@@ -1,63 +1,88 @@
-import {CuppaComponent, html} from "../../../cuppa/cuppa.component.min.js";
+import {CuppaComponent, html, camelize} from "../../../cuppa/cuppa.component.min.js";
 import {cuppa, log} from "../../../../../libs/cuppa.js";
 import * as ace from 'https://cdn.jsdelivr.net/npm/ace-builds@1.15.2/src-min-noconflict/ace.min.js';
 import {Utils} from "../../controllers/Utils.js";
 
+const aceModes = {
+	html:'ace/mode/html',
+	javascript:'ace/mode/javascript',
+	css:'ace/mode/css',
+};
+
 export class CuppaPreviewCode extends CuppaComponent {
-	value = this.observable('value','');
+	content = this.observable('content','');
+	mode = this.observable('mode', 'html');
+	aceTheme = this.observable('aceTheme', 'ace/theme/tomorrow_night');
+	preview = this.observable('preview', true);
+	height = this.observable('height', '200px');
 	editor;
 
+	static get observedAttributes() { return ['mode', 'ace-theme', 'content', 'preview', 'height'] }
+	attributeChangedCallback(attr, oldVal, newVal) {
+		if(oldVal === newVal) return;
+		if(attr === 'preview') newVal = (newVal === 'true') ? true : false;
+		this[camelize(attr)] = newVal;
+	}
+
 	mounted(){
-		window.ace.config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.15.2/src-min-noconflict/')
+		let content = this.querySelector("cuppa-preview-content");
+		if(content){
+			this.content = content.innerHTML;
+			content.remove()
+		}
+		window.ace.config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.15.2/src-min-noconflict/');
 		this.editor = window.ace.edit(this.refs.editor);
-		this.editor.setTheme("ace/theme/tomorrow_night");
-		this.editor.session.setMode("ace/mode/html");
+		this.editor.setTheme(this.aceTheme);
 		this.editor.session.on('change', this.onEditorChange);
-		this.setValue(Utils.removeTabs(`
-			<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
-			<button class="button-1 btn-default" >Default/Bottom</button>
-			<cuppa-tooltip target=".btn-default" text="Default position" style="margin-top:8px"></cuppa-tooltip>
-			`, 3), );
+		this.editor.session.setOptions({
+			mode:aceModes[this.mode],
+			tabSize: 2,
+			useSoftTabs: true
+		});
+		this.editor.renderer.setScrollMargin(5, 5);
+		if(this.content){
+			this.setContent(this.content);
+		}
+	}
+
+	setContent(content){
+		this.editor.setValue(content);
 		this.editor.clearSelection();
 	}
 
-	setValue(value){
-		this.editor.setValue(value);
-	}
-
-	onEditorChange(delta){
+	onEditorChange(){
+		if(!this.refs.output) return;
 		let code = this.editor.session.getValue();
 		this.refs.output.src = "data:text/html;charset=utf-8," + escape(code);
 	}
 
-	static get observedAttributes() { return ['attr1', 'attr2'] }
-	attributeChangedCallback(attr, oldVal, newVal) {
-		if(oldVal === newVal) return;
-		this[attr] = newVal;
-	}
-
 	render(){
 		return html`
-      <div class="cuppa-preview-code">
-        <div ref="editor"  class="editor" style="height:30rem">
+        <div ref="editor" class="editor"  style="align-self: stretch">
         </div>
-        <iframe ref="output" class="output">
-          <button>dd</button>
-        </iframe>
-      </div>
+	      ${!this.preview ? `` : html`
+          <iframe ref="output" class="output wire" style="align-self: stretch">
+            <button>dd</button>
+          </iframe>
+	      `}
       <style>
-	      .cuppa-preview-code{ 
-		      display: flex; flex-direction: row;
+	      cuppa-preview-code{ 
+		      display: flex;
+		      flex-direction: row;
           border: 1px solid #ddd;
           border-radius: 5px;
+		      overflow: hidden;
 	      }
-        .cuppa-preview-code .editor{
-	        flex:1;;
+        cuppa-preview-code .editor{
+	        flex:1;
           overflow: hidden;
         }
-	      .cuppa-preview-code .output{
-          flex:1;
-		      background: #333;
+	      cuppa-preview-code .output{
+          font-family: "Arial", sans-serif;
+		      flex:1;
+		      background: #23272f;
+		      border:0;
+		      padding: 10px;
 	      }
       </style>
     `

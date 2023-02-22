@@ -5,28 +5,6 @@ import {CuppaTooltip} from "../../../../cuppa/components/cuppa.tooltip.min.js";
 import {CuppaPreviewCode} from "../../common/CuppaPreviewCode.js";
 
 export class CuppaTooltipDoc extends CuppaComponent {
-	alertResult = this.observable("alertResult");
-
-	mounted(){
-		Utils.loadPrism();
-
-	}
-
-	showAlert(){
-		let alert = new CuppaAlert({
-			title: "Message",
-			message: html`This is a <strong>html</strong> text message`,
-			backdropEnabled:true,
-			cancelText: "Cancel",
-			inputText: "",
-			placeholder: "Type your message here",
-			callback:(res)=>{
-				this.alertResult = res;
-			}
-		});
-		document.body.append(alert);
-	}
-
 
 	render(){
 		return html`
@@ -67,7 +45,20 @@ export class CuppaTooltipDoc extends CuppaComponent {
         </div>
         <hr />
 				<div>
-					<cuppa-preview-code></cuppa-preview-code>
+					<cuppa-preview-code 
+						style="height: 15rem"
+						.content="${Utils.removeTabs(`
+							<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
+							
+							<button id="btn-default" class="button-1" >Default Tooltip</button>
+							<cuppa-tooltip 
+								target="#btn-default" 
+								text="Default position"
+								style="margin-top:8px; opacity: 0;"
+							></cuppa-tooltip>	
+						`, {tabsCount:7})}"
+					>
+          </cuppa-preview-code>
 				</div>
 			</div>
 		`

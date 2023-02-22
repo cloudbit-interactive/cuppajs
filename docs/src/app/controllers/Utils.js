@@ -34,15 +34,16 @@ export class Utils{
 		}
 	}
 
-	static removeTabs(code, removeTabsCount = 0, tabSpace = 1, removeEmptyLines = true,){
-		if(removeTabsCount > 0){
-			code = code.replaceAll('\t', ' ')
-			let tabs = ' '.repeat(tabSpace).repeat(removeTabsCount);
+	static removeTabs(code, {tabsCount = 0, tabSpace = 1, removeFirstLine = true, removeLastLine = true, addEmptyLine = true}){
+		if(tabsCount > 0){
+			let tabs = '\t'.repeat(tabSpace).repeat(tabsCount);
 			let codeLines = code.split("\n");
-			if(removeEmptyLines) codeLines = codeLines.filter(codeLine=>codeLine != '');
 			for(let i = 0; i < codeLines.length; i++){
 				codeLines[i] = codeLines[i].replace(tabs, '');
 			}
+			if(removeFirstLine) codeLines.shift();
+			if(removeLastLine) codeLines.pop();
+			if(addEmptyLine) codeLines.push('');
 			code = codeLines.join("\n");
 		}
 		return code;
