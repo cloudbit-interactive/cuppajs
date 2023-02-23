@@ -11,133 +11,133 @@
  **/
 
 export class CuppaComponent extends HTMLElement {
-    refs = {};
-    shadow = null;
-    renderedCount = 0;
-    _template;
+	refs = {};
+	shadow = null;
+	renderedCount = 0;
+	_template;
 
-    constructor() {
-        super();
-        this.binAll = this.binAll.bind(this);
-        this.connectedCallback = this.connectedCallback.bind(this);
-        this.forceRender = this.forceRender.bind(this);
-        this.disconnectedCallback = this.disconnectedCallback.bind(this);
-        this.observables = this.observables.bind(this);
-        this.binAll(this);
-    }
+	constructor() {
+		super();
+		this.binAll = this.binAll.bind(this);
+		this.connectedCallback = this.connectedCallback.bind(this);
+		this.forceRender = this.forceRender.bind(this);
+		this.disconnectedCallback = this.disconnectedCallback.bind(this);
+		this.observables = this.observables.bind(this);
+		this.binAll(this);
+	}
 
-    connectedCallback() {
-        if(this.shadow) this.attachShadow({mode: this.shadow});
-        this.forceRender(null, false);
-        if(this.mounted) this.mounted(this);
-        if(this.rendered) this.rendered(this);
-    }
+	connectedCallback() {
+		if(this.shadow) this.attachShadow({mode: this.shadow});
+		this.forceRender(null, false);
+		if(this.mounted) this.mounted(this);
+		if(this.rendered) this.rendered(this);
+	}
 
-    disconnectedCallback() {
-        if(this.unmounted) this.unmounted(this);
-    }
+	disconnectedCallback() {
+		if(this.unmounted) this.unmounted(this);
+	}
 
-    setVariables(args){
-        Object.entries(args).map(([name, value])=>{
-            this[`_${name}`] = value;
-        });
-        this.forceRender();
-    }
+	setVariables(args){
+		Object.entries(args).map(([name, value])=>{
+			this[`_${name}`] = value;
+		});
+		this.forceRender();
+	}
 
-    forceRender(callback, dispatchRender = true){
-        if(!this._template){ this._template = () => this.render(); }
-        if(this.shadowRoot){
-            render(this._template(), this.shadowRoot);
-        }else{
-            render(this._template(), this);
-        }
-        this.processRefs(this, this.refs, "ref");
-        if(callback) callback();
-        if(this.rendered && dispatchRender) this.rendered(this);
-        this.renderedCount++;
-    }
+	forceRender(callback, dispatchRender = true){
+		if(!this._template){ this._template = () => this.render(); }
+		if(this.shadowRoot){
+			render(this._template(), this.shadowRoot);
+		}else{
+			render(this._template(), this);
+		}
+		this.processRefs(this, this.refs, "ref");
+		if(callback) callback();
+		if(this.rendered && dispatchRender) this.rendered(this);
+		this.renderedCount++;
+	}
 
-    processRefs(html, addTo, tagAttr){
-        if(!tagAttr) tagAttr = "id";
-        let nodes = {}
-        let elements = Array.from(html.querySelectorAll(`[${tagAttr}]`));
-        for(let i = 0; i < elements.length; i++){
-            if(addTo) addTo[elements[i].getAttribute(tagAttr)] = elements[i];
-            else nodes[elements[i].getAttribute(tagAttr)] = elements[i];
-        }
-        if(addTo) addTo["rootHtml"] = html;
-        else nodes["rootHtml"] = html;
-        return nodes;
-    };
+	processRefs(html, addTo, tagAttr){
+		if(!tagAttr) tagAttr = "id";
+		let nodes = {}
+		let elements = Array.from(html.querySelectorAll(`[${tagAttr}]`));
+		for(let i = 0; i < elements.length; i++){
+			if(addTo) addTo[elements[i].getAttribute(tagAttr)] = elements[i];
+			else nodes[elements[i].getAttribute(tagAttr)] = elements[i];
+		}
+		if(addTo) addTo["rootHtml"] = html;
+		else nodes["rootHtml"] = html;
+		return nodes;
+	};
 
-    binAll(element, isFunction){
-        let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
-        if(isFunction)  propertyNames = Object.keys(element);
-        for(let i = 0; i < propertyNames.length; i++){
-            if(typeof element[propertyNames[i]] == "function"){
-                element[propertyNames[i]]= element[propertyNames[i]].bind(element);
-            };
-        };
-    };
+	binAll(element, isFunction){
+		let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+		if(isFunction)  propertyNames = Object.keys(element);
+		for(let i = 0; i < propertyNames.length; i++){
+			if(typeof element[propertyNames[i]] == "function"){
+				element[propertyNames[i]]= element[propertyNames[i]].bind(element);
+			};
+		};
+	};
 
-    bind(element){
-        let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
-        for(let i = 0; i < propertyNames.length; i++){
-            if(typeof element[propertyNames[i]] == "function"){
-                if(this[propertyNames[i]]) continue;
-                this[propertyNames[i]] = element[propertyNames[i]].bind(element);
-            };
-        };
-    }
+	bind(element){
+		let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
+		for(let i = 0; i < propertyNames.length; i++){
+			if(typeof element[propertyNames[i]] == "function"){
+				if(this[propertyNames[i]]) continue;
+				this[propertyNames[i]] = element[propertyNames[i]].bind(element);
+			};
+		};
+	}
 
-    observables(object, callback) {
-        let target = this;
-        if(!object) return;
-        if(Array.isArray(object)){
-            object.forEach(varName => {
-                this.observable(varName, this[varName]);
-            });
-            return;
-        }
+	observables(object, callback) {
+		let target = this;
+		if(!object) return;
+		if(Array.isArray(object)){
+			object.forEach(varName => {
+				this.observable(varName, this[varName]);
+			});
+			return;
+		}
 
-        let firstName;
-        Object.keys(object).map((name, index)=>{
-            if(!index) firstName = name;
-            let value = object[name];
-            let privateVar = "_" + name;
-            target[privateVar] = value;
-            Object.defineProperty(target, name, {
-                set: value => {
-                    target[privateVar] = value;
-                    if(target["forceRender"]) target.forceRender();
-                    if(callback) callback();
-                },
-                get: () => { return target[privateVar]; },
-                configurable:true,
-            });
-        })
-        return target[firstName];
-    }
+		let firstName;
+		Object.keys(object).map((name, index)=>{
+			if(!index) firstName = name;
+			let value = object[name];
+			let privateVar = "_" + name;
+			target[privateVar] = value;
+			Object.defineProperty(target, name, {
+				set: value => {
+					target[privateVar] = value;
+					if(target["forceRender"]) target.forceRender();
+					if(callback) callback();
+				},
+				get: () => { return target[privateVar]; },
+				configurable:true,
+			});
+		})
+		return target[firstName];
+	}
 
-    observable(varName, defaultValue){
-        setTimeout(()=>{
-            if(!defaultValue || this[varName] !== undefined) defaultValue = this[varName];
-            this.observables( {[varName]:defaultValue} );
-        }, 0);
-        return defaultValue;
-    }
+	observable(varName, defaultValue){
+		setTimeout(()=>{
+			if(!defaultValue || this[varName] !== undefined) defaultValue = this[varName];
+			this.observables( {[varName]:defaultValue} );
+		}, 0);
+		return defaultValue;
+	}
 };
 
 export function camelize(str) {
-    str = String(str) || "";
-    str = str.replace(new RegExp("-", 'g'), " ");
-    str = str.replace(new RegExp("_", 'g'), " ");
-    str = str.toLowerCase();
-    str = str.replace(/[^\w\s]/gi, '');
-    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
-        if (+match === 0) return "";
-        return index === 0 ? match.toLowerCase() : match.toUpperCase();
-    });
+	str = String(str) || "";
+	str = str.replace(new RegExp("-", 'g'), " ");
+	str = str.replace(new RegExp("_", 'g'), " ");
+	str = str.toLowerCase();
+	str = str.replace(/[^\w\s]/gi, '');
+	return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+		if (+match === 0) return "";
+		return index === 0 ? match.toLowerCase() : match.toUpperCase();
+	});
 };
 
 // DEPENDENCIES

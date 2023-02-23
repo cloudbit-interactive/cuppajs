@@ -1,7 +1,7 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import {CuppaTooltip} from "../../../../cuppa/components/cuppa.tooltip.min.js";
-import {CuppaPreviewCode} from "../../../../cuppa/components/cuppa-preview-code.js";
+import {CuppaPreviewCodeMin} from "../../../../cuppa/components/cuppa-preview-code.min.js";
 
 export class CuppaTooltipDoc extends CuppaComponent {
 
@@ -43,23 +43,22 @@ export class CuppaTooltipDoc extends CuppaComponent {
           </cuppa-tooltip>
         </div>
         <hr />
-				<div>
-					<cuppa-preview-code
-						height="23rem"
-						preview-height="15rem"
-						expandable="false"
-						.content="${Utils.removeTabs(`
-							<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
-							<button id="btn-default" class="button-1" >Default Tooltip</button>
-							<cuppa-tooltip 
-								target="#btn-default" 
-								text="Default position"
-								style="margin-top:8px; opacity: 0;"
-							></cuppa-tooltip>	
-						`, {tabsCount:7})}"
-					>
-          </cuppa-preview-code>
-				</div>
+				<cuppa-preview-code
+					class="box-shadow-1"
+					height="26rem"
+					preview-height="15rem"
+					expandable="false"
+					.content="${Utils.removeTabs(`
+						<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
+						
+						<button id="btn-default" class="button-1" >Default Tooltip</button>
+						<cuppa-tooltip 
+							target="#btn-default" 
+							text="Default position"
+							style="margin-top:8px; opacity: 0;"
+						></cuppa-tooltip>	
+					`, {tabsCount:6})}"
+				></cuppa-preview-code>
 			</div>
 		`
 	}
