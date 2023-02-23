@@ -3,21 +3,21 @@ import { Globals } from "../../controllers/Globals.js";
 import { Utils } from "../../controllers/Utils.js";
 
 export class Menu extends CuppaComponent {
-  path = this.observable("path");
+	path = this.observable("path");
 
-  mounted() {
-      Globals.router.updateLinks();
-      Globals.router.addListener( this.onRouter );
-      Globals.router.resolve();
-  }
+	mounted() {
+		Globals.router.updateLinks();
+		Globals.router.addListener( this.onRouter );
+		Globals.router.resolve();
+	}
 
-  onRouter(path){
-      this.path = path;
-      if(Globals.menuMobile) Globals.menuMobile.close();
-  }
+	onRouter(path){
+		this.path = path;
+		if(Globals.menuMobile) Globals.menuMobile.close();
+	}
 
-  render(){
-    return html`
+	render(){
+		return html`
       <div style="display:flex; justify-content:space-between; align-items:center;">
         <a class="link-clear title-1 bold" href="/" aria-label="Home">DOC.</a>
         <div style="display: flex">
@@ -29,7 +29,7 @@ export class Menu extends CuppaComponent {
           </a>
         </div>
       </div>
-      
+
       <h2 class="title-3 mt-20"><a class="menu-item-clear" href="cuppa-component">Basic</a></h2>
       <ul class="menu">
         <li class="menu-item ${ this.path == "cuppa-component" ? "selected" : "" }" >
@@ -41,13 +41,13 @@ export class Menu extends CuppaComponent {
           <a class="menu-item-link" href="cuppa-router" ><i class="fas fa-map-signs"></i> Router</a>
           <div class="menu-item-underline"></div>
         </li>
-        
+
         <li class="menu-item ${ this.path == "cuppa-storage" ? "selected" : "" }" >
           <a class="menu-item-link" href="cuppa-storage" ><i class="fas fa-database"></i> Storage</a>
           <div class="menu-item-underline"></div>
         </li>
       </ul>
-      
+
       <h2 class="title-3 mt-20">Cuppa Components</h2>
       <ul class="menu">
         <li class="menu-item ${ this.path == "cuppa-alert" ? "selected" : "" }" >
@@ -75,7 +75,7 @@ export class Menu extends CuppaComponent {
           <div class="menu-item-underline"></div>
         </li>
       </ul>
-      
+
       <h2 class="title-3 mt-20">More</h2>
       <ul class="menu">
         <li class="menu-item  ${ this.path == "performance" ? "selected" : "" }" >
@@ -83,7 +83,7 @@ export class Menu extends CuppaComponent {
           <div class="menu-item-underline"></div>
         </li>
       </ul>
-      
+
       <style>
         menu-comp{ display: block; color:var(--color-white); padding:2rem; font-size: 1.6rem;  }
         menu-comp .menu{ padding:0; list-style: none; margin:0; font-weight: 300; }
@@ -95,8 +95,8 @@ export class Menu extends CuppaComponent {
         menu-comp .menu-item.selected .menu-item-underline{ width:100%; }
         menu-comp .menu-item-clear{ color:#FFF; text-decoration: none; }
       </style>
-    `
-  }
+		`
+	}
 }
 
 customElements.define('menu-comp', Menu);
