@@ -11,23 +11,31 @@ export let iconPreview = 'data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ic3ZnLWljb24i
 export let iconArrowDown = 'data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ic3ZnLWljb24iIHN0eWxlPSJ3aWR0aDogMWVtOyBoZWlnaHQ6IDFlbTt2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO2ZpbGw6IGN1cnJlbnRDb2xvcjtvdmVyZmxvdzogaGlkZGVuOyIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik01MTEuNSA3ODkuOSA4MC42IDM1OWMtMjIuOC0yMi44LTIyLjgtNTkuOCAwLTgyLjYgMjIuOC0yMi44IDU5LjgtMjIuOCA4Mi42IDBsMzQ4LjMgMzQ4LjMgMzQ4LjMtMzQ4LjNjMjIuOC0yMi44IDU5LjgtMjIuOCA4Mi42IDAgMjIuOCAyMi44IDIyLjggNTkuOCAwIDgyLjZMNTExLjUgNzg5LjkgNTExLjUgNzg5Ljl6TTUxMS41IDc4OS45IiAgLz48L3N2Zz4=';
 
 export class CuppaPreviewCode extends CuppaComponent {
-	content = this.observable('content','');
+	content = this.observable('content');
 	mode = this.observable('mode', 'html');
-	aceTheme = this.observable('aceTheme', 'ace/theme/tomorrow_night');
-	preview = this.observable('preview', true);
+	aceTheme = this.observable('aceTheme');
+	preview = this.observable('preview');
 	height = this.observable('height');
-	disabled = this.observable('disabled', false);
-	expandable = this.observable('expandable', true);
-	showToolsBar = this.observable('showToolsBar', true);
+	previewHeight = this.observable('previewHeight')
+	disabled = this.observable('disabled');
+	expandable = this.observable('expandable');
+	showToolsBar = this.observable('showToolsBar');
 	editor;
 	tmpHeight;
 
 	constructor() {
 		super();
+		this.mode = 'html';
+		this.aceTheme = 'ace/theme/tomorrow_night';
+		this.preview = true;
 		this.height = '200px';
+		this.disabled = false;
+		this.expandable = true;
+		this.showToolsBar = true;
+		this.previewHeight = '200px';
 	}
 
-	static get observedAttributes() { return ['mode', 'ace-theme', 'content', 'preview', 'height', 'disabled', 'expandable', 'show-tools-bar' ] }
+	static get observedAttributes() { return ['mode', 'ace-theme', 'content', 'preview', 'height', 'preview-height', 'disabled', 'expandable', 'show-tools-bar' ] }
 	attributeChangedCallback(attr, oldVal, newVal) {
 		if(oldVal === newVal) return;
 		if(['preview','disabled','expandable','show-tools-bar'].indexOf(attr) != -1) newVal = (newVal === 'true') ? true : false;
@@ -98,6 +106,7 @@ export class CuppaPreviewCode extends CuppaComponent {
 	}
 
 	render(){
+		console.log(this.previewHeight)
 		return html`
       <div ref="wrap" class="wrap" style="height: ${this.height}">
         <div ref="editor" class="editor"  style="align-self: stretch"></div>
@@ -167,6 +176,11 @@ export class CuppaPreviewCode extends CuppaComponent {
 	        width: auto; height: 16px;
           filter: invert(100%) sepia(95%) saturate(0%) hue-rotate(173deg) brightness(106%) contrast(104%);
 	        opacity: 0.6;
+        }
+        @media screen and (max-width: 1000px) {
+          cuppa-preview-code .wrap{ display: block; height: auto !important; }
+          cuppa-preview-code .editor{ height:${this.height} !important; }
+          cuppa-preview-code .output{ height:${this.previewHeight} !important; }
         }
       </style>
     `

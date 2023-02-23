@@ -47,6 +47,7 @@ export class CuppaTooltipDoc extends CuppaComponent {
 				<div>
 					<cuppa-preview-code
 						height="23rem"
+						preview-height="15rem"
 						expandable="false"
 						.content="${Utils.removeTabs(`
 							<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
