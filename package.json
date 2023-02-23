@@ -1,35 +1,35 @@
 {
-  "name": "cuppajs",
-  "version": "0.0.116",
-  "description": "Standard Vanilla Libraries that work with everything.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cloudbit-interactive/cuppajs.git"
-  },
-  "keywords": [
-    "angular",
-    "reactjs",
-    "cuppajs",
-    "javascript",
-    "vanilla",
-    "reactive",
-    "component",
-    "svelte",
-    "stencil",
-    "web",
-    "component",
-    "web-components",
-    "utility",
-    "element-collection"
-  ],
-  "author": "Tufik Chediak Sanchez <tufik2@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/cloudbit-interactive/CuppaComponent/issues"
-  },
-  "homepage": "https://github.com/cloudbit-interactive/CuppaComponent#readme"
+	"name": "cuppajs",
+	"version": "0.0.116",
+	"description": "Standard Vanilla Libraries that work with everything.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cloudbit-interactive/cuppajs.git"
+	},
+	"keywords": [
+		"angular",
+		"reactjs",
+		"cuppajs",
+		"javascript",
+		"vanilla",
+		"reactive",
+		"component",
+		"svelte",
+		"stencil",
+		"web",
+		"component",
+		"web-components",
+		"utility",
+		"element-collection"
+	],
+	"author": "Tufik Chediak Sanchez <tufik2@gmail.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/cloudbit-interactive/CuppaComponent/issues"
+	},
+	"homepage": "https://github.com/cloudbit-interactive/CuppaComponent#readme"
 }
