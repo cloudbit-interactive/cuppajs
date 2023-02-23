@@ -50,7 +50,6 @@ export class CuppaTooltipDoc extends CuppaComponent {
 						expandable="false"
 						.content="${Utils.removeTabs(`
 							<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
-
 							<button id="btn-default" class="button-1" >Default Tooltip</button>
 							<cuppa-tooltip 
 								target="#btn-default" 

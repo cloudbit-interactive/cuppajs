@@ -42,7 +42,7 @@ export class CuppaPreviewCode extends CuppaComponent {
 		let content = this.querySelector("cuppa-preview-content");
 		if(content){
 			this.content = content.innerHTML;
-			content.remove()
+			content.remove();
 		}
 		window.ace.config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.15.2/src-min-noconflict/');
 		this.editor = window.ace.edit(this.refs.editor);
