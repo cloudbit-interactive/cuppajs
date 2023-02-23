@@ -85,7 +85,7 @@ export class CuppaPreviewCode extends CuppaComponent {
 	}
 
 	isExpanded(){
-		if(this.tmpHeight != this.height){
+		if(this.tmpHeight && this.tmpHeight != this.height){
 			return true;
 		}else{
 			return false;
@@ -115,7 +115,7 @@ export class CuppaPreviewCode extends CuppaComponent {
               @click="${()=>{
               this.expandContent(!this.isExpanded())
             }}">
-              <img style="margin-right: 8px" src='${iconArrowDown}'/>
+              <img style="margin-right: 8px; transform:rotate(${this.isExpanded() ? '180deg' : '0deg'});" src='${iconArrowDown}'/>
               <span>Show more</span>
             </button>
 		      `}
