@@ -1,8 +1,7 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import {CuppaTooltip} from "../../../../cuppa/components/cuppa.tooltip.min.js";
-import {CuppaPreviewCode} from "../../common/CuppaPreviewCode.js";
+import {CuppaPreviewCode} from "../../../../cuppa/components/cuppa-preview-code.js";
 
 export class CuppaTooltipDoc extends CuppaComponent {
 
