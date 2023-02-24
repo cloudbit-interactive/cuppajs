@@ -34,7 +34,7 @@ export class Utils{
 		}
 	}
 
-	static removeTabs(code, {tabsCount = 0, tabSpace = 1, removeFirstLine = true, removeLastLine = true, addEmptyLine = true}){
+	static removeTabs(code, {tabsCount = 0, tabSpace = 1, removeFirstLine = true, removeLastLine = true, addEmptyLine = true} = {}){
 		if(tabsCount > 0){
 			let tabs = '\t'.repeat(tabSpace).repeat(tabsCount);
 			let codeLines = code.split("\n");
