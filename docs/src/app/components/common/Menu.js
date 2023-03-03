@@ -1,14 +1,17 @@
 import {CuppaComponent, html} from "../../../cuppa/cuppa.component.min.js";
 import { Globals } from "../../controllers/Globals.js";
-import { Utils } from "../../controllers/Utils.js";
+import {CuppaTheme} from "../../../cuppa/cuppa.theme.min.js";
 
 export class Menu extends CuppaComponent {
 	path = this.observable("path");
+	theme = this.observable('theme')
 
 	mounted() {
 		Globals.router.updateLinks();
 		Globals.router.addListener( this.onRouter );
 		Globals.router.resolve();
+
+		CuppaTheme.init({btnToggle:this.refs.btnThemeToggle, callback:(theme)=>this.theme = theme});
 	}
 
 	onRouter(path){
@@ -22,10 +25,13 @@ export class Menu extends CuppaComponent {
         <a class="link-clear title-1 bold" href="/" aria-label="Home">DOC.</a>
         <div style="display: flex">
           <a class="button-alpha relative d-block" style="padding:0 1rem;" href="https://www.npmjs.com/package/cuppajs" aria-label="NPM" target="_blank">
-            <i class="fab fa-npm disable-interaction" style="font-size:30px; pointer-events: none;"></i>
+            <i class="fab fa-npm disable-interaction" style="font-size:24px; pointer-events: none;"></i>
           </a>
           <a class="button-alpha" style="padding:0 1rem;" href="https://github.com/cloudbit-interactive/cuppajs" aria-label="Github" target="_blank">
-            <i class="fab fa-github" style="font-size:30px; pointer-events: none;"></i>
+            <i class="fab fa-github" style="font-size:24px; pointer-events: none;"></i>
+          </a>
+          <a ref="btnThemeToggle" class="button-alpha" style="padding:0 0 0 1rem;" aria-label="Github" >
+            <i class=${`far ${this.theme === "dark-theme" ? 'fa-sun' : 'fa-moon' }`} style="font-size:24px; pointer-events: none;"></i>
           </a>
         </div>
       </div>

@@ -23,7 +23,7 @@ export class CuppaComponentDoc extends CuppaComponent {
 					preview-height="15rem"
 					preview-width="30rem"
 					mode=${AceModes.jsx}
-					remove-tabs=${6}
+					remove-tabs=${7}
 				>
 					<code>
 						<!--[
