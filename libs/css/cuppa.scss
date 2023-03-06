@@ -466,16 +466,10 @@ label.error:before, .form-error-message:before{ content: ''; position: absolute;
       .m-b-#{$value}#{$maxWidthClass} { margin-bottom: $value+px !important; }
       .m-b-#{$value}-#{$maxWidthClass} { margin-bottom: -$value+px !important; }
 
-      .m-x-#{$value}#{$maxWidthClass} { margin-left: $value+px !important; margin-right: $value+px !important; }
-      .m-y-#{$value}#{$maxWidthClass} { margin-top: $value+px !important; margin-bottom: $value+px !important; }
-
       .p-l-#{$value}#{$maxWidthClass} { padding-left: $value+px !important; }
       .p-r-#{$value}#{$maxWidthClass} { padding-right: $value+px !important; }
       .p-t-#{$value}#{$maxWidthClass} { padding-top: $value+px !important; }
       .p-b-#{$value}#{$maxWidthClass} { padding-bottom: $value+px !important; }
-
-      .p-x-#{$value}#{$maxWidthClass} { padding-left: $value+px !important; padding-right: $value+px !important; }
-      .p-y-#{$value}#{$maxWidthClass} { padding-top: $value+px !important; padding-bottom: $value+px !important; }
     }
     @for $i from 1 through 4 {
       $value: $i*25+100;
