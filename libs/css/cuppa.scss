@@ -122,6 +122,9 @@ body{ margin:0; font-family: Arial, Helvetica, sans-serif; font-size: 1.4rem; ov
 .b-radius-100p{ border-radius: 100%; } .b-radius-10{ border-radius: 10px; } .b-radius-5{ border-radius: 5px; } .b-radius-3{ border-radius: 3px; }
 .b-radius-right-0{ border-top-right-radius: 0 !important; border-bottom-right-radius: 0 !important; }
 .b-radius-left-0{ border-top-left-radius: 0 !important; border-bottom-left-radius: 0 !important; }
+.b-radius-top-0{ border-top-left-radius: 0 !important; border-top-right-radius: 0 !important; }
+.b-radius-bottom-0{ border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important; }
+.b-radius-0{ border-radius: 0 !important; }
 .b-right-none{ border-right: none !important; }
 .b-left-none{ border-left: none !important; }
 .b-top-none{ border-top: none !important; }

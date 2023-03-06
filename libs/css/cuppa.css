@@ -773,6 +773,20 @@ body {
   border-bottom-left-radius: 0 !important;
 }
 
+.b-radius-top-0 {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.b-radius-bottom-0 {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.b-radius-0 {
+  border-radius: 0 !important;
+}
+
 .b-right-none {
   border-right: none !important;
 }

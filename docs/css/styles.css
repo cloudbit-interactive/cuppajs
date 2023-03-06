@@ -7,6 +7,7 @@
 	--nav-top-height:5.4rem;
 	--color-background:#FFF;
 	--color-text:#555;
+	--color-separator:#ccc;
 
 	--color-white:#FFF;
 	--color-red-1:#ff3e00;
@@ -25,9 +26,10 @@ body.dark-theme {
 	color-scheme: dark;
 	--color-background:#23272f;
 	--color-text: #f6f7f9;
+	--color-separator:#444;
 }
 body{ background:var(--color-background); margin:0; padding:0; color:var(--color-text); font-family: roboto, sans-serif; font-size: 1.4rem; letter-spacing: 0.5px; line-height: 2rem; overflow-x: hidden; min-height: 100vh; }
-iframe{ border:1px solid var(--color-gray-clear-1); display: block; width: 100%; }
+iframe{ border:0; display: block; width: 100%; }
 li{ margin:0.5rem 0; }
 p{margin:1rem 0; }
 a{ color:#FFF; }
@@ -38,7 +40,7 @@ pre{ border-radius: 0.5rem; }
 .title-4{ font-size: 1.8rem; margin:0; }
 .link-clear{ color:var(--color-white); text-decoration: none; cursor: pointer; }
 .wire, .wire *{ border:1px dotted #F00; }
-hr, .separator-1, .separator-h{ margin:2rem 0; border: none; height: 0; border-bottom: 1px solid #AAA; }
+hr, .separator-1, .separator-h{ margin:3rem 0; border: none; height: 0; border:none; border-bottom: 1px solid var(--color-separator); }
 .separator-v{ width:0; border-right: 1px solid #aaa; height: 3rem; margin:0 1rem; }
 .disabled{ opacity: 0.3 !important; pointer-events: none; }
 .bold{ font-weight: bold; }

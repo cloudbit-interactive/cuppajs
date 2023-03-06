@@ -27,9 +27,9 @@ export class Menu extends CuppaComponent {
 
 	render(){
 		return html`
+      <get-storage name=${Storages.theme.name} @update=${(e)=>{ this.theme = e.detail; }}></get-storage>
       <div class="flex j-between a-center p-x-20 p-y-20" style="background: rgba(0,0,0,0.2)">
-	      <get-storage name=${Storages.theme.name} @update=${(e)=>{ this.theme = e.detail; }}></get-storage>
-        <a class="link-clear f-20 bold" href="/" aria-label="Home">CuppaJS.</a>
+        <a class="link-clear f-20 bold " href="/" aria-label="Home">CuppaJS.</a>
         <div class="flex">
           <a class="button-alpha d-i-children p-x-10 f-18" href="https://www.npmjs.com/package/cuppajs" aria-label="NPM" target="_blank">
             <i class="fab fa-npm"></i>
