@@ -49,20 +49,6 @@ export class Menu extends CuppaComponent {
 	          <a class="menu-item-link" href="cuppa-storage" ><i class="fas fa-database"></i> Storage</a>
 	        </li>
 	      </ul>
-				
-				<ul class="menu m-t-10">
-	        <li class="menu-item ${ this.path == "cuppa-component" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-component" ><i class="fas fa-puzzle-piece" ></i> Component</a>
-	        </li>
-	
-	        <li class="menu-item ${ this.path == "cuppa-router" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-router" ><i class="fas fa-map-signs"></i> Router</a>
-	        </li>
-	
-	        <li class="menu-item ${ this.path == "cuppa-storage" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-storage" ><i class="fas fa-database"></i> Storage</a>
-	        </li>
-	      </ul>
 	
 	      <h2 class="title-3 m-t-20">Cuppa Components</h2>
 	      <ul class="menu m-y-20">
