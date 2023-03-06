@@ -4,13 +4,13 @@ import {CuppaTheme} from "../../../cuppa/cuppa.theme.min.js";
 
 export class Menu extends CuppaComponent {
 	path = this.observable("path");
-	theme = this.observable('theme')
+	theme = this.observable('theme');
 
 	mounted() {
 		Globals.router.updateLinks();
 		Globals.router.addListener( this.onRouter );
 		Globals.router.resolve();
-
+		setTimeout(()=>{this.onRouter(Globals.router.getPath())});
 		CuppaTheme.init({btnToggle:this.refs.btnThemeToggle, callback:(theme)=>this.theme = theme});
 	}
 
@@ -35,8 +35,22 @@ export class Menu extends CuppaComponent {
           </a>
         </div>
       </div>
-			<div class="p-x-10">
+			<div class="p-x-10 flex-1 o-auto p-b-100">
 	      <ul class="menu m-t-10">
+	        <li class="menu-item ${ this.path == "cuppa-component" ? "selected" : "" }" >
+	          <a class="menu-item-link" href="cuppa-component" ><i class="fas fa-puzzle-piece" ></i> Component</a>
+	        </li>
+	
+	        <li class="menu-item ${ this.path == "cuppa-router" ? "selected" : "" }" >
+	          <a class="menu-item-link" href="cuppa-router" ><i class="fas fa-map-signs"></i> Router</a>
+	        </li>
+	
+	        <li class="menu-item ${ this.path == "cuppa-storage" ? "selected" : "" }" >
+	          <a class="menu-item-link" href="cuppa-storage" ><i class="fas fa-database"></i> Storage</a>
+	        </li>
+	      </ul>
+				
+				<ul class="menu m-t-10">
 	        <li class="menu-item ${ this.path == "cuppa-component" ? "selected" : "" }" >
 	          <a class="menu-item-link" href="cuppa-component" ><i class="fas fa-puzzle-piece" ></i> Component</a>
 	        </li>
@@ -74,15 +88,13 @@ export class Menu extends CuppaComponent {
 	
 	      <h2 class="title-3 m-t-20">More</h2>
 	      <ul class="menu m-y-10">
-	        <li class="menu-item  ${ this.path == "performance" ? "selected" : "" }" >
+	        <li class="menu-item ${ this.path == "performance" ? "selected" : "" }" >
 	          <a class="menu-item-link" href="performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
 	        </li>
 	      </ul>
-
       </div>
-
       <style>
-        menu-comp{ display: block; color:var(--color-white);  font-size: 1.5rem;  }
+        menu-comp{ display: flex; flex-direction: column; height: 100%; color:var(--color-white);  font-size: 1.5rem; overflow: auto; }
         menu-comp .menu{ padding:0; list-style: none; margin:0; font-weight: 300; }
         menu-comp .menu-item{ transition: 0.3s opacity; opacity: 0.6; position: relative; user-select: none; border-radius: 0.5rem; }
         menu-comp .menu-item:hover{ opacity: 1; }
@@ -97,9 +109,7 @@ export class Menu extends CuppaComponent {
 	        color:var(--color-white); 
 	        cursor: pointer; padding:0.9rem 0.8rem; 
         }
-        menu-comp .menu-item.selected .menu-item-link{
-          color:var(--color-blue-1) !important;
-        }
+        menu-comp .menu-item.selected .menu-item-link{ color:var(--color-blue-1) !important; }
         menu-comp .menu-item-underline{ transition: 0.3s width; position: absolute; left:0; bottom:-1px; width: 0%; height: 0; border-bottom: 1px solid #FFF; }
         menu-comp .menu-item.selected .menu-item-underline{ width:100%; }
         menu-comp .menu-item-clear{ color:#FFF; text-decoration: none; }
