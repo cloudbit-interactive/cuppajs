@@ -1,10 +1,10 @@
 *{ box-sizing: border-box; }
 :root{
 	font-size: 62.5%;
+	--nav-main-bg:#23272f;
 	--nav-main-width:30rem;
 	--nav-top-height:5.4rem;
 	--color-background:#FFF;
-	--color-menu-bg:#2c2c38;
 	--color-text:#444;
 
 	--color-white:#FFF;
@@ -60,11 +60,11 @@ hr, .separator-1, .separator-h{ margin:2rem 0; border: none; height: 0; border-b
 .relative{ position: relative; }
 .d-block{ display: block; }
 
-.nav-main{ transition: 0.2s; width: var(--nav-main-width); position: fixed; top:0; left:0; bottom:0; background: var(--color-menu-bg); z-index: 1; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
-.nav-top{ display: none; z-index: 1; position: fixed; top:0; left: 0; right: 0; justify-content: space-between; align-items: center; height: calc(var(--nav-top-height) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); background: var(--color-menu-bg); box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }
+.nav-main{ transition: 0.2s; width: var(--nav-main-width); position: fixed; top:0; left:0; bottom:0; background: var(--nav-main-bg); z-index: 1; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
+.nav-top{ display: none; z-index: 1; position: fixed; top:0; left: 0; right: 0; justify-content: space-between; align-items: center; height: calc(var(--nav-top-height) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); background: var(--nav-main-bg); box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }
 .nav-mobile{ display: none; color: var(--color-white); z-index: 99; }
-.nav-mobile .drawer_content_wrap{ background: var(--color-menu-bg); padding-top: env(safe-area-inset-top); }
-.main-section{ display:block; position: relative; padding: calc(2rem + env(safe-area-inset-top)) 2rem 2rem calc(var(--nav-main-width) + 2rem); }
+.nav-mobile .drawer_content_wrap{ background: var(--nav-main-bg); padding-top: env(safe-area-inset-top); }
+.main-section{ display:block; position: relative; padding: calc(4rem + env(safe-area-inset-top)) 4rem 4rem calc(var(--nav-main-width) + 4rem); }
 
 .message{ padding:2rem; background:#EEE; border-radius: 5px; box-shadow: 0 0.2rem 0.6rem rgba(0,0,0,0.2); border:4px solid #FFF; }
 .message_icon{ margin:0 10px 0 0; }

@@ -628,14 +628,21 @@ body {
   outline: none !important;
 }
 
-.disable-interaction {
+.d-i {
   pointer-events: none !important;
   -webkit-user-select: none !important;
   user-select: none !important;
   outline: none !important;
 }
 
-.disable-interaction * {
+.d-i * {
+  outline: none !important;
+}
+
+.d-i-children * {
+  pointer-events: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
   outline: none !important;
 }
 
