@@ -2,8 +2,11 @@ import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import {cuppa} from "../../../../cuppa/cuppa.min.js";
 import {AceModes, CuppaPreviewCode} from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {GetStorage} from "../../../../cuppa/cuppa.storage.min.js"
+import {Storages} from "../../../controllers/Storages.js";
 
 export class CuppaComponentDoc extends CuppaComponent {
+	theme = this.observable('theme');
 
 	mounted(){
 		Utils.loadPrism();
@@ -11,57 +14,51 @@ export class CuppaComponentDoc extends CuppaComponent {
 
 	render(){
 		return html`
-      <div class="grid_title_2_columns">
-        <h2 class="title-2" style="grid-area:title;">Counter Component</h2>
-        <div style="grid-area:left;">
-          <div class="message message_blue">Create simple reactive component extending any class from CuppaComponent is simple.</div>
-        </div>
-
-        <cuppa-preview-code
-					class="box-shadow-1"
-					height="50rem"
-					preview-height="15rem"
-					preview-width="30rem"
-					mode=${AceModes.jsx}
-					remove-tabs=${7}
-				>
-					<code>
-						<!--[
-							import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
-
-							export default class CounterComponent extends CuppaComponent {
-								count = this.observable("count", 0);
-
-								render() {
-									return html\`
-										<button class="button" @click=\${() => this.count--}>-</button>
-										<span class="number">\${this.count}</span>
-										<button class="button" @click=\${() => this.count++}>+</button>
-
-										<style>
-											counter-comp .number {
-												display: inline-block;
-												text-align: center;
-												min-width: 30px;
-												color:#FFF;
-											}
-										</style>
-									\`;
-								}
+      <get-storage name=${Storages.theme.name} @update=${(e)=>{ this.forceRender() }}></get-storage>
+			<h2 class="title-2" >Counter Component</h2>
+      <div class="message message_blue m-y-20">Create simple reactive component extending any class from CuppaComponent is simple.</div>
+      <cuppa-preview-code
+				class="box-shadow-1"
+				height="50rem"
+				preview-height="15rem"
+				mode=${AceModes.jsx}
+				remove-tabs=${6}
+				preview-css="${Utils.getPreviewCSS()}"
+			>
+				<template>
+					<!--[
+						import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
+				
+						export default class CounterComponent extends CuppaComponent {
+							count = this.observable("count", 0);
+				
+							render() {
+								return html\`
+									<button class="button" @click=\${() => this.count--}>-</button>
+									<span class="number">\${this.count}</span>
+									<button class="button" @click=\${() => this.count++}>+</button>
+				
+									<style>
+										counter-comp .number {
+											display: inline-block;
+											text-align: center;
+											min-width: 30px;
+										}
+									</style>
+								\`;
 							}
-							customElements.define("counter-comp", CounterComponent);
-							// If you want give access to it globally, add a reference to the defaultView
-							document.defaultView.CounterComponent = CounterComponent; 
-							// Add new component instance
-							document.body.append(new CounterComponent());
-						]-->
-					</code>
-				</cuppa-preview-code>
+						}
+						customElements.define("counter-comp", CounterComponent);
+						// If you want give access to it globally, add a reference to the defaultView
+						document.defaultView.CounterComponent = CounterComponent; 
+						// Add new component instance
+						document.body.append(new CounterComponent());
+					]-->
+				</template>
+			</cuppa-preview-code>
 
 
-
-        <iframe style="grid-are:right" height="550" style="width: 100%;" src="https://codepen.io/tufik2/embed/vYydQeJ?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
-      </div>
+      
       <hr class="separator-1"/>
       <div class="grid_title_2_columns">
         <h2 class="title-2" style="grid-area:title;">Todo Implementation</h2>
