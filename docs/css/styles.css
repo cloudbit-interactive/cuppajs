@@ -1,5 +1,6 @@
 *{ box-sizing: border-box; }
 :root{
+	color-schema: light;
 	font-size: 62.5%;
 	--nav-main-bg:#23272f;
 	--nav-main-width:30rem;
@@ -21,6 +22,7 @@
 	--box-shadow-1: 0 2px 10px rgba(0,0,0,0.21);
 }
 body.dark-theme {
+	color-scheme: dark;
 	--color-background:#23272f;
 	--color-text: #f6f7f9;
 }
