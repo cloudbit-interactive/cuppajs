@@ -19,7 +19,7 @@ export class CuppaComponentDoc extends CuppaComponent {
       <div class="message message_blue m-y-20">Create simple reactive component extending any class from CuppaComponent is simple.</div>
       <cuppa-preview-code
 				class="box-shadow-1"
-				height="50rem"
+				height="70rem"
 				preview-height="15rem"
 				mode=${AceModes.jsx}
 				remove-tabs=${6}
@@ -37,7 +37,7 @@ export class CuppaComponentDoc extends CuppaComponent {
 									<button class="button" @click=\${() => this.count--}>-</button>
 									<span class="number">\${this.count}</span>
 									<button class="button" @click=\${() => this.count++}>+</button>
-				
+									
 									<style>
 										counter-comp .number {
 											display: inline-block;
