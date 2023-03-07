@@ -152,12 +152,11 @@ export class CuppaComponentDoc extends CuppaComponent {
       <section>
 	      <h2 class="title-2" >Use Components on any place</h2>
 	      <div class="message message_blue b-radius-bottom-0 m-t-20">
-	        <p>An advantage to create components using standard libraries is it don't require reimplement again for each framework, it will works for all projects or frameworks</p>
-	        <p>Next example import <strong>cuppa.switch</strong> component in reactjs, the component is only <strong>3kb gzipped</strong></p>
+	        <p>An advantage to create components using standard libraries is it don't require reimplement again for each framework, it will work in any projects or frameworks</p>
+	        <p>Next examples shows <strong>cuppa.switch</strong> imported in VanillaJs and ReactJs, the component is only <strong>6kb gzipped</strong>, so you will save thons of Mgbs and mantain you project fast and clean if you just want to load a single or couple of components.</p>
 	      </div>
 	      <div class="message message_yellow b-radius-0">
-	        The best and easy way is adding the script tag but  in the right pannel there is an example importing the component in ReactJS.
-	
+		      Vanilla JS
 	        <cuppa-preview-code
 	          class="box-shadow-1 m-t-10"
 	          height="28rem"
@@ -180,41 +179,44 @@ export class CuppaComponentDoc extends CuppaComponent {
 	            ]-->
 	          </code>
 	      </div>
-	      <cuppa-preview-code
-	        class="box-shadow-1 b-radius-top-0"
-	        height="42rem"
-	        preview-height="15rem"
-	        remove-tabs=${7}
-	        preview-css="${Utils.getPreviewCSS()}"
-	      >
-		      <preview-html>
-			      <!--[
-			        <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-							<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-							<script crossorigin src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
-							<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>
-			      ]-->
-		      </preview-html>
-	        <code>
-		        <!--[	
-		          <script type="text/babel">
-								function Switch(props){  
-									return (
-										<cuppa-switch 
-											checked={props.checked} 
-											ref={(el)=>{
-												el.callback = (data)=>{
-													if(props.callback) props.callback(data);
-												}
-											}} 
-										></cuppa-switch>
-									);
-								}
-								ReactDOM.render(<Switch checked={true} callback={ (data)=>{ console.log(data) } } />, document.body);
-							</script>
-		        ]-->
-	        </code>
-	      </cuppa-preview-code>
+        <div class="message message_purple b-radius-top-0">
+          ReactJS
+		      <cuppa-preview-code
+		        class="box-shadow-1 m-t-10"
+		        height="42rem"
+		        preview-height="15rem"
+		        remove-tabs=${7}
+		        preview-css="${Utils.getPreviewCSS()}"
+		      >
+			      <preview-html>
+				      <!--[
+				        <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+								<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+								<script crossorigin src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+								<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.switch.min.js" type="module"></script>
+				      ]-->
+			      </preview-html>
+		        <code>
+			        <!--[	
+			          <script type="text/babel">
+									function Switch(props){  
+										return (
+											<cuppa-switch 
+												checked={props.checked} 
+												ref={(el)=>{
+													el.callback = (data)=>{
+														if(props.callback) props.callback(data);
+													}
+												}} 
+											/>
+										);
+									}
+									ReactDOM.render(<Switch checked={true} callback={ (data)=>{ console.log(data) } } />, document.body);
+								</script>
+			        ]-->
+		        </code>
+		      </cuppa-preview-code>
+        </div>
       </section>
 
       <hr />
@@ -222,7 +224,7 @@ export class CuppaComponentDoc extends CuppaComponent {
       <section>
 	      <h2 class="title-2 m-b-20" >Component Structure</h2>
 	      <cuppa-preview-code
-	        class="box-shadow-1 b-radius-top-0"
+	        class="box-shadow-1"
 	        height="50rem"
 	        preview-height="15rem"
 	        remove-tabs=${7}
