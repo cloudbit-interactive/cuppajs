@@ -20,7 +20,7 @@ export class CuppaComponentDoc extends CuppaComponent {
 	      <div class="message message_blue m-t-20  b-radius-bottom-0">Create simple reactive component extending any class from CuppaComponent is simple.</div>
 	      <cuppa-preview-code
 					class="box-shadow-1 b-radius-top-0"
-					height="50rem"
+					height="46rem"
 					preview-height="15rem"
 					mode=${AceModes.jsx}
 					remove-tabs=${7}
@@ -71,7 +71,7 @@ export class CuppaComponentDoc extends CuppaComponent {
 	      </div>
 	      <cuppa-preview-code
 	        class="box-shadow-1 b-radius-top-0"
-	        height="50rem"
+	        height="46rem"
 	        preview-height="15rem"
 	        mode=${AceModes.jsx}
 	        remove-tabs=${7}
