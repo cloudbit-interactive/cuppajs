@@ -923,6 +923,10 @@ body {
   animation-duration: 0.2s;
 }
 
+.no-scroll, .no-scroll-all, .no-scroll-all * {
+  overflow: hidden !important;
+}
+
 @keyframes ani-fade {
   0% {
     opacity: 0;

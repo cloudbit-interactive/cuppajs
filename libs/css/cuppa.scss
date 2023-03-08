@@ -150,6 +150,8 @@ body{ margin:0; font-family: Arial, Helvetica, sans-serif; font-size: 1.4rem; ov
 .o-hidden{ overflow: hidden; } .o-visible{ overflow: visible; }.o-auto{ overflow: auto; } .o-x{ overflow:hidden; overflow-x: auto; } .o-y{ overflow:hidden; overflow-y: auto; }
 .disappear{ position: fixed; width: 0; height: 0; display: block; left: 500%; top:-9999px; }
 .ani-fade{ animation-name: ani-fade; animation-duration: 0.2s; }
+.no-scroll, .no-scroll-all, .no-scroll-all * { overflow: hidden !important; }
+
 @keyframes ani-fade { 0% { opacity:0; } 100% { opacity: 1; } }
 .ani-shake{ animation-name: ani-shake; animation-duration: 0.3s; }
 @keyframes ani-shake { 0% { transform: translateX(10px); } 50% { transform: translateX(-10px); } 100% { transform: translateX(0px); } }
