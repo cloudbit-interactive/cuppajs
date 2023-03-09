@@ -1,5 +1,6 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaPreviewCode, AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {Utils} from "../../../controllers/Utils.js";
 
 export class CuppaStorageBase extends CuppaComponent {
 
@@ -11,17 +12,25 @@ export class CuppaStorageBase extends CuppaComponent {
           class="box-shadow-1 m-t-20"
           height="48rem"
           remove-tabs=${6}
-          preview-width="40rem"
+          preview-width="40%"
+          preview-css="${Utils.getPreviewCSS()}"
         >
           <template>
-						<div>Name: <input id="txtName"/></div>
-						<div>Output: <span id="output"></span></div>
+						<div>
+						  <strong>Name:</strong>
+						  <input id="txtName"/>
+						</div>
+						<div style="margin-top:10px">
+							<strong>Output:</strong> 
+							<span id="output"></span>
+						</div>
+	          
 						<script type="module">
 							import {CuppaStorage, GetStorage} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js";
 							
 							// define a storage, 
 							// store can be [null (in memory), LOCAL, SESSION, INDEXED_DB]
-							const storage = {name:"myStorage", store:CuppaStorage.LOCAL, default:"No Data Settled"};
+							const storage = {name:"myStorage", store:CuppaStorage.LOCAL, defaultValue:"No Data Settled"};
 							
 							// write data in the storage
 							document.getElementById("txtName").oninput = (e)=>{
@@ -61,6 +70,90 @@ export class CuppaStorageBase extends CuppaComponent {
 			
 			<section>
       	<h2 class="title-2" style="grid-area:title;">Use Storage With Any Framework</h2>
+        <cuppa-preview-code
+          class="box-shadow-1 m-t-10"
+          height="43rem"
+          preview-width="40%"
+          preview-height="15rem"
+          remove-tabs=${6}
+          preview-css="${Utils.getPreviewCSS()}"
+        >
+          <preview-html>
+            <!--[
+							<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+							<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+							<script crossorigin src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+							<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js" type="module"></script>
+						]-->
+          </preview-html>
+          <template>
+						<script type="text/babel">
+							const {useState, useEffect} = React;
+							const storage = {name:"STORAGE_TODO", store:CuppaStorage.INDEXED_DB, defaultValue:[]};
+							
+							function TodoHeader(){
+								const [value, setValue] = useState("");
+								
+								async function add(){
+								  let list = await CuppaStorage.getData({...storage}) ;
+								    list.push(value);
+								  CuppaStorage.setData({...storage, data:[...list]}).then();
+								  setValue("");
+								}
+								
+								return(
+								  <div>
+								    <div>
+								      <span>Add: </span>
+								      <input value={value} onInput={e=>setValue(e.target.value)} />
+								      <button onClick={add} >Add</button>
+										</div>
+								  </div>
+								)
+							}
+							
+							function TodoList(){
+								const [list, setList] = useState([]);
+								
+								function remove(index){
+								  list.splice(index, 1);
+								  CuppaStorage.setData({...storage, data:[...list]});
+								}
+								
+								return(
+									<div>
+										<get-storage
+										  name={storage.name}
+										  store={storage.store}
+										  ref={ item=>{ if(item) item.addEventListener("update", e=>setList(e.detail)) } }
+										/>
+										<hr />
+										<div>Total Items: {list.length}</div>
+										<ul style={{padding:'0 20px'}}>
+										  {list.map((item, index)=>{
+										    return <li key={index}>{item} <button onClick={(e)=>remove(index)}>remove</button></li>
+										  })}
+										</ul>
+									</div>
+								)
+							}
+							
+							function App(){ 
+								return(
+									<div>
+										<h1 style={{margin:'0 0 10px'}}>Todo</h1>
+										<TodoHeader />
+									  <TodoList />
+									</div>
+								); 
+							}
+							
+							ReactDOM.render(<App />, document.body);
+						</script>
+          </template>
+        </cuppa-preview-code>
+				
+				
       </section>
       
       <div class="grid_title_1_column d-none">
