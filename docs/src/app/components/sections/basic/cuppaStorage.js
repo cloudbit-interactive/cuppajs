@@ -16,7 +16,7 @@ export class CuppaStorageBase extends CuppaComponent {
           <template>
 						<div>Name: <input id="txtName"/></div>
 						<div>Output: <span id="output"></span></div>
-	          <script type="module">
+						<script type="module">
 							import {CuppaStorage, GetStorage} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js";
 							
 							// define a storage, 
