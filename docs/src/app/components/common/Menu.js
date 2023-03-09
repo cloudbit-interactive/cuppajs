@@ -45,44 +45,44 @@ export class Menu extends CuppaComponent {
 			<div class="p-x-10 flex-1 o-auto p-b-100">
 	      <ul class="menu m-t-10">
 	        <li class="menu-item ${ this.path == "cuppa-component" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-component" ><i class="fas fa-puzzle-piece" ></i> Component</a>
+	          <a class="menu-item-link" href="cuppa-component" aria-label="Component" ><i class="fas fa-puzzle-piece" ></i> Component</a>
 	        </li>
 	
 	        <li class="menu-item ${ this.path == "cuppa-router" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-router" ><i class="fas fa-map-signs"></i> Router</a>
+	          <a class="menu-item-link" href="cuppa-router" aria-label="Router" ><i class="fas fa-map-signs"></i> Router</a>
 	        </li>
 	
 	        <li class="menu-item ${ this.path == "cuppa-storage" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-storage" ><i class="fas fa-database"></i> Storage</a>
+	          <a class="menu-item-link" href="cuppa-storage" aria-label="Storage" ><i class="fas fa-database"></i> Storage</a>
 	        </li>
 	      </ul>
 	
 	      <h2 class="title-3 m-t-20">Cuppa Components</h2>
 	      <ul class="menu m-y-20">
 	        <li class="menu-item ${ this.path == "cuppa-alert" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-alert" ><i class="fas fa-puzzle-piece"></i> Cuppa Alert</a>
+	          <a class="menu-item-link" href="cuppa-alert" aria-label="Cuppa Alert" ><i class="fas fa-puzzle-piece"></i> Cuppa Alert</a>
 	        </li>
 	        <li class="menu-item ${ this.path == "cuppa-switch" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-switch" ><i class="fas fa-puzzle-piece"></i> Cuppa Switch</a>
+	          <a class="menu-item-link" href="cuppa-switch" aria-label="Cuppa Switch" ><i class="fas fa-puzzle-piece"></i> Cuppa Switch</a>
 	        </li>
 	        <li class="menu-item ${ this.path == "cuppa-tabs" ? "selected" : "" }">
-	          <a class="menu-item-link" href="cuppa-tabs" ><i class="fas fa-puzzle-piece"></i> Cuppa Tabs</a>
+	          <a class="menu-item-link" href="cuppa-tabs" aria-label="Cuppa Tabs" ><i class="fas fa-puzzle-piece"></i> Cuppa Tabs</a>
 	        </li>
 	        <li class="menu-item ${ this.path == "cuppa-collapsible" ? "selected" : "" }">
-	          <a class="menu-item-link" href="cuppa-collapsible" ><i class="fas fa-puzzle-piece"></i> Cuppa Collapsible</a>
+	          <a class="menu-item-link" href="cuppa-collapsible" aria-label="Cuppa Collapsible" ><i class="fas fa-puzzle-piece"></i> Cuppa Collapsible</a>
 	        </li>
 	        <li class="menu-item ${ this.path == "cuppa-drawer" ? "selected" : "" }">
-	          <a class="menu-item-link" href="cuppa-drawer" ><i class="fas fa-puzzle-piece"></i> Cuppa Drawer</a>
+	          <a class="menu-item-link" href="cuppa-drawer" aria-label="Cuppa Drawer" ><i class="fas fa-puzzle-piece"></i> Cuppa Drawer</a>
 	        </li>
 	        <li class="menu-item ${ this.path == "cuppa-tooltip" ? "selected" : "" }">
-	          <a class="menu-item-link" href="cuppa-tooltip" ><i class="fas fa-puzzle-piece"></i> Cuppa Tooltip</a>
+	          <a class="menu-item-link" href="cuppa-tooltip" aria-label="Cuppa Tooltip" ><i class="fas fa-puzzle-piece"></i> Cuppa Tooltip</a>
 	        </li>
 	      </ul>
 	
 	      <h2 class="title-3 m-t-20">More</h2>
 	      <ul class="menu m-y-10">
 	        <li class="menu-item ${ this.path == "performance" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
+	          <a class="menu-item-link" href="performance" aria-label="Cuppa Performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
 	        </li>
 	      </ul>
       </div>
