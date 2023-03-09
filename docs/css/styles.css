@@ -20,7 +20,7 @@
 	--color-gray-dark-1:#444;
 	--color-gray-clear-1:#EEE;
 	--color-green-1:#00b300;
-	--box-shadow-1: 0 2px 10px rgba(0,0,0,0.21);
+	--box-shadow-1: 0 0.2rem 0.6rem rgba(0,0,0,0.2);;
 }
 body.dark-theme {
 	color-scheme: dark;
@@ -70,7 +70,7 @@ hr, .separator-1, .separator-h{ margin:3rem 0; border: none; height: 0; border:n
 .nav-mobile .drawer_content_wrap{ background: var(--nav-main-bg); padding-top: env(safe-area-inset-top); }
 .main-section{ display:block; position: relative; padding: calc(4rem + env(safe-area-inset-top)) 4rem 4rem calc(var(--nav-main-width) + 4rem); }
 
-.message{ padding:2rem; background:#EEE; border-radius: 5px; box-shadow: 0 0.2rem 0.6rem rgba(0,0,0,0.2); }
+.message{ padding:2rem; background:#EEE; border-radius: 5px; box-shadow: var(--box-shadow-1); }
 .message_icon{ margin:0 10px 0 0; }
 .message_red{ background: var(--color-red-1); color:var(--color-white); }
 .message_blue{ background: var(--color-blue-1); color:var(--color-white); }
