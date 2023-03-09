@@ -25,6 +25,10 @@ export class Menu extends CuppaComponent {
 		if(Globals.menuMobile) Globals.menuMobile.close();
 	}
 
+	isSelected(value){
+		return (this.path == value) ? 'selected' : '';
+	}
+
 	render(){
 		return html`
       <get-storage name=${Storages.theme.name} @update=${(e)=>{ this.theme = e.detail; }}></get-storage>
@@ -42,70 +46,53 @@ export class Menu extends CuppaComponent {
           </a>
         </div>
       </div>
-			<div class="p-x-10 flex-1 o-auto p-b-100">
-	      <ul class="menu m-t-10">
-	        <li class="menu-item ${ this.path == "cuppa-component" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-component" aria-label="Component" ><i class="fas fa-puzzle-piece" ></i> Component</a>
-	        </li>
-	
-	        <li class="menu-item ${ this.path == "cuppa-router" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-router" aria-label="Router" ><i class="fas fa-map-signs"></i> Router</a>
-	        </li>
-	
-	        <li class="menu-item ${ this.path == "cuppa-storage" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-storage" aria-label="Storage" ><i class="fas fa-database"></i> Storage</a>
-	        </li>
-	      </ul>
+			<nav class="p-x-10 flex-1 o-auto p-b-40 scroll-1">
+        <div class="m-t-10">
+          <a class="menu-item ${this.isSelected('cuppa-component') }" href="cuppa-component" aria-label="Component" ><i class="fas fa-puzzle-piece " ></i> Component</a>
+          <a class="menu-item ${this.isSelected('cuppa-router') }" href="cuppa-router" aria-label="Router" ><i class="fas fa-map-signs"></i> Router</a>
+          <a class="menu-item ${this.isSelected('cuppa-storage') }" href="cuppa-storage" aria-label="Storage" ><i class="fas fa-database"></i> Storage</a>
+        </div>
 	
 	      <h2 class="title-3 m-t-20">Cuppa Components</h2>
-	      <ul class="menu m-y-20">
-	        <li class="menu-item ${ this.path == "cuppa-alert" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-alert" aria-label="Cuppa Alert" ><i class="fas fa-puzzle-piece"></i> Cuppa Alert</a>
-	        </li>
-	        <li class="menu-item ${ this.path == "cuppa-switch" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="cuppa-switch" aria-label="Cuppa Switch" ><i class="fas fa-puzzle-piece"></i> Cuppa Switch</a>
-	        </li>
-	        <li class="menu-item ${ this.path == "cuppa-tabs" ? "selected" : "" }">
-	          <a class="menu-item-link" href="cuppa-tabs" aria-label="Cuppa Tabs" ><i class="fas fa-puzzle-piece"></i> Cuppa Tabs</a>
-	        </li>
-	        <li class="menu-item ${ this.path == "cuppa-collapsible" ? "selected" : "" }">
-	          <a class="menu-item-link" href="cuppa-collapsible" aria-label="Cuppa Collapsible" ><i class="fas fa-puzzle-piece"></i> Cuppa Collapsible</a>
-	        </li>
-	        <li class="menu-item ${ this.path == "cuppa-drawer" ? "selected" : "" }">
-	          <a class="menu-item-link" href="cuppa-drawer" aria-label="Cuppa Drawer" ><i class="fas fa-puzzle-piece"></i> Cuppa Drawer</a>
-	        </li>
-	        <li class="menu-item ${ this.path == "cuppa-tooltip" ? "selected" : "" }">
-	          <a class="menu-item-link" href="cuppa-tooltip" aria-label="Cuppa Tooltip" ><i class="fas fa-puzzle-piece"></i> Cuppa Tooltip</a>
-	        </li>
-	      </ul>
+	      <div class="m-y-20">
+          <a class="menu-item ${this.isSelected('cuppa-alert')}" href="cuppa-alert" aria-label="Cuppa Alert" >Cuppa Alert</a>
+          <a class="menu-item ${this.isSelected('cuppa-switch')}" href="cuppa-switch" aria-label="Cuppa Switch" >Cuppa Switch</a>
+          <a class="menu-item ${this.isSelected('cuppa-tabs')}" href="cuppa-tabs" aria-label="Cuppa Tabs" >Cuppa Tabs</a>
+          <a class="menu-item ${this.isSelected('cuppa-collapsible')}" href="cuppa-collapsible" aria-label="Cuppa Collapsible" >Cuppa Collapsible</a>
+          <a class="menu-item ${this.isSelected('cuppa-drawer')}" href="cuppa-drawer" aria-label="Cuppa Drawer" >Cuppa Drawer</a>
+          <a class="menu-item ${this.isSelected('cuppa-tooltip')}" href="cuppa-tooltip" aria-label="Cuppa Tooltip" >Cuppa Tooltip</a>
+	      </div>
 	
 	      <h2 class="title-3 m-t-20">More</h2>
-	      <ul class="menu m-y-10">
-	        <li class="menu-item ${ this.path == "performance" ? "selected" : "" }" >
-	          <a class="menu-item-link" href="performance" aria-label="Cuppa Performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
-	        </li>
-	      </ul>
-      </div>
+	      <div class=" m-y-10">
+          <a class="menu-item ${this.isSelected('performance')}" href="performance" aria-label="Performance" ><i class="fas fa-tachometer-alt"></i> Component Performance</a>
+        </div>
+      </nav>
       <style>
-        menu-comp{ display: flex; flex-direction: column; height: 100%; color:var(--color-white);  font-size: 1.5rem; overflow: auto; }
-        menu-comp .menu{ padding:0; list-style: none; margin:0; font-weight: 300; }
-        menu-comp .menu-item{ transition: 0.3s opacity; opacity: 0.6; position: relative; user-select: none; border-radius: 0.5rem; }
-        menu-comp .menu-item:hover{ opacity: 1; }
-        menu-comp .menu-item.selected{  opacity: 1; background: rgba(0,0,0,0.1); }
-        menu-comp .menu-item-link{ 
-	        text-decoration: none; 
-	        background: rgba(0,0,0,0);
-	        display: grid;
-	        grid-template-columns: 3rem auto; 
-	        grid-template-rows: auto; 
-	        grid-template-areas: "icon text";
-	        color:var(--color-white); 
-	        cursor: pointer; padding:0.9rem 0.8rem; 
+        menu-comp{ 
+	        display: flex; 
+	        flex-direction: column;
+	        height: 100%; 
+	        color:var(--color-white);
+	        overflow: auto;
         }
-        menu-comp .menu-item.selected .menu-item-link{ color:var(--color-blue-1) !important; }
-        menu-comp .menu-item-underline{ transition: 0.3s width; position: absolute; left:0; bottom:-1px; width: 0%; height: 0; border-bottom: 1px solid #FFF; }
-        menu-comp .menu-item.selected .menu-item-underline{ width:100%; }
-        menu-comp .menu-item-clear{ color:#FFF; text-decoration: none; }
+        menu-comp .menu-item{
+          display: flex; 
+	        align-items: center;
+          background: rgba(0,0,0,0);
+	        color:var(--color-white); 
+	        cursor: pointer; 
+	        padding:0.9rem 0.8rem;
+          text-decoration: none;
+	        transition: 0.3s opacity; 
+	        opacity: 0.6; 
+	        position: relative; 
+	        user-select: none; 
+	        border-radius: 0.5rem; 
+        }
+        menu-comp .menu-item:hover{ opacity: 1; }
+        menu-comp .menu-item.selected{ opacity: 1; background: rgba(0,0,0,0.15); cursor: default; color:var(--color-blue-1) !important; }
+        menu-comp .menu-item i{ min-width: 3rem; }
       </style>
 		`
 	}
