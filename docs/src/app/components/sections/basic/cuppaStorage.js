@@ -69,9 +69,9 @@ export class CuppaStorageBase extends CuppaComponent {
 			<hr />
 			
 			<section>
-      	<h2 class="title-2" style="grid-area:title;">Use Storage With Any Framework</h2>
+      	<h2 class="title-2" >Use Storage With Any Framework</h2>
         <cuppa-preview-code
-          class="box-shadow-1 m-t-10"
+          class="box-shadow-1 m-t-20"
           height="43rem"
           preview-width="40%"
           preview-height="15rem"
