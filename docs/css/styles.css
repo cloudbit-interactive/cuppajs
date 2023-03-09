@@ -59,12 +59,10 @@ hr, .separator-1, .separator-h{ margin:3rem 0; border: none; height: 0; border:n
 .tag-1-blue{ background: var(--color-blue-1); color:var(--color-white); border:none; }
 .scroll-1::-webkit-scrollbar { width: 0.6rem;  }
 .scroll-1::-webkit-scrollbar-track { background: transparent; }
-.scroll-1::-webkit-scrollbar-thumb { background: rgba(38,139,206,0.7);  border-radius: 6px; visibility: hidden; }
+.scroll-1::-webkit-scrollbar-thumb { background: rgba(38,139,206, 0.9);  border-radius: 6px; visibility: hidden; }
 .scroll-1:active::-webkit-scrollbar-thumb,
 .scroll-1:focus::-webkit-scrollbar-thumb,
-.scroll-1:hover::-webkit-scrollbar-thumb {
-	visibility: visible;
-}
+.scroll-1:hover::-webkit-scrollbar-thumb { visibility: visible; }
 
 
 
