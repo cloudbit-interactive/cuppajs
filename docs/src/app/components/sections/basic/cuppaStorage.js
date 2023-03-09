@@ -11,32 +11,55 @@ export class CuppaStorageBase extends CuppaComponent {
           class="box-shadow-1 m-t-20"
           height="48rem"
           remove-tabs=${6}
-          show-tools-bar="false"
-          preview-width="20rem"
+          preview-width="40rem"
         >
           <code>
-						<p>Name: <input id="txtName"/></p>
-						<hr />
-						<p>Output: <span id="output"></span></p>
+						<div>Name: <input id="txtName"/></div>
+						<div>Output: <span id="output"></span></div>
+	          
+						<!-- 
+							subscribe a callback to get storage updates using html tag, 
+							usefully to register/unregister callbacks automatically 
+							when component is mounted/unmounted 
+						-->
+						<get-storage name="myStorage" store="LOCAL" @update=${ (e)=>{ console.log("<get-storage tag>",e.detail) } }></get-storage>
 	          
 						<script type="module">
-							import {CuppaStorage} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js";
-							// define a storage
+							import {CuppaStorage, GetStorage} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js";
+							
+							// define a storage, 
+							// store can be [null (in memory), LOCAL, SESSION, INDEXED_DB]
 							const storage = {name:"myStorage", store:CuppaStorage.LOCAL, default:"No Data Settled"};
-              document.getElementById("txtName").oninput = (e)=>{
-								console.log(e.target.value, storage)
-               	CuppaStorage.setData({name:storage.name, data:e.target.value, store:storage.store})
-              }
+							
+							// write data in the storage
+							document.getElementById("txtName").oninput = (e)=>{
+								CuppaStorage.setData({...storage, data:e.target.value})
+							}
+							
+							// subscribe a callback to get storage updates
+							CuppaStorage.getData({...storage, callback:(data)=>{
+								document.getElementById("output").innerHTML = data;
+							}})
+							
+							// get async data from storage
+							CuppaStorage.getData(storage).then(data=>{
+								console.log("Async Data:", data);
+							});
+							
+							// get the data sync when it is saved in memory, local, or session storage.
+							let syncData = CuppaStorage.getDataSync(storage);
+							console.log("Sync Data:", syncData);
 						</script>
-          </code>
+         	</code>
         </cuppa-preview-code>
 			</section>
+			
 			<hr />
-      <div class="grid_title_1_column d-none">
-        <h2 class="title-2" style="grid-area:title;">Basic Usage</h2>
-        <iframe style="grid-are:content" height="450" style="width: 100%;" src="https://codepen.io/tufik2/embed/poRWKPE?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true" ></iframe>
-      </div>
-      <hr class="separator-1"/>
+			
+			<section>
+      	<h2 class="title-2" style="grid-area:title;">Use Storage With Any Framework</h2>
+      </section>
+      
       <div class="grid_title_1_column d-none">
         <h2 class="title-2" style="grid-area:title;">Storage And React</h2>
         <iframe style="grid-are:content" height="450" style="width: 100%;" src="https://codepen.io/tufik2/embed/abpLjOQ?&theme-id=dark&default-tab=js,result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true"></iframe>
