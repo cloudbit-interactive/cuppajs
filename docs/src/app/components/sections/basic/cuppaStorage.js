@@ -103,11 +103,9 @@ export class CuppaStorageBase extends CuppaComponent {
 								
 								return(
 								  <div>
-								    <div>
-								      <span>Add: </span>
-								      <input value={value} onInput={e=>setValue(e.target.value)} />
-								      <button onClick={add} >Add</button>
-										</div>
+							      <span>Add: </span>
+							      <input value={value} onInput={e=>setValue(e.target.value)} />
+							      <button onClick={add} >Add</button>
 								  </div>
 								)
 							}
