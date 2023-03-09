@@ -7,14 +7,18 @@ export class CuppaPreviewCode extends CuppaComponent {
 	aceTheme = this.observable('aceTheme', AceThemes.tomorrow_night);
 	preview = this.observable('preview', true);
 	height = this.observable('height', '200px');
-	previewHeight = this.observable('previewHeight', '200px')
+	previewWidth = this.observable('previewWidth', 'auto');
+	previewHeight = this.observable('previewHeight', '200px');
 	disabled = this.observable('disabled', false);
 	expandable = this.observable('expandable', true);
 	showToolsBar = this.observable('showToolsBar', true);
+	removeTabs = this.observable('removeTabs', 0);
+	previewCss = this.observable('previewCss', '');
+	previewHtml = this.observable('previewHtml', '');
 	editor;
 	tmpHeight;
 
-	static get observedAttributes() { return ['mode', 'ace-theme', 'content', 'preview', 'height', 'preview-height', 'disabled', 'expandable', 'show-tools-bar' ] }
+	static get observedAttributes() { return ['mode', 'ace-theme', 'content', 'preview', 'height', 'preview-height', 'preview-width', 'disabled', 'expandable', 'show-tools-bar', 'remove-tabs', 'preview-css', 'preview-html' ] }
 	attributeChangedCallback(attr, oldVal, newVal) {
 		if(oldVal === newVal) return;
 		if(['preview','disabled','expandable','show-tools-bar'].indexOf(attr) != -1) newVal = (newVal === 'true') ? true : false;
@@ -26,11 +30,21 @@ export class CuppaPreviewCode extends CuppaComponent {
 	}
 
 	configEditor(){
-		let content = this.querySelector("cuppa-preview-content");
-		if(content){
-			this.content = content.innerHTML;
-			content.remove();
+		let contentNode = this.querySelector("cuppa-preview-content") || this.querySelector('pre') || this.querySelector('template') || this.querySelector('code');
+		if(contentNode){
+			this.content = String(contentNode.innerHTML);
+			this.content = this.removeCommentTag(this.content)
+			this.content = (this.content || "").trim();
+			this.content = removeTabs(this.content, {tabsCount:parseInt(this.removeTabs)})
+			contentNode.remove();
 		}
+		let previewHtml = this.querySelector("preview-html");
+		if(previewHtml){
+			this.previewHtml = String(previewHtml.innerHTML);
+			this.previewHtml = this.removeCommentTag(this.previewHtml);
+			previewHtml.remove();
+		}
+
 		window.ace.config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.15.2/src-min-noconflict/');
 		this.editor = window.ace.edit(this.refs.editor);
 		this.editor.setTheme(this.aceTheme);
@@ -56,16 +70,18 @@ export class CuppaPreviewCode extends CuppaComponent {
 
 	onEditorChange(){
 		if(!this.refs.output) return;
+		let output = '';
+		if(this.previewCss){ output += `<style rel="stylesheet">${this.removeCommentTag(this.previewCss)}</style>`;}
+		if(this.previewHtml){ output += this.previewHtml; }
+
 		let code = this.editor.session.getValue();
-		if(this.mode === AceModes.javascript){
-			code = `<script>${code}</script>`;
-			this.refs.output.src = "data:text/html;charset=utf-8," + escape(code);
-		}else if(this.mode === AceModes.css){
-			code = `<style rel="stylesheet">${code}</style>`;
-			this.refs.output.src = "data:text/html;charset=utf-8," + escape(code);
-		}else{
-			this.refs.output.src = "data:text/html;charset=utf-8," + escape(code);
-		}
+			if([AceModes.javascript, AceModes.jsx].indexOf(this.mode) != -1){
+				code = `<script type="module">${code}</script>`;
+			}else if(this.mode === AceModes.css){
+				code = `<style rel="stylesheet">${code}</style>`;
+			}
+		output += code;
+		this.refs.output.srcdoc = output;
 	}
 
 	expandContent(value = true){
@@ -87,6 +103,14 @@ export class CuppaPreviewCode extends CuppaComponent {
 		}
 	}
 
+	removeCommentTag(text){
+		if(!text) text = '';
+		if(text.indexOf('<!--[') === -1) return text;
+		text = text.substring(text.indexOf('<!--[')+'<!--['.length);
+		text = text.substring(text.indexOf("]-->"),-1);
+		return text;
+	}
+
 	rendered(){
 		if(!this.tmpHeight) this.tmpHeight = this.height;
 		this.onEditorChange();
@@ -97,8 +121,13 @@ export class CuppaPreviewCode extends CuppaComponent {
       <div ref="wrap" class="cuppa-preview-code__wrap" style="height: ${this.height}">
         <div ref="editor" class="cuppa-preview-code__editor"  style="align-self: stretch"></div>
         ${!this.preview ? `` : html`
-          <iframe ref="output" class="cuppa-preview-code__output" style="align-self: stretch">
-          </iframe>
+          <iframe
+	          ref="output" 
+	          class="cuppa-preview-code__output" 
+	          style="align-self: stretch; flex:${this.previewWidth != 'auto' ? 'none' : 1}; width: ${this.previewWidth}; "
+            allowtransparency="true" 
+	          allowfullscreen="true"
+          ></iframe>
         `}
       </div>
       ${!this.showToolsBar ? `` : html`
@@ -108,13 +137,12 @@ export class CuppaPreviewCode extends CuppaComponent {
               <button
                 class="cuppa-preview-code__btn"
                 @click="${()=>{
-			this.expandContent(!this.isExpanded())
-		}}">
+                  this.expandContent(!this.isExpanded())
+                }}">
                 <img style="margin-right: 8px; transform:rotate(${this.isExpanded() ? '180deg' : '0deg'});" src='${iconArrowDown}'/>
                 <span>Show more</span>
               </button>
             `}
-
           </div>
           <div>
             <button class="cuppa-preview-code__btn cuppa-preview-code__btn-icon btn-show" @click="${()=>this.preview = !this.preview}" title="Hide/Show Preview">
@@ -124,10 +152,18 @@ export class CuppaPreviewCode extends CuppaComponent {
         </div>
       `}
       <style>
-        cuppa-preview-code{ display: flex; flex-direction: column; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; }
+        cuppa-preview-code{ display: flex; flex-direction: column; border: 0; border-radius: 5px; overflow: hidden; }
        	.cuppa-preview-code__wrap{ display: flex; flex-direction: row; height: 100%; }
         .cuppa-preview-code__editor{ flex:1; overflow: hidden; }
-        .cuppa-preview-code__output{ position: relative; font-family: "Arial", sans-serif; flex:1; background: #23272f; border:0; border-left: 1px solid rgba(0,0,0,1); padding: 10px; }
+        .cuppa-preview-code__output{
+	        position: relative; 
+	        font-family: "Arial", sans-serif;
+	        flex:1;
+	        width: auto;
+	        background: #23272f; 
+	        color:#fff; border:0; 
+	        border-left: 1px solid rgba(0,0,0,1);
+        }
         .cuppa-preview-code__tools{ display: flex; justify-content: space-between; align-items: center; background: #343a46; padding:7px; }
         .cuppa-preview-code__btn{
           display: flex;
@@ -153,7 +189,7 @@ export class CuppaPreviewCode extends CuppaComponent {
         @media screen and (max-width: 1000px) {
           .cuppa-preview-code__wrap{ display: block; height: auto !important; }
           .cuppa-preview-code__editor{ height:${this.height}; }
-          .cuppa-preview-code__output{ height:${this.previewHeight}; border-left: 0; border-top: 1px solid rgba(0,0,0,1);   }
+          .cuppa-preview-code__output{ height:${this.previewHeight}; border-left: 0; border-top: 1px solid rgba(0,0,0,1); width: 100%;  }
         }
       </style>
 		`
@@ -386,4 +422,20 @@ export const AceThemes = {
 	tomorrow_night_eighties: 'ace/theme/tomorrow_night_eighties',
 	twilight: 'ace/theme/twilight',
 	vibrant_ink: 'ace/theme/vibrant_ink'
+}
+
+
+export function removeTabs(code, {tabsCount = 0, tabSpace = 1, removeFirstLine = false, removeLastLine = false, addEmptyLine = false} = {}){
+	if(tabsCount > 0){
+		let tabs = '\t'.repeat(tabSpace).repeat(tabsCount);
+		let codeLines = code.split("\n");
+		for(let i = 0; i < codeLines.length; i++){
+			codeLines[i] = codeLines[i].replace(tabs, '');
+		}
+		if(removeFirstLine) codeLines.shift();
+		if(removeLastLine) codeLines.pop();
+		if(addEmptyLine) codeLines.push('');
+		code = codeLines.join("\n");
+	}
+	return code;
 }

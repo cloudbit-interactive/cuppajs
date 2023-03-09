@@ -12,7 +12,7 @@ export class CuppaStorageBase extends CuppaComponent {
           class="box-shadow-1 m-t-20"
           height="48rem"
           remove-tabs=${6}
-          preview-width="40rem"
+          preview-width="40%"
           preview-css="${Utils.getPreviewCSS()}"
         >
           <template>
@@ -73,7 +73,7 @@ export class CuppaStorageBase extends CuppaComponent {
         <cuppa-preview-code
           class="box-shadow-1 m-t-10"
           height="43rem"
-          preview-width="40rem"
+          preview-width="40%"
           preview-height="15rem"
           remove-tabs=${6}
           preview-css="${Utils.getPreviewCSS()}"
