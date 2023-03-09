@@ -19,7 +19,10 @@ export class App extends CuppaComponent {
 
 	constructor(){
 		super();
-		Globals.router.addListener(path=>this.path = path);
+		Globals.router.addListener(path=>{
+			this.path = path;
+			window.scrollTo(0, 0);
+		});
 		Globals.router.resolve();
 	}
 
