@@ -13,17 +13,9 @@ export class CuppaStorageBase extends CuppaComponent {
           remove-tabs=${6}
           preview-width="40rem"
         >
-          <code>
+          <template>
 						<div>Name: <input id="txtName"/></div>
 						<div>Output: <span id="output"></span></div>
-	          
-						<!-- 
-							subscribe a callback to get storage updates using html tag, 
-							usefully to register/unregister callbacks automatically 
-							when component is mounted/unmounted 
-						-->
-						<get-storage name="myStorage" store="LOCAL" @update=${ (e)=>{ console.log("<get-storage tag>",e.detail) } }></get-storage>
-	          
 						<script type="module">
 							import {CuppaStorage, GetStorage} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js";
 							
@@ -49,8 +41,19 @@ export class CuppaStorageBase extends CuppaComponent {
 							// get the data sync when it is saved in memory, local, or session storage.
 							let syncData = CuppaStorage.getDataSync(storage);
 							console.log("Sync Data:", syncData);
+							
+							// use HTML tag to subscribe to a storage and receive updates, 
+							// usefully to register/unregister callbacks automatically 
+							// when component is mounted/unmounted 
+							let htmlTag = document.createElement('get-storage');
+								htmlTag.setAttribute('name', 'myStorage')
+								htmlTag.setAttribute('store', 'LOCAL')
+								htmlTag.addEventListener('update', (e)=>{
+									console.log("<get-storage tag>", e.detail)
+								}) ;
+							document.body.append(htmlTag);
 						</script>
-         	</code>
+         	</template>
         </cuppa-preview-code>
 			</section>
 			
