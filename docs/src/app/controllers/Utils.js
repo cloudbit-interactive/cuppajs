@@ -1,6 +1,7 @@
 import {html} from "../../cuppa/cuppa.component.min.js";
 import {cuppa} from "../../cuppa/cuppa.min.js";
 import {Constants} from "./Constants.js";
+import {CuppaTheme} from "../../cuppa/cuppa.theme.min.js";
 
 export class Utils{
 	static prismCodeTypes = {
@@ -34,7 +35,7 @@ export class Utils{
 		}
 	}
 
-	static removeTabs(code, {tabsCount = 0, tabSpace = 1, removeFirstLine = true, removeLastLine = true, addEmptyLine = true}){
+	static removeTabs(code, {tabsCount = 0, tabSpace = 1, removeFirstLine = true, removeLastLine = true, addEmptyLine = true} = {}){
 		if(tabsCount > 0){
 			let tabs = '\t'.repeat(tabSpace).repeat(tabsCount);
 			let codeLines = code.split("\n");
@@ -47,6 +48,12 @@ export class Utils{
 			code = codeLines.join("\n");
 		}
 		return code;
+	}
+
+	static getPreviewCSS(){
+		let theme = CuppaTheme.getTheme();
+		if(theme === 'light-theme') return Constants.PREVIEW_CSS;
+		else if(theme === 'dark-theme') return Constants.PREVIEW_CSS;
 	}
 
 }

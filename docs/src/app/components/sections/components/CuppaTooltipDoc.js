@@ -1,7 +1,7 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import {CuppaTooltip} from "../../../../cuppa/components/cuppa.tooltip.min.js";
-import {CuppaPreviewCodeMin} from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {AceModes, CuppaPreviewCode} from "../../../../cuppa/components/cuppa-preview-code.min.js";
 
 export class CuppaTooltipDoc extends CuppaComponent {
 
@@ -47,7 +47,6 @@ export class CuppaTooltipDoc extends CuppaComponent {
 					class="box-shadow-1"
 					height="26rem"
 					preview-height="15rem"
-          preview-width="40%"
 					expandable="false"
 					.content="${Utils.removeTabs(`
 						<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
