@@ -46,7 +46,7 @@ export class Menu extends CuppaComponent {
           </a>
         </div>
       </div>
-			<nav class="p-x-10 flex-1 o-auto p-b-100 ">
+			<nav class="p-x-10 flex-1 o-auto p-b-40 scroll-1">
         <div class="m-t-10">
           <a class="menu-item ${this.isSelected('cuppa-component') }" href="cuppa-component" aria-label="Component" ><i class="fas fa-puzzle-piece " ></i> Component</a>
           <a class="menu-item ${this.isSelected('cuppa-router') }" href="cuppa-router" aria-label="Router" ><i class="fas fa-map-signs"></i> Router</a>
