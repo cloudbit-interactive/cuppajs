@@ -88,7 +88,6 @@ export class Menu extends CuppaComponent {
           height: 100vh;
           overflow: auto;
         }
-
         menu-comp .menu-item {
           display: flex;
           align-items: center;
@@ -103,21 +102,10 @@ export class Menu extends CuppaComponent {
           user-select: none;
           border-radius: 0.5rem;
         }
-
-        menu-comp .menu-item:hover {
-          opacity: 1;
-        }
-
-        menu-comp .menu-item.selected {
-          opacity: 1;
-          background: var(--menu-selected-bg);
-          cursor: default;
-          color: var(--menu-selected-color) !important;
-        }
-
-        menu-comp .menu-item i {
-          min-width: 3rem;
-        }
+        menu-comp .menu-item *{ pointer-events:none!important; -webkit-user-select:none!important; user-select:none!important; }
+        menu-comp .menu-item:hover { opacity: 1; }
+        menu-comp .menu-item.selected { opacity: 1; background: var(--menu-selected-bg); cursor: default; color: var(--menu-selected-color) !important; }
+        menu-comp .menu-item i { min-width: 3rem; }
       </style>
 		`
 	}
