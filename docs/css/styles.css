@@ -24,7 +24,7 @@
 }
 body.dark-theme {
 	color-scheme: dark;
-	--color-background:#23272f;
+	--color-background: #20242c;
 	--color-text: #f6f7f9;
 	--color-separator:#444;
 }
