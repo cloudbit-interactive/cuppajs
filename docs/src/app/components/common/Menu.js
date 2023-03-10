@@ -103,6 +103,7 @@ export class Menu extends CuppaComponent {
           user-select: none;
           border-radius: 0.5rem;
         }
+        menu-comp .menu-item *{ pointer-events:none!important; -webkit-user-select:none!important; user-select:none!important; }
 
         menu-comp .menu-item:hover {
           opacity: 1;
