@@ -43,8 +43,6 @@ export class App extends CuppaComponent {
       <cuppa-drawer 
 	      ref="menuMobile"
 	      class="nav-mobile" 
-	      disable-content=".nav-top, .main-section"
-	      disable-scroll=".drawer_content_wrap"
         status="${CuppaDrawer.CLOSE}"
       >
         <cuppa-drawer-content>
