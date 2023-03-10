@@ -10,7 +10,7 @@
 	--color-separator:#ccc;
 	--color-menu-mobile:#555;
 	/* menu */
-	--nav-top-bg:#fff;
+	--nav-top-bg:#efefef;
 	--menu-bg: #fff;
 	--menu-bg-bar: rgba(0, 0, 0, 0.05);
 	--menu-color: #444;
@@ -85,12 +85,11 @@ hr, .separator-1, .separator-h{ margin:3rem 0; border: none; height: 0; border:n
 .relative{ position: relative; }
 .d-block{ display: block; }
 
-.nav-main{ transition: 0.2s; width: var(--nav-main-width); position: fixed; top:0; left:0; bottom:0; background: var(--nav-main-bg); z-index: 1; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
+.nav-main{ transition: 0.2s; width: var(--nav-main-width); position: fixed; top:0; left:0; bottom:0; z-index: 1; box-shadow: 0.1rem 0 0.5rem rgba(0,0,0,0.2); }
 .nav-top{ display: none; z-index: 10; position: fixed; top:0; left: 0; right: 0; justify-content: space-between; align-items: center; height: calc(var(--nav-top-height) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); background: var(--nav-top-bg); box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.2); }
 .nav-mobile{ display: none; color: var(--color-white); z-index: 99; }
-.nav-mobile .drawer_content_wrap{ background: var(--nav-main-bg); padding-top: env(safe-area-inset-top); }
+.nav-mobile .drawer_content_wrap{ overflow: hidden; background: var(--menu-bg) !important; padding-top: env(safe-area-inset-top); }
 .main-section{ display:block; position: relative; padding: calc(4rem + env(safe-area-inset-top)) 4rem 4rem calc(var(--nav-main-width) + 4rem); }
-.drawer_content_wrap{ overflow: hidden; background: var(--menu-bg) !important; }
 
 .message{ padding:2rem; background:#EEE; border-radius: 5px; box-shadow: var(--box-shadow-1); }
 .message_icon{ margin:0 10px 0 0; }
