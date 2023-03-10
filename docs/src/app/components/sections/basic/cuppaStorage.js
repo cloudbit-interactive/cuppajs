@@ -74,7 +74,7 @@ export class CuppaStorageBase extends CuppaComponent {
           class="box-shadow-1 m-t-20"
           height="43rem"
           preview-width="40%"
-          preview-height="15rem"
+          preview-height="20rem"
           remove-tabs=${6}
           preview-css="${Utils.getPreviewCSS()}"
         >

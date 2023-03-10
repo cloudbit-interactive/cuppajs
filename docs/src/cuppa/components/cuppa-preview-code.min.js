@@ -191,7 +191,7 @@ export class CuppaPreviewCode extends CuppaComponent {
         @media screen and (max-width: 1000px) {
           .cuppa-preview-code__wrap{ display: block; height: auto !important; }
           .cuppa-preview-code__editor{ height:${this.height}; }
-          .cuppa-preview-code__output{ height:${this.previewHeight}; border-left: 0; border-top: 1px solid rgba(0,0,0,1); width: 100%;  }
+          .cuppa-preview-code__output{ height:${this.previewHeight}; border-left: 0; border-top: 1px solid rgba(0,0,0,1); width: 100% !important; }
         }
       </style>
 		`
