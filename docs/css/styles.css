@@ -90,6 +90,7 @@ hr, .separator-1, .separator-h{ margin:3rem 0; border: none; height: 0; border:n
 .nav-mobile{ display: none; color: var(--color-white); z-index: 99; }
 .nav-mobile .drawer_content_wrap{ background: var(--nav-main-bg); padding-top: env(safe-area-inset-top); }
 .main-section{ display:block; position: relative; padding: calc(4rem + env(safe-area-inset-top)) 4rem 4rem calc(var(--nav-main-width) + 4rem); }
+.drawer_content_wrap{ overflow: hidden; background: var(--menu-bg) !important; }
 
 .message{ padding:2rem; background:#EEE; border-radius: 5px; box-shadow: var(--box-shadow-1); }
 .message_icon{ margin:0 10px 0 0; }
