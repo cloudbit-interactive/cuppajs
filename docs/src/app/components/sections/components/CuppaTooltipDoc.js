@@ -10,12 +10,13 @@ export class CuppaTooltipDoc extends CuppaComponent {
 			<div>
 				<h1 class="title-2 mb-10">Cuppa Tooltip</h1>
 				<div class="message" style="display: flex; align-items: center;">
-          <button class="button-1 btn-left" >Left</button>
-          <cuppa-tooltip target=".btn-left" text="Left position" pos-x="${CuppaTooltip.POSITION.LEFT}" pos-y="${CuppaTooltip.POSITION.CENTER}" arrow="${CuppaTooltip.ARROW.RIGHT}" style="margin-left:-8px"></cuppa-tooltip>
-
+          
           <button class="button-1 btn-default" >Default/Bottom</button>
           <cuppa-tooltip target=".btn-default" text="Default position" style="margin-top:8px"></cuppa-tooltip>
 					
+					<button class="button-1 btn-left" >Left</button>
+          <cuppa-tooltip target=".btn-left" text="Left position" pos-x="${CuppaTooltip.POSITION.LEFT}" pos-y="${CuppaTooltip.POSITION.CENTER}" arrow="${CuppaTooltip.ARROW.RIGHT}" style="margin-left:-8px"></cuppa-tooltip>
+
           <button class="button-1 btn-right" >Right</button>
           <cuppa-tooltip target=".btn-right" text="Right position" pos-x="${CuppaTooltip.POSITION.RIGHT}" pos-y="${CuppaTooltip.POSITION.CENTER}" arrow="${CuppaTooltip.ARROW.LEFT}" style="margin-left:8px"></cuppa-tooltip>
 
@@ -59,6 +60,38 @@ export class CuppaTooltipDoc extends CuppaComponent {
 						></cuppa-tooltip>	
 					`, {tabsCount:6})}"
 				></cuppa-preview-code>
+
+				<hr class="separator-1" />
+        <h2 class="title-3 mb-10">Properties</h2>
+        <div style="overflow: auto;">
+					
+					<table class="table-1 min-width" >
+						<thead>
+						<tr>
+							<th style="width: 30rem">
+								<div class="tag-1">Property</div>
+								<div class="tag-1 tag-1-white">attribute</div>
+								<div class="tag-1 tag-1-yellow">event</div>
+							</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<div class="tag-1">title</div>
+									<div class="tag-1 tag-1-white">title</div>
+								</td>
+								<td>string</td>
+								<td></td>
+								<td>Title of the alert.</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
 			</div>
 		`
 	}

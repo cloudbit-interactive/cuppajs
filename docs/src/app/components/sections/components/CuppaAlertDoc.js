@@ -6,22 +6,20 @@ export class CuppaAlertDoc extends CuppaComponent {
 	alertResult = this.observable("alertResult");
 
 	mounted(){
-		Utils.loadPrism();
+		Utils.loadPrism();  
 	}
 
 	showAlert(){
-		let alert = new CuppaAlert({
-			title: "Message",
-			message: html`This is a <strong>html</strong> text message`,
-			backdropEnabled:true,
-			cancelText: "Cancel",
-			inputText: "",
-			placeholder: "Type your message here",
-			callback:(res)=>{
-				this.alertResult = res;
-			}
-		});
-		document.body.append(alert);
+    let element = document.createElement('cuppa-alert');
+      element.title = 'Title';
+      element.message = `This is a text message`;
+      element.cancelText = 'Cancel';
+      element.inputText = '';
+      element.placeholder = 'Type your message here...';
+      element.callback = (res)=>{
+        this.alertResult = res;
+      }
+    document.body.append(element)
 	}
 
 	showAlertPersonalized(){
@@ -39,8 +37,8 @@ export class CuppaAlertDoc extends CuppaComponent {
 	render(){
 		return html`
       <div>
-        <h1 class="title-2 mb-10">Cuppa Alert</h1>
-        <div class="message" style="display: flex; align-items: center;">
+        <h1 class="title-2">Cuppa Alert</h1>
+        <div class="m-t-20" style="display: flex; align-items: center;">
           <button class="button-1" @click="${this.showAlert}" >Show Alert</button>
           <div class="separator-v"></div>
           <div><strong>Result:</strong> ${JSON.stringify(this.alertResult)}</div>
@@ -48,7 +46,7 @@ export class CuppaAlertDoc extends CuppaComponent {
 
         <hr class="separator-1" />
         <h2 class="title-3 mb-10">Properties</h2>
-        <div style="overflow: auto;">
+        <div class="o-auto b-radius-10" >
           <table class="table-1 min-width" >
             <thead>
             <tr>
