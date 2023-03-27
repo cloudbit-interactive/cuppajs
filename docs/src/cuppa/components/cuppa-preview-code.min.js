@@ -92,7 +92,6 @@ export class CuppaPreviewCode extends CuppaComponent {
 		}else{
 			this.height = `${this.tmpHeight}`;
 		}
-		this.editor.resize();
 	}
 
 	isExpanded(){
@@ -113,6 +112,7 @@ export class CuppaPreviewCode extends CuppaComponent {
 
 	rendered(){
 		if(!this.tmpHeight) this.tmpHeight = this.height;
+		this.editor.resize();
 		this.onEditorChange();
 	}
 
@@ -136,16 +136,25 @@ export class CuppaPreviewCode extends CuppaComponent {
             ${!this.expandable ? `` : html`
               <button
                 class="cuppa-preview-code__btn"
+                title="Show more"
                 @click="${()=>{
                   this.expandContent(!this.isExpanded())
-                }}">
-                <img style="margin-right: 8px; transform:rotate(${this.isExpanded() ? '180deg' : '0deg'});" src='${iconArrowDown}'/>
+                }}"
+              >
+                <img 
+	                style="margin-right: 8px; transform:rotate(${this.isExpanded() ? '180deg' : '0deg'});" 
+	                src='${iconArrowDown}'
+                />
                 <span>Show more</span>
               </button>
             `}
           </div>
           <div>
-            <button class="cuppa-preview-code__btn cuppa-preview-code__btn-icon btn-show" @click="${()=>this.preview = !this.preview}" title="Hide/Show Preview">
+            <button 
+	            class="cuppa-preview-code__btn cuppa-preview-code__btn-icon btn-show"
+              title="Hide/Show Preview"
+	            @click="${()=>this.preview = !this.preview}" 
+            >
               <img height="16" src='${iconPreview}'/>
             </button>
           </div>
@@ -180,7 +189,7 @@ export class CuppaPreviewCode extends CuppaComponent {
         }
         .cuppa-preview-code__btn:hover{ background: rgba(0,0,0,0.3); }
         .cuppa-preview-code__btn-icon{ width: 30px; }
-        .cuppa-preview-code__btn i, .cuppa-preview-code__btn img{ opacity: 0.6; width: auto; height: 16px; filter: invert(100%) sepia(95%) saturate(0%) hue-rotate(173deg) brightness(106%) contrast(104%); }
+        .cuppa-preview-code__btn i, .cuppa-preview-code__btn img{ opacity: 0.6; width: auto; height: 14px; filter: invert(100%) sepia(95%) saturate(0%) hue-rotate(173deg) brightness(106%) contrast(104%); }
         .cuppa-preview-code__editor ::-webkit-scrollbar { width: 6px; height: 6px; }
         .cuppa-preview-code__editor ::-webkit-scrollbar-track { background: transparent; }
         .cuppa-preview-code__editor ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.4); border-radius: 6px; visibility: hidden; }
@@ -430,9 +439,11 @@ export const AceThemes = {
 export function removeTabs(code, {tabsCount = 0, tabSpace = 1, removeFirstLine = false, removeLastLine = false, addEmptyLine = false} = {}){
 	if(tabsCount > 0){
 		let tabs = '\t'.repeat(tabSpace).repeat(tabsCount);
+		let spaces = ' '.repeat(tabSpace).repeat(tabsCount);
 		let codeLines = code.split("\n");
 		for(let i = 0; i < codeLines.length; i++){
 			codeLines[i] = codeLines[i].replace(tabs, '');
+			codeLines[i] = codeLines[i].replace(spaces, '');
 		}
 		if(removeFirstLine) codeLines.shift();
 		if(removeLastLine) codeLines.pop();

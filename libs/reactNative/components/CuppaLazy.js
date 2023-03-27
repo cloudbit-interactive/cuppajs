@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
 import PropTypes from 'prop-types';
 
 /* Cuppa lazy
@@ -8,10 +7,9 @@ import PropTypes from 'prop-types';
         <CuppaLazy component={<Section2 />} mount={(this.state.section == "section2")} />
 * */
 export class CuppaLazy extends Component{
-	static propTypes = { component:PropTypes.any, style:PropTypes.object, mount:PropTypes.bool }
-	static defaultProps = { component:null, style:{flex:1}, mount:false }
+	static propTypes = { component:PropTypes.any, style:PropTypes.object, mount:PropTypes.bool, display:PropTypes.string, componentRef:PropTypes.any }
+	static defaultProps = { component:null, style:{flex:1}, mount:false, display:'block', componentRef:null }
 	state = { component:null }
-	ref = null;
 
 	constructor(props){
 		super(props); bindAll(this);
@@ -25,23 +23,23 @@ export class CuppaLazy extends Component{
 		if(this.props.mount && !this.state.component){
 			let component;
 			if(typeof this.props.component.type === 'function'){
-				component = React.cloneElement(this.props.component, {cuppaActionSheet:this });
+				component = React.cloneElement(this.props.component, {});
 			}else{
-				component = React.cloneElement(this.props.component, {cuppaActionSheet:this, ref:(ref)=>{ if(ref) this.ref = ref; }});
+				component = React.cloneElement(this.props.component, {ref:(ref)=>{ if(ref) this.ref = ref; }});
 			}
 			this.setState({component});
 		}else if(this.props.mount && this.ref?.lazyMount){
-				this.ref.lazyMount(this.ref);
+			this.ref.lazyMount(this.ref);
 		}else if(!this.props.mount && this.ref?.lazyUnmount){
-				this.ref.lazyUnmount(this.ref);
+			this.ref.lazyUnmount(this.ref);
 		}
 	}
 
 	render(){
 		return (
-			<View style={[{display:(this.props.mount) ? "flex" : "none"}, this.props.style]}>
-				{ this.state.component }
-			</View>
+			<div style={{...{display:(this.props.mount) ? this.props.display : "none"}, ...this.props.style}}>
+				{ this.state.component && React.cloneElement(this.state.component, { ref:this.props.componentRef }) }
+			</div>
 		);
 	}
 }
