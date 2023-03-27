@@ -58,7 +58,7 @@ export class CuppaAlertDoc extends CuppaComponent {
 				>
           <code>
             <!--[        
-            <script src="http://127.0.0.1:5500/docs/src/cuppa/components/cuppa.alert.min.js" type="module"></script>
+            <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
 						<cuppa-alert 
 							title="Message" 
 							message="What is your name?" 
@@ -91,7 +91,7 @@ export class CuppaAlertDoc extends CuppaComponent {
 	      >
 		      <code>
             <!--[
-						<script src="http://127.0.0.1:5500/docs/src/cuppa/components/cuppa.alert.min.js" type="module"></script>
+						<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
 						<cuppa-alert
 							title="PDF Preview"
 							accept-text=""
