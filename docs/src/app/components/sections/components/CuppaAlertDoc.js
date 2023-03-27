@@ -47,7 +47,7 @@ export class CuppaAlertDoc extends CuppaComponent {
           <div><strong>Result:</strong> ${JSON.stringify(this.alertResult)}</div>
         </div>
         <cuppa-preview-code
-					class="box-shadow-1 m-t-10"
+					class="box-shadow-1 m-t-20"
 					height="33rem"
 					preview-height="25rem"
 					mode=${AceModes.html}
@@ -80,7 +80,7 @@ export class CuppaAlertDoc extends CuppaComponent {
         <h2 class="title-3">Show Personalized Alert</h2>
         <button class="button-1 m-t-20" @click="${this.showAlertPersonalized}" >Preview PDF</button>
 	      <cuppa-preview-code
-					class="box-shadow-1 m-t-10"
+					class="box-shadow-1 m-t-20"
 					height="33rem"
 					preview-height="25rem"
 					mode=${AceModes.html}
@@ -107,7 +107,7 @@ export class CuppaAlertDoc extends CuppaComponent {
 							.modal-1{ padding: calc(env(safe-area-inset-top) + 2rem) 2rem 2rem; }
 							.modal-1 .cuppa-alert_modal{ max-width: none; padding: 0rem; height: 100%; display: flex; flex-direction: column; }
 							.modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
-							.modal-1 cuppa-alert-content{ height:100%; }
+							.modal-1 cuppa-alert-content{ height:100%; overflow:hidden; }
 							.modal-1 .cuppa-alert_message iframe{ width:100%; height:100%; border:0; }
 						</style>
             ]-->
@@ -118,8 +118,8 @@ export class CuppaAlertDoc extends CuppaComponent {
       <hr />
       
       <section>
-        <h2 class="title-3 mb-10">Properties</h2>
-        <div class="o-auto b-radius-10" >
+        <h2 class="title-3 ">Properties</h2>
+        <div class="o-auto b-radius-10 m-t-20" >
           <table class="table-1 min-width" >
             <thead>
             <tr>
@@ -261,7 +261,7 @@ export class CuppaAlertDoc extends CuppaComponent {
         .modal-1{ padding: calc(env(safe-area-inset-top) + 2rem) 2rem calc(env(safe-area-inset-bottom) + 2rem); }
         .modal-1 .cuppa-alert_modal{ max-width: none; padding: 0rem; height: 100%; display: flex; flex-direction: column;}
        	.modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
-        .modal-1 iframe{ width:100%; height:100%; border:0; }
+        .modal-1 iframe{ width:100%; height:100%; border:0; overflow:hidden;  }
       </style>
 		`
 	}
