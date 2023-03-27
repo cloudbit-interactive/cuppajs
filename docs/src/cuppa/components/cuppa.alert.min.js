@@ -4,29 +4,19 @@ export class CuppaAlert extends CuppaComponent {
 	static CLOSE_IMAGE = "data:image/png;base64,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";
 	titleValue = "";
 	message = "";
-	acceptText = "";
+	acceptText = "Accept";
 	cancelText = "";
-	backdropEnabled = true;
+	backdropEnabled = false;
 	inputText = null;
 	placeholder = "";
 	callback = null;
 	value = false;
 	topBar = false;
+	theme = '';
 	closeImage = CuppaAlert.CLOSE_IMAGE;
 
-	constructor({title = "", message = "", acceptText = "Accept", cancelText = "", backdropEnabled = false, inputText = null, placeholder = "", callback = null, classes = null, topBar = false, closeImage = CuppaAlert.CLOSE_IMAGE} = {}) {
+	constructor() {
 		super();
-		if(classes) this.classList.add(...classes);
-		this.titleValue = title;
-		this.message = message;
-		this.acceptText = acceptText;
-		this.cancelText = cancelText;
-		this.backdropEnabled = backdropEnabled;
-		this.inputText = inputText;
-		this.placeholder = placeholder;
-		this.callback = callback;
-		this.topBar = topBar;
-		this.closeImage = closeImage;
 		this.onclick = ()=>{
 			if(this.backdropEnabled === true || this.backdropEnabled === "true"){
 				this.onClick(false);
@@ -36,7 +26,7 @@ export class CuppaAlert extends CuppaComponent {
 
 	mounted(){ this.addChilds(); }
 
-	static get observedAttributes() { return ['title', 'message', 'accept-text', 'cancel-text', 'backdrop-enabled', 'input-text', 'placeholder', 'top-bar', 'close-image'] }
+	static get observedAttributes() { return ['title', 'message', 'accept-text', 'cancel-text', 'backdrop-enabled', 'input-text', 'placeholder', 'top-bar', 'close-image', 'theme'] }
 	attributeChangedCallback(attr, oldVal, newVal) {
 		if(oldVal === newVal) return;
 		if(newVal == 'false') newVal = false;
@@ -67,75 +57,213 @@ export class CuppaAlert extends CuppaComponent {
 	render(){
 		return html`
       <div class="cuppa-alert_blockade"></div>
-      <div class="cuppa-alert_modal" @click=${e=>e.stopPropagation()}>
-      ${!this.topBar && this.titleValue ? html`
-        <div class="cuppa-alert_title">${ html`${this.titleValue}` }</div>
+      <div class="cuppa-alert_modal" @click=${e => e.stopPropagation()}>
+        ${!this.topBar && this.titleValue ? html`
+        <div class="cuppa-alert_title">${html`${this.titleValue}`}</div>
 	    ` : this.topBar ?
-				html`
+          html`
           <div class="cuppa-alert_top-bar">
-            <div class="cuppa-alert_top-bar_left">${ html`${this.titleValue}` }</div>
+            <div class="cuppa-alert_top-bar_left">${html`${this.titleValue}`}</div>
             ${!this.closeImage ? '' : html`
-              <button @click=${()=>this.onClick(false)} class="cuppa-alert_close">
+              <button @click=${() => this.onClick(false)} class="cuppa-alert_close">
                 <img class="cuppa-alert_close_image" src="${this.closeImage}" width="14" height="14" />
               </button>
             `}
           </div>
 				`
-				: ``}
-        <div ref="contentWrap" class="cuppa-alert_message">${ html`${this.message}` }</div>
+          : ``}
+        <div ref="contentWrap" class="cuppa-alert_message">${html`${this.message}`}</div>
         ${this.inputText == undefined ? '' : html`
           <input class="cuppa-alert_input"
                  value="${this.inputText}"
-                 @input=${e=>this.inputText = e.currentTarget.value}
+                 @input=${e => this.inputText = e.currentTarget.value}
                  placeholder="${this.placeholder}"
           />
         `}
-        ${ this.cancelText || this.acceptText ? html`
+        ${this.cancelText || this.acceptText ? html`
           <div class="cuppa-alert_buttons">
-            ${ !this.cancelText ? '' : html`
-              <button  @click=${()=>this.onClick(false)} class="cuppa-alert_button cuppa-alert_button-cancel">
-                ${ html`${this.cancelText}` }
+            ${!this.cancelText ? '' : html`
+              <button  @click=${() => this.onClick(false)} class="cuppa-alert_button cuppa-alert_button-cancel">
+                ${html`${this.cancelText}`}
               </button>
             `}
-            ${ !this.acceptText ? '' : html`
-              <button @click=${()=>this.onClick(true)} class="cuppa-alert_button cuppa-alert_button-accept">
-                ${ html`${this.acceptText}` }
+            ${!this.acceptText ? '' : html`
+              <button @click=${() => this.onClick(true)} class="cuppa-alert_button cuppa-alert_button-accept">
+                ${html`${this.acceptText}`}
               </button>
             `}
           </div>
-        ` : '' }
+        ` : ''}
       </div>
       <style>
-        html, body{ overflow:hidden; touch-action: none; overscroll-behavior: none; -webkit-overflow-scrolling: auto; }
-        cuppa-alert, cuppa-alert *{ box-sizing:border-box; }
-        cuppa-alert{
-          animation-name: cuppa_alert_animation;
-          animation-duration: 0.4s;
-          position:fixed;
-          left:0; right:0; top:0; bottom:0;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          padding:20px;
-          overflow:auto;
-          background:rgba(0,0,0,0.5);
-          z-index:9999;
+        :root {
+          --cuppa-alert-backdrop-bg: rgba(0, 0, 0, 0.5);
+          --cuppa-alert-bg: #fff;
+          --cuppa-alert-color: #333;
+          --cuppa-alert-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+          --cuppa-alert-input-bg: #FFF;
+          --cuppa-alert-input-color: #333;
+          --cuppa-alert-input-border: 1px solid #CCC;
+          --cuppa-alert-button-bg: #0072f5;
+          --cuppa-alert-button-bg-hover: #1a62c1;
+          --cuppa-alert-button-color: #FFF;
+          --cuppa-alert-button-cancel-bg: #CCC;
+          --cuppa-alert-button-cancel-bg-hover: #A0A0A0;
+          --cuppa-alert-button-cancel-color: #333;
+	        --cuppa-alert-close-color: #ff4243;
+          --cuppa-alert-close-color-hover: #b01516;
         }
-        .cuppa-alert_modal{ margin:auto; position:relative; background: #FFF; width:100%; max-width:500px; padding:30px 40px; overflow: hidden; border-radius: 5px; box-shadow: 0px 3px 10px rgba(0,0,0,0.3); }
-        .cuppa-alert_top-bar{ display: flex; justify-content: space-between; align-items: center; padding: 5px 5px 5px 10px;  }
-        .cuppa-alert_top-bar_left{ font-size: 22px; font-weight: 700; padding: 5px; }
-        .cuppa-alert_close{ transition:0.3s; width: 32px; height: 32px; cursor: pointer; display: flex; border: none; border-radius: 3px; background-color: #ff4243; justify-content: center; align-items: center; color: #fff; }
-        .cuppa-alert_close:hover{ background-color: #b01516; }
-        .cuppa-alert_close_image{ filter: invert(100%) sepia(0%) saturate(7487%) hue-rotate(183deg) brightness(96%) contrast(102%); }
-        .cuppa-alert_title{ font-size: 18px; font-weight: 700; margin:0 0 10px; }
-        .cuppa-alert_input{ width:100%; height:32px; width: 100%; margin:10px 0 0; background: #FFF; color: #333; border-radius: 3px; border: 1px solid #CCC; box-shadow:inset 0 1px 1px rgba(0,0,0,.075); padding:0 10px;  font-weight: 500;  }
-        .cuppa-alert_buttons{ margin:10px 0 0; display:flex; justify-content:flex-end; }
-        .cuppa-alert_button{ transition: 0.3s background-color; border: none; cursor:pointer; background: #2F80EC; color:#FFF; height: 42px; padding:0 15px; margin:0 0 0 6px; border-radius: 3px; }
-        .cuppa-alert_button:hover{ background: #1a62c1; }
-        .cuppa-alert_button-cancel{ background:#CCC; color:#333;  }
-        .cuppa-alert_button-cancel:hover{ background:#A0A0A0; }
-        .cuppa-alert_modal cuppa-alert-content{ display: block; }
-        @keyframes cuppa_alert_animation { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+        cuppa-alert[theme=dark] {
+          color-scheme: dark;
+          --cuppa-alert-bg: #16181a;
+          --cuppa-alert-color: #fff;
+          --cuppa-alert-input-bg: #16181a;
+          --cuppa-alert-input-color: #fff;
+          --cuppa-alert-input-border: 1px solid #444;
+          --cuppa-alert-button-cancel-bg: transparent;
+          --cuppa-alert-button-cancel-bg-hover: #111113;
+          --cuppa-alert-button-cancel-color: #fff;
+        }
+
+        html, body {
+          overflow: hidden;
+          touch-action: none;
+          overscroll-behavior: none;
+          -webkit-overflow-scrolling: auto;
+        }
+
+        cuppa-alert, cuppa-alert * {
+          box-sizing: border-box;
+        }
+
+        cuppa-alert {
+          animation-name: cuppa_alert_animation;
+          animation-duration: 0.2s;
+          position: fixed;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 20px;
+          overflow: auto;
+          background: var(--cuppa-alert-backdrop-bg);
+          z-index: 9999;
+        }
+
+        .cuppa-alert_modal {
+          background: var(--cuppa-alert-bg);
+          color: var(--cuppa-alert-color);
+          box-shadow: var(--cuppa-alert-shadow);
+          margin: auto;
+          position: relative;
+          width: 100%;
+          max-width: 500px;
+          padding: 25px 35px;
+          overflow: hidden;
+          border-radius: 5px;
+        }
+
+        .cuppa-alert_top-bar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 5px 5px 5px 10px;
+        }
+
+        .cuppa-alert_top-bar_left {
+          font-size: 18px;
+          font-weight: 700;
+          padding: 5px;
+        }
+
+        .cuppa-alert_close {
+          transition: 0.3s;
+          width: 32px;
+          height: 32px;
+          cursor: pointer;
+          display: flex;
+          border: none;
+          border-radius: 3px;
+          background-color: var(--cuppa-alert-close-color);
+          justify-content: center;
+          align-items: center;
+        }
+
+        .cuppa-alert_close:hover {
+          background-color: var(--cuppa-alert-close-color-hover);
+        }
+
+        .cuppa-alert_close_image {
+          filter: invert(100%) sepia(0%) saturate(7487%) hue-rotate(183deg) brightness(96%) contrast(102%);
+        }
+
+        .cuppa-alert_title {
+          font-size: 18px;
+          font-weight: 700;
+          margin: 0 0 10px;
+        }
+
+        .cuppa-alert_input {
+          background: var(--cuppa-alert-input-bg);
+          color: var(--cuppa-alert-input-color);
+          border: var(--cuppa-alert-input-border);
+          width: 100%;
+          height: 32px;
+          width: 100%;
+          margin: 10px 0 0;
+          border-radius: 3px;
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+          padding: 0 10px;
+          font-weight: 500;
+        }
+
+        .cuppa-alert_buttons {
+          margin: 15px 0 0;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .cuppa-alert_button {
+          background: var(--cuppa-alert-button-bg);
+          color: var(--cuppa-alert-button-color);
+          transition: 0.3s background-color;
+          border: none;
+          cursor: pointer;
+          height: 36px;
+          padding: 0 15px;
+          margin: 0 0 0 6px;
+          border-radius: 3px;
+        }
+
+        .cuppa-alert_button:hover {
+          background: var(--cuppa-alert-button-bg-hover);
+        }
+
+        .cuppa-alert_button-cancel {
+          background: var(--cuppa-alert-button-cancel-bg);
+          color: var(--cuppa-alert-button-cancel-color);
+        }
+
+        .cuppa-alert_button-cancel:hover {
+          background: var(--cuppa-alert-button-cancel-bg-hover);
+        }
+
+        .cuppa-alert_modal cuppa-alert-content {
+          display: block;
+        }
+
+        @keyframes cuppa_alert_animation {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
       </style>
 		`
 	}

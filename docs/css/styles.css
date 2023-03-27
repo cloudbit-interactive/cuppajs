@@ -74,7 +74,7 @@ hr, .separator-1, .separator-h{ margin:3rem 0; border: none; height: 0; border:n
 .separator-v{ width:0; border-right: 1px solid #aaa; height: 3rem; margin:0 1rem; }
 .disabled{ opacity: 0.3 !important; pointer-events: none; }
 .bold{ font-weight: bold; }
-.button-1{ border: none; background: #268bce; color:#FFF; padding:0.7rem 1rem; margin:0 0.2rem; border-radius: 0.3rem; cursor: pointer; }
+.button-1{ border: none; background: #0072f5; color:#FFF; padding:0.7rem 1rem; margin:0 0.2rem; border-radius: 0.3rem; cursor: pointer; }
 .button-alpha{ opacity: 1; cursor: pointer; text-decoration: none; transition: 0.3s opacity; cursor: pointer; }
 .button-alpha:hover{ opacity: 0.7; }
 .button-icon{ cursor: pointer; transition: 0.3s background-color; background: rgba(0,0,0,0); font-size: 2.2rem; border: 0; width: var(--nav-top-height); height: var(--nav-top-height); }

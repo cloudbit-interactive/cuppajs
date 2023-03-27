@@ -1,50 +1,123 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.min.js";
 import {Utils} from "../../../controllers/Utils.js";
+import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import { CuppaTheme } from "../../../../cuppa/cuppa.theme.min.js";
 
 export class CuppaAlertDoc extends CuppaComponent {
 	alertResult = this.observable("alertResult");
 
 	mounted(){
-		Utils.loadPrism();  
+		Utils.loadPrism();
 	}
 
 	showAlert(){
-    let element = document.createElement('cuppa-alert');
-      element.title = 'Title';
-      element.message = `This is a text message`;
-      element.cancelText = 'Cancel';
-      element.inputText = '';
-      element.placeholder = 'Type your message here...';
-      element.callback = (res)=>{
-        this.alertResult = res;
-      }
-    document.body.append(element)
+    let alert = document.createElement('cuppa-alert');
+			alert.title = 'Message';
+			alert.message = `Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.`;
+			alert.cancelText = 'Cancel';
+			alert.inputText = '';
+			alert.placeholder = 'Type your message here...';
+			alert.setAttribute('theme', CuppaTheme.getTheme().replace('-theme', ''));
+			alert.callback = (res)=>{
+	        this.alertResult = res;
+	      }
+    document.body.append(alert)
 	}
 
 	showAlertPersonalized(){
-		let alert = new CuppaAlert({
-			message: html`<iframe src="media/docs/pdf.pdf"></iframe>`,
-			backdropEnabled:false,
-			acceptText:"",
-			title:"PDF Preview",
-			topBar:true,
-			classes:["modal-1"],
-		});
-		document.body.append(alert);
+		let alert = document.createElement('cuppa-alert');
+			alert.message = html`<iframe src="media/docs/pdf.pdf"></iframe>`;
+			alert.acceptText = '';
+			alert.title = 'PDF Preview';
+			alert.topBar = true;
+			alert.classList.add('modal-1');
+			alert.setAttribute('theme', CuppaTheme.getTheme().replace('-theme', ''));
+		document.body.append(alert)
 	}
 
 	render(){
+    let theme = CuppaTheme.getTheme();
 		return html`
-      <div>
+      <section>
         <h1 class="title-2">Cuppa Alert</h1>
         <div class="m-t-20" style="display: flex; align-items: center;">
           <button class="button-1" @click="${this.showAlert}" >Show Alert</button>
           <div class="separator-v"></div>
           <div><strong>Result:</strong> ${JSON.stringify(this.alertResult)}</div>
         </div>
-
-        <hr class="separator-1" />
+        <cuppa-preview-code
+					class="box-shadow-1 m-t-10"
+					height="33rem"
+					preview-height="25rem"
+					mode=${AceModes.html}
+					remove-tabs=${6}
+          preview=${true}
+          expandable=${false}
+          preview-css="${Utils.getPreviewCSS()}"
+				>
+          <code>
+            <!--[        
+            <script src="http://127.0.0.1:5500/docs/src/cuppa/components/cuppa.alert.min.js" type="module"></script>
+						<cuppa-alert 
+							title="Message" 
+							message="What is your name?" 
+							input-text="" 
+							cancel-text="Cancel" 
+							placeholder="Type your name..."
+							theme="light"
+							onclose="console.log(this.value, this.inputText)" 
+						>
+						</cuppa-alert>
+            ]-->
+          </code>
+        </cuppa-preview-code>
+      </section>
+      
+      <hr />
+      
+      <section>
+        <h2 class="title-3">Show Personalized Alert</h2>
+        <button class="button-1 m-t-20" @click="${this.showAlertPersonalized}" >Preview PDF</button>
+	      <cuppa-preview-code
+					class="box-shadow-1 m-t-10"
+					height="33rem"
+					preview-height="25rem"
+					mode=${AceModes.html}
+					remove-tabs=${6}
+          preview=${false}
+          expandable=${true}
+          preview-css="${Utils.getPreviewCSS()}"
+	      >
+		      <code>
+            <!--[
+						<script src="http://127.0.0.1:5500/docs/src/cuppa/components/cuppa.alert.min.js" type="module"></script>
+						<cuppa-alert
+							title="PDF Preview"
+							accept-text=""
+							class="modal-1"
+							top-bar="true"
+						>
+							<cuppa-alert-content>
+								<iframe src="media/docs/pdf.pdf"></iframe>
+							</cuppa-alert-content>
+						</cuppa-alert>
+						
+						<style>
+							.modal-1{ padding: calc(env(safe-area-inset-top) + 2rem) 2rem 2rem; }
+							.modal-1 .cuppa-alert_modal{ max-width: none; padding: 0rem; height: 100%; display: flex; flex-direction: column; }
+							.modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
+							.modal-1 cuppa-alert-content{ height:100%; }
+							.modal-1 .cuppa-alert_message iframe{ width:100%; height:100%; border:0; }
+						</style>
+            ]-->
+		      </code>
+	      </cuppa-preview-code>
+      </section>
+      
+      <hr />
+      
+      <section>
         <h2 class="title-3 mb-10">Properties</h2>
         <div class="o-auto b-radius-10" >
           <table class="table-1 min-width" >
@@ -183,71 +256,12 @@ export class CuppaAlertDoc extends CuppaComponent {
             </tbody>
           </table>
         </div>
-
-        <hr class="separator-1" />
-        <h2 class="title-3 mb-10">Code Example</h2>
-        ${Utils.prismCode({removeTabsCount:5, code:`
-<!-- Import component -->
-<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
-
-<!-- Use with HTML Tag -->
-<cuppa-alert 
-  title="Message" 
-  message="What is your name?" 
-  input-text="" 
-  cancel-text="Cancel" 
-  onclose="console.log(this.value, this.inputText)" >
-</cuppa-alert>
-
-<!-- Use with JS -->
-<script type="module">
-  let alert = new CuppaAlert({
-    title: 'Message',
-    message: 'My message',
-    callback:(res)=>{ console.log(res); }
-  });
-  document.body.append(alert);
-</script>
-        `})}
-
-        <div class="message " style="display: flex; align-items: center; margin:1rem 0 0;">
-          <button class="button-1" @click="${this.showAlertPersonalized}" >Show Personalized Alert</button>
-        </div>
-        ${Utils.prismCode({removeTabsCount:5, code:`
-                    <style>
-                        .modal-1{ padding: calc(4rem + env(safe-area-inset-top)) 4rem 4rem; }
-                        .modal-1 .cuppa-alert_modal{ max-width: none; padding: 0rem; height: 100%; display: flex; flex-direction: column;}
-                        .modal-1 .cuppa-alert_top-bar{ color: var(--nav-main-bg); }
-                        .modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
-                        .modal-1 iframe{ width:100%; height:100%; border:0; }
-                        @media (max-width:500px){
-                            .modal-1{ padding: calc(env(safe-area-inset-top) + 1rem) 1rem 1rem; }
-                        }
-                    </style>
-                    <script>
-                        showAlertPersonalized(){
-                            let alert = new CuppaAlert({
-                                message: html\`<iframe src="media/docs/pdf.pdf"></iframe>\`,
-                                backdropEnabled:false,
-                                acceptText:"",
-                                title:"PDF Preview",
-                                topBar:true,
-                                classes:["modal-1"],
-                            });
-                            document.body.append(alert);
-                        }
-                    </script>
-                `})}
-      </div>
+      </section>
       <style>
-        .modal-1{ padding: calc(4rem + env(safe-area-inset-top)) 4rem calc(env(safe-area-inset-bottom) + 4rem); }
+        .modal-1{ padding: calc(env(safe-area-inset-top) + 2rem) 2rem calc(env(safe-area-inset-bottom) + 2rem); }
         .modal-1 .cuppa-alert_modal{ max-width: none; padding: 0rem; height: 100%; display: flex; flex-direction: column;}
-        .modal-1 .cuppa-alert_top-bar{ color: var(--nav-main-bg); }
-        .modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
+       	.modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
         .modal-1 iframe{ width:100%; height:100%; border:0; }
-        @media (max-width:500px){
-          .modal-1{ padding: calc(env(safe-area-inset-top) + 1rem) 1rem calc(env(safe-area-inset-bottom) + 1rem); }
-        }
       </style>
 		`
 	}
