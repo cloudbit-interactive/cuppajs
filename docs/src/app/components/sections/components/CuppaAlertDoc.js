@@ -7,10 +7,6 @@ import { CuppaTheme } from "../../../../cuppa/cuppa.theme.min.js";
 export class CuppaAlertDoc extends CuppaComponent {
 	alertResult = this.observable("alertResult");
 
-	mounted(){
-		Utils.loadPrism();
-	}
-
 	showAlert(){
     let alert = document.createElement('cuppa-alert');
 			alert.title = 'Message';
