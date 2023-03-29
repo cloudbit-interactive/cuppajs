@@ -1,6 +1,7 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaCollapsible} from "../../../../cuppa/components/cuppa.collapsible.min.js";
 import {Utils} from "../../../controllers/Utils.js";
+import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
 
 export class CuppaCollapsibleDoc extends CuppaComponent {
 	collapsibleStatus = this.observable("collapsibleStatus", {});
@@ -29,25 +30,28 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
         cuppa-collapsible:first-of-type{ border-radius: 0.5rem 0.5rem 0 0 !important; }
         cuppa-collapsible:last-of-type{ border-radius: 0 0 0.5rem 0.5rem !important; }
         cuppa-collapsible .cuppa-collapsible_header{ background:var(--color-blue-1) !important; color:var(--color-white); }
-        cuppa-collapsible .cuppa-collapsible_content{ background: #fff !important; }
+        cuppa-collapsible:last-of-type .cuppa-collapsible_header{ border: none; }
+        cuppa-collapsible .cuppa-collapsible_content{ background: #333 !important; }
         cuppa-collapsible .cuppa-collapsible_arrow{ filter: invert(90%) sepia(92%) saturate(33%) hue-rotate(200deg) brightness(107%) contrast(100%); }
         @media (max-width:1100px){
           cuppa-collapsible-doc .message{ flex-direction: column-reverse; }
         }
       </style>
-      <div>
+      <section>
         <h1 class="title-2">Cuppa Collapsible</h1>
-        <div class="message mt-10" style="display: flex; justify-content: space-between; gap:1rem">
-          <div class="left" style="max-width: 400px;">
-            <cuppa-collapsible header="Collapsible Title 1"
-                               content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                               @change=${ this.onChange }
-                               group="collapsible-group-1"
-                               name="collapsible-1"
+        <div class="m-t-20 flex j-between" style="gap:2rem">
+          <div class="left m-w-400">
+            <cuppa-collapsible 
+	            header="Collapsible Title 1"
+	            content="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+							@change=${ this.onChange }
+							group="collapsible-group-1"
+							name="collapsible-1"
             ></cuppa-collapsible>
-            <cuppa-collapsible @change=${ this.onChange }
-                               group="collapsible-group-1"
-                               name="collapsible-2"
+            <cuppa-collapsible 
+	            @change=${ this.onChange }
+             	group="collapsible-group-1"
+             	name="collapsible-2"
             >
               <cuppa-collapsible-header>Collapsible Title 2</cuppa-collapsible-header>
               <cuppa-collapsible-content>
@@ -55,9 +59,10 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
               </cuppa-collapsible-content>
             </cuppa-collapsible>
-            <cuppa-collapsible @change=${ this.onChange }
-                               group="collapsible-group-1"
-                               name="collapsible-3"
+            <cuppa-collapsible 
+	            @change=${ this.onChange }
+							group="collapsible-group-1"
+							name="collapsible-3"
             >
               <cuppa-collapsible-header>Collapsible Title 3</cuppa-collapsible-header>
               <cuppa-collapsible-content>
@@ -70,10 +75,41 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
             <textarea ref="textarea" class="code" >${JSON.stringify(this.collapsibleStatus, null, 2)}</textarea>
           </div>
         </div>
+      </section>
 
-        <hr class="separator-1" />
-        <h2 class="title-3 mb-10">Properties</h2>
-        <div style="overflow: auto;">
+      <hr />
+      
+      <section>
+        <h2 class="title-3 mb-10">Code Example</h2>
+	      <cuppa-preview-code
+					class="box-shadow-1 m-t-20"
+					height="23rem"
+					preview-height="20rem"
+					mode=${AceModes.html}
+					remove-tabs=${6}
+          preview=${true}
+          expandable=${false}
+          preview-css="${Utils.getPreviewCSS()}"
+	      >
+		      <code>
+          	<!--[
+          	<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.collapsible.min.js" type="module"></script>
+						<cuppa-collapsible onchange="console.log(this)">
+							<cuppa-collapsible-header>Collapsible Title</cuppa-collapsible-header>
+								<cuppa-collapsible-content>
+									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+								</cuppa-collapsible-content>
+						</cuppa-collapsible>
+          	]-->
+		      </code>
+	      </cuppa-preview-code>
+      </section>
+      
+      <hr />
+      
+      <section>
+        <h2 class="title-3">Properties</h2>
+        <div class="m-t-20 o-auto b-radius-10" >
           <table class="table-1 min-width" >
             <thead>
             <tr>
@@ -236,22 +272,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
             </tbody>
           </table>
         </div>
-
-        <hr class="separator-1" />
-        <h2 class="title-3 mb-10">Code Example</h2>
-        ${Utils.prismCode({removeTabsCount:5, code:`
-                    <!-- Import component -->
-                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.collapsible.min.js" type="module"></script>
-                    
-                    <!-- Use with HTML Tag -->
-                    <cuppa-collapsible onchange="console.log(this)">
-                        <cuppa-collapsible-header>Collapsible Title</cuppa-collapsible-header>
-                        <cuppa-collapsible-content>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                       </cuppa-collapsible-content>
-                    </cuppa-collapsible>
-                `})}
-      </div>
+      </section>
 		`
 	}
 }

@@ -22,7 +22,17 @@ export class CuppaStorage{
 		}else{
 			CuppaStorage.data[name] = data;
 		}
+		if(!silence) CuppaStorage.executeCallbacks({name, data});
+	}
 
+	static setDataSync({name = 'default', data = null, store = '', silence = false}){
+		if(String(store).toUpperCase() === CuppaStorage.LOCAL){
+			localStorage.setItem(name, JSON.stringify(data));
+		}else if(String(store).toUpperCase() === CuppaStorage.SESSION){
+			sessionStorage.setItem(name, JSON.stringify(data));
+		}else{
+			CuppaStorage.data[name] = data;
+		}
 		if(!silence) CuppaStorage.executeCallbacks({name, data});
 	}
 
