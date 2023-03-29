@@ -6,10 +6,6 @@ import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-p
 export class CuppaCollapsibleDoc extends CuppaComponent {
 	collapsibleStatus = this.observable("collapsibleStatus", {});
 
-	mounted(){
-		Utils.loadPrism();
-	}
-
 	onChange(e){
 		let data = e.detail;
 		this.collapsibleStatus[data.name] = data.status;
@@ -31,7 +27,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
         cuppa-collapsible:last-of-type{ border-radius: 0 0 0.5rem 0.5rem !important; }
         cuppa-collapsible .cuppa-collapsible_header{ background:var(--color-blue-1) !important; color:var(--color-white); }
         cuppa-collapsible:last-of-type .cuppa-collapsible_header{ border: none; }
-        cuppa-collapsible .cuppa-collapsible_content{ background: #333 !important; }
+        cuppa-collapsible .cuppa-collapsible_content{ background: rgba(0,0,0,0.1) !important; }
         cuppa-collapsible .cuppa-collapsible_arrow{ filter: invert(90%) sepia(92%) saturate(33%) hue-rotate(200deg) brightness(107%) contrast(100%); }
         @media (max-width:1100px){
           cuppa-collapsible-doc .message{ flex-direction: column-reverse; }
