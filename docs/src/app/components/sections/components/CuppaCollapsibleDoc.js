@@ -6,10 +6,6 @@ import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-p
 export class CuppaCollapsibleDoc extends CuppaComponent {
 	collapsibleStatus = this.observable("collapsibleStatus", {});
 
-	mounted(){
-		Utils.loadPrism();
-	}
-
 	onChange(e){
 		let data = e.detail;
 		this.collapsibleStatus[data.name] = data.status;
