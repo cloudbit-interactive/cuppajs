@@ -1,12 +1,11 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import {CuppaDrawer} from "../../../../cuppa/components/cuppa.drawer.min.js";
+import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
+import {Storages} from "../../../controllers/Storages.js";
 
 export class CuppaDrawerDoc extends CuppaComponent {
-
-	mounted(){
-		Utils.loadPrism();
-	}
 
 	openNavBar(){
 		this.refs.drawer.open();
@@ -15,51 +14,94 @@ export class CuppaDrawerDoc extends CuppaComponent {
 	render(){
 		let data = []; for(let i = 1; i <= 40; i++){ data.push(i); }
 		return html`
-      <div>
-        <h1 class="title-2 mb-10">Cuppa Drawer</h1>
-        <div class="message" style="display: flex; align-items: center;">
+      <get-storage name=${Storages.theme.name} @update=${()=>this.forceRender()}></get-storage>
+      <section>
+        <h1 class="title-2">Cuppa Drawer</h1>
+        <div class="flex a-center j-start m-t-20" style="display: flex; align-items: center;">
           <button class="button-1" @click="${this.openNavBar}" >Open NavBar</button>
-          <div class="separator-v"></div>
         </div>
+        <cuppa-drawer 
+	        ref="drawer" 
+	        disable-content=".nav-top, .nav-main, .main-section"  
+	        disable-scroll=".scroll-1"
+	        theme="${CuppaTheme.getTheme()}"
+        >
+          <cuppa-drawer-content style="display:flex; height: 100%; flex-direction: column;">
+            <h2 class="title-2" style="padding:calc(env(safe-area-inset-top) + 2rem) 1rem 1rem;">Menu</h2>
+            <div class="scroll-1" style="overflow: auto; padding: 0 1rem 1rem; flex:1;">
+              <a class="button-1"
+                 style="display: block; width: 100%; margin:2px 0; text-align: center;"
+                 @click="${()=>{
+                   alert(`Clicked item`);
+                 }}"
+              >Item a Tag</a>
+              <a 
+	              class="button-1"
+								style="display: block; width: 100%; margin:2px 0; text-align: center; text-decoration: none;"
+								href="https://www.google.com"
+								target="_blank"
+              >
+                <span style="pointer-events: none;">Item external link</span>
+              </a>
+              ${ data.map(item=>{
+                return html`
+                  <button 
+	                  class="button-1"
+	                  style="display: block; width: 100%; margin:2px 0;"
+	                  @click="${()=>{
+                      alert(`Clicked item ${item}`);
+                    }}"
+                  >
+                    Item ${item}
+                  </button>
+                `
+              }) }
+            </div>
+          </cuppa-drawer-content>
+        </cuppa-drawer>
+      </section>
+      
+      <hr />
+      
+      <section>
+        <h2 class="title-3 mb-10">Code Example</h2>
+       	<cuppa-preview-code
+					class="box-shadow-1 m-t-20"
+					height="42rem"
+					preview-height="28rem"
+					mode=${AceModes.html}
+					remove-tabs=${7}
+          preview=${true}
+          expandable=${false}
+          preview-css="${Utils.getPreviewCSS()}"
+	      >
+           <code>
+							<!--[
+							<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.drawer.min.js" type="module"></script>
+							<cuppa-drawer 
+								status="open" 
+								position="right" 
+								disable-content=".nav-top, .nav-main, .main-section" disable-scroll=".scroll-1, body" 
+								theme="dark"
+							>
+								<cuppa-drawer-content style="display:flex; height: 100%; flex-direction: column; padding:10px;">
+									<h1 style="margin:0">Menu</h1>
+									<ul>
+										<li>Item 1</li>
+										<li>Item 2</li>
+									</ul>
+								</cuppa-drawer-content>
+							</cuppa-drawer>
+							]-->
+           </code>
+       	</cuppa-preview-code>
+      </section>
 
-        <div>
-          <cuppa-drawer ref="drawer" disable-content=".nav-top, .nav-main, .main-section"  disable-scroll=".scroll-1">
-            <cuppa-drawer-content style="display:flex; height: 100%; flex-direction: column;">
-              <h2 class="title-2" style="padding:1rem; padding-top: calc(env(safe-area-inset-top) + 1rem);">Menu</h2>
-              <div class="scroll-1" style="overflow: auto; padding: 1rem; flex:1;">
-                <a class="button-1"
-                   style="display: block; width: 100%; margin:2px 0; text-align: center;"
-                   @click="${()=>{
-                     alert(`Clicked item`);
-                   }}"
-                >Item a Tag</a>
-                <a class="button-1"
-                   style="display: block; width: 100%; margin:2px 0; text-align: center; text-decoration: none;"
-                   href="https://www.google.com"
-                   target="_blank"
-                >
-                  <span style="pointer-events: none;">Item external link</span>
-                </a>
-                ${ data.map(item=>{
-                  return html`
-                    <button class="button-1"
-                            style="display: block; width: 100%; margin:2px 0;"
-                            @click="${()=>{
-                              alert(`Clicked item ${item}`);
-                            }}"
-                    >
-                      Item ${item}
-                    </button>
-                  `
-                }) }
-              </div>
-            </cuppa-drawer-content>
-            </cuppa-navbar>
-        </div>
-
-        <hr class="separator-1" />
-        <h2 class="title-3 mb-10">Properties</h2>
-        <div style="overflow: auto;">
+      <hr />
+      
+      <section>
+        <h2 class="title-3">Properties</h2>
+        <div class="o-auto b-radius-10 m-t-20" >
           <table class="table-1 min-width" >
             <thead>
             <tr>
@@ -225,25 +267,7 @@ export class CuppaDrawerDoc extends CuppaComponent {
             </tbody>
           </table>
         </div>
-
-        <hr class="separator-1" />
-        <h2 class="title-3 mb-10">Code Example</h2>
-        ${Utils.prismCode({removeTabsCount:5, code:`
-                    <!-- Import component -->
-                    <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.drawer.min.js" type="module"></script>
-                    
-                    <!-- Use with HTML Tag -->
-                    <cuppa-drawer status="open" position="right" disable-content=".nav-top, .nav-main, .main-section" disable-scroll=".scroll-1, body" >
-                        <cuppa-drawer-content style="display:flex; height: 100%; flex-direction: column; padding:10px;">
-                            <h1 style="margin:0">Menu</h1>
-                            <ul>
-                                <li>Item 1</li>
-                                <li>Item 2</li>
-                            </ul>
-                        </cuppa-drawer-content>
-                    </cuppa-drawer>
-                `})}
-      </div>
+      </section>
 		`
 	}
 }

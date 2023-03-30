@@ -42,6 +42,12 @@ export class CuppaAlertDoc extends CuppaComponent {
           <div class="separator-v"></div>
           <div><strong>Result:</strong> ${JSON.stringify(this.alertResult)}</div>
         </div>
+      </section>
+      
+      <hr />
+      
+      <section>
+        <h2 class="title-3 mb-10">Code Example</h2>
         <cuppa-preview-code
 					class="box-shadow-1 m-t-20"
 					height="33rem"

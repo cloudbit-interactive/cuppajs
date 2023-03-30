@@ -34,6 +34,7 @@ export class CuppaDrawer extends CuppaComponent {
 	internalStatus;
 	callback = null;
 	updateCallback = null;
+	theme = ""
 	swipeConfig = {
 		velocityThreshold: 2,
 		directionalOffsetThreshold: 80,
@@ -45,7 +46,7 @@ export class CuppaDrawer extends CuppaComponent {
 	static get observedAttributes() {
 		return ['status', 'width', 'drag-enabled',
 			'backdrop-enabled', 'position', 'disable-content', 'disable-scroll',
-			'ease-open', 'ease-close', 'duration-open', 'duration-close']
+			'ease-open', 'ease-close', 'duration-open', 'duration-close', 'theme']
 	}
 
 	attributeChangedCallback(attr, oldVal, newVal) {
@@ -342,15 +343,33 @@ export class CuppaDrawer extends CuppaComponent {
       <div ref="blockade" class="cuppa-drawer_blockade" @click=${(this.backdropEnabled) ? ()=>this.close() : null} ></div>
       <div ref="contentWrap" class="drawer_content_wrap"></div>
       <style>
+        :root {
+	        --cuppa-drawer-bg:#FFF;
+          --cuppa-drawer-color:#333;
+        }
+        cuppa-drawer[theme=dark] {
+          color-scheme: dark;
+          --cuppa-drawer-bg:#16181a;
+          --cuppa-drawer-color:#FFF;
+        }
         cuppa-drawer, cuppa-drawer *{ box-sizing: border-box; }
         cuppa-drawer{ position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 100; overflow: hidden; -webkit-user-select: none; user-select: none; }
         cuppa-drawer *{ -webkit-user-select: none; user-select: none; }
         cuppa-drawer .cuppa-drawer_blockade{ background: rgba(0,0,0,0.7); position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
-        cuppa-drawer .drawer_content_wrap{ position: absolute; overflow: auto; top: 0; bottom: 0; width: ${this.width}px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+        cuppa-drawer .drawer_content_wrap{
+	        position: absolute; 
+	        overflow: auto;
+	        top: 0; 
+	        bottom: 0; 
+	        width: ${this.width}px; 
+	        background: var(--cuppa-drawer-bg); 
+	        color: var(--cuppa-drawer-color);
+	        box-shadow: 0 0 10px rgba(0,0,0,0.2); 
+        }
         cuppa-drawer-content{ display: block; }
         ${status === CuppaDrawer.CLOSE ? `` : html`
-                    html, body{ overflow:hidden; touch-action: none; overscroll-behavior: none; -webkit-overflow-scrolling: auto; }
-                `}
+          html, body{ overflow:hidden; touch-action: none; overscroll-behavior: none; -webkit-overflow-scrolling: auto; }
+        `}
       </style>
 		`
 	}
