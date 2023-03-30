@@ -65,28 +65,27 @@ export class Performance extends CuppaComponent {
         return  html`
             <div>
                 <h1 class="title-2 mb-20">Performance Test</h1>
-                <div>
-                    <span class="tag-1 bold">Add Values</span>
-                    <label for="quantity" style="margin:0 0 0 0.5rem">Quantity: </label>
+                <div class="flex j-start a-center" style="gap:1rem">
+                    <span class="bold">Add Values</span>
                     <input class="input-1" value=${this.quantity} name="quantity" @change="${e=>this.quantity= parseInt(e.target.value) || 1}" />
-                    <label for="position" style="margin:0 0 0 10px">Position: </label>
+                    <label for="position" >Position: </label>
                     <select class="input-1" ref="txtPosition" name="position" @change=${e=>this.position=e.target.value}>
                         ${Object.keys(this.positions).map(position=>{
                             return html`<option value=${position} ?selected=${ position === this.position} >${position}</option>`
                         })}
                     </select>
                 </div>
-                <div style="margin:10px 0; display:flex;">
+                <div class="m-y-10 flex j-start" style="gap:0.5rem;" >
                     <button class="button-1" @click="${this.onAdd}">Add</button>
                     <button class="button-1" @click="${this.onRemoveAll}">Remove All</button>
                     <button class="button-1" @click="${this.onRenameAll}">Rename All</button>
                     <button class="button-1" @click=${()=>this.forceRender()}>Force Update</button>
                 </div>
-                <hr class="separator-1" />
+                <hr />
                 <div class="title-3"><strong>Total:</strong> ${this.list.length}</div>
-                <ul style="margin:0; padding:0;">
+                <ul class="m-0 p-0" >
                     ${ repeat(this.list, item=>item.id, item=>html`
-                        <li style="display:flex; align-items:center;">
+                        <li class="flex j-start a-center" style="gap:0.5rem;">
                             <span style="margin:0 1rem 0 0; min-width:20rem"><strong>${item.id}:</strong> ${item.name}</span>
                             <button class="button-1" @click="${()=>this.onRemove(item.id)}">Remove</button>
                             <button class="button-1" @click="${()=>this.onRename(item.id)}">Rename</button>
