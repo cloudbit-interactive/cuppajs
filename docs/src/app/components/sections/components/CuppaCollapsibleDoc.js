@@ -2,6 +2,8 @@ import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaCollapsible} from "../../../../cuppa/components/cuppa.collapsible.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
+import {Storages} from "../../../controllers/Storages.js";
 
 export class CuppaCollapsibleDoc extends CuppaComponent {
 	collapsibleStatus = this.observable("collapsibleStatus", {});
@@ -21,17 +23,15 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 
 	render(){
 		return html`
+      <get-storage name=${Storages.theme.name} @update=${()=>this.forceRender()}></get-storage>
       <style>
         cuppa-collapsible{ border-radius: 0 !important; }
         cuppa-collapsible:first-of-type{ border-radius: 0.5rem 0.5rem 0 0 !important; }
         cuppa-collapsible:last-of-type{ border-radius: 0 0 0.5rem 0.5rem !important; }
-        cuppa-collapsible .cuppa-collapsible_header{ background:var(--color-blue-1) !important; color:var(--color-white); }
-        cuppa-collapsible:last-of-type .cuppa-collapsible_header{ border: none; }
-        cuppa-collapsible .cuppa-collapsible_content{ background: rgba(0,0,0,0.1) !important; }
+        /*
         cuppa-collapsible .cuppa-collapsible_arrow{ filter: invert(90%) sepia(92%) saturate(33%) hue-rotate(200deg) brightness(107%) contrast(100%); }
-        @media (max-width:1100px){
-          cuppa-collapsible-doc .message{ flex-direction: column-reverse; }
-        }
+        
+         */
       </style>
       <section>
         <h1 class="title-2">Cuppa Collapsible</h1>
@@ -43,11 +43,13 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 							@change=${ this.onChange }
 							group="collapsible-group-1"
 							name="collapsible-1"
+	            theme="${CuppaTheme.getTheme()}"
             ></cuppa-collapsible>
             <cuppa-collapsible 
 	            @change=${ this.onChange }
              	group="collapsible-group-1"
              	name="collapsible-2"
+              theme="${CuppaTheme.getTheme()}"
             >
               <cuppa-collapsible-header>Collapsible Title 2</cuppa-collapsible-header>
               <cuppa-collapsible-content>
@@ -59,6 +61,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 	            @change=${ this.onChange }
 							group="collapsible-group-1"
 							name="collapsible-3"
+              theme="${CuppaTheme.getTheme()}"
             >
               <cuppa-collapsible-header>Collapsible Title 3</cuppa-collapsible-header>
               <cuppa-collapsible-content>
@@ -79,7 +82,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
         <h2 class="title-3 mb-10">Code Example</h2>
 	      <cuppa-preview-code
 					class="box-shadow-1 m-t-20"
-					height="23rem"
+					height="30rem"
 					preview-height="20rem"
 					mode=${AceModes.html}
 					remove-tabs=${6}
@@ -90,7 +93,10 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 		      <code>
           	<!--[
           	<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.collapsible.min.js" type="module"></script>
-						<cuppa-collapsible onchange="console.log(this)">
+						<cuppa-collapsible
+						 onchange="console.log(this)" 
+						 theme="dark"
+						>
 							<cuppa-collapsible-header>Collapsible Title</cuppa-collapsible-header>
 								<cuppa-collapsible-content>
 									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.

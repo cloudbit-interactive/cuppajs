@@ -31,7 +31,10 @@ export class CuppaAlert extends CuppaComponent {
 		if(oldVal === newVal) return;
 		if(newVal == 'false') newVal = false;
 		if(newVal == 'true') newVal = true;
-		if(attr === "title") attr = "title value";
+		if(attr === "title"){
+			attr = "title value";
+			this.removeAttribute('title');
+		}
 		this[camelize(attr)] = newVal;
 	}
 
@@ -61,7 +64,7 @@ export class CuppaAlert extends CuppaComponent {
         ${!this.topBar && this.titleValue ? html`
         <div class="cuppa-alert_title">${html`${this.titleValue}`}</div>
 	    ` : this.topBar ?
-          html`
+			html`
           <div class="cuppa-alert_top-bar">
             <div class="cuppa-alert_top-bar_left">${html`${this.titleValue}`}</div>
             ${!this.closeImage ? '' : html`
@@ -71,7 +74,7 @@ export class CuppaAlert extends CuppaComponent {
             `}
           </div>
 				`
-          : ``}
+			: ``}
         <div ref="contentWrap" class="cuppa-alert_message">${html`${this.message}`}</div>
         ${this.inputText == undefined ? '' : html`
           <input class="cuppa-alert_input"

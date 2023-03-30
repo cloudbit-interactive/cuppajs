@@ -52,8 +52,8 @@ export class Utils{
 
 	static getPreviewCSS(){
 		let theme = CuppaTheme.getTheme();
-		if(theme === 'light-theme') return Constants.PREVIEW_CSS;
-		else if(theme === 'dark-theme') return Constants.PREVIEW_CSS;
+		if(theme === 'light') return Constants.PREVIEW_CSS;
+		else if(theme === 'dark') return Constants.PREVIEW_CSS;
 	}
 
 }

@@ -14,7 +14,7 @@ export class CuppaAlertDoc extends CuppaComponent {
 			alert.cancelText = 'Cancel';
 			alert.inputText = '';
 			alert.placeholder = 'Type your message here...';
-			alert.setAttribute('theme', CuppaTheme.getTheme().replace('-theme', ''));
+			alert.setAttribute('theme', CuppaTheme.getTheme());
 			alert.callback = (res)=>{
 	        this.alertResult = res;
 	      }
@@ -28,7 +28,7 @@ export class CuppaAlertDoc extends CuppaComponent {
 			alert.title = 'PDF Preview';
 			alert.topBar = true;
 			alert.classList.add('modal-1');
-			alert.setAttribute('theme', CuppaTheme.getTheme().replace('-theme', ''));
+			alert.setAttribute('theme', CuppaTheme.getTheme());
 		document.body.append(alert)
 	}
 
