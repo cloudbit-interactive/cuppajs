@@ -123,7 +123,6 @@ export class CuppaCollapsible extends CuppaComponent{
           --cuppa-collapsible_content-bg:#16181a;
           --cuppa-collapsible_content-color:#fff;
        		--cuppa-collapsible-arrow-color: invert(100%) sepia(0%) saturate(0%) hue-rotate(339deg) brightness(106%) contrast(101%);
-
         }
         cuppa-collapsible, cuppa-collapsible *{ box-sizing: border-box; }
         cuppa-collapsible{ display: block; border-radius: 5px; overflow: hidden; width:100%; }

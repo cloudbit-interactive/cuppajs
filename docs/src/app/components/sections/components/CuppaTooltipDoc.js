@@ -2,17 +2,17 @@ import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import {CuppaTooltip} from "../../../../cuppa/components/cuppa.tooltip.min.js";
 import {AceModes, CuppaPreviewCode} from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
 
 export class CuppaTooltipDoc extends CuppaComponent {
 
 	render(){
 		return html`
-			<div>
-				<h1 class="title-2 mb-10">Cuppa Tooltip</h1>
-				<div class="message" style="display: flex; align-items: center;">
-          
+			<section>
+        <h1 class="title-2">Cuppa Tooltip</h1>
+				<div class="flex j-start a-center m-t-20" >
           <button class="button-1 btn-default" >Default/Bottom</button>
-          <cuppa-tooltip target=".btn-default" text="Default position" style="margin-top:8px"></cuppa-tooltip>
+          <cuppa-tooltip target=".btn-default" theme="${CuppaTheme.getTheme()}" text="Default position" style="margin-top:8px"></cuppa-tooltip>
 					
 					<button class="button-1 btn-left" >Left</button>
           <cuppa-tooltip target=".btn-left" text="Left position" pos-x="${CuppaTooltip.POSITION.LEFT}" pos-y="${CuppaTooltip.POSITION.CENTER}" arrow="${CuppaTooltip.ARROW.RIGHT}" style="margin-left:-8px"></cuppa-tooltip>
@@ -43,28 +43,42 @@ export class CuppaTooltipDoc extends CuppaComponent {
 	          </div>
           </cuppa-tooltip>
         </div>
-        <hr />
-				<cuppa-preview-code
-					class="box-shadow-1"
-					height="26rem"
-					preview-height="15rem"
-					expandable="false"
-					.content="${Utils.removeTabs(`
-						<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
-						
-						<button id="btn-default" class="button-1" >Default Tooltip</button>
+			</section>
+			
+			<hr />
+			
+			<section>
+				<h2 class="title-3 mb-10">Code Example</h2>
+       	<cuppa-preview-code
+					class="box-shadow-1 m-t-20"
+					height="42rem"
+					preview-height="28rem"
+					mode=${AceModes.html}
+					remove-tabs=${6}
+          preview=${true}
+          expandable=${false}
+          preview-css="${Utils.getPreviewCSS()}"
+					theme="dark"
+	      >
+					<code>
+						<!--[
+						<script src="http://127.0.0.1:5500/docs/src/cuppa/components/cuppa.tooltip.min.js" type="module"></script>
+						<button id="btn-default" >Default Tooltip</button>
 						<cuppa-tooltip 
 							target="#btn-default" 
 							text="Default position"
-							style="margin-top:8px; opacity: 0;"
+							theme="dark"
 						></cuppa-tooltip>	
-					`, {tabsCount:6})}"
-				></cuppa-preview-code>
+						]-->
+					</code>
+       	</cuppa-preview-code>
+			</section>
 
-				<hr class="separator-1" />
+      <hr class="separator-1" />
+			
+			<section>
         <h2 class="title-3 mb-10">Properties</h2>
-        <div style="overflow: auto;">
-					
+        <div class="o-auto b-radius-10 m-t-20" >
 					<table class="table-1 min-width" >
 						<thead>
 						<tr>
@@ -90,9 +104,8 @@ export class CuppaTooltipDoc extends CuppaComponent {
 							</tr>
 						</tbody>
 					</table>
-
 				</div>
-			</div>
+			</section>
 		`
 	}
 }

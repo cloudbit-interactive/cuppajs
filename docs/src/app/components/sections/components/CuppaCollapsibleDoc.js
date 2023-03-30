@@ -28,10 +28,6 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
         cuppa-collapsible{ border-radius: 0 !important; }
         cuppa-collapsible:first-of-type{ border-radius: 0.5rem 0.5rem 0 0 !important; }
         cuppa-collapsible:last-of-type{ border-radius: 0 0 0.5rem 0.5rem !important; }
-        /*
-        cuppa-collapsible .cuppa-collapsible_arrow{ filter: invert(90%) sepia(92%) saturate(33%) hue-rotate(200deg) brightness(107%) contrast(100%); }
-        
-         */
       </style>
       <section>
         <h1 class="title-2">Cuppa Collapsible</h1>
@@ -93,9 +89,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 		      <code>
           	<!--[
           	<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.collapsible.min.js" type="module"></script>
-						<cuppa-collapsible
-						 theme="dark"
-						>
+						<cuppa-collapsible theme="dark">
 							<cuppa-collapsible-header>Collapsible Title</cuppa-collapsible-header>
 								<cuppa-collapsible-content>
 									Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
