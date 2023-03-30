@@ -3,28 +3,30 @@ import {Utils} from "../../../controllers/Utils.js";
 import {CuppaTooltip} from "../../../../cuppa/components/cuppa.tooltip.min.js";
 import {AceModes, CuppaPreviewCode} from "../../../../cuppa/components/cuppa-preview-code.min.js";
 import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
+import {Storages} from "../../../controllers/Storages.js";
 
 export class CuppaTooltipDoc extends CuppaComponent {
 
 	render(){
 		return html`
+      <get-storage name=${Storages.theme.name} @update=${()=>this.forceRender()}></get-storage>
 			<section>
         <h1 class="title-2">Cuppa Tooltip</h1>
-				<div class="flex j-start a-center m-t-20" >
-          <button class="button-1 btn-default" >Default/Bottom</button>
-          <cuppa-tooltip target=".btn-default" theme="${CuppaTheme.getTheme()}" text="Default position" style="margin-top:8px"></cuppa-tooltip>
+				<div class="flex j-start a-center m-t-20" style="gap:5px" >
+          <button class="button-1 btn-default" >Default</button>
+          <cuppa-tooltip theme="${CuppaTheme.getTheme()}" target=".btn-default" text="Default position" ></cuppa-tooltip>
 					
-					<button class="button-1 btn-left" >Left</button>
-          <cuppa-tooltip target=".btn-left" text="Left position" pos-x="${CuppaTooltip.POSITION.LEFT}" pos-y="${CuppaTooltip.POSITION.CENTER}" arrow="${CuppaTooltip.ARROW.RIGHT}" style="margin-left:-8px"></cuppa-tooltip>
-
           <button class="button-1 btn-right" >Right</button>
-          <cuppa-tooltip target=".btn-right" text="Right position" pos-x="${CuppaTooltip.POSITION.RIGHT}" pos-y="${CuppaTooltip.POSITION.CENTER}" arrow="${CuppaTooltip.ARROW.LEFT}" style="margin-left:8px"></cuppa-tooltip>
+          <cuppa-tooltip theme="${CuppaTheme.getTheme()}" target=".btn-right" text="Right position" pos-x="${CuppaTooltip.POSITION.RIGHT}" pos-y="${CuppaTooltip.POSITION.CENTER}" arrow="${CuppaTooltip.ARROW.LEFT}" ></cuppa-tooltip>
 
+          <button class="button-1 btn-left" >Left</button>
+          <cuppa-tooltip theme="${CuppaTheme.getTheme()}" target=".btn-left" text="Left position" pos-x="${CuppaTooltip.POSITION.LEFT}" pos-y="${CuppaTooltip.POSITION.CENTER}" arrow="${CuppaTooltip.ARROW.RIGHT}" ></cuppa-tooltip>
+					
           <button class="button-1 btn-top" >Top</button>
-          <cuppa-tooltip target=".btn-top" text="Top position" pos-x="${CuppaTooltip.POSITION.CENTER}" pos-y="${CuppaTooltip.POSITION.TOP}" arrow="${CuppaTooltip.ARROW.DOWN}" style="margin-top:-8px"></cuppa-tooltip>
+          <cuppa-tooltip theme="${CuppaTheme.getTheme()}" target=".btn-top" text="Top position" pos-x="${CuppaTooltip.POSITION.CENTER}" pos-y="${CuppaTooltip.POSITION.TOP}" arrow="${CuppaTooltip.ARROW.DOWN}" ></cuppa-tooltip>
 
           <button class="button-1 btn-personal" >Personal Content</button>
-          <cuppa-tooltip target=".btn-personal" pos-x="${CuppaTooltip.POSITION.RIGHT}" pos-y="${CuppaTooltip.POSITION.TOP_IN}" arrow="${CuppaTooltip.ARROW.LEFT}"  style="margin-left:8px" style-arrow="top:10px">
+          <cuppa-tooltip target=".btn-personal" pos-x="${CuppaTooltip.POSITION.RIGHT}" pos-y="${CuppaTooltip.POSITION.TOP_IN}" arrow="${CuppaTooltip.ARROW.LEFT}" style-arrow="top:10px">
 	          <div style="width:300px; padding:10px">
 		          <h2 class="title-2">UEFA Euro 2020 final</h2>
 		          <div style="margin-top:10px">
@@ -42,6 +44,25 @@ export class CuppaTooltipDoc extends CuppaComponent {
               </div>
 	          </div>
           </cuppa-tooltip>
+        </div>
+        <div class="flex j-start a-center m-t-5" style="gap:5px" >
+          <button class="button-1 btn-dark" >Dark Color</button>
+          <cuppa-tooltip target=".btn-dark" text="Dask" theme="dark"  ></cuppa-tooltip>
+
+          <button class="button-1 btn-light" >Light Color</button>
+          <cuppa-tooltip target=".btn-light" text="Light" theme="light" ></cuppa-tooltip>
+
+          <button class="button-1 warning btn-warning" >Warning Color</button>
+          <cuppa-tooltip target=".btn-warning" text="Warning color" class="warning" ></cuppa-tooltip>
+
+          <button class="button-1 error btn-error" >Error Color</button>
+          <cuppa-tooltip target=".btn-error" text="Error color" class="error" ></cuppa-tooltip>
+
+          <button class="button-1 progress btn-progress" >Progress Color</button>
+          <cuppa-tooltip target=".btn-progress" text="Progress color" class="progress" ></cuppa-tooltip>
+
+          <button class="button-1 success btn-success" >Success Color</button>
+          <cuppa-tooltip target=".btn-success" text="Success color" class="success" ></cuppa-tooltip>
         </div>
 			</section>
 			
@@ -62,7 +83,7 @@ export class CuppaTooltipDoc extends CuppaComponent {
 	      >
 					<code>
 						<!--[
-						<script src="http://127.0.0.1:5500/docs/src/cuppa/components/cuppa.tooltip.min.js" type="module"></script>
+						<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.tooltip.min.js" type="module"></script>
 						<button id="btn-default" >Default Tooltip</button>
 						<cuppa-tooltip 
 							target="#btn-default" 
@@ -74,38 +95,6 @@ export class CuppaTooltipDoc extends CuppaComponent {
        	</cuppa-preview-code>
 			</section>
 
-      <hr class="separator-1" />
-			
-			<section>
-        <h2 class="title-3 mb-10">Properties</h2>
-        <div class="o-auto b-radius-10 m-t-20" >
-					<table class="table-1 min-width" >
-						<thead>
-						<tr>
-							<th style="width: 30rem">
-								<div class="tag-1">Property</div>
-								<div class="tag-1 tag-1-white">attribute</div>
-								<div class="tag-1 tag-1-yellow">event</div>
-							</th>
-							<th>Type</th>
-							<th>Default</th>
-							<th>Description</th>
-						</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<div class="tag-1">title</div>
-									<div class="tag-1 tag-1-white">title</div>
-								</td>
-								<td>string</td>
-								<td></td>
-								<td>Title of the alert.</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</section>
 		`
 	}
 }

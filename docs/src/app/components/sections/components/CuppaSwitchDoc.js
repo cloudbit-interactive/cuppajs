@@ -22,7 +22,7 @@ export class CuppaSwitchDoc extends CuppaComponent {
           <button class="button-1" @click=${ ()=>this.disabled = !this.disabled }>
             ${ this.disabled ? 'Enable' : 'Disable' }
           </button>
-          <button class="button-1" @click=${ ()=>this.checked = !this.checked }>
+          <button class="button-1 m-l-5" @click=${ ()=>this.checked = !this.checked }>
             ${ this.checked ? 'Uncheck' : 'Check' }
           </button>
         </div>
