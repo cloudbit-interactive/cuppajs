@@ -31,7 +31,10 @@ export class CuppaAlert extends CuppaComponent {
 		if(oldVal === newVal) return;
 		if(newVal == 'false') newVal = false;
 		if(newVal == 'true') newVal = true;
-		if(attr === "title") attr = "title value";
+		if(attr === "title"){
+			attr = "title value";
+			this.removeAttribute('title');
+		}
 		this[camelize(attr)] = newVal;
 	}
 
@@ -110,7 +113,7 @@ export class CuppaAlert extends CuppaComponent {
           --cuppa-alert-button-cancel-bg: #CCC;
           --cuppa-alert-button-cancel-bg-hover: #A0A0A0;
           --cuppa-alert-button-cancel-color: #333;
-	        --cuppa-alert-close-color: #ff4243;
+          --cuppa-alert-close-color: #ff4243;
           --cuppa-alert-close-color-hover: #b01516;
         }
 
