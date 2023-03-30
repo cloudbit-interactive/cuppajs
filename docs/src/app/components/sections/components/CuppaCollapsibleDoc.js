@@ -83,7 +83,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 	      <cuppa-preview-code
 					class="box-shadow-1 m-t-20"
 					height="30rem"
-					preview-height="20rem"
+					preview-height="28rem"
 					mode=${AceModes.html}
 					remove-tabs=${6}
           preview=${true}
@@ -94,7 +94,6 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
           	<!--[
           	<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.collapsible.min.js" type="module"></script>
 						<cuppa-collapsible
-						 onchange="console.log(this)" 
 						 theme="dark"
 						>
 							<cuppa-collapsible-header>Collapsible Title</cuppa-collapsible-header>
