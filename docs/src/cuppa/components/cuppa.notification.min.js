@@ -6,7 +6,7 @@ export class CuppaNotification extends CuppaComponent {
 	closeText = 'Close';
 	openText = 'Open'
 	content;
-	autoCloseTime = 0;
+	autoCloseTime = 5000;
 	autoCloseTimeout;
 	hoverAvoidAutoClose = true;
 	leaveEnableAutoClose = true;
@@ -31,7 +31,7 @@ export class CuppaNotification extends CuppaComponent {
 	}
 
 	setAutoClose(){
-		if(this.autoCloseTime){
+		if(parseInt(this.autoCloseTime)){
 			this.autoCloseTimeout = setTimeout(this.onRemove, this.autoCloseTime);
 		}
 	}
@@ -97,6 +97,11 @@ export class CuppaNotification extends CuppaComponent {
           --cuppa-notification-bg:#fff;
           --cuppa-notification-color:#333;
         }
+        cuppa-notification[theme=dark] {
+          color-scheme: dark;
+          --cuppa-notification-bg:#16181a;
+          --cuppa-notification-color:#fff;
+        }
         cuppa-notification{ 
 	        display:inline-flex; 
 	        font-size: 14px; 
@@ -104,9 +109,7 @@ export class CuppaNotification extends CuppaComponent {
 	        padding:20px; 
 	        background:var(--cuppa-notification-bg); 
 	        border-radius:5px; 
-	        position:absolute; 
-	        top:10px; 
-	        right:10px; 
+	        position:relative;
 	        color:var(--cuppa-notification-color); 
 	        box-shadow: 0px 3px 8px rgba(0,0,0,0.2);
 	        transition: 0.3s;

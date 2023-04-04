@@ -33,7 +33,6 @@ export class CuppaAlertDoc extends CuppaComponent {
 	}
 
 	render(){
-    let theme = CuppaTheme.getTheme();
 		return html`
       <section>
         <h1 class="title-2">Cuppa Alert</h1>
