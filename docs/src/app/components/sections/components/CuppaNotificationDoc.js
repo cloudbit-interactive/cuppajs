@@ -30,7 +30,7 @@ export class CuppaNotificationDoc extends CuppaComponent {
         <h2 class="title-3 mb-10">Code Example</h2>
 	      <cuppa-preview-code
 					class="box-shadow-1 m-t-20"
-					height="42rem"
+					height="54rem"
 					preview-height="28rem"
 					mode=${AceModes.html}
 					remove-tabs=${6}
@@ -38,27 +38,32 @@ export class CuppaNotificationDoc extends CuppaComponent {
           expandable=${false}
           preview-css="${Utils.getPreviewCSS()}"
 	      >
-		      <code>
+		      <template>
 						<button id="btnShowNotification">Show Notification</button>
 						<div class="notifications-wrap"></div>
-			      
 						<script type="module">
 						  import('http://localhost:5500/docs/src/cuppa/components/cuppa.notification.min.js');
 							
-							const messages = ['Message 1', 'Message 2', 'Message 3'];
+							const messages = [
+								'The only time you fail is when you fall down and stay down.', 
+								'Positive anything is better than negative nothing.', 
+								'Keep your face to the sunshine and you cannot see a shadow.',
+								'The good life is a process, not a state of being. It is a direction, not a destination.',
+							];
+							
 						  function onShowNotification(e){
 						    let notification = document.createElement('cuppa-notification');
-						    	notification.title = 'Notification';
+						    	notification.title = 'Message';
 						    	notification.message = messages[Math.floor(Math.random()*messages.length)];
 						    document.querySelector('.notifications-wrap').append(notification);
 						  };
 						  document.getElementById('btnShowNotification').addEventListener('click', onShowNotification);
 						</script>
-			      
 						<style>
 							.notifications-wrap{ 
 								position: fixed; 
 								right: 0; top:0;
+								padding: 5px;
 								display: flex; 
 								flex-direction: column; 
 								flex-wrap: nowrap; 
@@ -67,8 +72,8 @@ export class CuppaNotificationDoc extends CuppaComponent {
 								max-height: 100vh;
 							}
 							cuppa-notification{ 
-								margin: 3px; 
-								min-width: 250px;
+								margin-bottom: 5px; 
+								width: 300px;
 								animation: ani-notification 0.2s; 
 								background: #1890ff;
 								color: #fff;;
@@ -78,7 +83,7 @@ export class CuppaNotificationDoc extends CuppaComponent {
 								100% { opacity: 1; transform: translateX(0); } 
 							}
 						</style>
-          </code>
+          </template>
 	      </cuppa-preview-code>
       </section>
 
