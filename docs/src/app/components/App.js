@@ -14,6 +14,7 @@ import("./sections/components/CuppaCollapsibleDoc.js");
 import("./sections/components/CuppaDrawerDoc.js");
 import("./sections/components/CuppaTooltipDoc.js");
 import("./sections/components/CuppaNotificationDoc.js");
+import("./sections/components/CuppaMenuDoc.js");
 
 export class App extends CuppaComponent {
 	path = this.observable("path");
@@ -64,6 +65,7 @@ export class App extends CuppaComponent {
 				: (this.path == "cuppa-drawer") ? html`<cuppa-drawer-doc />`
 				: (this.path == "cuppa-tooltip") ? html`<cuppa-tooltip-doc />`
         : (this.path == "cuppa-notification") ? html`<cuppa-notification-doc />`
+        : (this.path == "cuppa-menu") ? html`<cuppa-menu-doc />`
 				: html`<welcome-comp></welcome-comp>`}
       </section>
 		`

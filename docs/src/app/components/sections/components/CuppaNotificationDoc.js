@@ -40,7 +40,7 @@ export class CuppaNotificationDoc extends CuppaComponent {
 	      >
 		      <template>
 						<button id="btnShowNotification">Show Notification</button>
-						<div class="notifications-wrap"></div>
+						<div class="notifications-wrap hide-scroll"></div>
 						<script type="module">
 						  import('http://localhost:5500/docs/src/cuppa/components/cuppa.notification.min.js');
 							
@@ -78,6 +78,8 @@ export class CuppaNotificationDoc extends CuppaComponent {
 								background: #1890ff;
 								color: #fff;;
 							}
+              .hide-scroll{ scrollbar-width: none; }
+              .hide-scroll::-webkit-scrollbar{ display: none; width: 0 !important }
 							@keyframes ani-notification {
 								0% { opacity:0; transform: translateX(10px); } 
 								100% { opacity: 1; transform: translateX(0); } 

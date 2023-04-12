@@ -68,6 +68,7 @@ export class Menu extends CuppaComponent {
           <a class="menu-item ${this.isSelected('cuppa-drawer')}" href="cuppa-drawer" aria-label="Cuppa Drawer">Cuppa Drawer</a>
           <a class="menu-item ${this.isSelected('cuppa-tooltip')}" href="cuppa-tooltip" aria-label="Cuppa Tooltip">Cuppa Tooltip</a>
           <a class="menu-item ${this.isSelected('cuppa-notification')}" href="cuppa-notification" aria-label="Cuppa Notification">Cuppa Notification</a>
+          <a class="menu-item ${this.isSelected('cuppa-menu')}" href="cuppa-menu" aria-label="Cuppa Menu">Cuppa Menu</a>
         </div>
 
         <h2 class="title-3 m-t-20">More</h2>
