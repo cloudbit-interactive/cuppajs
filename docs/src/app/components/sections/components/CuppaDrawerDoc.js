@@ -17,7 +17,7 @@ export class CuppaDrawerDoc extends CuppaComponent {
       <get-storage name=${Storages.theme.name} @update=${()=>this.forceRender()}></get-storage>
       <section>
         <h1 class="title-2">Cuppa Drawer</h1>
-        <div class="flex a-center j-start m-t-20" style="display: flex; align-items: center;">
+        <div class="flex a-center j-start m-t-20">
           <button class="button-1" @click="${this.openNavBar}" >Open NavBar</button>
         </div>
         <cuppa-drawer 

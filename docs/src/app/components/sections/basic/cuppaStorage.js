@@ -6,7 +6,7 @@ export class CuppaStorageBase extends CuppaComponent {
 
 	render(){
 		return html`
-			<section>
+			<section class="d-none">
         <h2 class="title-2" >Basic Usage</h2>
         <cuppa-preview-code
           class="box-shadow-1 m-t-20"

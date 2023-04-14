@@ -20,6 +20,7 @@ export class CuppaTabs extends CuppaComponent {
 	updateEvents(){
 		this.tabs = this.querySelectorAll("cuppa-tab");
 		this.tabs.forEach(tab=>tab.onclick = this.onClick);
+		this.forceRender();
 	}
 
 	rendered(){
