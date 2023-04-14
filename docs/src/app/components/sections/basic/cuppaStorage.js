@@ -6,7 +6,7 @@ export class CuppaStorageBase extends CuppaComponent {
 
 	render(){
 		return html`
-			<section class="d-none">
+			<section >
         <h2 class="title-2" >Basic Usage</h2>
         <cuppa-preview-code
           class="box-shadow-1 m-t-20"
@@ -26,7 +26,7 @@ export class CuppaStorageBase extends CuppaComponent {
 						</div>
 	          
 						<script type="module">
-							import {CuppaStorage, GetStorage} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js";
+							import {CuppaStorage} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js";
 							
 							// define a storage, 
 							// store can be [null (in memory), LOCAL, SESSION, INDEXED_DB]
@@ -83,7 +83,7 @@ export class CuppaStorageBase extends CuppaComponent {
 							<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
 							<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 							<script crossorigin src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
-							<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.storage.min.js" type="module"></script>
+							<script src="https://cdn.jsdelivr.net/npm/cuppajs@0.0.124/libs/cuppa.storage.js" type="module"></script>
 						]-->
           </preview-html>
           <template>
@@ -123,7 +123,7 @@ export class CuppaStorageBase extends CuppaComponent {
 										<get-storage
 										  name={storage.name}
 										  store={storage.store}
-										  ref={ item=>{ if(item) item.addEventListener("update", e=>setList(e.detail)) } }
+										  ref={ item=>{ if(item) item.addEventListener("change", e=>setList(e.detail)) } }
 										/>
 										<hr />
 										<div>Total Items: {list.length}</div>
