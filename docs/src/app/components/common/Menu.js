@@ -31,7 +31,7 @@ export class Menu extends CuppaComponent {
 
 	render(){
 		return html`
-      <get-storage name=${Storages.theme.name} @update=${(e) => {this.theme = e.detail}}></get-storage>
+      <get-storage name=${Storages.theme.name} @change=${(e) => {this.theme = e.detail}}></get-storage>
       <div class="flex j-between a-center p-x-20 p-y-20" style="background: var(--menu-bg-bar)">
         <a class="link-clear f-20 bold " href="/" aria-label="Home">CuppaJS.</a>
         <div class="flex">

@@ -1,7 +1,8 @@
 /**
- *  CuppaStorage
- *
- * **/
+ * v0.0.1
+ * Authors (https://github.com/cloudbit-interactive/cuppajs)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
 
 export class CuppaStorage{
 	static LOCAL = "LOCAL";
@@ -114,12 +115,12 @@ if(!document.defaultView.CuppaStorage){
 
 /*
     const storage = {name:"STORAGE_TODO", store:CuppaStorage.INDEXED_DB};
-    <get-storage name="${storage.name}"  store="${storage.store}" onupdate="this.onUpdate"></get-storage>
+    <get-storage name="${storage.name}" store="${storage.store}" onchange="this.onChange"></get-storage>
 */
 export class GetStorage extends HTMLElement{
 	name;
 	store;
-	default;
+	defaultValue;
 	data;
 
 	constructor(){
@@ -130,14 +131,14 @@ export class GetStorage extends HTMLElement{
 		setTimeout(()=>{
 			this.name = this.getAttribute("name");
 			this.store = this.getAttribute("store");
-			this.default = this.getAttribute("default");
-			CuppaStorage.getData({name:this.name, callback:this.onUpdateStorage, default:this.default, store:this.store}).then();
+			this.defaultValue = this.getAttribute("default-value");
+			CuppaStorage.getData({name:this.name, callback:this.onUpdateStorage, defaultValue:this.defaultValue, store:this.store}).then();
 		}, 0);
 	};
 
 	onUpdateStorage(data){
 		this.data = data;
-		this.dispatchEvent(new CustomEvent("update", {detail:this.data}));
+		this.dispatchEvent(new CustomEvent("change", {detail:this.data}));
 	};
 
 	disconnectedCallback(){
