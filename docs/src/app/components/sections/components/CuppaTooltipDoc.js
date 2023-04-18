@@ -10,7 +10,7 @@ export class CuppaTooltipDoc extends CuppaComponent {
 	render(){
 		return html`
       <get-storage name=${Storages.theme.name} @change=${()=>this.forceRender()}></get-storage>
-			<section class="d-none">
+			<section>
         <h1 class="title-2">Cuppa Tooltip</h1>
 				<div class="flex j-start a-center m-t-20" style="gap:5px" >
           <button class="button-1 btn-default" >Default</button>
@@ -68,7 +68,7 @@ export class CuppaTooltipDoc extends CuppaComponent {
 			
 			<hr />
 			
-			<section class="d-none">
+			<section>
 				<h2 class="title-3 mb-10">Code Example</h2>
        	<cuppa-preview-code
 					class="box-shadow-1 m-t-20"
