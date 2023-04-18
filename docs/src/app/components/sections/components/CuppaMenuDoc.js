@@ -1,7 +1,7 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {Storages} from "../../../controllers/Storages.js";
 import {CuppaMenu} from "../../../../cuppa/components/cuppa.menu.min.js";
-import {CuppaTheme} from "../../../../../../libs/cuppa.theme.js";
+import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
 
 export class CuppaMenuDoc extends CuppaComponent{
 	render(){
