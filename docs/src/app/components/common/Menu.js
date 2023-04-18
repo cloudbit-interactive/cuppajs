@@ -78,6 +78,7 @@ export class Menu extends CuppaComponent {
           </a>
         </div>
       </nav>
+      <div class="a-r-b f-10 m-r-5 disabled">v.${Globals.version}</div>
       <style>
 	      menu-comp {
           background-color: var(--menu-bg);
