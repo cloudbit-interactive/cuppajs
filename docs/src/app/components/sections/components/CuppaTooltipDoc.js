@@ -9,8 +9,8 @@ export class CuppaTooltipDoc extends CuppaComponent {
 
 	render(){
 		return html`
-      <get-storage name=${Storages.theme.name} @update=${()=>this.forceRender()}></get-storage>
-			<section>
+      <get-storage name=${Storages.theme.name} @change=${()=>this.forceRender()}></get-storage>
+			<section class="d-none">
         <h1 class="title-2">Cuppa Tooltip</h1>
 				<div class="flex j-start a-center m-t-20" style="gap:5px" >
           <button class="button-1 btn-default" >Default</button>
@@ -68,7 +68,7 @@ export class CuppaTooltipDoc extends CuppaComponent {
 			
 			<hr />
 			
-			<section>
+			<section class="d-none">
 				<h2 class="title-3 mb-10">Code Example</h2>
        	<cuppa-preview-code
 					class="box-shadow-1 m-t-20"
@@ -95,6 +95,28 @@ export class CuppaTooltipDoc extends CuppaComponent {
        	</cuppa-preview-code>
 			</section>
 
+      <hr />
+
+      <section>
+        <h2 class="title-3 ">Properties</h2>
+        <div class="o-auto b-radius-10 m-t-20" >
+          <table class="table-1 min-width" >
+            ${Utils.tableHeaderDoc()}
+            <tbody>
+            <tr>
+              <td>
+                <div class="tag-1">target</div>
+                <div class="tag-1 tag-1-white">target</div>
+              </td>
+	            <td>string</td>
+	            <td></td>
+	            <td></td>
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 		`
 	}
 }

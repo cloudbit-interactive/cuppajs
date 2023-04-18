@@ -14,7 +14,7 @@ export class CuppaDrawerDoc extends CuppaComponent {
 	render(){
 		let data = []; for(let i = 1; i <= 40; i++){ data.push(i); }
 		return html`
-      <get-storage name=${Storages.theme.name} @update=${()=>this.forceRender()}></get-storage>
+      <get-storage name=${Storages.theme.name} @change=${()=>this.forceRender()}></get-storage>
       <section>
         <h1 class="title-2">Cuppa Drawer</h1>
         <div class="flex a-center j-start m-t-20">
@@ -103,18 +103,7 @@ export class CuppaDrawerDoc extends CuppaComponent {
         <h2 class="title-3">Properties</h2>
         <div class="o-auto b-radius-10 m-t-20" >
           <table class="table-1 min-width" >
-            <thead>
-            <tr>
-              <th style="width: 30rem">
-                <div class="tag-1">Property</div>
-                <div class="tag-1 tag-1-white">attribute</div>
-                <div class="tag-1 tag-1-yellow">event</div>
-              </th>
-              <th>Type</th>
-              <th>Default</th>
-              <th>Description</th>
-            </tr>
-            </thead>
+            ${Utils.tableHeaderDoc()}
             <tbody>
             <tr>
               <td>

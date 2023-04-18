@@ -1,13 +1,8 @@
 /**
- * CuppaComponent
- *
- * class fields
- * shadow = null;                  // null (default), open, close
- * refs = {};
- * import {CuppaComponent} from 'cuppa.component.js';
- * import 'cuppa.component.js'
- * <script src="cuppa.component.js" type="module"></script>
-**/
+ * v0.0.1
+ * Authors (https://github.com/cloudbit-interactive/cuppajs)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
 
 export class CuppaComponent extends HTMLElement {
 	refs = {};

@@ -1,3 +1,9 @@
+/**
+ * v0.0.1
+ * Authors (https://github.com/cloudbit-interactive/cuppajs)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
 import {cuppa} from "./cuppa.min.js";
 
 export class CuppaTheme {

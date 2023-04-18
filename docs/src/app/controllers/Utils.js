@@ -15,26 +15,6 @@ export class Utils{
 		"xml": "language-xml"
 	}
 
-	static prismCode({code = "", type=Utils.prismCodeTypes.html, removeTabsCount = 0}){
-		if(removeTabsCount > 0){
-			let tabs = ' '.repeat(Constants.TAB_SPACE).repeat(removeTabsCount);
-			let codeLines = code.split("\n");
-			for(let i = 0; i < codeLines.length; i++){
-				codeLines[i] = codeLines[i].replace(tabs, '');
-			}
-			code = codeLines.join("\n");
-		}
-		return html`<pre><code class="${type}">${String(code).trim()}</code></pre>`;
-	}
-
-	static loadPrism(){
-		cuppa.requiereCSS("./src/prism/prism.css");
-		cuppa.requiereJS("./src/prism/prism.js");
-		if(document.defaultView.Prism){
-			document.defaultView.Prism.highlightAll();
-		}
-	}
-
 	static removeTabs(code, {tabsCount = 0, tabSpace = 1, removeFirstLine = true, removeLastLine = true, addEmptyLine = true} = {}){
 		if(tabsCount > 0){
 			let tabs = '\t'.repeat(tabSpace).repeat(tabsCount);
@@ -54,6 +34,24 @@ export class Utils{
 		let theme = CuppaTheme.getTheme();
 		if(theme === 'light') return Constants.PREVIEW_CSS;
 		else if(theme === 'dark') return Constants.PREVIEW_CSS;
+	}
+
+	static tableHeaderDoc(){
+
+			return html`
+      <thead>
+	      <tr>
+	        <th style="width: 30rem">
+	          <div class="tag-1">Property</div>
+	          <div class="tag-1 tag-1-white">attribute</div>
+	          <div class="tag-1 tag-1-yellow">event</div>
+	        </th>
+	        <th>Type</th>
+	        <th>Default</th>
+	        <th>Description</th>
+	      </tr>
+      </thead>
+		`;
 	}
 
 }

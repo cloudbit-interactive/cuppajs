@@ -9,7 +9,7 @@ export class CuppaNotificationDoc extends CuppaComponent {
 
 	render(){
 		return html`
-      <get-storage name=${Storages.theme.name} @update=${()=>this.forceRender()}></get-storage>
+      <get-storage name=${Storages.theme.name} @change=${()=>this.forceRender()}></get-storage>
 			<section>
         <h1 class="title-2">Cuppa Notification</h1>
         <div class="flex a-center j-start m-t-20">
@@ -42,7 +42,7 @@ export class CuppaNotificationDoc extends CuppaComponent {
 						<button id="btnShowNotification">Show Notification</button>
 						<div class="notifications-wrap hide-scroll"></div>
 						<script type="module">
-						  import('http://localhost:5500/docs/src/cuppa/components/cuppa.notification.min.js');
+						  import('https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.notification.min.js');
 							
 							const messages = [
 								'The only time you fail is when you fall down and stay down.', 

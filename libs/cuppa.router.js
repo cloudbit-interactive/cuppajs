@@ -1,9 +1,8 @@
 /**
- *  Ways to import
- *  import {CuppaRouter} from "cuppa.router.js";
- *  import "cuppa.router.js"
- *  <script src="cuppa.router.js" type="module"></script>
- * **/
+ * v0.0.1
+ * Authors (https://github.com/cloudbit-interactive/cuppajs)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
 
 export class CuppaRouter{
   opts;

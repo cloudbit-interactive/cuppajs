@@ -6,10 +6,10 @@ import {CuppaTheme} from "../../../../../../libs/cuppa.theme.js";
 export class CuppaMenuDoc extends CuppaComponent{
 	render(){
 		return html`
-      <get-storage name=${Storages.theme.name} @update=${()=>this.forceRender()}></get-storage>
+      <get-storage name=${Storages.theme.name} @change=${()=>this.forceRender()}></get-storage>
       <section>
         <h1 class="title-2">Cuppa Menu</h1>
-	      <div class="flex m-t-10 j-start" style="gap:1rem">
+	      <div class="flex m-t-20 j-start" style="gap:1rem">
           <button id="btnFile">File</button>
           <button id="btnEdit">Edit</button>
           <button id="btnHelp">Help</button>
@@ -24,7 +24,7 @@ export class CuppaMenuDoc extends CuppaComponent{
           <button>Open Project</button>
           <button>Close Project</button>
         </cuppa-menu>
-        <cuppa-menu target="#btnEdit" force-show="true" theme="${CuppaTheme.getTheme()}" pos-x="${CuppaMenu.POSITION.LEFT_IN}" pos-y="${CuppaMenu.POSITION.BOTTOM}">
+        <cuppa-menu target="#btnEdit" theme="${CuppaTheme.getTheme()}" pos-x="${CuppaMenu.POSITION.LEFT_IN}" pos-y="${CuppaMenu.POSITION.BOTTOM}">
           <button>Undo</button>
           <button>Redo</button>
           <hr />
@@ -32,7 +32,7 @@ export class CuppaMenuDoc extends CuppaComponent{
           <button><i class="fas fa-copy"></i> Copy</button>
           <button><i class="fas fa-paste"></i> Paste</button>
         </cuppa-menu>
-        <cuppa-menu theme="${CuppaTheme.getTheme()}" force-show="true" target="#btnHelp" pos-x="${CuppaMenu.POSITION.LEFT_IN}" pos-y="${CuppaMenu.POSITION.BOTTOM}">
+        <cuppa-menu theme="${CuppaTheme.getTheme()}" target="#btnHelp" pos-x="${CuppaMenu.POSITION.LEFT_IN}" pos-y="${CuppaMenu.POSITION.BOTTOM}">
           <button>Help Page</button>
           <button id="btnAbout">About <i class="more"></i></button>
 	          <cuppa-menu target="#btnAbout" >

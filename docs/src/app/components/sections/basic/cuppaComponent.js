@@ -8,13 +8,9 @@ import {Storages} from "../../../controllers/Storages.js";
 export class CuppaComponentDoc extends CuppaComponent {
 	theme = this.observable('theme');
 
-	mounted(){
-		Utils.loadPrism();
-	}
-
 	render(){
 		return html`
-      <get-storage name=${Storages.theme.name} @update=${(e)=>{ this.forceRender() }}></get-storage>
+      <get-storage name=${Storages.theme.name} @change=${(e)=>{ this.forceRender() }}></get-storage>
       <section>
 				<h2 class="title-2" >Counter Component</h2>
 	      <div class="message message_blue m-t-20  b-radius-bottom-0">Create simple reactive component extending any class from CuppaComponent is simple.</div>
