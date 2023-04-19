@@ -133,6 +133,7 @@ export class CuppaPreviewCode extends CuppaComponent {
 	          style="align-self: stretch; flex:${this.previewWidth != 'auto' ? 'none' : 1}; width: ${this.previewWidth}; "
             allowtransparency="true" 
 	          allowfullscreen="true"
+	          title="output"
           ></iframe>
         `}
       </div>
