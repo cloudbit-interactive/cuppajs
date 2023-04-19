@@ -41,7 +41,7 @@ export class Menu extends CuppaComponent {
           <a class="button-alpha d-i-children p-x-10 f-18" href="https://github.com/cloudbit-interactive/cuppajs" aria-label="Github" target="_blank">
             <i class="fab fa-github"></i>
           </a>
-          <a ref="btnThemeToggle" class="button-alpha d-i-children p-l-10 f-18" aria-label="Light / Dark">
+          <a ref="btnThemeToggle" class="button-alpha d-i-children p-l-10 f-18" aria-label="Theme">
             <i class=${`far ${this.theme === "dark-theme" ? 'fa-sun' : 'fa-moon'}`}></i>
           </a>
         </div>
