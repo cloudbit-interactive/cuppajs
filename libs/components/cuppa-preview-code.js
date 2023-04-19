@@ -128,11 +128,11 @@ export class CuppaPreviewCode extends CuppaComponent {
         <div ref="editor" class="cuppa-preview-code__editor"  style="align-self: stretch"></div>
         ${!this.preview ? `` : html`
           <iframe
-            ref="output"
-            class="cuppa-preview-code__output"
-            style="align-self: stretch; flex:${this.previewWidth != 'auto' ? 'none' : 1}; width: ${this.previewWidth}; "
-            allowtransparency="true"
-            allowfullscreen="true"
+	          ref="output" 
+	          class="cuppa-preview-code__output" 
+	          style="align-self: stretch; flex:${this.previewWidth != 'auto' ? 'none' : 1}; width: ${this.previewWidth}; "
+            allowtransparency="true" 
+	          allowfullscreen="true"
           ></iframe>
         `}
       </div>
@@ -144,40 +144,41 @@ export class CuppaPreviewCode extends CuppaComponent {
                 class="cuppa-preview-code__btn"
                 title="Show more"
                 @click="${()=>{
-                  this.expandContent(!this.isExpanded())
-                }}"
+			this.expandContent(!this.isExpanded())
+		}}"
               >
-                <img
-                  style="margin-right: 8px; transform:rotate(${this.isExpanded() ? '180deg' : '0deg'});"
-                  src='${iconArrowDown}'
+                <img 
+	                style="margin-right: 8px; transform:rotate(${this.isExpanded() ? '180deg' : '0deg'});" 
+	                src='${iconArrowDown}'
+                  alt="Expand"
                 />
                 <span>Show more</span>
               </button>
             `}
           </div>
           <div>
-            <button
-              class="cuppa-preview-code__btn cuppa-preview-code__btn-icon btn-show"
+            <button 
+	            class="cuppa-preview-code__btn cuppa-preview-code__btn-icon btn-show"
               title="Hide/Show Preview"
-              @click="${()=>this.preview = !this.preview}"
+	            @click="${()=>this.preview = !this.preview}" 
             >
-              <img height="16" src='${iconPreview}'/>
+              <img height="16" src='${iconPreview}' alt="Preview"/>
             </button>
           </div>
         </div>
       `}
       <style>
         cuppa-preview-code{ display: flex; flex-direction: column; border: 0; border-radius: 5px; overflow: hidden; }
-        .cuppa-preview-code__wrap{ display: flex; flex-direction: row; height: 100%; }
+       	.cuppa-preview-code__wrap{ display: flex; flex-direction: row; height: 100%; }
         .cuppa-preview-code__editor{ flex:1; overflow: hidden; }
         .cuppa-preview-code__output{
-          position: relative;
-          font-family: "Arial", sans-serif;
-          flex:1;
-          width: auto;
-          background: #23272f;
-          color:#fff; border:0;
-          border-left: 1px solid rgba(0,0,0,1);
+	        position: relative; 
+	        font-family: "Arial", sans-serif;
+	        flex:1;
+	        width: auto;
+	        background: #23272f; 
+	        color:#fff; border:0; 
+	        border-left: 1px solid rgba(0,0,0,1);
         }
         .cuppa-preview-code__tools{ display: flex; justify-content: space-between; align-items: center; background: #343a46; padding:7px; }
         .cuppa-preview-code__btn{
@@ -202,7 +203,7 @@ export class CuppaPreviewCode extends CuppaComponent {
         .cuppa-preview-code__editor:active ::-webkit-scrollbar-thumb,
         .cuppa-preview-code__editor:focus ::-webkit-scrollbar-thumb,
         .cuppa-preview-code__editor:hover ::-webkit-scrollbar-thumb { visibility: visible; }
-
+        
         @media screen and (max-width: 1000px) {
           .cuppa-preview-code__wrap{ display: block; height: auto !important; }
           .cuppa-preview-code__editor{ height:${this.height}; }
