@@ -112,12 +112,12 @@ export class CuppaMenuDoc extends CuppaComponent{
               @input=${ ()=>this.setOutput('Settings') }
             />
           </button>
-	        <button @click="${()=>this.setOutput('Quick')}" >
+	        <button @click="${()=>this.setOutput('Quit')}" >
 		        Quit
             <cuppa-shortcut
 	            keys="control+Q"
 	            label="${CuppaShortcut.ICONS.CONTROL} Q" 
-	            @input=${ ()=>this.setOutput('Quick') } 
+	            @input=${ ()=>this.setOutput('Quit') } 
             />
 	        </button>
         </cuppa-menu>
