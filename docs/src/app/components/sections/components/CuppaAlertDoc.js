@@ -3,33 +3,53 @@ import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
 import { CuppaTheme } from "../../../../cuppa/cuppa.theme.min.js";
+import {cuppa} from "../../../../cuppa/cuppa.min.js";
 
 export class CuppaAlertDoc extends CuppaComponent {
 	alertResult = this.observable("alertResult");
 
 	showAlert(){
-    let alert = document.createElement('cuppa-alert');
-			alert.title = 'Message';
-			alert.message = `Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.`;
-			alert.cancelText = 'Cancel';
-			alert.inputText = '';
-			alert.placeholder = 'Type your message here...';
-			alert.setAttribute('theme', CuppaTheme.getTheme());
-			alert.callback = (res)=>{
-	        this.alertResult = res;
-	      }
-    document.body.append(alert)
+		let alert = cuppa.newElement(`
+			<cuppa-alert
+        data-title="Message"
+        message="Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros."
+        cancel-text="Cancel"
+        input-text=""
+        placeholder="Type your message here"
+        theme="${CuppaTheme.getTheme()}"
+      />`
+		);
+		alert.onclose = (e)=>{  this.alertResult = e.detail }
+		document.body.append(alert);
+	}
+
+	onCloseModal(){
+		console.log("--")
 	}
 
 	showAlertPersonalized(){
-		let alert = document.createElement('cuppa-alert');
-			alert.message = html`<iframe src="media/docs/pdf.pdf"></iframe>`;
-			alert.acceptText = '';
-			alert.title = 'PDF Preview';
-			alert.topBar = true;
-			alert.classList.add('modal-1');
-			alert.setAttribute('theme', CuppaTheme.getTheme());
-		document.body.append(alert)
+		let alert = cuppa.newElement(`
+			<cuppa-alert
+				backdrop-enabled="true"
+        accept-text=""
+        theme="${CuppaTheme.getTheme()}"
+        style-modal="width:95vw; max-width:none; height:95vh"
+      >
+      	<cuppa-alert-content class="flex" style="height: 100%">
+      		<div class="modal-header">
+      			<div>PDF Preview</div>
+      			<button 
+	             class="button-alpha bg-error b-none b-radius-5 close-alert" 
+	             style="height:2.8rem; width: 3rem;"
+      			 >
+      				<i class="fas fa-times color-white"></i>
+						</button>
+					</div>
+      		<iframe src="media/docs/pdf.pdf" style="height:100%; border:0;" ></iframe>
+				</cuppa-alert-content>
+			</cuppa-alert>`
+		);
+		document.body.append(alert);
 	}
 
 	render(){
@@ -248,10 +268,8 @@ export class CuppaAlertDoc extends CuppaComponent {
         </div>
       </section>
       <style>
-        .modal-1{ padding: calc(env(safe-area-inset-top) + 2rem) 2rem calc(env(safe-area-inset-bottom) + 2rem); }
-        .modal-1 .cuppa-alert_modal{ max-width: none; padding: 0rem; height: 100%; display: flex; flex-direction: column;}
-       	.modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
-        .modal-1 iframe{ width:100%; height:100%; border:0; overflow:hidden;  }
+	      .modal-header{ display: flex; justify-content: space-between; align-items: center; width: 100%; height: 4rem; padding: 0 1rem; }
+        
       </style>
 		`
 	}
