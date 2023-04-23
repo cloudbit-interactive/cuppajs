@@ -2,6 +2,7 @@ import {CuppaComponent, html, camelize} from "../../cuppa/cuppa.component.min.js
 import {Globals} from "../controllers/Globals.js";
 import {Menu} from "./common/Menu.js";
 import {CuppaDrawer} from "../../cuppa/components/cuppa.drawer.min.js";
+import {CuppaPortal} from "../../cuppa/components/cuppa.portal.min.js";
 import("./sections/welcome/Welcome.js");
 import("./sections/basic/cuppaComponent.js");
 import("./sections/basic/cuppaRouter.js");
@@ -68,6 +69,7 @@ export class App extends CuppaComponent {
         : (this.path == "cuppa-menu") ? html`<cuppa-menu-doc />`
 				: html`<welcome-comp></welcome-comp>`}
       </section>
+      <cuppa-portal class="fixed a-l-t z-index-9999"></cuppa-portal>
 		`
 	}
 }

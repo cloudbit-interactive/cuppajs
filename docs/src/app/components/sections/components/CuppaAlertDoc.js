@@ -1,4 +1,4 @@
-import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
+import {CuppaComponent, html, render} from "../../../../cuppa/cuppa.component.min.js";
 import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
@@ -23,10 +23,6 @@ export class CuppaAlertDoc extends CuppaComponent {
 		document.body.append(alert);
 	}
 
-	onCloseModal(){
-		console.log("--")
-	}
-
 	showAlertPersonalized(){
 		let alert = cuppa.newElement(`
 			<cuppa-alert
@@ -35,17 +31,14 @@ export class CuppaAlertDoc extends CuppaComponent {
         theme="${CuppaTheme.getTheme()}"
         style-modal="width:95vw; max-width:none; height:95vh"
       >
-      	<cuppa-alert-content class="flex" style="height: 100%">
+      	<cuppa-alert-content style="height: 100%">
       		<div class="modal-header">
       			<div>PDF Preview</div>
-      			<button 
-	             class="button-alpha bg-error b-none b-radius-5 close-alert" 
-	             style="height:2.8rem; width: 3rem;"
-      			 >
-      				<i class="fas fa-times color-white"></i>
+      			<button class="modal-btn-close close-alert" >
+      				<i class="fas fa-times"></i>
 						</button>
 					</div>
-      		<iframe src="media/docs/pdf.pdf" style="height:100%; border:0;" ></iframe>
+      		<iframe src="media/docs/pdf.pdf" style="width:100%; height:100%; border:0;" ></iframe>
 				</cuppa-alert-content>
 			</cuppa-alert>`
 		);
@@ -81,7 +74,7 @@ export class CuppaAlertDoc extends CuppaComponent {
             <!--[        
             <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
 						<cuppa-alert 
-							title="Message" 
+							data-title="Message" 
 							message="What is your name?" 
 							input-text="" 
 							cancel-text="Cancel" 
@@ -102,7 +95,7 @@ export class CuppaAlertDoc extends CuppaComponent {
         <button class="button-1 m-t-20" @click="${this.showAlertPersonalized}" >Preview PDF</button>
 	      <cuppa-preview-code
 					class="box-shadow-1 m-t-20"
-					height="33rem"
+					height="43rem"
 					preview-height="25rem"
 					mode=${AceModes.html}
 					remove-tabs=${6}
@@ -110,29 +103,37 @@ export class CuppaAlertDoc extends CuppaComponent {
           expandable=${true}
           preview-css="${Utils.getPreviewCSS()}"
 	      >
-		      <code>
+          <preview-html>
             <!--[
-						<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
+							<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+						]-->
+          </preview-html>
+		      <template>
+            <!--[
+            <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
 						<cuppa-alert
-							title="PDF Preview"
+							backdrop-enabled="true"
 							accept-text=""
-							class="modal-1"
-							top-bar="true"
+							theme="dark"
+							style-modal="width:95vw; max-width:none; height:95vh"
 						>
-							<cuppa-alert-content>
-								<iframe src="media/docs/pdf.pdf"></iframe>
+							<cuppa-alert-content style="height: 100%">
+								<div class="modal-header">
+									<div>PDF Preview</div>
+									<button class="modal-btn-close close-alert" >
+										<i class="fas fa-times"></i>
+									</button>
+								</div>
+								<iframe src="media/docs/pdf.pdf" style="width:100%; height:100%; border:0;" ></iframe>
 							</cuppa-alert-content>
 						</cuppa-alert>
 						
 						<style>
-							.modal-1{ padding: calc(env(safe-area-inset-top) + 2rem) 2rem 2rem; }
-							.modal-1 .cuppa-alert_modal{ max-width: none; padding: 0rem; height: 100%; display: flex; flex-direction: column; }
-							.modal-1 .cuppa-alert_message{ overflow: auto; flex:1; }
-							.modal-1 cuppa-alert-content{ height:100%; overflow:hidden; }
-							.modal-1 .cuppa-alert_message iframe{ width:100%; height:100%; border:0; }
+							.modal-header{ display: flex; justify-content: space-between; align-items: center; width: 100%; height: 40px; padding: 0 10px; }
+							.modal-btn-close{ height:26px; width: 30px; border-radius: 5px; background: #ff4444; color:#fff; border:none; cursor: pointer; }
 						</style>
             ]-->
-		      </code>
+		      </template>
 	      </cuppa-preview-code>
       </section>
       
@@ -269,7 +270,7 @@ export class CuppaAlertDoc extends CuppaComponent {
       </section>
       <style>
 	      .modal-header{ display: flex; justify-content: space-between; align-items: center; width: 100%; height: 4rem; padding: 0 1rem; }
-        
+        .modal-btn-close{ height:2.6rem; width: 3rem; border-radius: 5px; background: #ff4444; color:#fff; border:none; cursor: pointer; }
       </style>
 		`
 	}
