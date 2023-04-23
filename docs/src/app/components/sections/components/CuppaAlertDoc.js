@@ -72,7 +72,7 @@ export class CuppaAlertDoc extends CuppaComponent {
 				>
           <code>
             <!--[        
-            <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
+            <script src="https://cdn.jsdelivr.net/npm/cuppajs@0.0.127/libs/components/cuppa.alert.min.js" type="module"></script>
 						<cuppa-alert 
 							data-title="Message" 
 							message="What is your name?" 
@@ -110,7 +110,7 @@ export class CuppaAlertDoc extends CuppaComponent {
           </preview-html>
 		      <template>
             <!--[
-            <script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.alert.min.js" type="module"></script>
+            <script src="https://cdn.jsdelivr.net/npm/cuppajs@0.0.127/libs/components/cuppa.alert.min.js" type="module"></script>
 						<cuppa-alert
 							backdrop-enabled="true"
 							accept-text=""
