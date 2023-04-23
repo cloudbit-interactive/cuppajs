@@ -147,8 +147,8 @@ export class CuppaAlertDoc extends CuppaComponent {
             <tbody>
             <tr>
               <td>
-                <div class="tag-1">title</div>
-                <div class="tag-1 tag-1-white">title</div>
+                <div class="tag-1">dataTitle</div>
+                <div class="tag-1 tag-1-white">data-title</div>
               </td>
               <td>string</td>
               <td></td>
