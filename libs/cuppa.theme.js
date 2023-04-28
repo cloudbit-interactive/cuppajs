@@ -1,5 +1,5 @@
 /**
- * v0.0.1
+ * v0.0.2
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -34,7 +34,7 @@ export class CuppaTheme {
 				localStorage.setItem('theme', userPreference);
 			}
 		}
-		if(callback) callback(userPreference);
+		if(callback) callback(CuppaTheme.getTheme());
 	}
 
 	static setBtnToggle(btnToggle, callback){

@@ -14,6 +14,7 @@ export class Menu extends CuppaComponent {
 		Globals.router.resolve();
 		setTimeout(()=>{this.onRouter(Globals.router.getPath())});
 		CuppaTheme.init({btnToggle:this.refs.btnThemeToggle, callback:this.onUpdateTheme});
+		this.theme = CuppaTheme.getTheme();
 	}
 
 	onUpdateTheme(theme){
@@ -31,18 +32,38 @@ export class Menu extends CuppaComponent {
 
 	render(){
 		return html`
-      <get-storage name=${Storages.theme.name} @change=${(e) => {this.theme = e.detail}}></get-storage>
+      <get-storage name=${Storages.theme.name} @change=${(e) => { this.theme = e.detail; }}></get-storage>
       <div class="flex j-between a-center p-x-20 p-y-20" style="background: var(--menu-bg-bar)">
         <a class="link-clear f-20 bold " href="/" aria-label="Home">CuppaJS.</a>
-        <div class="flex">
-          <a class="button-alpha d-i-children p-x-10 f-18" href="https://www.npmjs.com/package/cuppajs" aria-label="NPM" target="_blank">
-            <i class="fab fa-npm"></i>
+        <div class="flex a-center ">
+          <a class="btn-icon button-alpha d-i-children p-x-10"
+             href="https://www.npmjs.com/package/cuppajs" 
+             aria-label="NPM" 
+             target="_blank"
+          >
+            <img 
+	            src="./media/images/npm.svg"
+              class="${this.theme === "dark" ? 'tint-white' : 'tint-black'}"
+            />
           </a>
-          <a class="button-alpha d-i-children p-x-10 f-18" href="https://github.com/cloudbit-interactive/cuppajs" aria-label="Github" target="_blank">
-            <i class="fab fa-github"></i>
+          <a class="btn-icon button-alpha d-i-children p-x-10"
+             href="https://github.com/cloudbit-interactive/cuppajs"
+             aria-label="Github" 
+             target="_blank"
+          >
+            <img
+              src="./media/images/github.svg"
+              class="${this.theme === "dark" ? 'tint-white' : 'tint-black'}"
+            />
           </a>
-          <button ref="btnThemeToggle" class="button-alpha d-i-children p-l-10 f-18" aria-label="Theme" style="background: none; border:none;">
-            <i class=${`far ${this.theme === "dark-theme" ? 'fa-sun' : 'fa-moon'}`}></i>
+          <button 
+	          ref="btnThemeToggle" 
+	          class="btn-icon button-alpha d-i-children p-l-10" 
+	          aria-label="Theme"
+          >
+            <img 
+	            src="${ (this.theme === "dark") ? "./media/images/sun.svg" : "./media/images/moon.svg" }" 
+	            class="${this.theme === "dark" ? 'tint-white' : 'tint-black'}" />
           </button>
         </div>
       </div>
@@ -106,6 +127,8 @@ export class Menu extends CuppaComponent {
         menu-comp .menu-item:hover { opacity: 1; }
         menu-comp .menu-item.selected { opacity: 1; background: var(--menu-selected-bg); cursor: default; color: var(--menu-selected-color) !important; }
         menu-comp .menu-item i { min-width: 3rem; }
+	      menu-comp .btn-icon{ background: transparent; border: none; display: flex; align-items: center; justify-content: center; padding:5px; }
+        menu-comp .btn-icon img{ width: auto; height: 2rem; }
       </style>
 		`
 	}
