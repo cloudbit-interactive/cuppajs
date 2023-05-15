@@ -1,7 +1,7 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {CuppaTabs, CuppaTab} from "../../../../cuppa/components/cuppa.tabs.min.js";
+import "../../../../cuppa/components/cuppa.tabs.min.js";
 import {Utils} from "../../../controllers/Utils.js";
-import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
 
 export class CuppaTabsDoc extends CuppaComponent {
 	tabSelected = this.observable("tabSelected", "microsoft");

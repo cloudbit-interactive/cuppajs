@@ -1,6 +1,5 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {CuppaPreviewCode} from "../../../../cuppa/components/cuppa-preview-code.min.js";
-import {Utils} from "../../../controllers/Utils.js";
+import "../../../../cuppa/components/cuppa-preview-code.min.js";
 
 export class CuppaRouter extends CuppaComponent {
 

@@ -37,7 +37,6 @@ export class Utils{
 	}
 
 	static tableHeaderDoc(){
-
 			return html`
       <thead>
 	      <tr>

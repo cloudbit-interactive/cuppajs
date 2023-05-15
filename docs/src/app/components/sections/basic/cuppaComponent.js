@@ -1,8 +1,8 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 import {cuppa} from "../../../../cuppa/cuppa.min.js";
-import {AceModes, CuppaPreviewCode} from "../../../../cuppa/components/cuppa-preview-code.min.js";
-import {GetStorage} from "../../../../cuppa/cuppa.storage.min.js"
+import {AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import "../../../../cuppa/cuppa.storage.min.js"
 import {Storages} from "../../../controllers/Storages.js";
 
 export class CuppaComponentDoc extends CuppaComponent {

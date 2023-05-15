@@ -1,5 +1,5 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {CuppaPreviewCode, AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import "../../../../cuppa/components/cuppa-preview-code.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 
 export class CuppaStorageBase extends CuppaComponent {

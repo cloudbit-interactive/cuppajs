@@ -1,7 +1,7 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {CuppaSwitch} from "../../../../cuppa/components/cuppa.switch.min.js";
+import "../../../../cuppa/components/cuppa.switch.min.js";
 import {Utils} from "../../../controllers/Utils.js";
-import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
 
 export class CuppaSwitchDoc extends CuppaComponent {
 	checked = this.observable("checked", false);

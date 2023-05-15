@@ -1,8 +1,8 @@
 import {CuppaComponent, html, render} from "../../../../cuppa/cuppa.component.min.js";
-import {CuppaAlert} from "../../../../cuppa/components/cuppa.alert.min.js";
+import "../../../../cuppa/components/cuppa.alert.min.js";
 import {Utils} from "../../../controllers/Utils.js";
-import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
-import { CuppaTheme } from "../../../../cuppa/cuppa.theme.min.js";
+import {AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
 import {cuppa} from "../../../../cuppa/cuppa.min.js";
 
 export class CuppaAlertDoc extends CuppaComponent {

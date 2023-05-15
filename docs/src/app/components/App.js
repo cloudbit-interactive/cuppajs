@@ -1,8 +1,8 @@
 import {CuppaComponent, html, camelize} from "../../cuppa/cuppa.component.min.js";
 import {Globals} from "../controllers/Globals.js";
-import {Menu} from "./common/Menu.js";
-import {CuppaDrawer} from "../../cuppa/components/cuppa.drawer.min.js";
-import {CuppaPortal} from "../../cuppa/components/cuppa.portal.min.js";
+import "./common/Menu.js";
+import "../../cuppa/components/cuppa.drawer.min.js";
+import "../../cuppa/components/cuppa.portal.min.js";
 import("./sections/welcome/Welcome.js");
 import("./sections/basic/cuppaComponent.js");
 import("./sections/basic/cuppaRouter.js");

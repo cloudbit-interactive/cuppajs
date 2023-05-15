@@ -1,7 +1,7 @@
 import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
-import {CuppaCollapsible} from "../../../../cuppa/components/cuppa.collapsible.min.js";
+import "../../../../cuppa/components/cuppa.collapsible.min.js";
 import {Utils} from "../../../controllers/Utils.js";
-import { AceModes, CuppaPreviewCode } from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
 import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
 import {Storages} from "../../../controllers/Storages.js";
 
