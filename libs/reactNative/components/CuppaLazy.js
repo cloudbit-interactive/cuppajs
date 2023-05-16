@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
         <CuppaLazy component={<Section2 />} mount={(this.state.section == "section2")} />
 * */
 export class CuppaLazy extends Component{
-	static propTypes = { component:PropTypes.any, style:PropTypes.object, mount:PropTypes.bool, display:PropTypes.string, componentRef:PropTypes.any }
-	static defaultProps = { component:null, style:{flex:1}, mount:false, display:'block', componentRef:null }
+	static propTypes = { component:PropTypes.any, style:PropTypes.object, mount:PropTypes.bool, componentRef:PropTypes.any }
+	static defaultProps = { component:null, style:{flex:1}, mount:false, componentRef:null }
 	state = { component:null }
 
 	constructor(props){
@@ -22,10 +22,10 @@ export class CuppaLazy extends Component{
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		if(this.props.mount && !this.state.component){
 			let component;
-			if(typeof this.props.component.type === 'function'){
-				component = React.cloneElement(this.props.component, {});
+			if(this.props.component?.constructor){
+				component = React.cloneElement(this.props.component, {ref:(ref)=>{ if(ref) this.ref = ref; }});;
 			}else{
-				component = React.cloneElement(this.props.component, {ref:(ref)=>{ if(ref) this.ref = ref; }});
+				component = React.cloneElement(this.props.component, {});
 			}
 			this.setState({component});
 		}else if(this.props.mount && this.ref?.lazyMount){
@@ -37,9 +37,9 @@ export class CuppaLazy extends Component{
 
 	render(){
 		return (
-			<div style={{...{display:(this.props.mount) ? this.props.display : "none"}, ...this.props.style}}>
+			<View style={[{display:(this.props.mount) ? "flex" : "none"}, this.props.style]}>
 				{ this.state.component && React.cloneElement(this.state.component, { ref:this.props.componentRef }) }
-			</div>
+			</View>
 		);
 	}
 }

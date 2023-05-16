@@ -22,10 +22,10 @@ export class CuppaLazy extends Component{
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		if(this.props.mount && !this.state.component){
 			let component;
-			if(typeof this.props.component.type === 'function'){
-				component = React.cloneElement(this.props.component, {cuppaActionSheet:this });
-			}else{
+			if(this.props.component?.constructor){
 				component = React.cloneElement(this.props.component, {cuppaActionSheet:this, ref:(ref)=>{ if(ref) this.ref = ref; }});
+			}else{
+				component = React.cloneElement(this.props.component, {cuppaActionSheet:this });
 			}
 			this.setState({component});
 		}else if(this.props.mount && this.ref?.lazyMount){
