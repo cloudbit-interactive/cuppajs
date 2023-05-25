@@ -1,5 +1,5 @@
 /**
- * v0.0.1
+ * v0.0.2
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -14,7 +14,9 @@ export class CuppaStorage{
 	static callbacks = {};
 
 	static async setData({name = 'default', data = null, store = '', silence = false}){
-		if(String(store).toUpperCase() === CuppaStorage.LOCAL){
+		if(typeof store === "function"){
+			store({name, data, silence, type:'set'});
+		}else if(String(store).toUpperCase() === CuppaStorage.LOCAL){
 			localStorage.setItem(name, JSON.stringify(data));
 		}else if(String(store).toUpperCase() === CuppaStorage.SESSION){
 			sessionStorage.setItem(name, JSON.stringify(data));
@@ -27,7 +29,9 @@ export class CuppaStorage{
 	}
 
 	static setDataSync({name = 'default', data = null, store = '', silence = false}){
-		if(String(store).toUpperCase() === CuppaStorage.LOCAL){
+		if(typeof store === "function"){
+			store({name, data, silence, type:'setSync'});
+		}else if(String(store).toUpperCase() === CuppaStorage.LOCAL){
 			localStorage.setItem(name, JSON.stringify(data));
 		}else if(String(store).toUpperCase() === CuppaStorage.SESSION){
 			sessionStorage.setItem(name, JSON.stringify(data));
@@ -39,7 +43,9 @@ export class CuppaStorage{
 
 	static async getData({name = 'default', callback = null, store = '', defaultValue = null,}){
 		let data;
-		if(String(store).toUpperCase() === CuppaStorage.LOCAL){
+		if(typeof store === "function"){
+			data = await store({name, callback, defaultValue, type:'get'});
+		}else if(String(store).toUpperCase() === CuppaStorage.LOCAL){
 			let ls = localStorage.getItem(name);
 			if(ls) data = JSON.parse(ls);
 		}else if(String(store).toUpperCase() === CuppaStorage.SESSION){
@@ -60,7 +66,9 @@ export class CuppaStorage{
 
 	static getDataSync({name = 'default', callback = null, store = '', defaultValue = null,}){
 		let data;
-		if(String(store).toUpperCase() === CuppaStorage.LOCAL){
+		if(typeof store === "function"){
+			data = store({name, callback, defaultValue, type:'getSync'});
+		}else if(String(store).toUpperCase() === CuppaStorage.LOCAL){
 			let ls = localStorage.getItem(name);
 			if(ls) data = JSON.parse(ls);
 		}else if(String(store).toUpperCase() === CuppaStorage.SESSION){
