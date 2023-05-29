@@ -1,5 +1,5 @@
 /**
- * v0.0.3
+ * v0.0.4
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -9,9 +9,11 @@ export class CuppaComponent extends HTMLElement {
 	shadow = null;
 	renderedCount = 0;
 	_template;
+	_callbacks = [];
 
 	constructor() {
 		super();
+		this.getPropertiesCallbacks();
 		this.binAll = this.binAll.bind(this);
 		this.connectedCallback = this.connectedCallback.bind(this);
 		this.forceRender = this.forceRender.bind(this);
@@ -20,7 +22,24 @@ export class CuppaComponent extends HTMLElement {
 		this.binAll(this);
 	}
 
+	getPropertiesCallbacks(){
+		let _entries = Object.entries(this);
+		for(let i = 0; i < _entries.length; i++){
+			let [key, value] = _entries[i];
+			if(['refs', 'shadow', 'renderedCount', '_template', '_callbacks'].indexOf(key) !== -1) continue;
+			//if(typeof value !== 'function') continue;
+			this._callbacks.push( {key, value});
+		}
+	}
+	reSetPropertiesCallbacks(){
+		for(let i = 0; i < this._callbacks.length; i++){
+			let {key, value} = this._callbacks[i];
+			this[key] = value;
+		}
+	}
+
 	connectedCallback() {
+		this.reSetPropertiesCallbacks();
 		if(this.shadow) this.attachShadow({mode: this.shadow});
 		this.forceRender(null, false);
 		setTimeout(()=>{
