@@ -1,5 +1,5 @@
 /**
- * v0.0.2
+ * v0.0.3
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -23,8 +23,10 @@ export class CuppaComponent extends HTMLElement {
 	connectedCallback() {
 		if(this.shadow) this.attachShadow({mode: this.shadow});
 		this.forceRender(null, false);
-		if(this.mounted) this.mounted(this);
-		if(this.rendered) this.rendered(this);
+		setTimeout(()=>{
+			if(this.mounted) this.mounted(this);
+			if(this.rendered) this.rendered(this);
+		}, 0)
 	}
 
 	disconnectedCallback() {
