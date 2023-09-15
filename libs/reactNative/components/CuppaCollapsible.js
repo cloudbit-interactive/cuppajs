@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Dimensions, Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PropTypes from 'prop-types';
 import {AutoKillTweens, gsap, Power2, Expo} from 'gsap-rn';
 
@@ -15,15 +15,24 @@ async function dimAsync(ref){
 }
 
 export class CuppaCollapsible extends Component{
-	static propTypes = {header:PropTypes.any, open:PropTypes.bool, duration:PropTypes.number, callback:PropTypes.func, heightClosed:PropTypes.number, arrowIcon:PropTypes.any, style:PropTypes.any, arrowStyle:PropTypes.any, headerStyle:PropTypes.any};
-	static defaultProps = {header:null, open:false, duration:0.4, callback:null, heightClosed:0.0001, arrowIcon:null, style:null, arrowStyle:null, headerStyle:null};
-	state = {header:this.props.header};
+	static propTypes = {header:PropTypes.any, content:PropTypes.any, open:PropTypes.bool, duration:PropTypes.number, callback:PropTypes.func, heightClosed:PropTypes.number, arrowIcon:PropTypes.any, style:PropTypes.any, arrowStyle:PropTypes.any, arrowWrapStyle:PropTypes.any, headerStyle:PropTypes.any};
+	static defaultProps = {header:null, content:null, open:false, duration:0.4, callback:null, heightClosed:0.0001, arrowIcon:null, style:null, arrowStyle:null, arrowWrapStyle:null, headerStyle:null};
+	state = {header:this.props.header, content:this.props.content, };
 	_open;
 	dimContent = {width:0, height:0};
 	tweens = {};
 
 	constructor(props) {
 		super(props); bindAll(this);
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		if(this.props.header != prevProps.header) {
+			this.setState({header:this.props.header});
+		}
+		if(this.props.content != prevProps.content) {
+			this.setState({content:this.props.content});
+		}
 	}
 
 	async open(value, duration){
@@ -56,13 +65,15 @@ export class CuppaCollapsible extends Component{
 				>
 						{this.state.header}
 						{(this.props.arrowIcon &&
-							<Image
-								ref="arrowIcon"
-								source={this.props.arrowIcon}
-								style={[{height:14, width:14, marginHorizontal:20}, this.props.arrowStyle]}
-								resizeMode={"contain"}
-								fadeDuration={0}
-							/>
+							<View style={[{alignSelf:'stretch',  alignItems:'center', justifyContent:'center'}, this.props.arrowWrapStyle]}>
+								<Image
+									ref="arrowIcon"
+									source={this.props.arrowIcon}
+									style={[{height:14, width:14, marginHorizontal:20}, this.props.arrowStyle]}
+									resizeMode={"contain"}
+									fadeDuration={0}
+								/>
+							</View>
 						)}
 				</TouchableOpacity>
 				<View ref="contentWrap" style={{overflow:"hidden"}} >
@@ -74,9 +85,9 @@ export class CuppaCollapsible extends Component{
 						  this.open(this.props.open, 0).then();
 					  }}
 					>
-
 						<View ref="content" onLayout={null} >
 							{this.props.children}
+							{this.state.content}
 						</View>
 					</View>
 				</View>
@@ -85,9 +96,7 @@ export class CuppaCollapsible extends Component{
 	}
 }
 
-const CuppaCollapsibleStyles = StyleSheet.create({
-
-})
+const CuppaCollapsibleStyles = StyleSheet.create({ })
 
 function bindAll(element, isFunction){
   let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));

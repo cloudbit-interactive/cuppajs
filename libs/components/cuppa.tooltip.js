@@ -1,5 +1,5 @@
 /**
- * v0.0.4
+ * v0.0.7
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -9,11 +9,11 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 export class CuppaTooltip extends CuppaComponent {
 	static POSITION = {CENTER:"CENTER", LEFT:"LEFT", LEFT_IN:"LEFT_IN", RIGHT:"RIGHT", RIGHT_IN:"RIGHT_IN", TOP:"TOP", TOP_IN:"TOP_IN", BOTTOM:"BOTTOM", BOTTOM_IN:"BOTTOM_IN"}
 	static ARROW = {UP:"UP", LEFT:"LEFT", RIGHT:"RIGHT", DOWN:"DOWN", NONE:"NONE"}
-	text = this.observable("text", "")
-	posX = CuppaTooltip.POSITION.CENTER;
-	posY = CuppaTooltip.POSITION.BOTTOM;
-	arrow = CuppaTooltip.ARROW.UP;
-	styleArrow = "";
+	text = this.observable('text', '')
+	posX = this.observable('posX', CuppaTooltip.POSITION.CENTER);
+	posY = this.observable('posY', CuppaTooltip.POSITION.BOTTOM);
+	arrow = this.observable('arrow', CuppaTooltip.ARROW.UP);
+	styleArrow = '';
 	target;
 	targetElement;
 	forceShow = false;
@@ -56,7 +56,7 @@ export class CuppaTooltip extends CuppaComponent {
 
 	onMouseEnter(e){ this.show(); }
 
-	show(){
+	show(autoAdjust = true){
 		if(!this.targetElement) return;
 		let dimTarget = this.targetElement.getBoundingClientRect();
 		let dim = this.getBoundingClientRect();
@@ -86,7 +86,32 @@ export class CuppaTooltip extends CuppaComponent {
 		}else if(posY === CuppaTooltip.POSITION.BOTTOM_IN){
 			this.style.top = `${dimTarget.y+dimTarget.height-dim.height}px`;
 		}
+		if(autoAdjust) this.autoAdjust();
 		this.classList.add("show");
+	}
+
+	autoAdjust(){
+		let dimTarget = this.targetElement.getBoundingClientRect();
+		let dim = this.getBoundingClientRect();
+		let gap = 20;
+		if(dim.x < 0){
+			this.posX = CuppaTooltip.POSITION.LEFT_IN;
+		}else if(dim.x + dim.width + gap > window.innerWidth){
+			this.posX = CuppaTooltip.POSITION.RIGHT_IN;
+			if(this.refs.arrow){
+				let arrowDim = this.refs.arrow.getBoundingClientRect();
+				this.refs.arrow.style.left = `calc(100% - ${dimTarget.width*0.5+arrowDim.width*0.5}px)`;
+			}
+		}
+
+		if(dim.y < 0){
+			this.posY = CuppaTooltip.POSITION.BOTTOM;
+		}else if(dim.y + dim.height + gap > window.innerHeight){
+			this.posY = CuppaTooltip.POSITION.TOP;
+			this.arrow = CuppaTooltip.ARROW.DOWN;
+		}
+
+		this.show(false);
 	}
 
 	setText(text){
@@ -104,7 +129,7 @@ export class CuppaTooltip extends CuppaComponent {
 	render(){
 		return html`
       ${this.arrow === "" || this.arrow.toUpperCase() === CuppaTooltip.ARROW.NONE ? `` : html`
-        <svg class="cuppa-tooltip_arrow ${this.arrow.toLowerCase()}" width="10" height="5" viewBox="0 0 18 9" preserveAspectRatio="none" style="${this.styleArrow}" >
+        <svg ref="arrow" class="cuppa-tooltip_arrow ${this.arrow.toLowerCase()}" width="10" height="5" viewBox="0 0 18 9" preserveAspectRatio="none" style="${this.styleArrow}" >
           <path data-name="Icon ionic-md-arrow-dropup" d="M9,22.5l9-9,9,9Z" transform="translate(-9 -13.5)"/>
         </svg>
       `}
@@ -123,7 +148,8 @@ export class CuppaTooltip extends CuppaComponent {
         }
         cuppa-tooltip{ 
 	        transition: 0.3s opacity; 
-	        opacity: 0; 
+	        opacity: 0;
+	        visibility: hidden;
 	        position: fixed;
 	        top:0; 
 	        left:0;
