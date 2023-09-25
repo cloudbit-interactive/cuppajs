@@ -20,7 +20,7 @@ export class CuppaPagination extends CuppaComponent {
 	static get observedAttributes() { return ['page', 'pages'] }
 	attributeChangedCallback(attr, oldVal, newVal) {
 		if(oldVal === newVal) return;
-		if(attr === "page" || attr === "pages") newVal = parseInt(newVal);
+		if(attr === "page" || attr === "pages") newVal = parseInt(newVal) || 1;
 		this[attr] = newVal;
 	}
 
@@ -35,42 +35,41 @@ export class CuppaPagination extends CuppaComponent {
 
 	render(){
 		return html`
-      ${ this.pages < 2 ? `` : html`
-        ${ this.page <= 1 ? `` : html`
-          <a @click=${e=>this.change(1)} class="cuppa-pagination__first cuppa-pagination__button" title="First page">
-            <img src="${arrow}" />
-            <img src="${arrow}" />
-          </a>
-          <a @click=${e=>this.change(this.page-1)} class="cuppa-pagination__back cuppa-pagination__button" title="Prev page">
-            <img src="${arrow}" />
-          </a>
-        ` }
+			${ this.pages < 2 ? `` : html`
+				${ this.page <= 1 ? `` : html`
+					<a @click=${e=>this.change(1)} class="cuppa-pagination__first cuppa-pagination__button" title="First page">
+						<img src="${arrow}" />
+						<img src="${arrow}" />
+					</a>
+					<a @click=${e=>this.change(this.page-1)} class="cuppa-pagination__back cuppa-pagination__button" title="Prev page">
+						<img src="${arrow}" />
+					</a>
+				` }
 
-        <div class="cuppa-pagination__label">Page ${this.page}/${this.pages}</div>
-
-        ${ this.page >= this.pages ? `` : html`
-          <a @click=${e=>this.change(this.page+1)} class="cuppa-pagination__next cuppa-pagination__button" title="Next page">
-            <img src="${arrow}" style="transform:rotate(180deg)" />
-          </a>
-          <a @click=${()=>{ this.change(this.pages) }} class="cuppa-pagination__last cuppa-pagination__button" title="Last page">
-            <img src="${arrow}" style="transform:rotate(180deg)" />
-            <img src="${arrow}" style="transform:rotate(180deg)" />
-          </a>
-        ` }
-        <select class="cuppa-pagination__select" @change=${e=>{ this.change(e.currentTarget.value) }}>
-          <option value="">Select Page</option>
-          ${arrayFromTo(1, this.pages).map((page) => html`<option value=${page} >${page}</option>`)}
-        </select>
-        <style>
-          cuppa-pagination, cuppa-pagination *{ box-sizing: border-box; font-size: 12px; }
-          cuppa-pagination{ display:inline-flex; gap: 5px; align-items: center; user-select: none; }
-          .cuppa-pagination__button { padding: 0 5px; height: 22px; display: inline-flex; justify-content: center; align-items: center; cursor: pointer; transition: .3s; border: 1px solid #DDD; background: #FFF; border-radius: 3px; color: #67757c; }
-          .cuppa-pagination__button img{ height: 9px;}
-          .cuppa-pagination__button:hover{ background: rgba(255,255,255,0.7); }
-          .cuppa-pagination__label{ margin:0 5px; white-space: nowrap; }
-          .cuppa-pagination__select{ height: 22px; border: 1px solid #ddd; border-radius: 3px; background: #FFF; color:#333; }
-        </style>
-      ` }
+				<div class="cuppa-pagination__label">Page ${this.page}/${this.pages}</div>
+				${ this.page >= this.pages ? `` : html`
+					<a @click=${e=>this.change(this.page+1)} class="cuppa-pagination__next cuppa-pagination__button" title="Next page">
+						<img src="${arrow}" style="transform:rotate(180deg)" />
+					</a>
+					<a @click=${()=>{ this.change(this.pages) }} class="cuppa-pagination__last cuppa-pagination__button" title="Last page">
+						<img src="${arrow}" style="transform:rotate(180deg)" />
+						<img src="${arrow}" style="transform:rotate(180deg)" />
+					</a>
+				` }
+				<select class="cuppa-pagination__select" @change=${e=>{ this.change(e.currentTarget.value) }}>
+					<option value="">Select Page</option>
+					${arrayFromTo(1, this.pages).map((page) => html`<option value=${page} >${page}</option>`)}
+				</select>
+				<style>
+					cuppa-pagination, cuppa-pagination *{ box-sizing: border-box; font-size: 12px; }
+					cuppa-pagination{ display:inline-flex; gap: 5px; align-items: center; user-select: none; }
+					.cuppa-pagination__button { padding: 0 5px; height: 22px; display: inline-flex; justify-content: center; align-items: center; cursor: pointer; transition: .3s; border: 1px solid #DDD; background: #FFF; border-radius: 3px; color: #67757c; }
+					.cuppa-pagination__button img{ height: 9px;}
+					.cuppa-pagination__button:hover{ background: rgba(255,255,255,0.7); }
+					.cuppa-pagination__label{ margin:0 5px; white-space: nowrap; }
+					.cuppa-pagination__select{ height: 22px; border: 1px solid #ddd; border-radius: 3px; background: #FFF; color:#333; }
+				</style>
+			` }
 		`
 	}
 }
