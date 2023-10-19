@@ -3,8 +3,8 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 
 export class CuppaScrollView extends Component{
-	static propTypes = {style:PropTypes.any, contentContainerStyle:PropTypes.any, scrollRef:PropTypes.func, offset:PropTypes.number};
-	static defaultProps = {style:null, contentContainerStyle:null, scrollRef:null, offset:0};
+	static propTypes = {style:PropTypes.any, contentContainerStyle:PropTypes.any, scrollRef:PropTypes.func, offset:PropTypes.number, alwaysBounceVertical:PropTypes.bool};
+	static defaultProps = {style:null, contentContainerStyle:null, scrollRef:null, offset:0, alwaysBounceVertical:true};
 	state = {height:0};
 	scrollRef;
 	scrollLayout;
@@ -36,8 +36,7 @@ export class CuppaScrollView extends Component{
 				if(this.touchData.pageY+this.props.offset <= screenDim.height-keyboardHeight) return;
 				let scrollTo = this.touchData.pageY-this.scrollLayout.y+currentScrollPosition-200-this.props.offset;
 				this.scrollRef.scrollTo({ x: 0, y:scrollTo, animated: true });
-			}, 50)
-
+			}, 50);
 		});
 	}
 
@@ -63,6 +62,7 @@ export class CuppaScrollView extends Component{
 				onLayout={(e)=>{ this.scrollLayout = e.nativeEvent.layout; }}
 				scrollEventThrottle={16}
 				onTouchStart={(e) => {this.touchData = e.nativeEvent}}
+				alwaysBounceVertical={this.props.alwaysBounceVertical}
 			>
 				{this.props.children}
 				<View style={[{height:this.state.height, backgroundColor:'transparent'}]}></View>
