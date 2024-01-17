@@ -1,4 +1,5 @@
 /* CuppaPortal
+		Version: 0.0.2
     <CuppaPortal ref={ ref =>{ if(!ref) return; Global.mainPortal = ref } } />
     Globals.mainPortal.add('myElement', <Text>Hello</Text>);
     Globals.mainPortal.remove('myElement');
@@ -16,11 +17,12 @@ export class CuppaPortal extends Component{
 		this.state = {elements:{}, references:{} };
 	}
 
-	async add(name, element, callback){
+	async add(name, element, order = 0, callback){
+		if(!order) order = 0;
 		let result = await new Promise( resolve =>{
 			if(!name) name = "modal";
 			let elements = this.state.elements;
-			elements[name] = element;
+			elements[name] = {element, order};
 			this.setState({elements:elements}, ()=>{
 				if(callback) callback(true);
 				resolve(true);
@@ -91,10 +93,7 @@ export class CuppaPortal extends Component{
 	}
 
 	render(){
-		let elements = [];
-		for (let name in this.state.elements) {
-			elements.push(this.state.elements[name]);
-		}
-		return elements;
+		let elements = (Object.values(this.state.elements)).sort((a, b)=>a.order < b.order ? -1 : 1);
+		return elements.map(element=>element.element);
 	}
 }

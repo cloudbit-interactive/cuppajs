@@ -26,6 +26,10 @@ export class CuppaCollapsible extends Component{
 		super(props); bindAll(this);
 	}
 
+	componentDidMount() {
+		this.open(this.props.open, 0).then();
+	}
+
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		if(this.props.header != prevProps.header) {
 			this.setState({header:this.props.header});
@@ -38,8 +42,12 @@ export class CuppaCollapsible extends Component{
 	async open(value, duration){
 		if(duration === undefined) duration = this.props.duration;
 		if(value === undefined) value = !this._open;
+		AutoKillTweens.tweensOf(this.tweens);
 		if(value){
+			this.refs.contentWrap.setNativeProps({style:{height:0.1}});
+			await wait(100);
 			this.tweens.tl = gsap.timeline();
+			this.tweens.tl.set(this.refs.contentWrap, {style:{height:1}});
 			this.tweens.tl.to(this.refs.contentWrap, {duration, style:{height:this.dimContent.height}, ease:Expo.easeInOut});
 			if(this.refs.arrowIcon){
 				this.tweens.tl.to(this.refs.arrowIcon, {duration, transform:{rotate:"180" }, ease:Power2.easeInOut }, 0);
@@ -48,7 +56,7 @@ export class CuppaCollapsible extends Component{
 			this.tweens.tl = gsap.timeline();
 			this.tweens.tl.to(this.refs.contentWrap, {duration, style:{height:0}, ease:Expo.easeInOut});
 			if(this.refs.arrowIcon){
-				this.tweens.tl.to(this.refs.arrowIcon, {duration, transform:{rotate:"0" }, ease:Power2.easeInOut }, 0);
+				this.tweens.tl.to(this.refs.arrowIcon, {duration, transform:{rotate:"0"}, ease:Power2.easeInOut }, 0);
 			}
 		}
 		this._open = value;
@@ -77,15 +85,13 @@ export class CuppaCollapsible extends Component{
 						)}
 				</TouchableOpacity>
 				<View ref="contentWrap" style={{overflow:"hidden"}} >
-					<View
-						ref="content"
-					  onLayout={(e)=>{
-						  if(this.dimContent?.width) return;
-						  this.dimContent = e.nativeEvent.layout;
-						  this.open(this.props.open, 0).then();
-					  }}
-					>
-						<View ref="content" onLayout={null} >
+					<View>
+						<View
+							ref="content"
+							onLayout={(e)=>{
+								this.dimContent = e.nativeEvent.layout;
+							}}
+						>
 							{this.props.children}
 							{this.state.content}
 						</View>
@@ -106,4 +112,10 @@ function bindAll(element, isFunction){
       element[propertyNames[i]]= element[propertyNames[i]].bind(element);
     };
   };
+};
+
+const wait = async function(time){
+	if(!time) time = 1000;
+	let result = await new Promise((resolve)=>{ setTimeout(()=>{ resolve(true) }, time); });
+	return result;
 };
