@@ -1,5 +1,5 @@
 /**
- * v0.0.3
+ * v0.0.4
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -7,9 +7,9 @@
 export class CuppaStorage{
 	static LOCAL = "LOCAL";
 	static SESSION = "SESSION";
+	static COOKIE = "COOKIE";
 	static INDEXED_DB = "INDEXED_DB";
 	static db;
-	static defaultData = {};
 	static data = {};
 	static callbacks = {};
 
@@ -22,6 +22,8 @@ export class CuppaStorage{
 					sessionStorage.setItem(name, JSON.stringify(data));
 			}else if(String(store).toUpperCase() === CuppaStorage.INDEXED_DB){
 					await CuppaStorage.db.add(name, data);
+			}else if(String(store).toUpperCase() === CuppaStorage.COOKIE){
+				CuppaStorage.setCookie(name, JSON.stringify(data));
 			}else{
 					CuppaStorage.data[name] = data;
 			}
@@ -35,6 +37,8 @@ export class CuppaStorage{
 					localStorage.setItem(name, JSON.stringify(data));
 			}else if(String(store).toUpperCase() === CuppaStorage.SESSION){
 					sessionStorage.setItem(name, JSON.stringify(data));
+			}else if(String(store).toUpperCase() === CuppaStorage.COOKIE){
+				CuppaStorage.setCookie(name, JSON.stringify(data));
 			}else{
 					CuppaStorage.data[name] = data;
 			}
@@ -57,6 +61,11 @@ export class CuppaStorage{
 					}
 			}else if(String(store).toUpperCase() === CuppaStorage.INDEXED_DB){
 					data = await CuppaStorage.db.get(name);
+			}else if(String(store).toUpperCase() === CuppaStorage.COOKIE){
+				let cookie = CuppaStorage.getCookie(name);
+				if(cookie){
+					try { data = JSON.parse(cookie); }catch (err){ data = undefined }
+				}
 			}else{
 					data = CuppaStorage.data[name];
 			}
@@ -78,6 +87,11 @@ export class CuppaStorage{
 			}else if(String(store).toUpperCase() === CuppaStorage.SESSION){
 					let st = sessionStorage.getItem(name);
 					if(st) data = JSON.parse(st);
+			}else if(String(store).toUpperCase() === CuppaStorage.COOKIE){
+				let cookie = CuppaStorage.getCookie(name);
+				if(cookie){
+					try { data = JSON.parse(cookie); }catch (err){ data = undefined }
+				}
 			}else{
 					data = CuppaStorage.data[name];
 			}
@@ -126,8 +140,8 @@ if(!document.defaultView.CuppaStorage){
 };
 
 /*
-	const storage = {name:"STORAGE_TODO", store:CuppaStorage.INDEXED_DB};
-	<get-storage name="${storage.name}" store="${storage.store}" onchange="this.onChange"></get-storage>
+const storage = {name:"STORAGE_TODO", store:CuppaStorage.INDEXED_DB};
+<get-storage name="${storage.name}" store="${storage.store}" onchange="this.onChange"></get-storage>
 */
 export class GetStorage extends HTMLElement{
 	name;
@@ -240,7 +254,7 @@ class CuppaStorageInnoDB{
 			let storage = transaction.objectStore(config.storage);
 			storage.delete(name);
 	};
-};
+}
 
 CuppaStorage.db = new CuppaStorageInnoDB();
 
@@ -250,6 +264,32 @@ function bindAll(element, isFunction){
 	for(let i = 0; i < propertyNames.length; i++){
 			if(typeof element[propertyNames[i]] == "function"){
 					element[propertyNames[i]]= element[propertyNames[i]].bind(element);
-			};
-	};
+			}
+	}
+}
+
+/* Set Cookie, By default, the cookie is deleted when the browser is closed */
+CuppaStorage.setCookie = function(name, value = "", expirationDays) {
+	if(expirationDays){
+			let expirationDate = new Date();
+			expirationDate.setDate(expirationDate.getDate() + expirationDays);
+			value = encodeURIComponent(value) + "; expires="+expirationDate.toUTCString();
+			document.cookie = name + "=" + value + ";path=/; SameSite=Strict;";
+	}else{
+			document.cookie = name + "=" + value + ";path=/; SameSite=Strict;";
+	}
 };
+
+/* Get Cookie */
+CuppaStorage.getCookie = function(name, documentRef) {
+	if(documentRef == undefined) documentRef = document;
+	let results = documentRef.cookie.match ( '(^|;) ?' + name + '=([^;]*)(;|$)' );
+	if ( results ) return ( decodeURIComponent(results[2]) );
+	else return null;
+};
+
+/* Delete Cookie*/
+CuppaStorage.deleteCookie = function(name){
+	document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+};
+
