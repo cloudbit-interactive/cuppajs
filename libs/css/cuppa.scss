@@ -1,5 +1,5 @@
 /*
-* CuppaCSS v0.0.5
+* CuppaCSS v0.0.6
 * Authors (https://github.com/cloudbit-interactive/cuppajs)
 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
 */
@@ -273,6 +273,7 @@
   .min-h-#{$value}{ min-height: $value+px; }
 }
 /* others */
+.t-cut{ text-overflow: ellipsis;  white-space: nowrap; flex-wrap: nowrap; overflow: hidden; }
 .transition{ transition: 0.3s; }
 .transition-4ms{ transition: 0.4s; }
 .transition-6ms{ transition: 0.6s; }
