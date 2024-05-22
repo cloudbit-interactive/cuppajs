@@ -1,3 +1,8 @@
+/**
+ * v0.0.2
+ * Authors (https://github.com/cloudbit-interactive/cuppajs)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Realm from 'realm';
@@ -51,8 +56,7 @@ export class CuppaStorage{
 		}
 
 		if(data === undefined || data === null){ data = defaultValue; }
-
-		if(data != undefined && callback && initialTrigger){ callback(data); };
+		if(data !== undefined && callback && initialTrigger){ callback(data); };
 		if(callback){ CuppaStorage.addCallback({name, callback}); };
 		return data;
 	}
@@ -110,6 +114,7 @@ export class GetStorage extends Component{
 	static propTypes = {callback:PropTypes.func, name:PropTypes.string, store:PropTypes.oneOf(["",GetStorage.store.LOCAL]), defaultValue:PropTypes.any, initialTrigger:PropTypes.bool};
 	static defaultProps = {name:"defaultName", store:"", defaultValue:null, callback:null, initialTrigger:true};
 	state = {}
+	unmount = false;
 
 	constructor(){
 		super();
@@ -117,14 +122,16 @@ export class GetStorage extends Component{
 	};
 
 	componentDidMount() {
-		CuppaStorage.getData({name:this.props.name, callback:this.onUpdateStorage, default:this.props.defaultValue, store:this.props.store, initialTrigger:this.props.initialTrigger}).then();
+		CuppaStorage.getData({name:this.props.name, callback:this.onUpdateStorage, defaultValue:this.props.defaultValue, store:this.props.store, initialTrigger:this.props.initialTrigger}).then();
 	}
 
 	onUpdateStorage(data){
+		if(this.unmount) return;
 		if(this.props.callback) this.props.callback(data);
 	};
 
 	componentWillUnmount() {
+		this.unmount = true;
 		CuppaStorage.removeCallback({name:this.props.name, callback:this.onUpdateStorage});
 	}
 

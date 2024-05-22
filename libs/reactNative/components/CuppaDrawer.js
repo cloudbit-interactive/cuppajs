@@ -208,7 +208,7 @@ export class CuppaDrawer extends Component{
 					<View ref="blockade" style={[_style.blockade]}></View>
 				</TouchableWithoutFeedback>
 				<View ref="menu" style={[_style.cover, {backgroundColor:"#FFF", maxWidth:this.props.width, width:"100%", right:(this.props.position == CuppaDrawer.LEFT) ? "auto" : 0, left:(this.props.position == CuppaDrawer.RIGHT) ? "auto" : 0, elevation:15}, this.props.style]} >
-					{this.props.content}
+					{React.cloneElement(this.props.content, {close:this.close, open:this.open})}
 				</View>
 			</View>
 		)
