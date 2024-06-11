@@ -1,5 +1,5 @@
 /**
- * v0.0.4
+ * v0.0.5
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -33,7 +33,7 @@ export class CuppaTabs extends CuppaComponent {
 		if(!this.tabs) return;
 		this.tabs = this.querySelectorAll("cuppa-tab");
 		this.tabs.forEach(tab=>tab.removeAttribute("selected"));
-		let selectedNode; try{ selectedNode = this.querySelector(`cuppa-tab[value=${this.selected}]`); }catch(e){ }
+		let selectedNode; try{ selectedNode = this.querySelector(`cuppa-tab[value='${this.selected}']`); }catch(e){ }
 		if(selectedNode) selectedNode.setAttribute("selected", "");
 	}
 
