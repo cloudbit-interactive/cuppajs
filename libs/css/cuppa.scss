@@ -293,7 +293,7 @@ label.error:before, .form-error-message:before{ content: ''; position: absolute;
 .tooltip-message{ pointer-events: none; position: absolute; display: block; background: #000; color: #FFF; padding: 5px 10px; z-index: 1; text-align: left; font-family: 'Arial', sans-serif; font-weight: 500; line-height: 120%; border-radius:3px; white-space: nowrap; font-size: 12px; overflow: hidden; }
 .blockade{ position:fixed; border: none; background:rgba(0,0,0,0.7); top:0; left:0; right: 0; bottom: 0; z-index: auto; }
 .blockade-transparent{ position:fixed;	border: none; width:100%; height:100%; background:rgba(0,0,0,0); top:0; left:0; float:left; z-index: 9999; }
-.e-linear{ transition-timing-function: Cubic-bezier(0.250, 0.250, 0.750, 0.750); }
+.e-linear{ transition-timing-function: linear; }
 .e-default{ transition-timing-function: Cubic-bezier(0.250, 0.100, 0.250, 1.000); }
 .e-easeIn{ transition-timing-function: Cubic-bezier(0.420, 0.000, 1.000, 1.000); }
 .e-easeOut{ transition-timing-function: Cubic-bezier(0.000, 0.000, 0.580, 1.000); }
