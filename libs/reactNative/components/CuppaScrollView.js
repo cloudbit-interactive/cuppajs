@@ -2,7 +2,7 @@ import {Dimensions, Keyboard, Platform, ScrollView, View} from "react-native";
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
-export class CuppaScrollView extends Component{
+export class CuppaScrollView2 extends Component{
 	static propTypes = {style:PropTypes.any, contentContainerStyle:PropTypes.any, scrollRef:PropTypes.func, offset:PropTypes.number, alwaysBounceVertical:PropTypes.bool};
 	static defaultProps = {style:null, contentContainerStyle:null, scrollRef:null, offset:0, alwaysBounceVertical:true};
 	state = {height:0};
@@ -16,6 +16,7 @@ export class CuppaScrollView extends Component{
 		"zoomScale": 1,
 	};
 	touchData = {"identifier": 0, "locationX": 0, "locationY": 0, "pageX": 0, "pageY": 0, }
+	keyboardShowed = false;
 
 	constructor(props) {
 		super(); bindAll(this);
@@ -27,7 +28,9 @@ export class CuppaScrollView extends Component{
 	}
 
 	onKeyboardShow(e){
-		if(Platform.OS != "ios") return;
+		if(this.keyboardShowed) return;
+		this.keyboardShowed = true;
+		if(Platform.OS !== "ios") return;
 		let keyboardHeight = e.endCoordinates.height;
 		this.setState({height:keyboardHeight}, ()=>{
 			setTimeout(()=>{
@@ -40,7 +43,10 @@ export class CuppaScrollView extends Component{
 		});
 	}
 
-	onKeyboardHide(e){ this.setState({height:0}); }
+	onKeyboardHide(e){
+		this.keyboardShowed = false;
+		this.setState({height:0});
+	}
 
 	componentWillUnmount(){
 		this.keyboardDidShowListener.remove();

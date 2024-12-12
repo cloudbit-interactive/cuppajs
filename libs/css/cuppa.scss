@@ -164,14 +164,27 @@
 .o-0{ opacity: 0; } .o-25{ opacity: 0.25; } .o-50{ opacity: 0.5; } .o-75{ opacity: 0.75; }
 .o-hidden{ overflow: hidden; } .o-visible{ overflow: visible; }.o-auto{ overflow: auto; } .o-x{ overflow:hidden; overflow-x: auto; } .o-y{ overflow:hidden; overflow-y: auto; }
 .disappear{ position: fixed; width: 0; height: 0; display: block; left: 500%; top:-9999px; }
-.ani-fade{ animation-name: ani-fade; animation-duration: 0.2s; }
 .no-scroll, .no-scroll-all, .no-scroll-all * { overflow: hidden; }
 .hide-scroll{ scrollbar-width: none; }
 .hide-scroll::-webkit-scrollbar{ display: none; width: 0 }
-
+.ani-fade{ animation-name: ani-fade; animation-duration: 0.2s; }
 @keyframes ani-fade { 0% { opacity:0; } 100% { opacity: 1; } }
-.ani-shake{ animation-name: ani-shake; animation-duration: 0.3s; }
-@keyframes ani-shake { 0% { transform: translateX(10px); } 50% { transform: translateX(-10px); } 100% { transform: translateX(0px); } }
+.ani-shake {
+  animation-name: ani-shake;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+}
+@keyframes ani-shake {
+  33% {
+    transform: translateX(10px);
+  }
+  66% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
 .ani-pop{ animation-name: ani-pop; animation-duration: 0.2s; }
 @keyframes ani-pop { 0% { opacity:0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
 // fonts / text

@@ -13,7 +13,9 @@ export class CuppaMenu extends CuppaComponent {
 	arrow = this.observable('arrow', CuppaMenu.ARROW.NONE);
 	styleArrow = "";
 	target;
+	targetElement;
 	mainMenu = true;
+	contextualMenu = false;
 	onMenu = false;
 	delayCloseTimeout;
 	forceShow = false;
@@ -21,7 +23,7 @@ export class CuppaMenu extends CuppaComponent {
 	groupEvents = `CuppaMenu_${cuppa.uuid()}`;
 
 
-	static get observedAttributes() { return ['target', 'pos-x', 'pos-y', 'force-show', 'force-remove', 'main-menu', 'arrow', 'style-arrow'] }
+	static get observedAttributes() { return ['target', 'pos-x', 'pos-y', 'force-show', 'force-remove', 'main-menu', 'arrow', 'style-arrow', 'contextual-menu'] }
 	attributeChangedCallback(attr, oldVal, newVal) {
 		if(oldVal === newVal) return;
 		if(newVal === "true") newVal = true;
@@ -32,16 +34,18 @@ export class CuppaMenu extends CuppaComponent {
 	mounted(){
 		if(this.parentElement.closest('cuppa-menu')) this.mainMenu = false;
 		else this.classList.add('main-menu')
-		if(this.target) this.target = document.querySelector(this.target);
+		if(this.target){
+			this.targetElement = document.querySelector(this.target);
+		}
 		this.setPosition();
 		setTimeout(()=>{ this.addEvents() }, 200);
 	}
 
 	setPosition(autoAdjust = true){
-		if(!this.target) return;
+		if(!this.targetElement) return;
 		this.style.visibility = 'hidden';
 		this.style.display = 'block';
-		let dimTarget = this.target.getBoundingClientRect();
+		let dimTarget = this.targetElement.getBoundingClientRect();
 		let dim = this.getBoundingClientRect();
 		this.style.display = 'none';
 		this.style.visibility = 'visible';
@@ -77,7 +81,7 @@ export class CuppaMenu extends CuppaComponent {
 	}
 
 	autoAdjust(){
-		let dimTarget = cuppa.dim(this.target);
+		let dimTarget = cuppa.dim(this.targetElement);
 		let dim = cuppa.dim(this);
 		let gap = 20;
 
@@ -102,18 +106,22 @@ export class CuppaMenu extends CuppaComponent {
 	}
 
 	addEvents(){
-		if(this.mainMenu){
+		if(this.contextualMenu){
 			cuppa.on(window, `click`, this.close, this.groupEvents);
 			cuppa.on(window, `scroll`, this.close, this.groupEvents);
-			cuppa.on(this.target, `click`, this.show, this.groupEvents);
-			cuppa.on(this.target, `mouseenter`, (e)=>{
+			cuppa.on(this.targetElement, `click`, this.show, this.groupEvents);
+		}else if(this.mainMenu){
+			cuppa.on(window, `click`, this.close, this.groupEvents);
+			cuppa.on(window, `scroll`, this.close, this.groupEvents);
+			cuppa.on(this.targetElement, `click`, this.show, this.groupEvents);
+			cuppa.on(this.targetElement, `mouseenter`, (e)=>{
 				let others = this.getOthers();
 				if(others.length){ this.closeOthers(); this.show(e); }
 			}, this.groupEvents);
 		}else{
-			cuppa.on(this.target, `click`, e=>e.stopPropagation(), this.groupEvents);
-			cuppa.on(this.target, `mouseenter`, this.show, this.groupEvents);
-			cuppa.on(this.target, `mouseleave`, this.delayClose, this.groupEvents);
+			cuppa.on(this.targetElement, `click`, e=>e.stopPropagation(), this.groupEvents);
+			cuppa.on(this.targetElement, `mouseenter`, this.show, this.groupEvents);
+			cuppa.on(this.targetElement, `mouseleave`, this.delayClose, this.groupEvents);
 			cuppa.on(this, `mouseenter`, (e)=>{this.onMenu = true}, this.groupEvents);
 			cuppa.on(this, `mouseleave`, this.close, this.groupEvents);
 		}
@@ -155,7 +163,7 @@ export class CuppaMenu extends CuppaComponent {
 	}
 
 	close(e){
-		if(!this.target || this.forceRemove){
+		if(!this.targetElement || this.forceRemove){
 			this.remove();
 		}else{
 			this.onMenu = false;
@@ -175,17 +183,17 @@ export class CuppaMenu extends CuppaComponent {
         </svg>
       `}
       <style>
-	      :root{
+        :root{
           --cuppa-menu-bg:#fff;
           --cuppa-menu-btn-bg:transparent;
           --cuppa-menu-btn-bg-hover:rgba(0,0,0,0.07);
           --cuppa-menu-btn-color:#333;
-		      --cuppa-menu-tint:invert(0%) sepia(96%) saturate(21%) hue-rotate(215deg) brightness(96%) contrast(102%);
-		      --cuppa-menu-shadow:0px 3px 10px rgba(0,0,0,0.1);
+          --cuppa-menu-tint:invert(0%) sepia(96%) saturate(21%) hue-rotate(215deg) brightness(96%) contrast(102%);
+          --cuppa-menu-shadow:0px 3px 10px rgba(0,0,0,0.1);
           --cuppa-menu-border:1px solid rgba(0, 0, 0, 0.06);
           --cuppa-menu-border-bottom:1px solid rgba(0, 0, 0, 0.02);
           --cuppa-menu-separator:1px solid rgba(0, 0, 0, 0.08);
-		      --cuppa-menu-shortcut-color:rgba(0, 0, 0, 0.4);
+          --cuppa-menu-shortcut-color:rgba(0, 0, 0, 0.4);
           --cuppa-menu-arrow-color:#fff;
         }
 
@@ -200,48 +208,48 @@ export class CuppaMenu extends CuppaComponent {
           --cuppa-menu-separator:1px solid rgba(255, 255, 255, 0.08);
           --cuppa-menu-arrow-color:#1e1e1e;
         }
-        
+
         cuppa-menu{
-	        display: block;
-	        position: fixed; 
-	        left: 0; top:0;
+          display: block;
+          position: fixed;
+          left: 0; top:0;
           border: var(--cuppa-menu-border);
-          border-bottom: var(--cuppa-menu-border-bottom); 
-	        padding: 4px 0px; 
-	        min-width:140px;
-	        white-space:nowrap; 
-	        background: var(--cuppa-menu-bg); 
-	        border-radius: 5px; 
-	        box-shadow: var(--cuppa-menu-shadow);
-	        z-index: 1;
-	        margin-top:3px;
+          border-bottom: var(--cuppa-menu-border-bottom);
+          padding: 4px 0px;
+          min-width:140px;
+          white-space:nowrap;
+          background: var(--cuppa-menu-bg);
+          border-radius: 5px;
+          box-shadow: var(--cuppa-menu-shadow);
+          z-index: 1;
+          margin-top:3px;
         }
-        cuppa-menu button{ 
-	        border: none; 
-	        outline:none; 
-	        white-space: nowrap; 
-	        width: 100%; 
-	        background: var(--cuppa-menu-btn-bg); 
-	        color: var(--cuppa-menu-btn-color); 
-	        padding: 7px 15px 7px 15px; 
-	        display: flex;
-	        align-items: center;
-	        justify-content: space-between;
-	        flex-wrap: nowrap; 
-	        font-size: 14px;
+        cuppa-menu button{
+          border: none;
+          outline:none;
+          white-space: nowrap;
+          width: 100%;
+          background: var(--cuppa-menu-btn-bg);
+          color: var(--cuppa-menu-btn-color);
+          padding: 7px 15px 7px 15px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: nowrap;
+          font-size: 14px;
         }
         cuppa-menu button:hover{ background: var(--cuppa-menu-btn-bg-hover);}
-	      cuppa-menu hr{ border:none; border-bottom: var(--cuppa-menu-separator); margin:7px 0; }
+        cuppa-menu hr{ border:none; border-bottom: var(--cuppa-menu-separator); margin:7px 0; }
         cuppa-menu .shortcut{ display: flex; align-items: center; justify-content: flex-end; color:var(--cuppa-menu-shortcut-color); min-width: 60px; padding-left: 20px; }
         cuppa-menu img{ height: 14px; margin-right: 14px; filter: var(--cuppa-menu-tint); }
         cuppa-menu i{ width: 14px; height: 14px; background: no-repeat center; background-size: contain; }
         cuppa-menu i{ margin: 0 14px 0 0; }
-       	cuppa-menu i.more{ 
-	        width: 12px;
-	        height: 12px; 
-	        filter: var(--cuppa-menu-tint); 
-	        margin:0 0 0 14px;
-	        background-image: url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ic3ZnLWljb24iIHN0eWxlPSJ3aWR0aDogMWVtOyBoZWlnaHQ6IDFlbTt2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO2ZpbGw6IGN1cnJlbnRDb2xvcjtvdmVyZmxvdzogaGlkZGVuOyIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0zNDEuOTU3MjA5IDk1OS4zNTQ2NzhjLTEyLjg5MzY1OCAwLTI1Ljg0MjU3NS00LjQyNTc5OS0zNi4zODY3MjItMTMuNDY3NzMzLTIzLjQ5MzA2NC0yMC4xMDU5Mi0yNi4yMjQyNjgtNTUuNDI2MzU3LTYuMDY0MTEzLTc4Ljg5MTc5MUw2MDMuOTI5NzM2IDUxMS43ODkxOTlsLTMwNC40MjMzNjEtMzU1LjIwNjk3OGMtMjAuMTYwMTU1LTIzLjQ2NTQzNC0xNy40Mjc5MjgtNTguNzg2ODk0IDYuMDY0MTEzLTc4Ljg5MTc5MSAyMy40Mzc4MDUtMjAuMDI0MDU2IDU4Ljc4Njg5NC0xNy4zNzM2OTMgNzguODM3NTU2IDYuMDY0MTEzbDMzNS42NzUxMzIgMzkxLjYyMDMwNWMxNy45NzQzNzMgMjAuOTUyMTk0IDE3Ljk3NDM3MyA1MS44NzU0ODQgMCA3Mi44Mjc2NzlsLTMzNS42NzUxMzIgMzkxLjYyMDMwNUMzNzMuMzcxNjg2IDk1Mi43MTc1MTQgMzU3LjY5MTU2NSA5NTkuMzU0Njc4IDM0MS45NTcyMDkgOTU5LjM1NDY3OHoiICAvPjwvc3ZnPg==)
+        cuppa-menu i.more{
+          width: 12px;
+          height: 12px;
+          filter: var(--cuppa-menu-tint);
+          margin:0 0 0 14px;
+          background-image: url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ic3ZnLWljb24iIHN0eWxlPSJ3aWR0aDogMWVtOyBoZWlnaHQ6IDFlbTt2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO2ZpbGw6IGN1cnJlbnRDb2xvcjtvdmVyZmxvdzogaGlkZGVuOyIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0zNDEuOTU3MjA5IDk1OS4zNTQ2NzhjLTEyLjg5MzY1OCAwLTI1Ljg0MjU3NS00LjQyNTc5OS0zNi4zODY3MjItMTMuNDY3NzMzLTIzLjQ5MzA2NC0yMC4xMDU5Mi0yNi4yMjQyNjgtNTUuNDI2MzU3LTYuMDY0MTEzLTc4Ljg5MTc5MUw2MDMuOTI5NzM2IDUxMS43ODkxOTlsLTMwNC40MjMzNjEtMzU1LjIwNjk3OGMtMjAuMTYwMTU1LTIzLjQ2NTQzNC0xNy40Mjc5MjgtNTguNzg2ODk0IDYuMDY0MTEzLTc4Ljg5MTc5MSAyMy40Mzc4MDUtMjAuMDI0MDU2IDU4Ljc4Njg5NC0xNy4zNzM2OTMgNzguODM3NTU2IDYuMDY0MTEzbDMzNS42NzUxMzIgMzkxLjYyMDMwNWMxNy45NzQzNzMgMjAuOTUyMTk0IDE3Ljk3NDM3MyA1MS44NzU0ODQgMCA3Mi44Mjc2NzlsLTMzNS42NzUxMzIgMzkxLjYyMDMwNUMzNzMuMzcxNjg2IDk1Mi43MTc1MTQgMzU3LjY5MTU2NSA5NTkuMzU0Njc4IDM0MS45NTcyMDkgOTU5LjM1NDY3OHoiICAvPjwvc3ZnPg==)
         }
         cuppa-menu .cuppa-menu_arrow{ position: absolute; fill:var(--cuppa-menu-arrow-color)  }
         cuppa-menu .cuppa-menu_arrow.up{ top:-4px; left:15px; }

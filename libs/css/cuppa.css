@@ -973,11 +973,6 @@
   top: -9999px;
 }
 
-.ani-fade {
-  animation-name: ani-fade;
-  animation-duration: 0.2s;
-}
-
 .no-scroll, .no-scroll-all, .no-scroll-all * {
   overflow: hidden;
 }
@@ -991,6 +986,11 @@
   width: 0;
 }
 
+.ani-fade {
+  animation-name: ani-fade;
+  animation-duration: 0.2s;
+}
+
 @keyframes ani-fade {
   0% {
     opacity: 0;
@@ -1002,13 +1002,14 @@
 .ani-shake {
   animation-name: ani-shake;
   animation-duration: 0.3s;
+  animation-timing-function: linear;
 }
 
 @keyframes ani-shake {
-  0% {
+  33% {
     transform: translateX(10px);
   }
-  50% {
+  66% {
     transform: translateX(-10px);
   }
   100% {
@@ -1952,7 +1953,7 @@ label.error:before, .form-error-message:before {
 }
 
 .e-linear {
-  transition-timing-function: Cubic-bezier(0.25, 0.25, 0.75, 0.75);
+  transition-timing-function: linear;
 }
 
 .e-default {

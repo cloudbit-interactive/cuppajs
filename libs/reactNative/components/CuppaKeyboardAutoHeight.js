@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 export class CuppaKeyboardAutoHeight extends Component {
-	static propTypes = {style:PropTypes.any, offset:PropTypes.number, callback:PropTypes.func, callbackOnly:PropTypes.bool}
-	static defaultProps = {style:null, offset:0, callback:null, callbackOnly:false}
+	static propTypes = {style:PropTypes.any, offset:PropTypes.number, callback:PropTypes.func, callbackOnly:PropTypes.bool, keep:PropTypes.bool}
+	static defaultProps = {style:null, offset:0, callback:null, callbackOnly:false, keep:false}
 	state = {height:0}
 
 	constructor(props){
@@ -24,6 +24,7 @@ export class CuppaKeyboardAutoHeight extends Component {
 	}
 
 	onKeyboardHide(e){
+		if(this.props.keep) return;
 		this.setState({height:0});
 		if(this.props.callback) this.props.callback('hidden', 0);
 	}
