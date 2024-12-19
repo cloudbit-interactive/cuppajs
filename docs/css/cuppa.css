@@ -1019,13 +1019,14 @@ body {
 .ani-shake {
   animation-name: ani-shake;
   animation-duration: 0.3s;
+  animation-timing-function: linear;
 }
 
 @keyframes ani-shake {
-  0% {
+  33% {
     transform: translateX(10px);
   }
-  50% {
+  66% {
     transform: translateX(-10px);
   }
   100% {
