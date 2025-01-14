@@ -2,7 +2,7 @@ import {Dimensions, Keyboard, Platform, ScrollView, View} from "react-native";
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
-export class CuppaScrollView2 extends Component{
+export class CuppaScrollView extends Component{
 	static propTypes = {style:PropTypes.any, contentContainerStyle:PropTypes.any, scrollRef:PropTypes.func, offset:PropTypes.number, alwaysBounceVertical:PropTypes.bool};
 	static defaultProps = {style:null, contentContainerStyle:null, scrollRef:null, offset:0, alwaysBounceVertical:true};
 	state = {height:0};
@@ -81,7 +81,7 @@ function bindAll(element){
 	let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
 	element["mount"] = true;
 	for(let i = 0; i < propertyNames.length; i++){
-		if( ["constructor"].indexOf(propertyNames[i]) == -1 ){
+		if( ["constructor"].indexOf(propertyNames[i]) === -1 ){
 			if(typeof element[propertyNames[i]] == "function"){
 				element[propertyNames[i]]= element[propertyNames[i]].bind(element);
 			};
