@@ -1,5 +1,5 @@
 /**
- * v0.0.5
+ * v0.0.6
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -8,9 +8,11 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 export class CuppaMenu extends CuppaComponent {
 	static POSITION = {CENTER:"CENTER", LEFT:"LEFT", LEFT_IN:"LEFT_IN", RIGHT:"RIGHT", RIGHT_IN:"RIGHT_IN", TOP:"TOP", TOP_IN:"TOP_IN", BOTTOM:"BOTTOM", BOTTOM_IN:"BOTTOM_IN"}
 	static ARROW = {UP:"UP", LEFT:"LEFT", RIGHT:"RIGHT", DOWN:"DOWN", NONE:"NONE"}
+	static ADJUST_TYPE = {OPPOSITE:'OPPOSITE', GAP:'GAP'}
 	posX = this.observables('posX', CuppaMenu.POSITION.RIGHT);
 	posY = this.observable('posY', CuppaMenu.POSITION.TOP_IN);
 	arrow = this.observable('arrow', CuppaMenu.ARROW.NONE);
+	adjustType = this.observable('adjustType', CuppaMenu.ADJUST_TYPE.GAP);
 	styleArrow = "";
 	target;
 	targetElement;
@@ -22,8 +24,7 @@ export class CuppaMenu extends CuppaComponent {
 	forceRemove = false;
 	groupEvents = `CuppaMenu_${cuppa.uuid()}`;
 
-
-	static get observedAttributes() { return ['target', 'pos-x', 'pos-y', 'force-show', 'force-remove', 'main-menu', 'arrow', 'style-arrow', 'contextual-menu'] }
+	static get observedAttributes() { return ['target', 'pos-x', 'pos-y', 'force-show', 'force-remove', 'main-menu', 'arrow', 'style-arrow', 'contextual-menu', 'adjust-type'] }
 	attributeChangedCallback(attr, oldVal, newVal) {
 		if(oldVal === newVal) return;
 		if(newVal === "true") newVal = true;
@@ -86,23 +87,41 @@ export class CuppaMenu extends CuppaComponent {
 		let gap = 20;
 
 		if(dim.x < 0){
+			if(this.adjustType === CuppaMenu.ADJUST_TYPE.OPPOSITE){
 			this.posX = CuppaMenu.POSITION.LEFT_IN;
+			}else if(this.adjustType === CuppaMenu.ADJUST_TYPE.GAP){
+				this.style.left = `10px`;
+			}
 		}else if(dim.x + dim.width + gap > window.innerWidth){
-			this.posX = CuppaMenu.POSITION.RIGHT_IN;
-			if(this.refs.arrow){
-				let arrowDim = this.refs.arrow.getBoundingClientRect();
-				this.refs.arrow.style.left = `calc(100% - ${dimTarget.width*0.5+arrowDim.width*0.5}px)`;
+			if(this.adjustType === CuppaMenu.ADJUST_TYPE.OPPOSITE){
+				this.posX = CuppaMenu.POSITION.RIGHT_IN;
+				if(this.refs.arrow){
+					let arrowDim = this.refs.arrow.getBoundingClientRect();
+					this.refs.arrow.style.left = `calc(100% - ${dimTarget.width*0.5+arrowDim.width*0.5}px)`;
+				}
+			}else if(this.adjustType === CuppaMenu.ADJUST_TYPE.GAP){
+				this.style.left = `${window.innerWidth - dim.width - 10}px`;
 			}
 		}
 
 		if(dim.y < 0){
-			this.posY = CuppaMenu.POSITION.BOTTOM;
+			if(this.adjustType === CuppaMenu.ADJUST_TYPE.OPPOSITE){
+				this.posY = CuppaMenu.POSITION.BOTTOM;
+			}else if(this.adjustType === CuppaMenu.ADJUST_TYPE.GAP){
+				this.style.top = `10px`;
+			}
 		}else if(dim.y + dim.height + gap > window.innerHeight){
-			this.posY = CuppaMenu.POSITION.TOP;
-			this.arrow = CuppaMenu.ARROW.DOWN;
+			if(this.adjustType === CuppaMenu.ADJUST_TYPE.OPPOSITE){
+				this.posY = CuppaMenu.POSITION.TOP;
+				this.arrow = CuppaMenu.ARROW.DOWN;
+			}else if(this.adjustType === CuppaMenu.ADJUST_TYPE.GAP){
+				this.style.top = `${window.innerHeight - dim.height - 10}px`;
+			}
 		}
 
-		this.setPosition(false);
+		if(this.adjustType === CuppaMenu.ADJUST_TYPE.OPPOSITE){
+			this.setPosition(false);
+		}
 	}
 
 	addEvents(){
@@ -211,6 +230,7 @@ export class CuppaMenu extends CuppaComponent {
 
         cuppa-menu{
           display: block;
+	        visibility: visible;
           position: fixed;
           left: 0; top:0;
           border: var(--cuppa-menu-border);
