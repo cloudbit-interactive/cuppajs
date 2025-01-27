@@ -1,5 +1,5 @@
 /**
- * v0.0.6
+ * v0.0.7
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -8,7 +8,7 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 export class CuppaMenu extends CuppaComponent {
 	static POSITION = {CENTER:"CENTER", LEFT:"LEFT", LEFT_IN:"LEFT_IN", RIGHT:"RIGHT", RIGHT_IN:"RIGHT_IN", TOP:"TOP", TOP_IN:"TOP_IN", BOTTOM:"BOTTOM", BOTTOM_IN:"BOTTOM_IN"}
 	static ARROW = {UP:"UP", LEFT:"LEFT", RIGHT:"RIGHT", DOWN:"DOWN", NONE:"NONE"}
-	static ADJUST_TYPE = {OPPOSITE:'OPPOSITE', GAP:'GAP'}
+	static ADJUST_TYPE = {OPPOSITE:'OPPOSITE', GAP:'GAP', NONE:'NONE'}
 	posX = this.observables('posX', CuppaMenu.POSITION.RIGHT);
 	posY = this.observable('posY', CuppaMenu.POSITION.TOP_IN);
 	arrow = this.observable('arrow', CuppaMenu.ARROW.NONE);
