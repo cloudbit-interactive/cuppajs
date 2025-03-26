@@ -1,5 +1,5 @@
 /**
- * v0.0.1
+ * v0.0.2
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -75,7 +75,7 @@ export class CuppaRouter{
   }
 
   onHistory(e){
-    let path = e.state || "";
+    let path = String(e.state) || "";
       path = path.replace(this.opts.hash, "");
     this.setPath(path, "", false);
   }
