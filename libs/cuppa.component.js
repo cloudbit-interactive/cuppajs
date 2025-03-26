@@ -167,3 +167,4 @@ let nothing = rt;
 let render = lt;
 let repeat = ht;
 let svg = at;
+let unsafeHTML = dt;
