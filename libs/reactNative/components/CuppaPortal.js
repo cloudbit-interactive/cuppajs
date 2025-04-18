@@ -1,4 +1,4 @@
-/* CuppaPortal
+/* 0.0.1
     <CuppaPortal ref={ ref =>{ if(!ref) return; Global.mainPortal = ref } } />
 
     Globals.mainPortal.add('myElement', <Text>Hello</Text>);
@@ -31,21 +31,21 @@ export class CuppaPortal extends Component{
 	}
 
 	async replace(name, element, callback){
-    let result = await new Promise( resolve =>{
-      if(!name) name = "modal";
-      let elements = this.state.elements;
-      elements[name] = null;
-      this.setState({elements:elements}, ()=>{
-        let elements = this.state.elements;
-        elements[name] = element;
-        this.setState({elements:elements}, ()=>{
-          if(callback) callback(true);
-          resolve(true);
-        });
-      });
-    });
-    return result;
-  }
+		let result = await new Promise( resolve =>{
+			if(!name) name = "modal";
+			let elements = this.state.elements;
+			elements[name] = null;
+			this.setState({elements:elements}, ()=>{
+				let elements = this.state.elements;
+				elements[name] = element;
+				this.setState({elements:elements}, ()=>{
+					if(callback) callback(true);
+					resolve(true);
+				});
+			});
+		});
+		return result;
+	}
 
 	async remove(name, callback){
 		let result = await new Promise( resolve =>{

@@ -1,3 +1,5 @@
+/* 0.0.1 */
+
 import React, { Component } from 'react';
 import { Text, View, TouchableWithoutFeedback, TextInput, StyleSheet, Keyboard } from "react-native";
 import PropTypes from "prop-types";
@@ -29,15 +31,18 @@ export class CuppaAlert extends Component {
 		portalRef: null,
 	};
 	state = { inputText: this.props.inputText };
+	containerRef;
+	blockadeRef;
+	mainRef;
 
 	constructor(props) {
 		super(props); bindAll(this);
 	}
 
 	componentDidMount() {
-		CuppaAnimations.popShow({ref:this.refs.main, blockade: this.refs.blockade});
+		CuppaAnimations.popShow({ref:this.mainRef, blockade: this.blockadeRef});
 		setTimeout(()=>{
-			gsap.set(this.refs.container, {style:{opacity:1}});
+			gsap.set(this.containerRef, {style:{opacity:1}});
 		}, 100)
 	}
 
@@ -52,23 +57,24 @@ export class CuppaAlert extends Component {
 	}
 
 	close() {
-		CuppaAnimations.popHide({ref:this.refs.main, blockade: this.refs.blockade, callback:()=>{
+		CuppaAnimations.popHide({ref:this.mainRef, blockade: this.blockadeRef, callback:()=>{
 				if(this.props.portalRef) this.props.portalRef.remove("CuppaAlert");
 		}})
 	}
 
 	render() {
 		return (
-			<View ref={'container'} style={[styles.container, {opacity:0}]}>
+			<View ref={ref=>this.containerRef=ref} style={[styles.container, {opacity:0}]}>
 				<CuppaBack callback={this.close} />
 				<TouchableWithoutFeedback onPress={(this.props.backdropCloseAlert) ? this.close : null}>
-					<View ref={"blockade"} style={{position:"absolute", top:0, left:0, right:0, bottom:0, backgroundColor:"rgba(0,0,0,0.6)"}}></View>
+					<View ref={ref=>this.blockadeRef=ref} style={{position:"absolute", top:0, left:0, right:0, bottom:0, backgroundColor:"rgba(0,0,0,0.6)"}}></View>
 				</TouchableWithoutFeedback>
 				<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-					<View ref={"main"} style={[styles.modal]} >
+					<View ref={ref=>this.mainRef=ref} style={[styles.modal]} >
 						<View style={{ padding: 20 }}>
 							{(!this.props.title) ? null : <Text style={{ fontSize: 20, color: "#333" }}>{this.props.title}</Text>}
 							{(!this.props.message) ? null : <Text style={{ marginTop: 10, position: 'relative', color:"#333" }}>{this.props.message}</Text>}
+							{this.props.children}
 							{(this.state.inputText === null) ? null : (
 								<TextInput
 									onChangeText={(inputText) => this.setState({ inputText })}

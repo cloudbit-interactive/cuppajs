@@ -1,3 +1,4 @@
+/* 0.0.1 */
 import React, {Component} from 'react';
 import {BackHandler, Dimensions, Keyboard, Pressable, StyleSheet, Text, View} from 'react-native';
 import PropTypes from "prop-types";
@@ -12,7 +13,10 @@ export class CuppaActionSheet extends Component{
 	swipeConfig = {velocityThreshold: 0.3, directionalOffsetThreshold: 80, gestureIsClickThreshold: 5};
 	contentLayout;
 	draggableRef = React.createRef();
-	CuppaActionSheet
+	CuppaActionSheet;
+	wrapRef;
+	backgroundRef;
+	contentRef;
 
 	constructor(props) {
 		super(props); bindAll(this);
@@ -31,19 +35,19 @@ export class CuppaActionSheet extends Component{
 	}
 
 	config(){
-		gsap.set(this.refs.background, {style:{opacity:0}});
-		gsap.set(this.refs.content, {transform:{y:Dimensions.get('window').height+this.contentLayout.height}});
-		gsap.set(this.refs.wrap, {style:{opacity:1}});
+		gsap.set(this.backgroundRef, {style:{opacity:0}});
+		gsap.set(this.contentRef, {transform:{y:Dimensions.get('window').height+this.contentLayout.height}});
+		gsap.set(this.wrapRef, {style:{opacity:1}});
 		this.open();
 	}
 
 	onMove(e, state){
 		let percent = state.dy/this.contentLayout.height;
-		gsap.set(this.refs.background, {style:{opacity:1-percent}});
+		gsap.set(this.backgroundRef, {style:{opacity:1-percent}});
 		if(percent < 0){
-			gsap.set(this.refs.content, {transform:{y:Dimensions.get('window').height+(state.dy/this.props.tension)}});
+			gsap.set(this.contentRef, {transform:{y:Dimensions.get('window').height+(state.dy/this.props.tension)}});
 		}else{
-			gsap.set(this.refs.content, {transform:{y:Dimensions.get('window').height+state.dy}});
+			gsap.set(this.contentRef, {transform:{y:Dimensions.get('window').height+state.dy}});
 		}
 	}
 
@@ -68,15 +72,15 @@ export class CuppaActionSheet extends Component{
 	open({ease = Power2.easeOut, duration = 0.4} = {}){
 		AutoKillTweens.kill(this.tweens);
 		this.tweens.tween = gsap.timeline();
-			this.tweens.tween.to(this.refs.background, {duration, style:{opacity:1}, ease:Linear.easeNone});
-			this.tweens.tween.to(this.refs.content, {duration, transform:{y:Dimensions.get('window').height}, ease}, 0);
+			this.tweens.tween.to(this.backgroundRef, {duration, style:{opacity:1}, ease:Linear.easeNone});
+			this.tweens.tween.to(this.contentRef, {duration, transform:{y:Dimensions.get('window').height}, ease}, 0);
 	}
 
 	close({ease = Power2.easeIn, duration = 0.3} = {}){
 		AutoKillTweens.kill(this.tweens);
 		this.tweens.tween = gsap.timeline({onComplete:this.props.closeCallback});
-			this.tweens.tween.to(this.refs.background, {duration, style:{opacity:0}, ease:Linear.easeNone});
-			this.tweens.tween.to(this.refs.content, {duration, transform:{y:Dimensions.get('window').height+this.contentLayout.height}, ease}, 0);
+			this.tweens.tween.to(this.backgroundRef, {duration, style:{opacity:0}, ease:Linear.easeNone});
+			this.tweens.tween.to(this.contentRef, {duration, transform:{y:Dimensions.get('window').height+this.contentLayout.height}, ease}, 0);
 	}
 
 	isValidSwipe(velocity, velocityThreshold, directionalOffset, directionalOffsetThreshold) {
@@ -90,11 +94,11 @@ export class CuppaActionSheet extends Component{
 
 	render(){
 		return (
-			<View ref={'wrap'} style={[CuppaActionSheetStyles.cover, {opacity:0}]}>
+			<View ref={ref=>this.wrapRef=wrap} style={[CuppaActionSheetStyles.cover, {opacity:0}]}>
 				<AutoKillTweens tweens={this.tweens} />
-				<Pressable ref={'background'} onPress={this.close} style={[CuppaActionSheetStyles.blockade]} />
+				<Pressable ref={ref=>this.backgroundRef=ref} onPress={this.close} style={[CuppaActionSheetStyles.blockade]} />
 				<View
-					ref={'content'}
+					ref={ref=>this.contentRef=ref}
 					style={[CuppaActionSheetStyles.content, this.props.style]}
 				>
 					<View

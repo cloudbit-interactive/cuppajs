@@ -1,3 +1,4 @@
+/* 0.0.1 */
 import React, {Component} from 'react';
 import {BackHandler} from 'react-native';
 import PropTypes from "prop-types";
@@ -5,6 +6,7 @@ import PropTypes from "prop-types";
 export class CuppaBack extends Component{
 	static propTypes = {callback:PropTypes.func, closeApp:PropTypes.bool};
 	static defaultProps = {callback:null, closeApp:false};
+	subscription;
 
 	constructor(props) {
 		super(props);
@@ -12,7 +14,7 @@ export class CuppaBack extends Component{
 	}
 
 	componentDidMount(){
-		BackHandler.addEventListener('hardwareBackPress', this.onHandler);
+		this.subscription = BackHandler.addEventListener('hardwareBackPress', this.onHandler);
 	}
 
 	onHandler = function(){
@@ -25,7 +27,7 @@ export class CuppaBack extends Component{
 	}.bind(this);
 
 	componentWillUnmount(){
-		BackHandler.removeEventListener('hardwareBackPress', this.onHandler);
+		if(this.subscription) this.subscription.remove();
 	}
 
 	render(){ return null }

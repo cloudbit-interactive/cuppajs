@@ -1,5 +1,5 @@
 /* CuppaPortal
-		Version: 0.0.2
+		Version: 0.0.3
     <CuppaPortal ref={ ref =>{ if(!ref) return; Global.mainPortal = ref } } />
     Globals.mainPortal.add('myElement', <Text>Hello</Text>);
     Globals.mainPortal.remove('myElement');
@@ -7,7 +7,7 @@
     Globals.mainPortal.getRef('myElement');
     Globals.mainPortal.removeAll();
 */
-import {Component} from "react";
+import {Component, Fragment} from "react";
 
 export class CuppaPortal extends Component{
 	static defaultProps = { }
@@ -22,7 +22,7 @@ export class CuppaPortal extends Component{
 		let result = await new Promise( resolve =>{
 			if(!name) name = "modal";
 			let elements = this.state.elements;
-			elements[name] = {element, order};
+			elements[name] = {element, order, name};
 			this.setState({elements:elements}, ()=>{
 				if(callback) callback(true);
 				resolve(true);
@@ -94,6 +94,6 @@ export class CuppaPortal extends Component{
 
 	render(){
 		let elements = (Object.values(this.state.elements)).sort((a, b)=>a.order < b.order ? -1 : 1);
-		return elements.map(element=>element.element);
+		return elements.map(element=><Fragment key={element.name}>{element.element}</Fragment>);
 	}
 }

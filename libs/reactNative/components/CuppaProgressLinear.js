@@ -1,3 +1,4 @@
+/* 0.0.1 */
 import React, {Component} from "react";
 import {StyleSheet, View} from "react-native";
 import {gsap, AutoKillTweens, Expo} from "gsap-rn";
@@ -7,6 +8,7 @@ export class CuppaProgressLinear extends Component{
 	static propTypes = {visible:PropTypes.bool, duration:PropTypes.number, style:PropTypes.any, styleBar:PropTypes.any };
 	static defaultProps = {visible:false, duration:0.6, style:null, styleBar:null};
 	state = {visible:this.props.visible};
+	barRef;
 
 	constructor(props) {
 		super(props); bindAll(this);
@@ -24,12 +26,12 @@ export class CuppaProgressLinear extends Component{
 		if(value){
 			if(this.tl) this.tl.stop();
 			this.tl = gsap.timeline({repeat:-1});
-			this.tl.set(this.refs.bar, {style:{width:"0%", left:"0%"}});
-			this.tl.to(this.refs.bar, {duration:this.props.duration*0.5, style:{width:"100%"}});
-			this.tl.to(this.refs.bar, {duration:this.props.duration*0.5, style:{left:"100%"}});
-			this.tl.set(this.refs.bar, {style:{width:"0%", left:"0%"}});
-			this.tl.to(this.refs.bar, this.props.duration, {style:{width:"100%"}});
-			this.tl.to(this.refs.bar, this.props.duration, {style:{left:"100%"}});
+			this.tl.set(this.barRef, {style:{width:"0%", left:"0%"}});
+			this.tl.to(this.barRef, {duration:this.props.duration*0.5, style:{width:"100%"}});
+			this.tl.to(this.barRef, {duration:this.props.duration*0.5, style:{left:"100%"}});
+			this.tl.set(this.barRef, {style:{width:"0%", left:"0%"}});
+			this.tl.to(this.barRef, this.props.duration, {style:{width:"100%"}});
+			this.tl.to(this.barRef, this.props.duration, {style:{left:"100%"}});
 		}else{
 			if(this.tl) this.tl.stop();
 		}
@@ -37,9 +39,9 @@ export class CuppaProgressLinear extends Component{
 
 	render() {
 		return (
-			<View ref="wrap" pointerEvents="none" style={[{position:"relative", left:0, top:0, width:"100%", height:5, overflow:"hidden", display:(this.state.visible) ? "flex" : "none", opacity:(this.state.visible) ? 1 : 0 }, this.props.style]}>
+			<View pointerEvents="none" style={[{position:"relative", left:0, top:0, width:"100%", height:5, overflow:"hidden", display:(this.state.visible) ? "flex" : "none", opacity:(this.state.visible) ? 1 : 0 }, this.props.style]}>
 				<AutoKillTweens tweens={this} />
-				<View ref="bar" style={[CuppaProgressLinearStyle.cover, {right:"auto", width:"0%", backgroundColor:"#777"}, this.props.styleBar]} ></View>
+				<View ref={ref=>this.barRef=ref} style={[CuppaProgressLinearStyle.cover, {right:"auto", width:"0%", backgroundColor:"#777"}, this.props.styleBar]} ></View>
 			</View>
 		)
 	}
