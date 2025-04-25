@@ -19,15 +19,23 @@ export class CuppaComponent extends HTMLElement {
 		this.forceRender = this.forceRender.bind(this);
 		this.disconnectedCallback = this.disconnectedCallback.bind(this);
 		this.observables = this.observables.bind(this);
+		this.applyObservables = this.applyObservables.bind(this);
 		this.applyObservables();
 		this.binAll(this);
+
 	}
 
 	applyObservables(){
-		for(let i = 0; i < (this.constructor.observables || []).length; i++){
-			const observableName = this.constructor.observables[i];
-			this.observable(observableName)
-		}
+		if(!this.constructor.observables) return;
+		setTimeout(()=>{
+			let data = {};
+			for(let i = 0; i < this.constructor.observables.length; i++){
+				let name = this.constructor.observables[i];
+				data[name] = this[name];
+			}
+			this.observables(data);
+			//this.forceRender();
+		}, 0);
 	}
 
 	getPropertiesCallbacks(){
@@ -97,10 +105,11 @@ export class CuppaComponent extends HTMLElement {
 		let propertyNames = Object.getOwnPropertyNames(Object.getPrototypeOf(element));
 		if(isFunction)  propertyNames = Object.keys(element);
 		for(let i = 0; i < propertyNames.length; i++){
+			if(propertyNames[i] === "constructor") continue;
 			if(typeof element[propertyNames[i]] == "function"){
 				element[propertyNames[i]]= element[propertyNames[i]].bind(element);
-			};
-		};
+			}
+		}
 	};
 
 	bind(element){
@@ -149,7 +158,7 @@ export class CuppaComponent extends HTMLElement {
 		}, 0);
 		return defaultValue;
 	}
-};
+}
 
 export function camelize(str) {
 	str = String(str) || "";

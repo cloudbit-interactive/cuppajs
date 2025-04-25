@@ -1,4 +1,5 @@
 import {LitElement, html, css} from "./lit-core.min.js";
+import { repeat } from './lit-all.min.js';
 
 export class LitComponent extends LitElement {
   createRenderRoot() { return this; } // Disable shadow DOM
@@ -21,7 +22,7 @@ export class LitComponent extends LitElement {
   }
 
   render() {
-    console.log(this.name, this.age, this.boolean, this.object);
+    console.log(repeat);
     return html`
       <p>Hello, <span>${this.name}</span>, Age:${this.age}</p>
       <button @click=${this.onClick}>Click me</button>
