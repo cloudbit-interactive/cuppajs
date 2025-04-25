@@ -6,7 +6,7 @@ var cuppa = (typeof cuppa != "undefined") ? cuppa : { debug:false };
         if(document.readyState === 'complete') callback();
         else document.addEventListener('DOMContentLoaded', callback);
     };
-    
+
     cuppa.loaded = function(callback){
         if(document.readyState === 'complete') callback();
         document.onreadystatechange = function () { if (document.readyState === 'complete') { callback(); } };
@@ -965,7 +965,7 @@ var Base64 = {
         if(moneyFormat == 0) return "";
 		return  moneyFormat;
     };
-    
+
 /* Convert money format to number: 100000.15 */
     cuppa.moneyToNumber = function(value, decimalSeparator){
         value = String(value);
@@ -1069,7 +1069,7 @@ var Base64 = {
 		}
 		return utftext;
     };
-    
+
 /* Get UTF8 Decode */
     cuppa.utf8Decode = function(utftext) {
 		let string = "";
@@ -1281,7 +1281,7 @@ var Base64 = {
         if (s === null) { return false; }
         return true;
     };
-    
+
 // htmlEntitiesEncode / htmlEntitiesDecode
     cuppa.htmlEntitiesMap = {
         "'": "&apos;",
@@ -1528,8 +1528,8 @@ var Base64 = {
         "♥": "&hearts;",
         "♦": "&diams;"
     };
-    
-    
+
+
     cuppa.htmlEntitiesDecode = function(string) {
         let entityMap = cuppa.htmlEntitiesMap;
         for (let key in entityMap) {
@@ -1541,7 +1541,7 @@ var Base64 = {
         string = string.replace(/&amp;/g, '&');
         return string;
     }
-    
+
     cuppa.htmlEntitiesEncode = function(string, encodeSpaces = false, trim = false) {
         let entityMap = cuppa.htmlEntitiesMap;
         if(encodeSpaces === false) delete entityMap[" "];
@@ -1767,7 +1767,7 @@ var Base64 = {
         }
         return array;
     }
-    
+
 /*  Remove duplicate in Array
     array: cuppa.removeDuplicate(array)
 */
@@ -1818,7 +1818,7 @@ var Base64 = {
         try{ obj[path[i]] = value; }catch(err){ }
         return ref;
     };
-    
+
 // ObjectToURL
     cuppa.objectToURL = function(object, encode){
         if(encode === undefined) encode = true;
@@ -1892,7 +1892,7 @@ var Base64 = {
             result = cuppa.replace(result, "\\+", " ");
 		return result;
     };
-    
+
 /* Sort Object ASC or DESC */
     cuppa.sortObject = function(object, reverse){
         let keys = Object.keys(object);
@@ -1916,7 +1916,7 @@ var Base64 = {
     cuppa.isTouch = cuppa.touchSupport = function() {
         if ('ontouchstart' in document.documentElement) { return true; }else{ return false; }
     };
-    
+
 /* flash support */
     cuppa.flashSupport = function(){
         let hasFlash = false;
@@ -1942,7 +1942,7 @@ var Base64 = {
             });
         return string;
     };
-    
+
 /* parseString */
     cuppa.parseString = function(value){
         if(!value) return "";
@@ -2004,7 +2004,7 @@ var Base64 = {
             cuppa.on(element, "mouseleave", this.mouseleave);
         };
     };
-    
+
 // css
     /* Set / Get
         set
@@ -2202,7 +2202,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
             document.cookie = name + "=" + value + ";path=/";
         }
     };
-    
+
 /* Get Cookie */
     cuppa.getCookie = function(name, documentRef) {
         if(documentRef == undefined) documentRef = document;
@@ -2395,7 +2395,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
         }
         return result;
     };
-    
+
         cuppa.filterArrayValidate = function(row, condStr, opts){
             opts = cuppa.mergeObjects([{caseSensitive:true}, opts]);
             let condParts;
@@ -2431,8 +2431,8 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
 */
     cuppa.timer = function(opts){
         this.opts = opts || {};
-        this.hours = opts.hours || 0; 
-        this.minutes = opts.minutes || 0; 
+        this.hours = opts.hours || 0;
+        this.minutes = opts.minutes || 0;
         this.seconds = opts.seconds || 0;
         this.running = false;
         this.interval = null;
@@ -2666,7 +2666,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
         else if ((verOffset = nAgt.indexOf('Edge')) != -1) {
             browser = 'Microsoft Legacy Edge';
             version = nAgt.substring(verOffset + 5);
-        } 
+        }
         // Edge (Chromium)
         else if ((verOffset = nAgt.indexOf('Edg')) != -1) {
             browser = 'Microsoft Edge';
@@ -2788,7 +2788,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
                 osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
                 break;
         }
-        
+
         return {
             screenSize: screenSize,
             browserSize: {width:cuppa.width(), height:cuppa.height()},
@@ -2819,7 +2819,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
     cuppa.isBase64 = function(string){
         if(!string || string == "true" || string == true) return false;
         let base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-        return base64regex.test(string);    
+        return base64regex.test(string);
     }
 
 /* isImage */
@@ -2882,7 +2882,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
         return request;
     };
 
-/* cuppa.sticky 
+/* cuppa.sticky
     Example: cuppa.sticky(".sticky", {fixedElements:".breakout-header, .fixed-white"});
 */
     cuppa.sticky = function(container, opts){
@@ -2899,14 +2899,14 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
                     cuppa.removeClass(container, opts.className);
                     if(opts.fixedElements) cuppa.css(opts.fixedElements, {top:`0px`});
                 }
-    
+
             }, container);
         })
     }
 
 /* wait */
     cuppa.wait = async function(time){
-        if(!time) time = 1000;
+        if(time === undefined || time === null) time = 1000;
         let result = await new Promise((resolve)=>{ setTimeout(()=>{ resolve(true) }, time); });
         return result;
     };
@@ -3008,7 +3008,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
 		}
 		return {width:new_width, height:new_height, scale:porcent}
     };
-    
+
   /* Get real dimentions
    *  Recomendable add all inner element inside the container without scroll "wrapper"
    */
@@ -3093,7 +3093,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
         ].join(" ");
         return d;
     };
-    
+
 // Get the oposite dimention of a triangle rectangle
     cuppa.getOpositeDimention = function(longitude, angle){
         angle = (angle/180)*Math.PI;
@@ -3384,7 +3384,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
     cuppa.dateFromTimestamp = function(value){
         return new Date(value*1000);
     };
-    
+
 /* time to date
     string formats:  12:35:26 PM or  18:35:26
 * */
@@ -3659,7 +3659,7 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
             }.bind(this));
         return this;
     };
-    
+
 // download file
     cuppa.downloadFile = function(filePath, fileName, mimeType, opts){
         opts = cuppa.mergeObjects([{callback:null, preload:false, returnData:false, header:null, data:null, method:"GET", responseType:'blob'}, opts]);

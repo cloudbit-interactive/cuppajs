@@ -19,7 +19,15 @@ export class CuppaComponent extends HTMLElement {
 		this.forceRender = this.forceRender.bind(this);
 		this.disconnectedCallback = this.disconnectedCallback.bind(this);
 		this.observables = this.observables.bind(this);
+		this.applyObservables();
 		this.binAll(this);
+	}
+
+	applyObservables(){
+		for(let i = 0; i < (this.constructor.observables || []).length; i++){
+			const observableName = this.constructor.observables[i];
+			this.observable(observableName)
+		}
 	}
 
 	getPropertiesCallbacks(){
@@ -27,7 +35,6 @@ export class CuppaComponent extends HTMLElement {
 		for(let i = 0; i < _entries.length; i++){
 			let [key, value] = _entries[i];
 			if(['refs', 'shadow', 'renderedCount', '_template', '_callbacks'].indexOf(key) !== -1) continue;
-			//if(typeof value !== 'function') continue;
 			this._callbacks.push( {key, value});
 		}
 	}
@@ -44,8 +51,9 @@ export class CuppaComponent extends HTMLElement {
 		this.forceRender(null, false);
 		setTimeout(()=>{
 			if(this.mounted) this.mounted(this);
+			if(this.firstRendered && this.renderedCount === 1) this.firstRendered(this);
 			if(this.rendered) this.rendered(this);
-		}, 0)
+		}, 0);
 	}
 
 	disconnectedCallback() {
@@ -59,7 +67,7 @@ export class CuppaComponent extends HTMLElement {
 		this.forceRender();
 	}
 
-	forceRender(callback, dispatchRender = true){
+	forceRender(callback = null, dispatchRender = true){
 		if(!this._template){ this._template = () => this.render(); }
 		if(this.shadowRoot){
 			render(this._template(), this.shadowRoot);
@@ -68,8 +76,8 @@ export class CuppaComponent extends HTMLElement {
 		}
 		this.processRefs(this, this.refs, "ref");
 		if(callback) callback();
-		if(this.rendered && dispatchRender) this.rendered(this);
 		this.renderedCount++;
+		if(this.rendered && dispatchRender) this.rendered(this);
 	}
 
 	processRefs(html, addTo, tagAttr){
