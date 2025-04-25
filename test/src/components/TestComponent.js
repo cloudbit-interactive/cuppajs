@@ -12,13 +12,11 @@ export default class TestComponent extends CuppaComponent {
 
 	constructor() {
 		super();
-		console.log("C")
 		this.name = "Bar";
 		this.startTime = Date.now();
 	}
 
 	mounted(){
-		console.log("M")
 		this.name = "ddd";
 	}
 
