@@ -235,19 +235,17 @@ export class CuppaComponentDoc extends CuppaComponent {
 			        import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.134/libs/cuppa.component.min.js";
 			        
 							export default class MyProfileCard extends CuppaComponent {
-								// Define the component attributes
-								static attributes = ["name", "age"];
-								shadow = null;	// null (default), open, close
+								static attributes = ["name", "age"]; 									// Define the component attributes
+								shadow = null;																				// null (default), open, close
 								refs = {};
-								// define an observable variable, this will automatically update your component when value change.
-								static observables = ["title", "name", "age"];
+								static observables = ["title", "name", "age"];				// define an observable variable, this will automatically update your component when value change.
 								title = "Profile Card";
 								name = "";
 								age = 0;
 								
 								constructor(){ super(); }
 						
-								// Optional - If you dont want to use the auto build-in attribute definition, you can use vanilla implementation to observe attributes mutations
+								// Optional - If you prefer not to use the built-in automatic attribute handling, you can implement a custom vanilla JavaScript solution to observe attribute changes.
 								static get observedAttributes() { return ['name', 'age'] }
 								attributeChangedCallback(attr, oldVal, newVal) { this[attr] = newVal }
 								
