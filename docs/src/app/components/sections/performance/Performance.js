@@ -1,11 +1,12 @@
 import {CuppaComponent, html, repeat} from "../../../../cuppa/cuppa.component.min.js";
 
 export class Performance extends CuppaComponent {
+    static observables = ['list'];
     id = 1;
     quantity = 1000;
     positions = { start: "start", middle: "middle", end: "end" };
     position = this.positions.start;
-    list = this.observable("list", []);
+    list = [];
 
     constructor(){
         super();

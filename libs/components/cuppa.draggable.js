@@ -1,7 +1,7 @@
 /**
  * v0.0.3
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
  */
 import {cuppa} from "../cuppa.js";
 

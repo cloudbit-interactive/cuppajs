@@ -9,7 +9,7 @@ export default class App extends CuppaComponent {
 	render(){
 		return html`
       <div>
-	      <test-comp  ></test-comp>
+				<test-comp name="Foo" boolean="true" last-name="Bar"></test-comp>
       </div>
 		`
 	}

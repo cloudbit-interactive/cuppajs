@@ -40,6 +40,7 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 							group="collapsible-group-1"
 							name="collapsible-1"
 	            theme="${CuppaTheme.getTheme()}"
+	            
             ></cuppa-collapsible>
             <cuppa-collapsible 
 	            @change=${ this.onChange }

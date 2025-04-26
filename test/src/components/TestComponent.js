@@ -1,23 +1,11 @@
 import { CuppaComponent, html} from "../../../libs/cuppa.component.js";
 
 export default class TestComponent extends CuppaComponent {
-	static attributes = ['name', 'boolean'];
+	static attributes = ['name', 'boolean', 'last-name'];
 	static observables = ['name', 'boolean'];
 	name = "Foo";
 	boolean = false;
-
-	constructor(){
-		super();
-		//this.observables({name:this.name});
-	}
-	
-	firstRendered(count){
-		console.log(`First rendered ${count} times`);
-	}
-
-	rendered(count){
-		console.log(`Rendered ${count} times`);
-	}
+	lastName = 0;
 
 	render(){
 		return html`
