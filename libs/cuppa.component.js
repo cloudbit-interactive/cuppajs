@@ -1,5 +1,5 @@
 /**
- * v0.0.6
+ * v0.0.7
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -22,7 +22,15 @@ export class CuppaComponent extends HTMLElement {
 		this.applyObservables = this.applyObservables.bind(this);
 		this.applyObservables();
 		this.binAll(this);
+	}
 
+	static get observedAttributes() { return this['attributes'] || [] }
+	attributeChangedCallback(attr, oldVal, newVal) {
+		console.log(attr, newVal)
+		if(oldVal === newVal) return;
+		if(newVal === 'false') newVal = false;
+		if(newVal === 'true') newVal = true;
+		this[camelize(attr)] = newVal;
 	}
 
 	applyObservables(){

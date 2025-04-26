@@ -1,25 +1,12 @@
 import { CuppaComponent, html} from "../../../libs/cuppa.component.js";
-import {cuppa} from "../../../libs/cuppa.js";
 
 export default class TestComponent extends CuppaComponent {
+	static attributes = ['name', 'boolean'];
 	static observables = ['name'];
 	name = "Foo";
-
-	static get observedAttributes() { return ['name'] }
-	attributeChangedCallback(attr, oldVal, newVal) { this[attr] = newVal }
-
-	constructor() {
-		super();
-		//this.observables({name:this.name})
-		//this.name = "Bar";
-	}
-
-	mounted(){
-		//this.name = "ddd";
-	}
+	boolean = false;
 
 	render(){
-		console.log("Render", this.name);
 		return html`
       <div>
         <input ref="input1" value=${this.name} @input=${(e)=>this.name = e.target.value} />
