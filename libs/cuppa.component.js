@@ -64,10 +64,9 @@ export class CuppaComponent extends HTMLElement {
 		this.reSetPropertiesCallbacks();
 		if(this.shadow) this.attachShadow({mode: this.shadow});
 		this.forceRender(null, false);
+		if(this.rendered) this.rendered(this.renderedCount, this);
 		setTimeout(()=>{
 			if(this.mounted) this.mounted(this);
-			if(this.firstRendered && this.renderedCount === 1) this.firstRendered(this);
-			if(this.rendered) this.rendered(this);
 		}, 0);
 	}
 
@@ -92,7 +91,8 @@ export class CuppaComponent extends HTMLElement {
 		this.processRefs(this, this.refs, "ref");
 		if(callback) callback();
 		this.renderedCount++;
-		if(this.rendered && dispatchRender) this.rendered(this);
+		if(this.firstRendered && this.renderedCount === 1) this.firstRendered(this.renderedCount, this);
+		if(this.rendered && dispatchRender) this.rendered(this.renderedCount, this);
 	}
 
 	processRefs(html, addTo, tagAttr){

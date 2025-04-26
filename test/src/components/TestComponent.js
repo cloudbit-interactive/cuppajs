@@ -6,8 +6,20 @@ export default class TestComponent extends CuppaComponent {
 	name = "Foo";
 	boolean = false;
 
+	constructor(){
+		super();
+		//this.observables({name:this.name});
+	}
+	
+	firstRendered(count){
+		console.log(`First rendered ${count} times`);
+	}
+
+	rendered(count){
+		console.log(`Rendered ${count} times`);
+	}
+
 	render(){
-		console.log(`Render, ${this.name}, ${this.boolean}`);
 		return html`
       <div>
         <input ref="input1" value=${this.name} @input=${(e)=>this.name = e.target.value} />

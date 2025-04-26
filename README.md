@@ -28,23 +28,24 @@ WebComponents [https://www.webcomponents.org/element/cuppajs-elements](https://w
 import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 
 export default class MyComponent extends CuppaComponent {
-    count = this.observable("count", 0);
+    static attributes = ['attr1', 'attr2'];
+	static observables = ['count'];
+    count = 0;
     refs = {myDivRef:null};
 
     constructor(){ super(); }
 
-    // Standard webComponent to observe attributes
-    static get observedAttributes() { return ['attr1', 'attr2'] }
-    attributeChangedCallback(attr, oldVal, newVal) { this[attr] = newVal }
-    
     // Invoked when the custom element is first connected to the document's DOM.
     mounted() { }   
     
     // Invoked when the custom element is disconnected from the document's DOM.
     unmounted() { }
   
+    // Invoked after the first render execution
+    firstRendered(count){ }
+
     // Invoked after render execution
-    rendered(){ }             
+    rendered(count){ }             
    
     render(){
         return html`
