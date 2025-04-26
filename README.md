@@ -28,33 +28,34 @@ WebComponents [https://www.webcomponents.org/element/cuppajs-elements](https://w
 import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 
 export default class MyComponent extends CuppaComponent {
-    static attributes = ['attr1', 'attr2'];
+	static attributes = ['attr1', 'attr2'];
 	static observables = ['count'];
-    count = 0;
-    refs = {myDivRef:null};
+	count = 0;
+	refs = {myDivRef:null};
 
-    constructor(){ super(); }
+	constructor(){ super(); }
 
-    // Invoked when the custom element is first connected to the document's DOM.
-    mounted() { }   
-    
-    // Invoked when the custom element is disconnected from the document's DOM.
-    unmounted() { }
-  
-    // Invoked after the first render execution
-    firstRendered(count){ }
+	// Invoked when the custom element is first connected to the document's DOM.
+	mounted() { }   
+	
+	// Invoked when the custom element is disconnected from the document's DOM.
+	unmounted() { }
 
-    // Invoked after render execution
-    rendered(count){ }             
-   
-    render(){
-        return html`
-            <div ref="myDivRef">    
-                <button @click=${ ()=>this.count-- }>+</button>
-                <span>Count: ${this.count}</span>
-                <button @click=${ ()=>this.count++ }>+</button>
-            </div>`
-    }
+	// Invoked after the first render execution
+	firstRendered(count){ }
+
+	// Invoked after render execution
+	rendered(count){ }             
+	
+	render(){
+		return html`
+			<div ref="myDivRef">    
+				<button @click=${ ()=>this.count-- }>+</button>
+				<span>Count: ${this.count}</span>
+				<button @click=${ ()=>this.count++ }>+</button>
+			</div>
+		`
+	}
 }
 
 // Standard way to defines a new custom element.

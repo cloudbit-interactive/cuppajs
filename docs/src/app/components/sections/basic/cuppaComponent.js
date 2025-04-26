@@ -24,7 +24,7 @@ export class CuppaComponentDoc extends CuppaComponent {
 				>
 					<code>
 						<!--[
-							import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
+							import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.134/libs/cuppa.component.min.js";
 					
 							export default class CounterComponent extends CuppaComponent {
 								static observables = ["count"];
@@ -76,7 +76,7 @@ export class CuppaComponentDoc extends CuppaComponent {
 	      >
 	        <code>
 	          <!--[
-							import {CuppaComponent, html, repeat} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
+							import {CuppaComponent, html, repeat} from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.134/libs/cuppa.component.min.js";
 					
 							export class TodoComponent extends CuppaComponent {
 								static observables = ["value", "list"];
@@ -232,7 +232,7 @@ export class CuppaComponentDoc extends CuppaComponent {
 	      >
 		      <code>
 			      <!--[
-			        import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
+			        import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs@0.0.134/libs/cuppa.component.min.js";
 			        
 							export default class MyProfileCard extends CuppaComponent {
 								// Define the component attributes
