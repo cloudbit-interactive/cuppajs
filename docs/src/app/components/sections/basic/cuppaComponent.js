@@ -27,7 +27,8 @@ export class CuppaComponentDoc extends CuppaComponent {
 							import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 					
 							export default class CounterComponent extends CuppaComponent {
-								count = this.observable("count", 0);
+								static observables = ["count"];
+								count = 0;
 					
 								render() {
 									return html\`
@@ -78,8 +79,9 @@ export class CuppaComponentDoc extends CuppaComponent {
 							import {CuppaComponent, html, repeat} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 					
 							export class TodoComponent extends CuppaComponent {
-							  value = this.observable("value","");
-							  list = this.observable("list", []);
+								static observables = ["value", "list"];
+							  value = "";
+							  list = [];
 							  autoId = 1;
 							  
 							  onAdd(e) {
@@ -233,16 +235,19 @@ export class CuppaComponentDoc extends CuppaComponent {
 			        import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 			        
 							export default class MyProfileCard extends CuppaComponent {
+								// Define the component attributes
+								static attributes = ["name", "age"];
 								shadow = null;	// null (default), open, close
 								refs = {};
 								// define an observable variable, this will automatically update your component when value change.
-								title = this.observable("title", "Profile Card");
-								name = this.observable("name", "");
-								age = this.observable("age", 0);
+								static observables = ["title", "name", "age"];
+								title = "Profile Card";
+								name = "";
+								age = 0;
 								
 								constructor(){ super(); }
 						
-								// Standard vanilla implementation to observe attributes mutations
+								// Optional - If you dont want to use the auto build-in attribute definition, you can use vanilla implementation to observe attributes mutations
 								static get observedAttributes() { return ['name', 'age'] }
 								attributeChangedCallback(attr, oldVal, newVal) { this[attr] = newVal }
 								
@@ -251,9 +256,12 @@ export class CuppaComponentDoc extends CuppaComponent {
 								
 								// Invoked when the custom element is unmounted from the document's DOM.
 								unmounted() { }
-								
+
+								// Invoked after first render execution is completed
+								firstRendered(count){ }
+
 								// Invoked after render execution is completed
-								rendered(){ }
+								rendered(count){ }
 								
 								changeAttributeName(e){
 									let name = \`Random Name \${Math.round(Math.random() * 99)}\`
