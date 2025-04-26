@@ -1,7 +1,8 @@
-/*!
+//! v0.0.6
+/*
  * v0.0.6
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
  */
 
 export class CuppaStorage{
