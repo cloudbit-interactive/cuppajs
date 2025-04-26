@@ -1,4 +1,4 @@
-//! v0.0.7
+/*! v0.0.7 */
 /* 
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
