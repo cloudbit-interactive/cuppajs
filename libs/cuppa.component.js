@@ -26,7 +26,6 @@ export class CuppaComponent extends HTMLElement {
 
 	static get observedAttributes() { return this['attributes'] || [] }
 	attributeChangedCallback(attr, oldVal, newVal) {
-		console.log(attr, newVal)
 		if(oldVal === newVal) return;
 		if(newVal === 'false') newVal = false;
 		if(newVal === 'true') newVal = true;
@@ -42,7 +41,7 @@ export class CuppaComponent extends HTMLElement {
 				data[name] = this[name];
 			}
 			this.observables(data);
-			//this.forceRender();
+			this.forceRender();
 		}, 0);
 	}
 

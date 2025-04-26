@@ -2,11 +2,12 @@ import { CuppaComponent, html} from "../../../libs/cuppa.component.js";
 
 export default class TestComponent extends CuppaComponent {
 	static attributes = ['name', 'boolean'];
-	static observables = ['name'];
+	static observables = ['name', 'boolean'];
 	name = "Foo";
 	boolean = false;
 
 	render(){
+		console.log(`Render, ${this.name}, ${this.boolean}`);
 		return html`
       <div>
         <input ref="input1" value=${this.name} @input=${(e)=>this.name = e.target.value} />
