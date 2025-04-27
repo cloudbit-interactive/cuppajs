@@ -40,13 +40,16 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 							group="collapsible-group-1"
 							name="collapsible-1"
 	            theme="${CuppaTheme.getTheme()}"
-	            
+              style="display:none"
+              style-after-render="display:block"
             ></cuppa-collapsible>
             <cuppa-collapsible 
 	            @change=${ this.onChange }
              	group="collapsible-group-1"
              	name="collapsible-2"
               theme="${CuppaTheme.getTheme()}"
+              style="display:none"
+	            style-after-render="display:block"
             >
               <cuppa-collapsible-header>Collapsible Title 2</cuppa-collapsible-header>
               <cuppa-collapsible-content>
@@ -59,6 +62,8 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 							group="collapsible-group-1"
 							name="collapsible-3"
               theme="${CuppaTheme.getTheme()}"
+              style="display:none"
+              style-after-render="display:block"
             >
               <cuppa-collapsible-header>Collapsible Title 3</cuppa-collapsible-header>
               <cuppa-collapsible-content>
