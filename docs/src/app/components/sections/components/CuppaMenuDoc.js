@@ -22,7 +22,7 @@ export class CuppaMenuDoc extends CuppaComponent{
       <hr />
       <section>
         <h2 class="title-3">Main Menu</h2>
-	      <div class="flex m-t-20 j-start a-center" style="gap:0.5rem">
+	      <div class="flex m-t-10 j-start a-center" style="gap:0.5rem">
           <button id="btnFile" class="button-1" >File</button>
           <button id="btnEdit" class="button-1" >Edit</button>
           <button id="btnHelp" class="button-1" >Help</button>
