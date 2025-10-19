@@ -18,8 +18,10 @@ export class CuppaMenuDoc extends CuppaComponent{
 	render(){
 		return html`
       <get-storage name=${Storages.theme.name} @change=${()=>this.forceRender()}></get-storage>
+      <h1 class="title-2">Cuppa Menu</h1>
+      <hr />
       <section>
-        <h1 class="title-2">Cuppa Menu</h1>
+        <h2 class="title-3">Main Menu</h2>
 	      <div class="flex m-t-20 j-start a-center" style="gap:0.5rem">
           <button id="btnFile" class="button-1" >File</button>
           <button id="btnEdit" class="button-1" >Edit</button>
@@ -30,7 +32,6 @@ export class CuppaMenuDoc extends CuppaComponent{
 			      ${this.output}
 		      </span>
 	      </div>
-
         <cuppa-menu
 	        target="#btnFile" 
 	        theme="${CuppaTheme.getTheme()}" 
@@ -183,6 +184,35 @@ export class CuppaMenuDoc extends CuppaComponent{
 	            <button @click="${()=>this.setOutput("What's New")}" >What's New</button>
 	            <button @click="${()=>this.setOutput('Help Center')}">Help Center</button>
 	          </cuppa-menu>
+        </cuppa-menu>
+      </section>
+      <hr />
+      <section>
+        <h2 class="title-3">Contextual Menu</h2>
+        <button id="btnContextual" class="button-1 transparent m-t-10" >Contextual Menu</button>
+        <cuppa-menu 
+          target="#btnContextual" 
+          contextual-menu="true"
+          pos-x="${CuppaMenu.POSITION.LEFT_IN}"
+          pos-y="${CuppaMenu.POSITION.BOTTOM}"
+          theme="${CuppaTheme.getTheme()}" 
+        >
+          <button id="btnSort">Sort <i class="more"></i></button>
+          <cuppa-menu 
+            target="#btnSort" 
+            pos-x="${CuppaMenu.POSITION.RIGHT}"
+            pos-y="${CuppaMenu.POSITION.TOP_IN}"
+            theme="${CuppaTheme.getTheme()}" 
+          >
+            <button>A to Z</button>
+            <button>Z to A</button>
+          </cuppa-menu>
+          <hr />
+          <button>Cut</button>
+          <button>Copy</button>
+          <button>Paste</button>
+          <hr />
+          <button>Quick</button>
         </cuppa-menu>
       </section>
 		`
