@@ -3152,87 +3152,86 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
     cuppa.validateFormObject = function(object, opts){
         let result = {valid:true, desc:{}};
         if(!opts) return result;
-            result.desc = {};
-            result.message = "";
-            result.field = "";
+        result.desc = {};
+        result.message = "";
+        result.field = "";
         Object.keys(opts).map(key=>{
             let value = object[key];
             let opt = opts[key];
             let desc = {};
-
-            if(opt.type == "email" && !cuppa.email(value)){
-                desc.type = false;
-                desc.message = opt.message || `field must be an email`;
-                if(opt["typeMessage"]) desc.message = opt["typeMessage"];
+            if(opt.type === "email" && !cuppa.email(value)){
+            desc.type = false;
+            desc.message = opt.message || `field must be an email`;
+            if(opt["typeMessage"]) desc.message = opt["typeMessage"];
             }
-            if(opt.type == "number" && isNaN(parseFloat(value)) ){
-                desc.type = false;
-                desc.message = opt.message || `field should be a number`;
-                if(opt["typeMessage"]) desc.message = opt["typeMessage"];
+            if(opt.type === "number" && isNaN(parseFloat(value)) ){
+            desc.type = false;
+            desc.message = opt.message || `field should be a number`;
+            if(opt["typeMessage"]) desc.message = opt["typeMessage"];
             }
             if(opt.regExp && !new RegExp(opt.regExp).test(value)){
-                desc.regExp = false;
-                desc.message = opt.message || `regExp failed`;
-                if(opt["regExpMessage"]) desc.message = opt["regExpMessage"];
+            desc.regExp = false;
+            desc.message = opt.message || `regExp failed`;
+            if(opt["regExpMessage"]) desc.message = opt["regExpMessage"];
             }
             if(opt.min && parseFloat(value) < opt.min){
-                desc.min = false;
-                desc.message = opt.message || `field must be greater than ${opt.min}`;
-                if(opt["minMessage"]) desc.message = opt["minMessage"];
+            desc.min = false;
+            desc.message = opt.message || `field must be greater than ${opt.min}`;
+            if(opt["minMessage"]) desc.message = opt["minMessage"];
             }
             if(opt.max && parseFloat(value) > opt.max){
-                desc.max = false;
-                desc.message = opt.message || `field must be lower than ${opt.max}`;
-                if(opt["maxMessage"]) desc.message = opt["maxMessage"];
+            desc.max = false;
+            desc.message = opt.message || `field must be lower than ${opt.max}`;
+            if(opt["maxMessage"]) desc.message = opt["maxMessage"];
             }
             if(opt.minLength && cuppa.value(value, null, '').length < opt.minLength){
-                desc.minLength = false;
-                desc.message = opt.message || `field must be more than ${opt.minLength} characters`;
-                if(opt["minLengthMessage"]) desc.message = opt["minLengthMessage"];
+            desc.minLength = false;
+            desc.message = opt.message || `field must be more than ${opt.minLength} characters`;
+            if(opt["minLengthMessage"]) desc.message = opt["minLengthMessage"];
             }
             if(opt.maxLength && cuppa.value(value, null, '').length > opt.maxLength){
-                desc.maxLength = false;
-                desc.message = opt.message || `field must be less than ${opt.maxLength} characters`;
-                if(opt["maxLengthMessage"]) desc.message = opt["maxLengthMessage"];
+            desc.maxLength = false;
+            desc.message = opt.message || `field must be less than ${opt.maxLength} characters`;
+            if(opt["maxLengthMessage"]) desc.message = opt["maxLengthMessage"];
             }
-            if(opt.equalTo && value != object[opt.equalTo]){
-                desc.equalTo = false;
-                desc.message = opt.message || `field must be equal to ${opt.equalTo} field`;
-                if(opt["equalToMessage"]) desc.message = opt["equalToMessage"];
+            if(opt.equalTo && value !== object[opt.equalTo]){
+            desc.equalTo = false;
+            desc.message = opt.message || `field must be equal to ${opt.equalTo} field`;
+            if(opt["equalToMessage"]) desc.message = opt["equalToMessage"];
             }
             if(opt.checked === true && value !== opt.checked){
-                desc.checked = false;
-                desc.message = opt.message || `field must be checked`;
-                if(opt["checkedMessage"]) desc.message = opt["checkedMessage"];
+            desc.checked = false;
+            desc.message = opt.message || `field must be checked`;
+            if(opt["checkedMessage"]) desc.message = opt["checkedMessage"];
             }
             if(opt.checked === false && value !== opt.checked){
-                desc.checked = false;
-                desc.message = opt.message || `field must be unchecked`;
-                if(opt["checkedMessage"]) desc.message = opt["checkedMessage"];
+            desc.checked = false;
+            desc.message = opt.message || `field must be unchecked`;
+            if(opt["checkedMessage"]) desc.message = opt["checkedMessage"];
             }
             if(opt.noEmptyArray && (!value || !value.length)){
-                desc.type = false;
-                desc.message = opt.message || `field must contain elements`;
-                if(opt["typeMessage"]) desc.message = opt["typeMessage"];
+            desc.type = false;
+            desc.message = opt.message || `field must contain elements`;
+            if(opt["typeMessage"]) desc.message = opt["typeMessage"];
             }
             if(opt.required && (!value || (typeof value == "string" && !cuppa.trim(value))) ){
-                desc.required = false;
-                desc.message = opt.message || `field is required`;
-                if(opt["requiredMessage"]) desc.message = opt["requiredMessage"];
+            desc.required = false;
+            desc.message = opt.message || `field is required`;
+            if(opt["requiredMessage"]) desc.message = opt["requiredMessage"];
             }
 
             if(Object.keys(desc).length){
-                desc.valid = false;
-                result.valid = false;
-                if(!result.message) result.message = desc.message;
-                if(!result.field) result.field = key;
-                if(!result.label) result.label = opt["label"] || result.field;
+            desc.valid = false;
+            result.valid = false;
+            if(!result.message) result.message = desc.message;
+            if(!result.field) result.field = key;
+            if(!result.label) result.label = opt["label"] || result.field;
             }else{
-                desc.valid = true;
+            desc.valid = true;
             }
             result.desc[key] = desc;
         });
-        if(result.field && opts[result.field] &&opts[result.field]["label"] != undefined) result.label = opts[result.field]["label"];
+        if(result.field && opts[result.field] &&opts[result.field]["label"] !== undefined) result.label = opts[result.field]["label"];
         return result;
     };
 
