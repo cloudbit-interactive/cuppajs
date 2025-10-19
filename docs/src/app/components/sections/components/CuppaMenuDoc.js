@@ -212,7 +212,7 @@ export class CuppaMenuDoc extends CuppaComponent{
           <button>Copy</button>
           <button>Paste</button>
           <hr />
-          <button>Quick</button>
+          <button>More</button>
         </cuppa-menu>
       </section>
 		`
