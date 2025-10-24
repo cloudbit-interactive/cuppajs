@@ -94,11 +94,11 @@ export class CuppaCollapsibleDoc extends CuppaComponent {
 	      >
 		      <code>
           	<!--[
-          	<script src="https://cdn.jsdelivr.net/npm/cuppajs/libs/components/cuppa.collapsible.min.js" type="module"></script>
+          	<script src="https://cdn.jsdelivr.net/npm/cuppajs@0.0.140/libs/components/cuppa.collapsible.min.js" type="module"></script>
 						<cuppa-collapsible 
 							theme="dark"
-							style="opacity:0;"
-							style-after-render="opacity:1;"
+							style="display:none;"
+							style-after-render="display:block;"		// this avoids bad visualization while the component is loading
 						>
 							<cuppa-collapsible-header>Collapsible Title</cuppa-collapsible-header>
 								<cuppa-collapsible-content>
