@@ -3,6 +3,7 @@ import { Globals } from "../../controllers/Globals.js";
 import {CuppaTheme} from "../../../cuppa/cuppa.theme.min.js";
 import {CuppaStorage} from "../../../cuppa/cuppa.storage.min.js";
 import {Storages} from "../../controllers/Storages.js";
+import {Constants} from "../../controllers/Constants.js";
 
 export class Menu extends CuppaComponent {
 	path = this.observable("path");
@@ -82,14 +83,11 @@ export class Menu extends CuppaComponent {
 
         <h2 class="title-3 m-t-20">Cuppa Components</h2>
         <div class="m-y-20">
-          <a class="menu-item ${this.isSelected('cuppa-alert')}" href="cuppa-alert" aria-label="Cuppa Alert">Cuppa Alert</a>
-          <a class="menu-item ${this.isSelected('cuppa-switch')}" href="cuppa-switch" aria-label="Cuppa Switch">Cuppa Switch</a>
-          <a class="menu-item ${this.isSelected('cuppa-tabs')}" href="cuppa-tabs" aria-label="Cuppa Tabs">Cuppa Tabs</a>
-          <a class="menu-item ${this.isSelected('cuppa-collapsible')}" href="cuppa-collapsible" aria-label="Cuppa Collapsible">Cuppa Collapsible</a>
-          <a class="menu-item ${this.isSelected('cuppa-drawer')}" href="cuppa-drawer" aria-label="Cuppa Drawer">Cuppa Drawer</a>
-          <a class="menu-item ${this.isSelected('cuppa-tooltip')}" href="cuppa-tooltip" aria-label="Cuppa Tooltip">Cuppa Tooltip</a>
-          <a class="menu-item ${this.isSelected('cuppa-notification')}" href="cuppa-notification" aria-label="Cuppa Notification">Cuppa Notification</a>
-          <a class="menu-item ${this.isSelected('cuppa-menu')}" href="cuppa-menu" aria-label="Cuppa Menu">Cuppa Menu</a>
+	        ${Constants.components.map(component =>{
+						return html`
+              <a class="menu-item ${this.isSelected(component.href)} ${component.disabled ? 'disabled' : ''}" href="${component.href}" aria-label="${component.label}">${component.label}</a>
+						`
+	        })}
         </div>
 
         <h2 class="title-3 m-t-20">More</h2>
