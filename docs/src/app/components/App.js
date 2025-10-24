@@ -54,19 +54,19 @@ export class App extends CuppaComponent {
       </cuppa-drawer>
       <!-- main section -->
       <section class="main-section">
-        ${ this.path == "simple-todo" ? "<simple-todo></simple-todo>"
-        : (this.path == "cuppa-component") ? html`<cuppa-component />`
-        : (this.path == "cuppa-router") ? html`<cuppa-router />`
-        : (this.path == "cuppa-storage") ? html`<cuppa-storage-base />`
-        : (this.path == "performance") ? html`<performance-comp />`
-        : (this.path == "cuppa-alert") ? html`<cuppa-alert-doc />`
-				: (this.path == "cuppa-switch") ? html`<cuppa-switch-doc />`
-				: (this.path == "cuppa-tabs") ? html`<cuppa-tabs-doc />`
-				: (this.path == "cuppa-collapsible") ? html`<cuppa-collapsible-doc />`
-				: (this.path == "cuppa-drawer") ? html`<cuppa-drawer-doc />`
-				: (this.path == "cuppa-tooltip") ? html`<cuppa-tooltip-doc />`
-        : (this.path == "cuppa-notification") ? html`<cuppa-notification-doc />`
-        : (this.path == "cuppa-menu") ? html`<cuppa-menu-doc />`
+        ${ this.path === "simple-todo" ? "<simple-todo></simple-todo>"
+        : (this.path === "cuppa-component") ? html`<cuppa-component />`
+        : (this.path === "cuppa-router") ? html`<cuppa-router />`
+        : (this.path === "cuppa-storage") ? html`<cuppa-storage-base />`
+        : (this.path === "performance") ? html`<performance-comp />`
+        : (this.path === "cuppa-alert") ? html`<cuppa-alert-doc />`
+				: (this.path === "cuppa-switch") ? html`<cuppa-switch-doc />`
+				: (this.path === "cuppa-tabs") ? html`<cuppa-tabs-doc />`
+				: (this.path === "cuppa-collapsible") ? html`<cuppa-collapsible-doc />`
+				: (this.path === "cuppa-drawer") ? html`<cuppa-drawer-doc />`
+				: (this.path === "cuppa-tooltip") ? html`<cuppa-tooltip-doc />`
+        : (this.path === "cuppa-notification") ? html`<cuppa-notification-doc />`
+        : (this.path === "cuppa-menu") ? html`<cuppa-menu-doc />`
 				: html`<welcome-comp></welcome-comp>`}
       </section>
       <cuppa-portal class="fixed a-l-t z-index-9999"></cuppa-portal>
