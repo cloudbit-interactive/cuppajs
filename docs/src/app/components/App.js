@@ -16,6 +16,7 @@ import "./sections/components/CuppaDrawerDoc.js";
 import "./sections/components/CuppaTooltipDoc.js";
 import "./sections/components/CuppaNotificationDoc.js";
 import "./sections/components/CuppaMenuDoc.js";
+import {CuppaDrawer} from "../../../../libs/reactNative/components/CuppaDrawer.js";
 
 export class App extends CuppaComponent {
 	path = this.observable("path");
