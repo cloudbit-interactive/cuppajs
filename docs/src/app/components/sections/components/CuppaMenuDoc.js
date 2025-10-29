@@ -3,9 +3,13 @@ import {Storages} from "../../../controllers/Storages.js";
 import {CuppaMenu} from "../../../../cuppa/components/cuppa.menu.min.js";
 import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
 import {CuppaShortcut} from "../../../../cuppa/components/cuppa.shortcut.min.js";
+import {AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
+import {Utils} from "../../../controllers/Utils.js";
 
 export class CuppaMenuDoc extends CuppaComponent{
-	output = this.observable('output', '');
+	static observables = ['output', 'sort']
+	output = '';
+	sort = 'az';
 	timeout;
 
 	setOutput(value){
@@ -197,23 +201,102 @@ export class CuppaMenuDoc extends CuppaComponent{
           pos-y="${CuppaMenu.POSITION.BOTTOM}"
           theme="${CuppaTheme.getTheme()}" 
         >
-          <button id="btnSort">Sort <i class="more"></i></button>
+          <button id="btnSort">
+            <span><i class="fas fa-sort-amount-down"></i> Sort</span>
+	          <i class="more"></i>
+          </button>
           <cuppa-menu 
             target="#btnSort" 
             pos-x="${CuppaMenu.POSITION.RIGHT}"
             pos-y="${CuppaMenu.POSITION.TOP_IN}"
             theme="${CuppaTheme.getTheme()}" 
           >
-            <button>A to Z</button>
-            <button>Z to A</button>
+            <button @click=${e=>{ e.stopPropagation(); this.sort='az' }} >
+	            <span>A to Z</span> 
+	            ${this.sort === 'az' ? html`<i class="fas fa-check f-10 m-r-0"></i>` : ''}
+            </button>
+            <button @click=${e=>{ e.stopPropagation(); this.sort='za' }}>
+	            <span>Z to A</span>
+              ${this.sort === 'za' ? html`<i class="fas fa-check f-10 m-r-0"></i>` : ''}
+            </button>
           </cuppa-menu>
           <hr />
-          <button>Cut</button>
-          <button>Copy</button>
-          <button>Paste</button>
+          <button>
+	          <span><i class="fas fa-cut"></i> Cut</span>
+          </button>
+          <button>
+	          <span><i class="fas fa-copy"></i> Copy</span>
+          </button>
+          <button>
+	          <span><i class="fas fa-paste"></i> Paste</span>
+          </button>
           <hr />
-          <button>More</button>
+          <button>
+            <span><i class="fas fa-cog"></i> Settings</span>
+          </button>
         </cuppa-menu>
+      </section>
+      <hr />
+      <section>
+        <h2 class="title-3">Code Example</h2>
+        <cuppa-preview-code
+          class="box-shadow-1 m-t-20"
+          height="42rem"
+          preview-height="28rem"
+          mode=${AceModes.html}
+          remove-tabs=${7}
+          preview=${true}
+          expandable=${false}
+          preview-css="${Utils.getPreviewCSS()}"
+        >
+          <code>
+            <!--[
+						<script src="https://cdn.jsdelivr.net/npm/cuppajs@0.0.142/libs/components/cuppa.menu.min.js" type="module"></script>
+					 	<button id="btnContextual" class="button-1 transparent m-t-10" >Contextual Menu</button>
+				    <cuppa-menu 
+		          target="#btnContextual" 
+		          contextual-menu="true"
+		          pos-x="LEFT_IN"
+		          pos-y="BOTTOM"
+		          style="display:none;"
+		          theme="dark"
+		        >
+		          <button id="btnSort">
+		            <span><i class="fas fa-sort-amount-down"></i> Sort</span>
+			          <i class="more"></i>
+		          </button>
+		          <cuppa-menu 
+		            target="#btnSort" 
+		            pos-x="RIGHT"
+		            pos-y="TOP_IN"
+		            theme="$dark" 
+		          >
+		            <button>
+			            <span>A to Z</span> 
+		            </button>
+		            <button>
+			            <span>Z to A</span>
+		            </button>
+		          </cuppa-menu>
+		          <hr />
+		          <button>
+			          <span><i class="fas fa-cut"></i> Cut</span>
+		          </button>
+		          <button>
+			          <span><i class="fas fa-copy"></i> Copy</span>
+		          </button>
+		          <button>
+			          <span><i class="fas fa-paste"></i> Paste</span>
+		          </button>
+		          <hr />
+		          <button>
+		            <span><i class="fas fa-cog"></i> Settings</span>
+		          </button>
+		        </cuppa-menu>
+						
+						]-->
+          </code>
+        </cuppa-preview-code>
       </section>
 		`
 	}

@@ -1,5 +1,5 @@
 /**
- * v0.0.10
+ * v0.0.11
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
  */
@@ -25,7 +25,7 @@ export class CuppaMenu extends CuppaComponent {
 	delayCloseTimeout;
 	forceShow = false;
 	forceRemove = false;
-	groupEvents = `CuppaMenu_${cuppa.uuid()}`;
+	groupEvents = `CuppaMenu_${crypto.randomUUID()}`;
 	theme = "light";
 	showOnMouseOver = false;
 
@@ -35,7 +35,7 @@ export class CuppaMenu extends CuppaComponent {
 		}else{
 			this.mainMenu = true;
 			this.classList.add('main-menu');
-		} 
+		}
 		if(this.target){
 			this.targetElement = document.querySelector(this.target);
 		}
@@ -90,7 +90,7 @@ export class CuppaMenu extends CuppaComponent {
 
 		if(dim.x < 0){
 			if(this.adjustType === CuppaMenu.ADJUST_TYPE.OPPOSITE){
-			this.posX = CuppaMenu.POSITION.LEFT_IN;
+				this.posX = CuppaMenu.POSITION.LEFT_IN;
 			}else if(this.adjustType === CuppaMenu.ADJUST_TYPE.GAP){
 				this.style.left = `10px`;
 			}
@@ -140,7 +140,7 @@ export class CuppaMenu extends CuppaComponent {
 			cuppa.on(this.targetElement, `mouseenter`, (e)=>{
 				let others = this.getOthers({includeContextualMenu:false});
 				if(others.length){
-					this.closeOthers(); 
+					this.closeOthers();
 					this.show(e);
 				}
 			}, this.groupEvents);
@@ -238,7 +238,7 @@ export class CuppaMenu extends CuppaComponent {
 
         cuppa-menu{
           display: block;
-	        visibility: visible;
+          visibility: visible;
           position: fixed;
           left: 0; top:0;
           border: var(--cuppa-menu-border);
