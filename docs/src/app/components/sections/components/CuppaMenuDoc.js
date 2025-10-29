@@ -246,12 +246,12 @@ export class CuppaMenuDoc extends CuppaComponent{
           mode=${AceModes.html}
           remove-tabs=${6}
           preview=${true}
-          expandable=${false}
           preview-css="${Utils.getPreviewCSS()}"
         >
           <code>
             <!--[
 						<script src="https://cdn.jsdelivr.net/npm/cuppajs@0.0.142/libs/components/cuppa.menu.min.js" type="module"></script>
+						<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous" />
 						<button id="btnContextual" class="button-1 transparent m-t-10" >Contextual Menu</button>
 						<cuppa-menu 
 							target="#btnContextual" 
