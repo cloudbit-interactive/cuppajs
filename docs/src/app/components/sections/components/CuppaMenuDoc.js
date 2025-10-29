@@ -244,7 +244,7 @@ export class CuppaMenuDoc extends CuppaComponent{
           height="42rem"
           preview-height="28rem"
           mode=${AceModes.html}
-          remove-tabs=${7}
+          remove-tabs=${6}
           preview=${true}
           expandable=${false}
           preview-css="${Utils.getPreviewCSS()}"
@@ -252,48 +252,47 @@ export class CuppaMenuDoc extends CuppaComponent{
           <code>
             <!--[
 						<script src="https://cdn.jsdelivr.net/npm/cuppajs@0.0.142/libs/components/cuppa.menu.min.js" type="module"></script>
-					 	<button id="btnContextual" class="button-1 transparent m-t-10" >Contextual Menu</button>
-				    <cuppa-menu 
-		          target="#btnContextual" 
-		          contextual-menu="true"
-		          pos-x="LEFT_IN"
-		          pos-y="BOTTOM"
-		          style="display:none;"
-		          theme="dark"
-		        >
-		          <button id="btnSort">
-		            <span><i class="fas fa-sort-amount-down"></i> Sort</span>
-			          <i class="more"></i>
-		          </button>
-		          <cuppa-menu 
-		            target="#btnSort" 
-		            pos-x="RIGHT"
-		            pos-y="TOP_IN"
-		            theme="$dark" 
-		          >
-		            <button>
-			            <span>A to Z</span> 
-		            </button>
-		            <button>
-			            <span>Z to A</span>
-		            </button>
-		          </cuppa-menu>
-		          <hr />
-		          <button>
-			          <span><i class="fas fa-cut"></i> Cut</span>
-		          </button>
-		          <button>
-			          <span><i class="fas fa-copy"></i> Copy</span>
-		          </button>
-		          <button>
-			          <span><i class="fas fa-paste"></i> Paste</span>
-		          </button>
-		          <hr />
-		          <button>
-		            <span><i class="fas fa-cog"></i> Settings</span>
-		          </button>
-		        </cuppa-menu>
-						
+						<button id="btnContextual" class="button-1 transparent m-t-10" >Contextual Menu</button>
+						<cuppa-menu 
+							target="#btnContextual" 
+							contextual-menu="true"
+							pos-x="LEFT_IN"
+							pos-y="BOTTOM"
+							style="display:none;"
+							theme="dark"
+						>
+						  <button id="btnSort">
+						    <span><i class="fas fa-sort-amount-down"></i> Sort</span>
+						    <i class="more"></i>
+						  </button>
+						  <cuppa-menu 
+						    target="#btnSort" 
+						    pos-x="RIGHT"
+						    pos-y="TOP_IN"
+						    theme="$dark" 
+						  >
+						    <button>
+									<span>A to Z</span> 
+						    </button>
+						    <button>
+									<span>Z to A</span>
+						    </button>
+						  </cuppa-menu>
+						  <hr />
+						  <button>
+						    <span><i class="fas fa-cut"></i> Cut</span>
+						  </button>
+						  <button>
+								<span><i class="fas fa-copy"></i> Copy</span>
+						  </button>
+						  <button>
+						    <span><i class="fas fa-paste"></i> Paste</span>
+						  </button>
+						  <hr />
+						  <button>
+						    <span><i class="fas fa-cog"></i> Settings</span>
+						  </button>
+						</cuppa-menu>
 						]-->
           </code>
         </cuppa-preview-code>
