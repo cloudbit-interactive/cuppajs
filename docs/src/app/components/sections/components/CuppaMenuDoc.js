@@ -42,6 +42,7 @@ export class CuppaMenuDoc extends CuppaComponent{
 	        pos-x="${CuppaMenu.POSITION.LEFT_IN}" 
 	        pos-y="${CuppaMenu.POSITION.BOTTOM}"
 	        arrow="${CuppaMenu.ARROW.UP}"
+	        style="z-index: 10"
         >
 	        <button @click="${()=>this.setOutput('New File')}" >
 		        New File
@@ -132,6 +133,7 @@ export class CuppaMenuDoc extends CuppaComponent{
 	        pos-x="${CuppaMenu.POSITION.LEFT_IN}" 
 	        pos-y="${CuppaMenu.POSITION.BOTTOM}"
           arrow="${CuppaMenu.ARROW.UP}"
+          style="z-index: 10"
         >
           <button @click="${()=>this.setOutput('Undo')}" >
 	          Undo
@@ -199,7 +201,8 @@ export class CuppaMenuDoc extends CuppaComponent{
           contextual-menu="true"
           pos-x="${CuppaMenu.POSITION.LEFT_IN}"
           pos-y="${CuppaMenu.POSITION.BOTTOM}"
-          theme="${CuppaTheme.getTheme()}" 
+          theme="${CuppaTheme.getTheme()}"
+          style="z-index: 10"
         >
           <button id="btnSort">
             <span><i class="fas fa-sort-amount-down"></i> Sort</span>
@@ -209,7 +212,8 @@ export class CuppaMenuDoc extends CuppaComponent{
             target="#btnSort" 
             pos-x="${CuppaMenu.POSITION.RIGHT}"
             pos-y="${CuppaMenu.POSITION.TOP_IN}"
-            theme="${CuppaTheme.getTheme()}" 
+            theme="${CuppaTheme.getTheme()}"
+            style="z-index: 10"
           >
             <button @click=${e=>{ e.stopPropagation(); this.sort='az' }} >
 	            <span>A to Z</span> 
