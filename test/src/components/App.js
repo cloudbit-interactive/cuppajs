@@ -13,7 +13,7 @@ export default class App extends CuppaComponent {
     {id: 'option3', name: 'Option3', email:'option3@mail.com'},
     {id: 'option4', name: 'Option4', email:'option4@mail.com'},
   ];
-  selected = 'option2,option4,option3';
+  selected = 'option1,option4';
 
 	render(){
 		return html`

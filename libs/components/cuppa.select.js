@@ -12,6 +12,7 @@ export class CuppaSelect extends CuppaComponent {
 		'select-class',
 		'list-class',
 		'name',
+		'selected',
 		'open',
 		'dropdown-style',
 		'empty-option-label',
