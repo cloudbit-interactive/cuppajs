@@ -82,7 +82,6 @@ export class CuppaSelect extends CuppaComponent {
 	maximumOptionsExceededLabel = '...';
 
 	mounted(){
-		console.log("mounted");
 		document.addEventListener('keyup', e=>{
 			if(String(e?.code).toLowerCase() === 'escape'){
 				e.preventDefault(); e.stopPropagation();

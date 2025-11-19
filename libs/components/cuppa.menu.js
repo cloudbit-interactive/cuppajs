@@ -1,5 +1,5 @@
 /**
- * v0.0.11
+ * v0.0.12
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
  */
@@ -28,6 +28,8 @@ export class CuppaMenu extends CuppaComponent {
 	groupEvents = `CuppaMenu_${crypto.randomUUID()}`;
 	theme = "light";
 	showOnMouseOver = false;
+	showCallback;
+	closeCallback;
 
 	mounted(){
 		if(this.parentElement.closest('cuppa-menu')){
@@ -163,6 +165,7 @@ export class CuppaMenu extends CuppaComponent {
 			this.style.display = 'block';
 			this.closeOthers();
 		}
+		if(this.showCallback) this.showCallback(this);
 	}
 
 	closeOthers(){
@@ -196,6 +199,7 @@ export class CuppaMenu extends CuppaComponent {
 			this.onMenu = false;
 			this.style.display = 'none';
 		}
+		if(this.closeCallback) this.closeCallback(this);
 	}
 
 	unmounted() {
