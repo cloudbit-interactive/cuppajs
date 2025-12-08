@@ -1,5 +1,5 @@
 /*
-* CuppaCSS v0.0.6
+* CuppaCSS v0.0.7
 * Authors (https://github.com/cloudbit-interactive/cuppajs)
 * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
 */
@@ -223,6 +223,21 @@
 }
 // grid
 .grid{ display: grid; }
+@for $i from 2 through 12 {
+  .cols-#{$i}{ grid-template-columns: repeat($i, 1fr); }
+}
+@for $i from 2 through 12 {
+  .rows-#{$i}{ grid-template-rows: repeat($i, 1fr); }
+}
+@for $i from 2 through 12 {
+  .cols-span-#{$i}{ grid-column: auto / span $i; }
+  .rows-span-#{$i}{ grid-row: 1 / span $i; }
+}
+.g-3{ gap:3px; }
+.g-5{ gap:5px; }
+.g-10{ gap:10px; }
+.g-15{ gap:15px; }
+.g-20{ gap:20px; }
 // flex
 .flex{ display:flex; justify-content: space-around; flex-wrap:wrap; }
 .flex-inline{ display: inline-flex; justify-content: space-around; flex-wrap:wrap; }

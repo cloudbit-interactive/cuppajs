@@ -315,4 +315,4 @@ function capitaliseAllWords(str){
 		pieces[i] = j + pieces[i].substr(1);
 	}
 	return pieces.join(" ");
-};
+}
