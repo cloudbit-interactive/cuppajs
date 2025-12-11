@@ -1,4 +1,4 @@
-import { CuppaComponent, html} from "../../../libs/cuppa.component.js";
+import { CuppaComponent, html} from "../cuppa.component.js";
 
 export default class TestComponent extends CuppaComponent {
 	static attributes = ['name', 'boolean', 'last-name'];
@@ -10,7 +10,7 @@ export default class TestComponent extends CuppaComponent {
 	render(){
 		return html`
       <div>
-        <input ref="input1" value=${this.name} @input=${(e)=>this.name = e.target.value} />
+        <input value=${this.name} @input=${(e)=>this.name = e.target.value} />
         <div class="animation ${this.name === 'ddd' ? 'start' : ''}">${this.name}</div>
 	      <style>
 		      .animation{
