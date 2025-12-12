@@ -6,7 +6,8 @@ import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
 import {cuppa} from "../../../../cuppa/cuppa.min.js";
 
 export class CuppaAlertDoc extends CuppaComponent {
-	alertResult = this.observable("alertResult");
+  static observables = ["alertResult"];
+	alertResult;
 
 	showAlert(){
 		let alert = cuppa.newElement(`

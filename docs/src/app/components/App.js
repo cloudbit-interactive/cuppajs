@@ -19,7 +19,8 @@ import "./sections/components/CuppaMenuDoc.js";
 import {CuppaDrawer} from "../../cuppa/components/cuppa.drawer.min.js";
 
 export class App extends CuppaComponent {
-	path = this.observable("path");
+  static observables = ['path']
+	path;
 
 	constructor(){
 		super();

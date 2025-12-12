@@ -6,7 +6,8 @@ import "../../../../cuppa/cuppa.storage.min.js"
 import {Storages} from "../../../controllers/Storages.js";
 
 export class CuppaComponentDoc extends CuppaComponent {
-	theme = this.observable('theme');
+	static observables = ['theme']
+	theme;
 
 	render(){
 		return html`

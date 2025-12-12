@@ -2,9 +2,6 @@ import {CuppaComponent, html} from "../../../../cuppa/cuppa.component.min.js";
 import {Globals} from "../../../controllers/Globals.js";
 
 export class Welcome extends CuppaComponent {
-	constructor(){
-		super();
-	}
 
 	mounted() {
 		Globals.router.updateLinks();

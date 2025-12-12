@@ -6,7 +6,8 @@ import {CuppaTheme} from "../../../../cuppa/cuppa.theme.min.js";
 import {Storages} from "../../../controllers/Storages.js";
 
 export class CuppaCollapsibleDoc extends CuppaComponent {
-	collapsibleStatus = this.observable("collapsibleStatus", {});
+  static observables = ['collapsibleStatus'];
+	collapsibleStatus = {};
 
 	onChange(e){
 		let data = e.detail;
