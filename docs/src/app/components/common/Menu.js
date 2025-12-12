@@ -6,8 +6,9 @@ import {Storages} from "../../controllers/Storages.js";
 import {Constants} from "../../controllers/Constants.js";
 
 export class Menu extends CuppaComponent {
-	path = this.observable("path");
-	theme = this.observable('theme');
+  static observables = ['path', 'theme'];
+	path;
+	theme;
 
 	mounted() {
 		Globals.router.updateLinks();

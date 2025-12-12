@@ -4,7 +4,8 @@ import {Utils} from "../../../controllers/Utils.js";
 import {AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
 
 export class CuppaTabsDoc extends CuppaComponent {
-	tabSelected = this.observable("tabSelected", "microsoft");
+  static observables = ['tabSelected'];
+	tabSelected = 'microsoft';
 
 	render(){
 		return html`

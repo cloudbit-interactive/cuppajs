@@ -7,7 +7,7 @@ import {AceModes} from "../../../../cuppa/components/cuppa-preview-code.min.js";
 import {Utils} from "../../../controllers/Utils.js";
 
 export class CuppaMenuDoc extends CuppaComponent{
-	static observables = ['output', 'sort']
+	static observables = ['output', 'sort'];
 	output = '';
 	sort = 'az';
 	timeout;
