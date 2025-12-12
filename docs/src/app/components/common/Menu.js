@@ -70,7 +70,7 @@ export class Menu extends CuppaComponent {
         </div>
       </div>
       <nav class="p-x-10 flex-1 o-auto p-b-40 scroll-1">
-        <div class="m-t-10">
+        <div class="m-y-20">
           <a class="menu-item ${this.isSelected('cuppa-component')}" href="cuppa-component" aria-label="Component">
 	          <i class="fas fa-puzzle-piece "></i> Component
           </a>
@@ -82,7 +82,7 @@ export class Menu extends CuppaComponent {
           </a>
         </div>
 
-        <h2 class="title-3 m-t-20">Cuppa Components</h2>
+        <h2 class="title-3">Cuppa Components</h2>
         <div class="m-y-20">
 	        ${Constants.components.map(component =>{
 						return html`
@@ -91,8 +91,8 @@ export class Menu extends CuppaComponent {
 	        })}
         </div>
 
-        <h2 class="title-3 m-t-20">More</h2>
-        <div class=" m-y-10">
+        <h2 class="title-3">More</h2>
+        <div class="m-y-20">
           <a class="menu-item ${this.isSelected('performance')}" href="performance" aria-label="Performance">
 	          <i class="fas fa-tachometer-alt"></i> Component Performance
           </a>
