@@ -5,9 +5,10 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 export class CuppaStorage{static LOCAL="LOCAL";static SESSION="SESSION";static COOKIE="COOKIE";static INDEXED_DB="INDEXED_DB";static db;static data={};static callbacks={};static async setData({name:e="default",data:t=null,store:a="",silence:o=!1}){"function"==typeof a?a({name:e,data:t,silence:o,type:"set"}):String(a).toUpperCase()===CuppaStorage.LOCAL?localStorage.setItem(e,JSON.stringify(t)):String(a).toUpperCase()===CuppaStorage.SESSION?sessionStorage.setItem(e,JSON.stringify(t)):String(a).toUpperCase()===CuppaStorage.INDEXED_DB?await CuppaStorage.db.add(e,t):String(a).toUpperCase()===CuppaStorage.COOKIE?CuppaStorage.setCookie(e,JSON.stringify(t)):CuppaStorage.data[e]=t,o||CuppaStorage.executeCallbacks({name:e,data:t})}static setDataSync({name:e="default",data:t=null,store:a="",silence:o=!1}){"function"==typeof a?a({name:e,data:t,silence:o,type:"setSync"}):String(a).toUpperCase()===CuppaStorage.LOCAL?localStorage.setItem(e,JSON.stringify(t)):String(a).toUpperCase()===CuppaStorage.SESSION?sessionStorage.setItem(e,JSON.stringify(t)):String(a).toUpperCase()===CuppaStorage.COOKIE?CuppaStorage.setCookie(e,JSON.stringify(t)):CuppaStorage.data[e]=t,o||CuppaStorage.executeCallbacks({name:e,data:t})}static async getData({name:e="default",callback:t=null,store:a="",defaultValue:o=null}){let r;if("function"==typeof a)r=await a({name:e,callback:t,defaultValue:o,type:"get"});else if(String(a).toUpperCase()===CuppaStorage.LOCAL){let t=localStorage.getItem(e);if(t)try{r=JSON.parse(t)}catch(e){r=void 0}}else if(String(a).toUpperCase()===CuppaStorage.SESSION){let t=sessionStorage.getItem(e);if(t)try{r=JSON.parse(t)}catch(e){r=void 0}}else if(String(a).toUpperCase()===CuppaStorage.INDEXED_DB)r=await CuppaStorage.db.get(e);else if(String(a).toUpperCase()===CuppaStorage.COOKIE){let t=CuppaStorage.getCookie(e);if(t)try{r=JSON.parse(t)}catch(e){r=void 0}}else r=CuppaStorage.data[e];return void 0===r&&(r=o),null!=r&&t&&t(r),t&&CuppaStorage.addCallback({name:e,callback:t}),r}static getDataSync({name:e="default",callback:t=null,store:a="",defaultValue:o=null}){let r;if("function"==typeof a)r=a({name:e,callback:t,defaultValue:o,type:"getSync"});else if(String(a).toUpperCase()===CuppaStorage.LOCAL){let t=localStorage.getItem(e);t&&(r=JSON.parse(t))}else if(String(a).toUpperCase()===CuppaStorage.SESSION){let t=sessionStorage.getItem(e);t&&(r=JSON.parse(t))}else if(String(a).toUpperCase()===CuppaStorage.COOKIE){let t=CuppaStorage.getCookie(e);if(t)try{r=JSON.parse(t)}catch(e){r=void 0}}else r=CuppaStorage.data[e];return void 0===r&&(r=o),null!=r&&t&&t(r),t&&CuppaStorage.addCallback({name:e,callback:t}),r}static removeCallback({name:e,callback:t,likeString:a=!1}){if(!CuppaStorage.callbacks[e])return;let o=CuppaStorage.callbacks[e];for(let e=0;e<o.length;e++)a?o[e].toString()===t.toString()&&o.splice(e,1):o[e]===t&&o.splice(e,1)}static removeAllCallbacks({name:e}){delete CuppaStorage.callbacks[e]}static executeCallbacks({name:e,data:t}){if(!CuppaStorage.callbacks[e])return;let a=CuppaStorage.callbacks[e];for(let e=0;e<a.length;e++)a[e](t)}static addCallback=function({name:e,callback:t}){CuppaStorage.callbacks[e]||(CuppaStorage.callbacks[e]=[]),CuppaStorage.callbacks[e].push(t)}}document.defaultView.CuppaStorage||(document.defaultView.CuppaStorage=CuppaStorage);export class GetStorage extends HTMLElement{name;store;defaultValue;data;constructor(){super(),bindAll(this),this.style.display="none"}connectedCallback(){setTimeout((()=>{this.name=this.getAttribute("name"),this.store=this.getAttribute("store"),this.defaultValue=this.getAttribute("default-value"),CuppaStorage.getData({name:this.name,callback:this.onUpdateStorage,defaultValue:this.defaultValue,store:this.store}).then()}),0)}onUpdateStorage(e){this.data=e,this.dispatchEvent(new CustomEvent("change",{detail:this.data}))}disconnectedCallback(){CuppaStorage.removeCallback({name:this.name,callback:this.onUpdateStorage})}}document.defaultView.GetStorage||(customElements.define("get-storage",GetStorage),document.defaultView.GetStorage=GetStorage);class CuppaStorageInnoDB{config={db:"cuppa_db",storage:"cuppa_storage",version:1,update:!1};db;constructor(e){this.config={...this.config,...e},bindAll(this)}async connect(){let e=this.config;if(indexedDB.databases){let t=await indexedDB.databases();t=t.filter((t=>t.name==e.db))[0],e.version=t&&e.update?t.version+1:t?t.version:e.version}else e.version=e.version;const t=indexedDB.open(e.db,e.version);return t.onupgradeneeded=this.onUpdateDB,await new Promise((e=>{t.onsuccess=t=>{this.db=t.target.result,e(this)}}))}async onUpdateDB(e){this.db=e.target.result;let{db:t,config:a}=this;t.objectStoreNames.contains(a.storage)||t.createObjectStore(a.storage,{keyPath:"name"})}async add(e,t,a){this.db||await this.connect();let{db:o,config:r}=this,s=o.transaction(r.storage,"readwrite").objectStore(r.storage),n={name:e,value:t};return await new Promise((e=>{let t=s.put(n);t.onsuccess=()=>{e(t.result)},t.onerror=t=>{e(null,t.target.error)}})),await this.get(e,a)}async get(e,t){null==t&&(t=!0),this.db||await this.connect();let{db:a,config:o}=this,r=a.transaction(o.storage,"readwrite").objectStore(o.storage);return await new Promise((a=>{let o=r.get(e);o.onsuccess=()=>{a(t&&o.result?o.result.value:o.result)},o.onerror=e=>{a(null)}}))}async delete(e){this.db||await this.connect();let{db:t,config:a}=this;t.transaction(a.storage,"readwrite").objectStore(a.storage).delete(e)}}function bindAll(e,t){let a=Object.getOwnPropertyNames(Object.getPrototypeOf(e));t&&(a=Object.keys(e));for(let t=0;t<a.length;t++)"function"==typeof e[a[t]]&&(e[a[t]]=e[a[t]].bind(e))}CuppaStorage.db=new CuppaStorageInnoDB,CuppaStorage.setCookie=function(e,t="",a){if(a){let o=new Date;o.setDate(o.getDate()+a),t=encodeURIComponent(t)+"; expires="+o.toUTCString(),document.cookie=e+"="+t+";path=/; SameSite=Strict;"}else document.cookie=e+"="+t+";path=/; SameSite=Strict;"},CuppaStorage.getCookie=function(e,t){null==t&&(t=document);let a=t.cookie.match("(^|;) ?"+e+"=([^;]*)(;|$)");return a?decodeURIComponent(a[2]):null},CuppaStorage.deleteCookie=function(e){document.cookie=e+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"};
 
 export const iconX = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Menu / Close_MD"> <path id="Vector" d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>`
-export class CuppaColorPicker extends CuppaComponent{
+
+export class CuppaColorPicker extends CuppaComponent {
 	static attributes = ['value', 'label', 'show-reset', 'storage-name', 'max-colors', 'store-type', 'open'];
-	static observables = ['storageName','storeType','colors','maxColors','value','showReset','open'];
+	static observables = ['storageName', 'storeType', 'colors', 'maxColors', 'value', 'showReset', 'open'];
 	storageName = 'CuppaColorPicker';
 	storeType = CuppaStorage.LOCAL;
 	colors = [];
@@ -18,213 +19,233 @@ export class CuppaColorPicker extends CuppaComponent{
 	callback;
 	naviveColorPickerFocus = false;
 
-	onChange(value){
+	onChange(value) {
 		this.value = value;
-		if(this.callback) this.callback(this.value);
-		this.dispatchEvent(new CustomEvent("change",{detail:{color:this.value}}));
+		if (this.callback) this.callback(this.value);
+		this.dispatchEvent(new CustomEvent("change", {detail: {color: this.value}}));
 		this.storeColor(value);
 	}
 
-	storeColor(color){
-		if(!this.storageName || !color) return;
-		let colors = CuppaStorage.getDataSync({name:this.storageName,store:this.storeType}) || [];
-		if(colors.includes(color)) return;
+	storeColor(color) {
+		if (!this.storageName || !color) return;
+		let colors = CuppaStorage.getDataSync({name: this.storageName, store: this.storeType}) || [];
+		if (colors.includes(color)) return;
 		colors.unshift(color);
-		if(colors.length > this.maxColors) colors.pop();
-		CuppaStorage.setDataSync({name:this.storageName,data:colors,store:this.storeType});
+		if (colors.length > this.maxColors) colors.pop();
+		CuppaStorage.setDataSync({name: this.storageName, data: colors, store: this.storeType});
 		this.forceRender();
 	}
 
-	onDocumentClick(e){
-		if(this.naviveColorPickerFocus) return;
+	onDocumentClick(e) {
+		if (this.naviveColorPickerFocus) return;
 		this.removeEvents();
-		if(this.open){
+		if (this.open) {
 			this.close();
 		}
 	}
 
-	onKeyDown(e){
-		if(e.key === 'Escape'){
+	onKeyDown(e) {
+		if (e.key === 'Escape') {
 			this.close();
 		}
 	}
 
-	removeEvents(){
+	removeEvents() {
 		document.removeEventListener('click', this.onDocumentClick);
 		document.removeEventListener('keydown', this.onKeyDown);
 	}
 
-	close(){
+	close() {
 		this.open = false;
 		this.removeEvents();
 	}
 
-	render(){
-		let colors = this.colors?.length || CuppaStorage.getDataSync({name:this.storageName,store:this.storeType}) || [];
+	render() {
+		let colors = this.colors?.length || CuppaStorage.getDataSync({
+			name: this.storageName,
+			store: this.storeType
+		}) || [];
 		return html`
-			<div
-        class="picker-button"
-        style="background-color: ${this.value}"
-        @click=${e=>{
-          this.open = !this.open;
-          if(this.open){
-						setTimeout(e=>{
-              document.addEventListener('click', this.onDocumentClick);
-							document.addEventListener('keydown', this.onKeyDown);
-						}, 0)
-          }
-        }}
-			></div>
-			<div 
-				class="picker-modal" 
-			  style="display:${this.open ? 'flex' : 'none'}"
-				@click=${e=>{
-					e.stopPropagation(); 
-				}}
-			>
-				<div class="picker-area">
-	        <div class="color-picker">
-	          <input
-		          title="Select Color"
-	            type="color"
-	            .value="${this.value || '#FFFFFF'}"
-	            @change=${(e)=>{
-	              e.preventDefault(); e.stopPropagation();
-	              this.onChange(e.target.value);
-								this.close();
-	            }}
-	            @click=${e=>{
-								if(!this.naviveColorPickerFocus){
-									this.naviveColorPickerFocus = true;
-								}else{
-                  e.stopPropagation(); e.preventDefault();
-                  this.naviveColorPickerFocus = false;
-									e.target.blur();
-								}
-	            }}
-	            @blur=${e=>{
-		            setTimeout(e=>{
-                  this.naviveColorPickerFocus = false;
-		            }, 300)
-	            }}
-	          >
-	        </div>
-	        ${!this.showReset ? `` : html`
-		        <div
-		          class="btn-clear"
-		          title="Clear"
-		          @click=${e=>{
-		            e.preventDefault(); e.stopPropagation();
-			          this.onChange(this.defaultValue);
-                this.close();
-			        }}
-		        >
-		          ${unsafeHTML(iconX)}
-		        </div>
-	        `}
-				</div>
-				${!colors?.length ? `` : html`
-        <div class="color-list">
-          ${ colors.map(color=>{
-            return html`
-						<div 
-							class="btn-color ${color === this.value ? 'selected' : ''}"
-							style="background: ${color}"
-							@click=${(e)=>this.onChange(color)}
-						></div>
-					`
-          })}
-        </div>
-				`}
-      </div>
-      <style>
-        cuppa-color-picker{
-	        .picker-button{
-		        width: 20px;
-		        height: 20px;
-		        border-radius: 5px;
-		        border:1px solid rgba(0,0,0,0.2);
-		        cursor: pointer;
-	        }
-	        .picker-modal{
-		        position: absolute;
-            display: flex;
-            flex-direction: column;
-            border:1px solid rgba(0,0,0,0.2);
-            border-radius: 5px;
-            padding:10px;
-            gap:5px;
-		        z-index: 1;
-		        width: 200px;
-		        transform:translateX(-50%);
-		        margin-top: 2px;
-		        background: #fff;
-		        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            .picker-area{
-              display:flex;
-              flex-direction: row;
-              gap:5px;
-              & .color-picker{
-                grid-area: color-picker;
-                height: 20px;
-                place-self: end;
-                width: 100%;
-                overflow: hidden;
-                border: 1px solid rgba(0,0,0,0.2);
-                border-radius: 3px;
-                & input{
-                  position: absolute;
-                  top:-10px; left:-10px;
-                  width: calc(100% + 20px); height: calc(100% + 20px);
+            <div
+                class="picker-button"
+                style="background-color: ${this.value}"
+                @click=${e => {
+                    this.open = !this.open;
+                    if (this.open) {
+                        setTimeout(e => {
+                            document.addEventListener('click', this.onDocumentClick);
+                            document.addEventListener('keydown', this.onKeyDown);
+                        }, 0)
+                    }
+                }}
+            ></div>
+            <div
+                class="picker-modal"
+                style="display:${this.open ? 'flex' : 'none'}"
+                @click=${e => {
+                    e.stopPropagation();
+                }}
+            >
+                <div class="picker-area">
+                    <div class="color-picker">
+                        <input
+                            title="Select Color"
+                            type="color"
+                            .value="${this.value || '#FFFFFF'}"
+                            @change=${(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                this.onChange(e.target.value);
+                                this.close();
+                            }}
+                            @click=${e => {
+                                if (!this.naviveColorPickerFocus) {
+                                    this.naviveColorPickerFocus = true;
+                                } else {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    this.naviveColorPickerFocus = false;
+                                    e.target.blur();
+                                }
+                            }}
+                            @blur=${e => {
+                                setTimeout(e => {
+                                    this.naviveColorPickerFocus = false;
+                                }, 300)
+                            }}
+                        >
+                    </div>
+                    ${!this.showReset ? `` : html`
+                        <div
+                            class="btn-clear"
+                            title="Clear"
+                            @click=${e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                this.onChange(this.defaultValue);
+                                this.close();
+                            }}
+                        >
+                            ${unsafeHTML(iconX)}
+                        </div>
+                    `}
+                </div>
+                ${!colors?.length ? `` : html`
+                    <div class="color-list">
+                        ${colors.map(color => {
+                            return html`
+                                <div
+                                    class="btn-color ${color === this.value ? 'selected' : ''}"
+                                    style="background: ${color}"
+                                    @click=${(e) => this.onChange(color)}
+                                ></div>
+                            `
+                        })}
+                    </div>
+                `}
+            </div>
+            <style>
+                cuppa-color-picker {
+                    .picker-button {
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 5px;
+                        border: 1px solid rgba(0, 0, 0, 0.2);
+                        cursor: pointer;
+                    }
+
+                    .picker-modal {
+                        position: absolute;
+                        display: flex;
+                        flex-direction: column;
+                        border: 1px solid rgba(0, 0, 0, 0.2);
+                        border-radius: 5px;
+                        padding: 10px;
+                        gap: 5px;
+                        z-index: 1;
+                        width: 200px;
+                        transform: translateX(-50%);
+                        margin-top: 2px;
+                        background: #fff;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+                        .picker-area {
+                            display: flex;
+                            flex-direction: row;
+                            gap: 5px;
+
+                            & .color-picker {
+                                grid-area: color-picker;
+                                height: 20px;
+                                place-self: end;
+                                width: 100%;
+                                overflow: hidden;
+                                border: 1px solid rgba(0, 0, 0, 0.2);
+                                border-radius: 3px;
+
+                                & input {
+                                    position: absolute;
+                                    top: -10px;
+                                    left: -10px;
+                                    width: calc(100% + 20px);
+                                    height: calc(100% + 20px);
+                                }
+                            }
+
+                            & .btn-clear {
+                                grid-area: btn-clear;
+                                width: 30px;
+                                height: 20px;
+                                cursor: pointer;
+                                border-radius: 5px;
+                                border: 1px solid rgba(0, 0, 0, 0.1);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+
+                                & svg {
+                                    width: 12px;
+                                    height: 12px;
+                                }
+                            }
+                        }
+
+                        & .color-list {
+                            grid-area: color-list;
+                            border-top: 1px solid rgba(0, 0, 0, 0.1);
+                            padding-top: 5px;
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: wrap;
+                            justify-content: start;
+                            align-items: flex-start;
+                            gap: 5px;
+
+                            & .btn-color {
+                                cursor: pointer;
+                                width: 16px;
+                                height: 16px;
+                                border-radius: 5px;
+                                border: 1px solid rgba(0, 0, 0, 0.1);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+
+                                & svg {
+                                    width: 12px;
+                                    height: 12px;
+                                }
+
+                                &.selected {
+                                    border: 1px solid rgba(0, 0, 0, 0.2);
+                                    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+                                    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+                                }
+                            }
+                        }
+                    }
                 }
-              }
-              & .btn-clear{
-                grid-area: btn-clear;
-                width: 30px;
-                height: 20px;
-                cursor: pointer;
-                border-radius: 5px;
-                border:1px solid rgba(0,0,0,0.1);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                & svg{
-                  width: 12px; height: 12px;
-                }
-              }
-            }
-            & .color-list{
-              grid-area: color-list;
-              border-top:1px solid rgba(0,0,0,0.1);
-              padding-top: 5px;
-              display: flex;
-              flex-direction: row;
-              flex-wrap: wrap;
-              justify-content: start;
-              align-items: flex-start;
-              gap:5px;
-              & .btn-color{
-                cursor: pointer;
-                width: 16px;
-                height: 16px;
-                border-radius: 5px;
-                border:1px solid rgba(0,0,0,0.1);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                & svg{
-                  width: 12px; height: 12px;
-                }
-                &.selected{
-                  border:1px solid rgba(0,0,0,0.2);
-                  border-bottom:1px solid rgba(0,0,0,0.3);
-                  box-shadow: 0 1px 2px rgba(0,0,0,0.4);
-                }
-              }
-            }
-	        }
-        }
-      </style>
+            </style>
 		`
 	}
 }
