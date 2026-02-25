@@ -1,8 +1,9 @@
 /*! v0.0.1 */
+
 /*! v0.0.9 */
 export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCount=0;_template;_callbacks=[];constructor(){super(),this.getPropertiesCallbacks(),this.binAll=this.binAll.bind(this),this.connectedCallback=this.connectedCallback.bind(this),this.forceRender=this.forceRender.bind(this),this.disconnectedCallback=this.disconnectedCallback.bind(this),this.observables=this.observables.bind(this),this.applyObservables=this.applyObservables.bind(this),this.applyObservables(),this.binAll(this)}static get observedAttributes(){return this.attributes||[]}attributeChangedCallback(e,t,s){t!==s&&("false"===s&&(s=!1),"true"===s&&(s=!0),this[camelize(e)]=s)}applyObservables(){this.constructor.observables&&setTimeout((()=>{let e={};for(let t=0;t<this.constructor.observables.length;t++){let s=this.constructor.observables[t];e[s]=this[s]}this.observables(e),this.forceRender()}),0)}getPropertiesCallbacks(){let e=Object.entries(this);for(let t=0;t<e.length;t++){let[s,i]=e[t];-1===["refs","shadow","renderedCount","_template","_callbacks"].indexOf(s)&&this._callbacks.push({key:s,value:i})}}reSetPropertiesCallbacks(){for(let e=0;e<this._callbacks.length;e++){let{key:t,value:s}=this._callbacks[e];this[t]=s}}connectedCallback(){this.reSetPropertiesCallbacks(),this.shadow&&this.attachShadow({mode:this.shadow}),this.forceRender(null,!1),this.rendered&&this.rendered(this.renderedCount,this),setTimeout((()=>{this.applyStylesAfterRender(),this.mounted&&this.mounted(this)}),0)}applyStylesAfterRender(){const e=this.getAttribute("style-after-render");if(e)for(const t of e.split(";")){const[e,s]=t.split(":");e&&s&&(this.style[e.trim()]=s.trim())}}disconnectedCallback(){this.unmounted&&this.unmounted(this)}setVariables(e){Object.entries(e).map((([e,t])=>{this[`${e}`]=t})),this.forceRender()}forceRender(e=null,t=!0){this._template||(this._template=()=>this.render()),this.shadowRoot?render(this._template(),this.shadowRoot):render(this._template(),this),this.processRefs(this,this.refs,"ref"),e&&e(),this.renderedCount++,this.firstRendered&&1===this.renderedCount&&this.firstRendered(this.renderedCount,this),this.rendered&&t&&this.rendered(this.renderedCount,this)}processRefs(e,t,s){s||(s="id");let i={},r=Array.from(e.querySelectorAll(`[${s}]`));for(let e=0;e<r.length;e++)t?t[r[e].getAttribute(s)]=r[e]:i[r[e].getAttribute(s)]=r[e];return t?t.rootHtml=e:i.rootHtml=e,i}binAll(e,t){let s=Object.getOwnPropertyNames(Object.getPrototypeOf(e));t&&(s=Object.keys(e));for(let t=0;t<s.length;t++)"constructor"!==s[t]&&"function"==typeof e[s[t]]&&(e[s[t]]=e[s[t]].bind(e))}bind(e){let t=Object.getOwnPropertyNames(Object.getPrototypeOf(e));for(let s=0;s<t.length;s++)if("function"==typeof e[t[s]]){if(this[t[s]])continue;this[t[s]]=e[t[s]].bind(e)}}observables(e,t){let s,i=this;if(e){if(!Array.isArray(e))return Object.keys(e).map(((r,n)=>{n||(s=r);let o=e[r],h="_"+r;i[h]=o,Object.defineProperty(i,r,{set:e=>{i[h]=e,i.forceRender&&i.forceRender(),t&&t()},get:()=>i[h],configurable:!0})})),i[s];e.forEach((e=>{this.observable(e,this[e])}))}}observable(e,t){return setTimeout((()=>{t&&void 0===this[e]||(t=this[e]),this.observables({[e]:t})}),0),t}}export function camelize(e){return(e=(e=(e=(e=(e=String(e)||"").replace(new RegExp("-","g")," ")).replace(new RegExp("_","g")," ")).toLowerCase()).replace(/[^\w\s]/gi,"")).replace(/(?:^\w|[A-Z]|\b\w|\s+)/g,(function(e,t){return 0==+e?"":0===t?e.toLowerCase():e.toUpperCase()}))}const t=globalThis,i=t.trustedTypes,s=i?i.createPolicy("lit-html",{createHTML:e=>e}):void 0,e="$lit$",h=`lit$${Math.random().toFixed(9).slice(2)}$`,o="?"+h,n=`<${o}>`,r=document,l=()=>r.createComment(""),c=e=>null===e||"object"!=typeof e&&"function"!=typeof e,a=Array.isArray,u=e=>a(e)||"function"==typeof e?.[Symbol.iterator],d="[ \t\n\f\r]",f=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,v=/-->/g,_=/>/g,m=RegExp(`>|${d}(?:([^\\s"'>=/]+)(${d}*=${d}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),p=/'/g,g=/"/g,$=/^(?:script|style|textarea|title)$/i,y=e=>(t,...s)=>({_$litType$:e,strings:t,values:s}),x=y(1),b=y(2),w=y(3),T=Symbol.for("lit-noChange"),E=Symbol.for("lit-nothing"),A=new WeakMap,C=r.createTreeWalker(r,129);function P(e,t){if(!a(e)||!e.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==s?s.createHTML(t):t}const V=(t,s)=>{const i=t.length-1,r=[];let o,l=2===s?"<svg>":3===s?"<math>":"",c=f;for(let s=0;s<i;s++){const i=t[s];let a,d,u=-1,A=0;for(;A<i.length&&(c.lastIndex=A,d=c.exec(i),null!==d);)A=c.lastIndex,c===f?"!--"===d[1]?c=v:void 0!==d[1]?c=_:void 0!==d[2]?($.test(d[2])&&(o=RegExp("</"+d[2],"g")),c=m):void 0!==d[3]&&(c=m):c===m?">"===d[0]?(c=o??f,u=-1):void 0===d[1]?u=-2:(u=c.lastIndex-d[2].length,a=d[1],c=void 0===d[3]?m:'"'===d[3]?g:p):c===g||c===p?c=m:c===v||c===_?c=f:(c=m,o=void 0);const b=c===m&&t[s+1].startsWith("/>")?" ":"";l+=c===f?i+n:u>=0?(r.push(a),i.slice(0,u)+e+i.slice(u)+h+b):i+h+(-2===u?s:b)}return[P(t,l+(t[i]||"<?>")+(2===s?"</svg>":3===s?"</math>":"")),r]};class N{constructor({strings:t,_$litType$:s},r){let n;this.parts=[];let c=0,a=0;const _=t.length-1,d=this.parts,[p,u]=V(t,s);if(this.el=N.createElement(p,r),C.currentNode=this.el.content,2===s||3===s){const e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;null!==(n=C.nextNode())&&d.length<_;){if(1===n.nodeType){if(n.hasAttributes())for(const t of n.getAttributeNames())if(t.endsWith(e)){const e=u[a++],s=n.getAttribute(t).split(h),i=/([.?@])?(.*)/.exec(e);d.push({type:1,index:c,name:i[2],strings:s,ctor:"."===i[1]?H:"?"===i[1]?I:"@"===i[1]?L:k}),n.removeAttribute(t)}else t.startsWith(h)&&(d.push({type:6,index:c}),n.removeAttribute(t));if($.test(n.tagName)){const e=n.textContent.split(h),t=e.length-1;if(t>0){n.textContent=i?i.emptyScript:"";for(let s=0;s<t;s++)n.append(e[s],l()),C.nextNode(),d.push({type:2,index:++c});n.append(e[t],l())}}}else if(8===n.nodeType)if(n.data===o)d.push({type:2,index:c});else{let e=-1;for(;-1!==(e=n.data.indexOf(h,e+1));)d.push({type:7,index:c}),e+=h.length-1}c++}}static createElement(e,t){const s=r.createElement("template");return s.innerHTML=e,s}}function S(e,t,s=e,i){if(t===T)return t;let r=void 0!==i?s._$Co?.[i]:s._$Cl;const n=c(t)?void 0:t._$litDirective$;return r?.constructor!==n&&(r?._$AO?.(!1),void 0===n?r=void 0:(r=new n(e),r._$AT(e,s,i)),void 0!==i?(s._$Co??=[])[i]=r:s._$Cl=r),void 0!==r&&(t=S(e,r._$AS(e,t.values),r,i)),t}class M{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){const{el:{content:t},parts:s}=this._$AD,i=(e?.creationScope??r).importNode(t,!0);C.currentNode=i;let n=C.nextNode(),o=0,h=0,l=s[0];for(;void 0!==l;){if(o===l.index){let t;2===l.type?t=new R(n,n.nextSibling,this,e):1===l.type?t=new l.ctor(n,l.name,l.strings,this,e):6===l.type&&(t=new z(n,this,e)),this._$AV.push(t),l=s[++h]}o!==l?.index&&(n=C.nextNode(),o++)}return C.currentNode=r,i}p(e){let t=0;for(const s of this._$AV)void 0!==s&&(void 0!==s.strings?(s._$AI(e,s,t),t+=s.strings.length-2):s._$AI(e[t])),t++}}class R{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,s,i){this.type=2,this._$AH=E,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=s,this.options=i,this._$Cv=i?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode;const t=this._$AM;return void 0!==t&&11===e?.nodeType&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=S(this,e,t),c(e)?e===E||null==e||""===e?(this._$AH!==E&&this._$AR(),this._$AH=E):e!==this._$AH&&e!==T&&this._(e):void 0!==e._$litType$?this.$(e):void 0!==e.nodeType?this.T(e):u(e)?this.k(e):this._(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==E&&c(this._$AH)?this._$AA.nextSibling.data=e:this.T(r.createTextNode(e)),this._$AH=e}$(e){const{values:t,_$litType$:s}=e,i="number"==typeof s?this._$AC(e):(void 0===s.el&&(s.el=N.createElement(P(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===i)this._$AH.p(t);else{const e=new M(i,this),s=e.u(this.options);e.p(t),this.T(s),this._$AH=e}}_$AC(e){let t=A.get(e.strings);return void 0===t&&A.set(e.strings,t=new N(e)),t}k(e){a(this._$AH)||(this._$AH=[],this._$AR());const t=this._$AH;let s,i=0;for(const r of e)i===t.length?t.push(s=new R(this.O(l()),this.O(l()),this,this.options)):s=t[i],s._$AI(r),i++;i<t.length&&(this._$AR(s&&s._$AB.nextSibling,i),t.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){const t=e.nextSibling;e.remove(),e=t}}setConnected(e){void 0===this._$AM&&(this._$Cv=e,this._$AP?.(e))}}class k{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,s,i,r){this.type=1,this._$AH=E,this._$AN=void 0,this.element=e,this.name=t,this._$AM=i,this.options=r,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=E}_$AI(e,t=this,s,i){const r=this.strings;let n=!1;if(void 0===r)e=S(this,e,t,0),n=!c(e)||e!==this._$AH&&e!==T,n&&(this._$AH=e);else{const i=e;let o,h;for(e=r[0],o=0;o<r.length-1;o++)h=S(this,i[s+o],t,o),h===T&&(h=this._$AH[o]),n||=!c(h)||h!==this._$AH[o],h===E?e=E:e!==E&&(e+=(h??"")+r[o+1]),this._$AH[o]=h}n&&!i&&this.j(e)}j(e){e===E?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??"")}}class H extends k{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===E?void 0:e}}class I extends k{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==E)}}class L extends k{constructor(e,t,s,i,r){super(e,t,s,i,r),this.type=5}_$AI(e,t=this){if((e=S(this,e,t,0)??E)===T)return;const s=this._$AH,i=e===E&&s!==E||e.capture!==s.capture||e.once!==s.once||e.passive!==s.passive,r=e!==E&&(s===E||i);i&&this.element.removeEventListener(this.name,this,s),r&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}}class z{constructor(e,t,s){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=s}get _$AU(){return this._$AM._$AU}_$AI(e){S(this,e)}}const Z={M:e,P:h,A:o,C:1,L:V,R:M,D:u,V:S,I:R,H:k,N:I,U:L,B:H,F:z},j=t.litHtmlPolyfillSupport;j?.(N,R),(t.litHtmlVersions??=[]).push("3.3.1");const B=(e,t,s)=>{const i=s?.renderBefore??t;let r=i._$litPart$;if(void 0===r){const e=s?.renderBefore??null;i._$litPart$=r=new R(t.insertBefore(l(),e),e,void 0,s??{})}return r._$AI(e),r},directive_t_CHILD=2,directive_e=e=>(...t)=>({_$litDirective$:e,values:t});class directive_i{constructor(e){}get _$AU(){return this._$AM._$AU}_$AT(e,t,s){this._$Ct=e,this._$AM=t,this._$Ci=s}_$AS(e,t){return this.update(e,t)}update(e,t){return this.render(...t)}}const{I:directive_helpers_t}=Z,directive_helpers_r=()=>document.createComment(""),directive_helpers_s=(e,t,s)=>{const i=e._$AA.parentNode,r=void 0===t?e._$AB:t._$AA;if(void 0===s){const t=i.insertBefore(directive_helpers_r(),r),n=i.insertBefore(directive_helpers_r(),r);s=new directive_helpers_t(t,n,e,e.options)}else{const t=s._$AB.nextSibling,n=s._$AM,o=n!==e;if(o){let t;s._$AQ?.(e),s._$AM=e,void 0!==s._$AP&&(t=e._$AU)!==n._$AU&&s._$AP(t)}if(t!==r||o){let e=s._$AA;for(;e!==t;){const t=e.nextSibling;i.insertBefore(e,r),e=t}}}return s},directive_helpers_v=(e,t,s=e)=>(e._$AI(t,s),e),directive_helpers_u={},directive_helpers_M=e=>{e._$AR(),e._$AA.remove()},repeat_u=(e,t,s)=>{const i=new Map;for(let r=t;r<=s;r++)i.set(e[r],r);return i},repeat_c=directive_e(class extends directive_i{constructor(e){if(super(e),2!==e.type)throw Error("repeat() can only be used in text expressions")}dt(e,t,s){let i;void 0===s?s=t:void 0!==t&&(i=t);const r=[],n=[];let o=0;for(const t of e)r[o]=i?i(t,o):o,n[o]=s(t,o),o++;return{values:n,keys:r}}render(e,t,s){return this.dt(e,t,s).values}update(e,[t,s,i]){const r=(e=>e._$AH)(e),{values:n,keys:o}=this.dt(t,s,i);if(!Array.isArray(r))return this.ut=o,n;const h=this.ut??=[],l=[];let c,a,_=0,d=r.length-1,p=0,u=n.length-1;for(;_<=d&&p<=u;)if(null===r[_])_++;else if(null===r[d])d--;else if(h[_]===o[p])l[p]=directive_helpers_v(r[_],n[p]),_++,p++;else if(h[d]===o[u])l[u]=directive_helpers_v(r[d],n[u]),d--,u--;else if(h[_]===o[u])l[u]=directive_helpers_v(r[_],n[u]),directive_helpers_s(e,l[u+1],r[_]),_++,u--;else if(h[d]===o[p])l[p]=directive_helpers_v(r[d],n[p]),directive_helpers_s(e,r[_],r[d]),d--,p++;else if(void 0===c&&(c=repeat_u(o,p,u),a=repeat_u(h,_,d)),c.has(h[_]))if(c.has(h[d])){const t=a.get(o[p]),s=void 0!==t?r[t]:null;if(null===s){const t=directive_helpers_s(e,r[_]);directive_helpers_v(t,n[p]),l[p]=t}else l[p]=directive_helpers_v(s,n[p]),directive_helpers_s(e,r[_],s),r[t]=null;p++}else directive_helpers_M(r[d]),d--;else directive_helpers_M(r[_]),_++;for(;p<=u;){const t=directive_helpers_s(e,l[u+1]);directive_helpers_v(t,n[p]),l[p++]=t}for(;_<=d;){const e=r[_++];null!==e&&directive_helpers_M(e)}return this.ut=o,((e,t=directive_helpers_u)=>{e._$AH=t})(e,l),T}});class unsafe_html_e extends directive_i{constructor(e){if(super(e),this.it=E,2!==e.type)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(e){if(e===E||null==e)return this._t=void 0,this.it=e;if(e===T)return e;if("string"!=typeof e)throw Error(this.constructor.directiveName+"() called with a non-string value");if(e===this.it)return this._t;this.it=e;const t=[e];return t.raw=t,this._t={_$litType$:this.constructor.resultType,strings:t,values:[]}}}unsafe_html_e.directiveName="unsafeHTML",unsafe_html_e.resultType=1;const unsafe_html_o=directive_e(unsafe_html_e);export{unsafe_html_e as UnsafeHTMLDirective,Z as _$LH,x as html,w as mathml,T as noChange,E as nothing,B as render,repeat_c as repeat,b as svg,unsafe_html_o as unsafeHTML};let $LH=unsafe_html_e,html=x,noChange=T,nothing=A,render=B,repeat=repeat_c,svg=b,unsafeHTML=unsafe_html_o;
 
-	export class CuppaCapture extends CuppaComponent {
+class CuppaCapture extends CuppaComponent {
 	static attributes = ['target', 'show-modal', 'close-on-backdrop', 'dialog-style', 'dialog-class', 'theme', 'disable-global-scroll', 'audio', 'video',];
 	static observables = ['status', 'statusMessage', 'result'];
 	static statuses = {
@@ -25,39 +26,41 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 	stream;
 	video = true;
 	audio = false;
-	devices = {video:[], audio:[]};
+	devices = {video: [], audio: []};
 	result = null;
 
-	mounted(){
-		if(this.target){
+	mounted() {
+		if (this.target) {
 			this.targetElement = document.querySelector(this.target);
 		}
-		setTimeout(()=>{ this.addEvents(); }, 200);
-		if(this.showModal) this.show();
+		setTimeout(() => {
+			this.addEvents();
+		}, 200);
+		if (this.showModal) this.show();
 	}
 
-	addEvents(){
+	addEvents() {
 		cuppa.on(this.targetElement, `click`, this.show, this.groupEvents);
 		cuppa.on(this.refs.dialog, 'click', this.onDialogClick, this.groupEvents);
 	}
 
-	show(){
+	show() {
 		this.refs.dialog.showModal();
 		this._disableGlobalScroll(true);
 		this.classList.add('open');
-		this.dispatchEvent(new CustomEvent("show", {detail:null}));
-		if(this.showCallback) this.showCallback(this);
+		this.dispatchEvent(new CustomEvent("show", {detail: null}));
+		if (this.showCallback) this.showCallback(this);
 		this.requestPermission().then();
 	}
 
-	async requestPermission({videoDeviceId = null} = {}){
+	async requestPermission({videoDeviceId = null} = {}) {
 		try {
 			this.stopStream();
 			this.stream = await navigator.mediaDevices.getUserMedia({
-				video: videoDeviceId ? { deviceId: { exact: videoDeviceId } } : this.video,
+				video: videoDeviceId ? {deviceId: {exact: videoDeviceId}} : this.video,
 				audio: this.audio,
 			});
-			if(this.stream){
+			if (this.stream) {
 				this.getDevices().then();
 			}
 			this.refs.video.srcObject = this.stream;
@@ -69,15 +72,17 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 		}
 	}
 
-	async takePhoto(){
+	async takePhoto() {
 		const w = this.refs.video.videoWidth;
 		const h = this.refs.video.videoHeight;
 		const canvas = document.createElement("canvas");
 		canvas.width = w;
 		canvas.height = h;
-		const ctx = canvas.getContext("2d", { alpha: false, willReadFrequently: false });
+		const ctx = canvas.getContext("2d", {alpha: false, willReadFrequently: false});
 		ctx.drawImage(this.refs.video, 0, 0, w, h);
-		const blob = await new Promise((resolve, reject) => { canvas.toBlob((b) => (b ? resolve(b) : reject()), "image/jpeg", 0.9) });
+		const blob = await new Promise((resolve, reject) => {
+			canvas.toBlob((b) => (b ? resolve(b) : reject()), "image/jpeg", 0.9)
+		});
 		this.result = await new Promise((resolve, reject) => {
 			const reader = new FileReader();
 			reader.onload = () => resolve(String(reader.result));
@@ -86,50 +91,52 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 		});
 	}
 
-	async getDevices(){
+	async getDevices() {
 		let devices = await navigator.mediaDevices.enumerateDevices();
 		this.devices.video = devices.filter(device => device.kind === 'videoinput' && device.deviceId !== '');
 		this.devices.audio = devices.filter(device => device.kind === 'audioinput' && device.deviceId !== '');
 		this.forceRender();
 	}
 
-	onDialogClick(e){
+	onDialogClick(e) {
 		if (e.target === this.refs.dialog) {
-			if(this.closeOnBackdrop) this.close();
+			if (this.closeOnBackdrop) this.close();
 		}
 	}
 
-	async switch(e){
+	async switch(e) {
 		const currentTrack = this.stream?.getTracks()?.[0];
 		const index = this.devices.video.findIndex(device => device.label === currentTrack.label);
-		if(index === -1) return;
+		if (index === -1) return;
 		const newDevice = this.devices.video[index + 1] || this.devices.video[0];
-		if(newDevice?.deviceId){
+		if (newDevice?.deviceId) {
 			this.requestPermission({videoDeviceId: newDevice.deviceId}).then();
 		}
 	}
 
-	stopStream(){
-		try{
+	stopStream() {
+		try {
 			this.stream.getTracks().forEach((t) => t.stop());
-		}catch(err){  }
+		} catch (err) {
+		}
 	}
 
-	close(){
+	close() {
 		this.refs.dialog.close();
 		this._disableGlobalScroll(false);
 		this.classList.remove('open');
 		this.stopStream();
-		this.dispatchEvent(new CustomEvent("close", {detail:this.result}));
-		if(this.closeCallback) this.closeCallback(this.result);
+		this.dispatchEvent(new CustomEvent("close", {detail: this.result}));
+		if (this.closeCallback) this.closeCallback(this.result);
 		this.result = null;
 	}
 
 	disableGlobalScrollStyle;
-	_disableGlobalScroll(value){
-		if(!this.disableGlobalScroll) return;
-		if(value){
-			if(this.disableGlobalScrollStyle) this.disableGlobalScrollStyle.remove();
+
+	_disableGlobalScroll(value) {
+		if (!this.disableGlobalScroll) return;
+		if (value) {
+			if (this.disableGlobalScrollStyle) this.disableGlobalScrollStyle.remove();
 			this.disableGlobalScrollStyle = document.createElement('style');
 			this.disableGlobalScrollStyle.textContent = `
 				html, body {
@@ -140,152 +147,202 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 				}
 			`;
 			document.body.appendChild(this.disableGlobalScrollStyle);
-		}else{
-			if(this.disableGlobalScrollStyle) this.disableGlobalScrollStyle.remove();
+		} else {
+			if (this.disableGlobalScrollStyle) this.disableGlobalScrollStyle.remove();
 		}
 	}
 
-	render(){
+	render() {
 		const permissionGranted = this.status?.value === CuppaCapture.statuses.permissionGranted.value;
-		return html`
-			<dialog ref="dialog" style="${this.dialogStyle}" class="${this.dialogClass}">
-				<div class="camera-preview" >
-          			<video ref="video" class="cover" playsinline autoplay style="display: ${this.result ? 'none' : 'block'}"></video>
-					${this.result ? html`
-						<div class="cover" style="background: no-repeat center; background-image: url('${this.result}'); background-size: contain;"></div>
-					` : ''}
-					${this.status?.value === CuppaCapture.statuses.requestingPermission.value ? html`
+		// language=HTML format=false
+return html`
+            <dialog ref="dialog" style="${this.dialogStyle}" class="${this.dialogClass}">
+                <div class="camera-preview">
+                    <video ref="video" class="cover" playsinline autoplay
+                           style="display: ${this.result ? 'none' : 'block'}"></video>
+                    ${this.result ? html`
+                        <div class="cover"
+                             style="background: no-repeat center; background-image: url('${this.result}'); background-size: contain;"></div>
+                    ` : ''}
+                    ${this.status?.value === CuppaCapture.statuses.requestingPermission.value ? html`
                         <div>${this.status.message}</div>
-					` : this.status?.value === CuppaCapture.statuses.error.value ? html`
-            			<div>${this.status?.message}</div>
-					` : ''}
-				</div>
-				<div class="buttons">
-					${!this.result ? html`
-			            <div class="animation-fade">
-			                <svg class="button" @click=${this.close} xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 14 14">
-			                    <path fill="#fff" d="M13.772.228a.778.778 0 0 0-1.1 0L7 5.9 1.328.228a.778.778 0 1 0-1.1 1.1L5.9 7 .228 12.672a.778.778 0 0 0 1.1 1.1L7 8.1l5.672 5.672a.778.778 0 1 0 1.1-1.1L8.1 7l5.672-5.672a.778.778 0 0 0 0-1.1Z"/>
-			                </svg>
-			            </div>
-						${!permissionGranted ? `` : html`
-							<div class="animation-fade">
-								<svg class="button btn-take-photo" @click=${this.takePhoto}  width="40" height="40" fill="none" viewBox="0 0 40 40">
-								    <circle class="inner" cx="20" cy="20" r="17" fill="#fff"/>
-								    <circle cx="20" cy="20" r="19" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
-								</svg>
-							</div>
-						`}
-			            ${this.devices?.video?.length < 1 ? `` : html`
-			                <div @click=${this.switch} class="animation-fade">
-								<svg class="button" width="16" height="14" fill="none" viewBox="0 0 16 14">
-									<path fill="#fff" d="M15.943 11.097 14.48 8.234a.509.509 0 0 0-.632-.245l-2.88 1.082a.514.514 0 0 0 .356.962l1.948-.732c-.952 2.16-2.872 3.429-5.271 3.622-2.67 0-4.726-1.693-5.785-4.405-.101-.258-.341-.431-.608-.361a.5.5 0 0 0-.362.608C2.031 11.847 4.764 14 7.891 14c2.751 0 5.184-1.654 6.27-4.143l.875 1.71a.509.509 0 0 0 .687.222c.25-.13.35-.44.22-.692ZM1.886 5.744a.525.525 0 0 0 .139-.02l2.967-.811a.516.516 0 1 0-.278-.996l-1.967.538C3.799 2.271 5.613 1.077 8 1.077c2.582 0 4.702 1.866 5.504 4.308.086.263.417.296.612.161.226-.157.414-.36.333-.624C13.553 1.978 10.917 0 7.891 0c-2.626 0-4.954 1.49-6.11 3.806L.99 2.162a.522.522 0 0 0-.694-.244.515.515 0 0 0-.246.688l1.365 2.843a.52.52 0 0 0 .47.295Z"/>
-								</svg>
-			              	</div>
-						`}
-					` : html`
-						<div class="animation-fade">
-							<svg class="button" @click=${e=>this.result = null} xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 14 14">
-								<path fill="#fff" d="M13.772.228a.778.778 0 0 0-1.1 0L7 5.9 1.328.228a.778.778 0 1 0-1.1 1.1L5.9 7 .228 12.672a.778.778 0 0 0 1.1 1.1L7 8.1l5.672 5.672a.778.778 0 1 0 1.1-1.1L8.1 7l5.672-5.672a.778.778 0 0 0 0-1.1Z"/>
-							</svg>
-						</div>
-						<div></div>
-						<div class="animation-fade" @click=${this.close} >
-						  <svg class="button" width="18" height="14" fill="none" viewBox="0 0 18 14">
-						      <path fill="#fff" d="M17.764.224a.7.7 0 0 0-1.057.036l-9.98 11.732-5.453-5.93a.7.7 0 0 0-1.059.008.887.887 0 0 0 .009 1.168l5.998 6.524.007.006c.003.002.003.006.006.008.047.05.104.078.158.11.027.018.05.044.079.056a.675.675 0 0 0 .562-.007c.03-.014.054-.042.083-.06.056-.037.114-.068.162-.121.003-.003.003-.007.006-.01l.006-.005L17.796 1.39a.887.887 0 0 0-.032-1.167Z"/>
-						  </svg>
-						</div>
-					`}
-				</div>
-			</dialog>
-			<style>
-				:root {
-					--cuppa-capture-backdrop-bg: rgba(0, 0, 0, 0.5);
-					--cuppa-capture-bg: #000;
-					--cuppa-capture-shadow:0px 3px 10px rgba(0,0,0,0.1);
-					--cuppa-color:#fff;
-				}
-				cuppa-capture[theme=dark] {
-					color-scheme: dark;
-				}
-				@keyframes animation-fade { 0% { opacity:0; } 100% { opacity: 1; } }
-				cuppa-capture{
-					& .cover{ position: absolute; top: 0; left: 0; bottom: 0; right: 0; width: 100%; height: 100%;  }
-					& .animation-fade { animation-name: animation-fade; animation-duration: 0.2s; animation-fill-mode: forwards; }
-					&.open{
-						& dialog{
-							display: grid;
-						}
-					}
-					& dialog {
-						position: fixed;
-						padding: 0;
-						width: calc(100vw - 60px);
-						height: calc(100vh - 60px);
-						max-width: 1000px;
-						max-height: 800px;
-						box-shadow: var(--cuppa-capture-shadow);
-						background: var(--cuppa-capture-bg);
-						color: var(--cuppa-color);
-						border: none;
-						border-radius: 10px;
-						display:none;
-						grid-template-rows: 1fr 60px;
-						&:focus, &:focus-visible {
-							outline: none;
-						}
-						&::backdrop {
-							background: var(--cuppa-capture-backdrop-bg);
-						}
-						& .camera-preview{
-							background: #000;
-							display: flex;
-							flex-direction: column;
-							justify-content: center;
-							align-items: center;
-						}
-						& .buttons{
-							display: grid;
-							grid-template-columns: 1fr 1fr 1fr;
-							place-items: center	;
-							& .button{
-								cursor: pointer;
-								display: flex;
-								transition: 0.3s;
-								&:hover{
-									opacity: 0.6;
-								}
-		                        &.btn-take-photo{
-		                            cursor: pointer;
-		                            & .inner{
-		                                transform-origin: center;
-		                                transition: 0.3s;
-		                            }
-		                            &:hover .inner{
-		                                transform: scale(0.9);
-		                            }
-		                            &:active .inner{
-		                                fill:#FF0000;
-		                            }
-		                        }
-							}
-						}
-					}
-				}
-                @media screen and (width <= 1000px){
-                    cuppa-capture{
+                    ` : this.status?.value === CuppaCapture.statuses.error.value ? html`
+                        <div>${this.status?.message}</div>
+                    ` : ''}
+                </div>
+                <div class="buttons">
+                    ${!this.result ? html`
+                        <div>
+                            <svg class="button animation-fade" @click=${this.close} xmlns="http://www.w3.org/2000/svg"
+                                 width="14" height="14" fill="none" viewBox="0 0 14 14">
+                                <path fill="#fff"
+                                      d="M13.772.228a.778.778 0 0 0-1.1 0L7 5.9 1.328.228a.778.778 0 1 0-1.1 1.1L5.9 7 .228 12.672a.778.778 0 0 0 1.1 1.1L7 8.1l5.672 5.672a.778.778 0 1 0 1.1-1.1L8.1 7l5.672-5.672a.778.778 0 0 0 0-1.1Z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            ${!permissionGranted ? `` : html`
+                                <svg class="button btn-take-photo animation-fade" @click=${this.takePhoto} width="40"
+                                     height="40" fill="none" viewBox="0 0 40 40">
+                                    <circle class="inner" cx="20" cy="20" r="17" fill="#fff"/>
+                                    <circle cx="20" cy="20" r="19" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+                                </svg>
+                            `}
+                        </div>
+                        <div>
+                            ${this.devices?.video?.length < 1 ? `` : html`
+                                <svg class="button animation-fade" @click=${this.switch} width="16" height="14"
+                                     fill="none" viewBox="0 0 16 14">
+                                    <path fill="#fff"
+                                          d="M15.943 11.097 14.48 8.234a.509.509 0 0 0-.632-.245l-2.88 1.082a.514.514 0 0 0 .356.962l1.948-.732c-.952 2.16-2.872 3.429-5.271 3.622-2.67 0-4.726-1.693-5.785-4.405-.101-.258-.341-.431-.608-.361a.5.5 0 0 0-.362.608C2.031 11.847 4.764 14 7.891 14c2.751 0 5.184-1.654 6.27-4.143l.875 1.71a.509.509 0 0 0 .687.222c.25-.13.35-.44.22-.692ZM1.886 5.744a.525.525 0 0 0 .139-.02l2.967-.811a.516.516 0 1 0-.278-.996l-1.967.538C3.799 2.271 5.613 1.077 8 1.077c2.582 0 4.702 1.866 5.504 4.308.086.263.417.296.612.161.226-.157.414-.36.333-.624C13.553 1.978 10.917 0 7.891 0c-2.626 0-4.954 1.49-6.11 3.806L.99 2.162a.522.522 0 0 0-.694-.244.515.515 0 0 0-.246.688l1.365 2.843a.52.52 0 0 0 .47.295Z"/>
+                                </svg>
+                            `}
+                        </div>
+                    ` : html`
+                        <div>
+                            <svg class="button animation-fade" @click=${e => this.result = null}
+                                 xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none"
+                                 viewBox="0 0 14 14">
+                                <path fill="#fff"
+                                      d="M13.772.228a.778.778 0 0 0-1.1 0L7 5.9 1.328.228a.778.778 0 1 0-1.1 1.1L5.9 7 .228 12.672a.778.778 0 0 0 1.1 1.1L7 8.1l5.672 5.672a.778.778 0 1 0 1.1-1.1L8.1 7l5.672-5.672a.778.778 0 0 0 0-1.1Z"/>
+                            </svg>
+                        </div>
+                        <div></div>
+                        <div>
+                            <svg class="button animation-fade" @click=${this.close} width="18" height="14" fill="none"
+                                 viewBox="0 0 18 14">
+                                <path fill="#fff"
+                                      d="M17.764.224a.7.7 0 0 0-1.057.036l-9.98 11.732-5.453-5.93a.7.7 0 0 0-1.059.008.887.887 0 0 0 .009 1.168l5.998 6.524.007.006c.003.002.003.006.006.008.047.05.104.078.158.11.027.018.05.044.079.056a.675.675 0 0 0 .562-.007c.03-.014.054-.042.083-.06.056-.037.114-.068.162-.121.003-.003.003-.007.006-.01l.006-.005L17.796 1.39a.887.887 0 0 0-.032-1.167Z"/>
+                            </svg>
+                        </div>
+                    `}
+                </div>
+            </dialog>
+            <style>
+                :root {
+                    --cuppa-capture-backdrop-bg: rgba(0, 0, 0, 0.5);
+                    --cuppa-capture-bg: #000;
+                    --cuppa-capture-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+                    --cuppa-color: #fff;
+                }
+
+                cuppa-capture[theme=dark] {
+                    color-scheme: dark;
+                }
+
+                @keyframes animation-fade {
+                    0% {
+                        opacity: 0;
+                    }
+                    100% {
+                        opacity: 1;
+                    }
+                }
+
+                cuppa-capture {
+                    & .cover {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        bottom: 0;
+                        right: 0;
+                        width: 100%;
+                        height: 100%;
+                    }
+
+                    & .animation-fade {
+                        animation-name: animation-fade;
+                        animation-duration: 0.2s;
+                        animation-fill-mode: forwards;
+                    }
+
+                    &.open {
                         & dialog {
-	                        border-radius: 0;
-                            width: calc(100vw);
-                            height: calc(100vh);
+                            display: grid;
+                        }
+                    }
+
+                    & dialog {
+                        position: fixed;
+                        padding: 0;
+                        width: calc(100% - 60px);
+                        height: calc(100% - 60px);
+                        max-width: 1000px;
+                        max-height: 800px;
+                        box-shadow: var(--cuppa-capture-shadow);
+                        background: var(--cuppa-capture-bg);
+                        color: var(--cuppa-color);
+                        border: none;
+                        border-radius: 10px;
+                        display: none;
+                        grid-template-rows: 1fr 60px;
+
+                        &:focus, &:focus-visible {
+                            outline: none;
+                        }
+
+                        &::backdrop {
+                            background: var(--cuppa-capture-backdrop-bg);
+                        }
+
+                        & .camera-preview {
+                            background: #000;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        & .buttons {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr 1fr;
+                            place-items: center;
+
+                            & .button {
+                                cursor: pointer;
+                                display: flex;
+                                transition: 0.3s;
+
+                                &:hover {
+                                    opacity: 0.6;
+                                }
+
+                                &.btn-take-photo {
+                                    cursor: pointer;
+
+                                    & .inner {
+                                        transform-origin: center;
+                                        transition: 0.3s;
+                                    }
+
+                                    &:hover .inner {
+                                        transform: scale(0.9);
+                                    }
+
+                                    &:active .inner {
+                                        fill: #FF0000;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @media screen and (width <= 1100px) {
+                    cuppa-capture {
+                        & dialog {
+                            width: calc(100% - 40px);
+                            height: calc(100% - 40px);
                             max-width: none;
                             max-height: none;
                         }
                     }
                 }
-			</style>
+            </style>
 		`
 	}
 }
+
+export default CuppaCapture
 
 customElements.define('cuppa-capture', CuppaCapture);
 document.defaultView.CuppaCapture = CuppaCapture;
@@ -299,42 +356,42 @@ let cuppa = {};
 */
 cuppa.eventGroups = [];
 // Add Event listener
-cuppa.on = function(elements, event, callback, groupName, useCapture) {
-	if(!elements) return;
-	if(!Array.isArray(elements)) elements = [elements];
+cuppa.on = function (elements, event, callback, groupName, useCapture) {
+	if (!elements) return;
+	if (!Array.isArray(elements)) elements = [elements];
 	cuppa.off(elements, event, callback, groupName); // prevent duplicate events
-	if(!groupName) groupName = "default";
-	if(useCapture === undefined) useCapture = false;
-	if(!cuppa.eventGroups[groupName]) cuppa.eventGroups[groupName] = new Map();
-	for(let i = 0; i < elements.length; i++){
+	if (!groupName) groupName = "default";
+	if (useCapture === undefined) useCapture = false;
+	if (!cuppa.eventGroups[groupName]) cuppa.eventGroups[groupName] = new Map();
+	for (let i = 0; i < elements.length; i++) {
 		let element = elements[i];
-		if(!element) continue;
-		if(element.addEventListener) element.addEventListener(event, callback, useCapture);
+		if (!element) continue;
+		if (element.addEventListener) element.addEventListener(event, callback, useCapture);
 		let events = cuppa.eventGroups[groupName].get(element);
-		if(!events) events = [];
-		events.push({event:event, callback:callback});
+		if (!events) events = [];
+		events.push({event: event, callback: callback});
 		cuppa.eventGroups[groupName].set(element, events);
 	}
 };
 // Remove a single event
-cuppa.off = function(elements, event, callback, groupName){
-	if(!Array.isArray(elements)) elements = [elements];
-	if(!groupName) groupName = "default";
-	if(!cuppa.eventGroups[groupName]) return;
-	if(!elements) return;
-	if(event === "removed") event = "DOMNodeRemoved";
-	for(let i = 0; i < elements.length; i++){
+cuppa.off = function (elements, event, callback, groupName) {
+	if (!Array.isArray(elements)) elements = [elements];
+	if (!groupName) groupName = "default";
+	if (!cuppa.eventGroups[groupName]) return;
+	if (!elements) return;
+	if (event === "removed") event = "DOMNodeRemoved";
+	for (let i = 0; i < elements.length; i++) {
 		let events = cuppa.eventGroups[groupName].get(elements[i]);
-		if(!events) break;
-		for(let j = events.length-1; j >= 0; j--){
-			if(callback){
-				if(events[j].event === event && events[j].callback === callback ){
+		if (!events) break;
+		for (let j = events.length - 1; j >= 0; j--) {
+			if (callback) {
+				if (events[j].event === event && events[j].callback === callback) {
 					elements[i].removeEventListener(events[j].event, events[j].callback);
 					events.splice(j, 1);
 					break;
 				}
-			}else{
-				if(events[j].event === event ){
+			} else {
+				if (events[j].event === event) {
 					elements[i].removeEventListener(events[j].event, events[j].callback);
 					events.splice(j, 1);
 				}
@@ -345,21 +402,22 @@ cuppa.off = function(elements, event, callback, groupName){
 };
 
 // Remove event by Group
-cuppa.offGroup = function(groupName){
-	if(!groupName) groupName = "default";
+cuppa.offGroup = function (groupName) {
+	if (!groupName) groupName = "default";
 	let map = cuppa.eventGroups[groupName];
-	if(!map) return;
-	map.forEach(function(events, element) {
-		for(let i = 0; i < events.length; i++){
+	if (!map) return;
+	map.forEach(function (events, element) {
+		for (let i = 0; i < events.length; i++) {
 			element.removeEventListener(events[i].event, events[i].callback);
-		};
+		}
+		;
 	});
 	map["delete"](groupName);
 };
 // getUUid
-cuppa.uuid = function(){
+cuppa.uuid = function () {
 	let d = new Date().getTime();
-	if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+	if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
 		d += performance.now(); //use high-precision timer if available
 	}
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -369,32 +427,34 @@ cuppa.uuid = function(){
 	});
 };
 
-cuppa.dim = function(element, opts){
-	if(!opts) opts = {}
-	if(element == undefined || element == "body" ) element = document.body;
-	let value = {width:0, height:0, x:0, y:0 };
+cuppa.dim = function (element, opts) {
+	if (!opts) opts = {}
+	if (element == undefined || element == "body") element = document.body;
+	let value = {width: 0, height: 0, x: 0, y: 0};
 	// change parents elements
 	let parents = cuppa.parents(element);
 	let tmpParents = new Array();
-	for(let i = 0; i < parents.length; i++){ if( cuppa.css(parents[i], "display") == "none" ) tmpParents.push(parents[i]); }
-	if(cuppa.css(element, "display") == "none") tmpParents.push(element);
-	cuppa.css(tmpParents, {display:"block", visibility:"hidden"});
+	for (let i = 0; i < parents.length; i++) {
+		if (cuppa.css(parents[i], "display") == "none") tmpParents.push(parents[i]);
+	}
+	if (cuppa.css(element, "display") == "none") tmpParents.push(element);
+	cuppa.css(tmpParents, {display: "block", visibility: "hidden"});
 
 	let clientRect = element.getBoundingClientRect();
 	let scrollPos = cuppa.scrollPosition(opts.scrollRef);
 	let style = getComputedStyle(element);
 	// x,y (position from init of document) - not work
-	value.x = (window.scrollX) ? clientRect.left + window.scrollX :  clientRect.left + window.pageXOffset;
+	value.x = (window.scrollX) ? clientRect.left + window.scrollX : clientRect.left + window.pageXOffset;
 	value.y = (window.scrollY) ? clientRect.top + window.scrollY : clientRect.top + window.pageYOffset;
 	// x2,y2 (position from parent element) - work
 	value.x2 = element.offsetLeft;
 	value.y2 = element.offsetTop;
 	// x3,y3 (fixed position on window) - work
 	value.x3 = clientRect.left;
-	value.y3 =  clientRect.top;
+	value.y3 = clientRect.top;
 	// x4,y4 (position from parent element + scroll position) - work
 	value.x4 = value.x + scrollPos.x;
-	value.y4 =  value.y + scrollPos.x;
+	value.y4 = value.y + scrollPos.x;
 	// dimentions, + border, + padding
 	value.width = element.offsetWidth;
 	value.height = element.offsetHeight;
@@ -414,160 +474,194 @@ cuppa.dim = function(element, opts){
 	value.clientWidth = element.clientWidth;
 	value.clientHeight = element.clientHeight;
 	// return parents to default
-	cuppa.css(tmpParents, {display:"none", visibility:"visible"});
+	cuppa.css(tmpParents, {display: "none", visibility: "visible"});
 	return value;
 };
 
 // scrollPosition
-cuppa.scrollPosition = function(element){
-	let pos = {x:0, y:0}
-	if(!element || element == "body" || cuppa.elementType(element) == "body" || element == window){
+cuppa.scrollPosition = function (element) {
+	let pos = {x: 0, y: 0}
+	if (!element || element == "body" || cuppa.elementType(element) == "body" || element == window) {
 		pos.x = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
 		pos.y = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-	}else{
+	} else {
 		pos.x = element.scrollLeft;
 		pos.y = element.scrollTop;
-	};
+	}
 	return pos;
 };
 
-cuppa.css = function(elements, property, opts){
-	if(!elements) return;
+cuppa.css = function (elements, property, opts) {
+	if (!elements) return;
 	elements = cuppa.element(elements);
-	for(let k = 0; k < elements.length; k++){
+	for (let k = 0; k < elements.length; k++) {
 		let element = elements[k];
-		if(typeof(property) == "object"){
-			if(!Array.isArray(element)) element = [element];
-			for(let i = 0; i < element.length; i++){
+		if (typeof (property) == "object") {
+			if (!Array.isArray(element)) element = [element];
+			for (let i = 0; i < element.length; i++) {
 				for (let css in property) {
 					let value = property[css];
 					let priority = "";
-					if(value){
+					if (value) {
 						value = String(value);
-						if(value.indexOf("!important") != -1){
+						if (value.indexOf("!important") != -1) {
 							priority = "important";
 							value = value.replace("!important", "");
-						};
-						element[i].style.setProperty( cuppa.trim(css), cuppa.trim(value), priority);
-					};
-				};
-			};
-		}else{
+						}
+						;
+						element[i].style.setProperty(cuppa.trim(css), cuppa.trim(value), priority);
+					}
+					;
+				}
+				;
+			}
+			;
+		} else {
 			// opts default
 			opts = opts || {};
 			opts.number = opts.number || false;
 			// get value
 			let value;
-			try{
+			try {
 				let style = window.getComputedStyle(element);
 				value = style.getPropertyValue(property);
-				if(opts.number) value = parseFloat(value) || 0;
-			}catch(err){ value = null; };
+				if (opts.number) value = parseFloat(value) || 0;
+			} catch (err) {
+				value = null;
+			}
 			return value;
-		};
-	};
+		}
+	}
 };
 
-cuppa.nodeType = function(element){ return  element.nodeName.toLowerCase(); };
-cuppa.elementType = function(element){ return cuppa.nodeType(element); };
+cuppa.nodeType = function (element) {
+	return element.nodeName.toLowerCase();
+};
+cuppa.elementType = function (element) {
+	return cuppa.nodeType(element);
+};
 
 
-cuppa.parents = function(ref, opts){
-	opts = cuppa.mergeObjects([{reverse:false, type:""}, opts]);
+cuppa.parents = function (ref, opts) {
+	opts = cuppa.mergeObjects([{reverse: false, type: ""}, opts]);
 	let element = cuppa.element(ref)[0];
-	if(!element) return;
+	if (!element) return;
 	let parents = [];
-	if(cuppa.elementType(element) === "body") return parents;
+	if (cuppa.elementType(element) === "body") return parents;
 	while (element) {
-		if(element.toString() !== "[object HTMLDocument]" && element.toString() !== "[object HTMLHtmlElement]"){
-			if(opts.type){
-				if(cuppa.elementType(element) === opts.type){
+		if (element.toString() !== "[object HTMLDocument]" && element.toString() !== "[object HTMLHtmlElement]") {
+			if (opts.type) {
+				if (cuppa.elementType(element) === opts.type) {
 					parents.push(element);
 				}
-			}else{
+			} else {
 				parents.push(element);
 			}
-		};
+		}
 		element = element.parentNode;
-	};
+	}
 	parents.shift();
-	if(opts.reverse) parents = parents.reverse();
+	if (opts.reverse) parents = parents.reverse();
 	return parents;
 };
 
 
-cuppa.mergeObjects = function(array_objs, create_new_object){
-	if(!create_new_object){
+cuppa.mergeObjects = function (array_objs, create_new_object) {
+	if (!create_new_object) {
 		let obj1 = array_objs.shift();
-		for(let i = 0; i < array_objs.length; i++){
+		for (let i = 0; i < array_objs.length; i++) {
 			let obj = array_objs[i];
-			if(obj){ for (let attrname in obj) { obj1[attrname] =  obj[attrname]; } }
-		};
+			if (obj) {
+				for (let attrname in obj) {
+					obj1[attrname] = obj[attrname];
+				}
+			}
+		}
 		return obj1;
-	}else{
+	} else {
 		let tmp_obj = {};
-		for(let i = 0; i < array_objs.length; i++){
+		for (let i = 0; i < array_objs.length; i++) {
 			let obj = array_objs[i];
-			if(obj){ for (let attrname in obj) { tmp_obj[attrname] = obj[attrname]; } }
-		};
+			if (obj) {
+				for (let attrname in obj) {
+					tmp_obj[attrname] = obj[attrname];
+				}
+			}
+		}
 		return tmp_obj;
-	};
+	}
 };
 
-cuppa.element = function(ref, opts){
-	if(!ref) return;
+cuppa.element = function (ref, opts) {
+	if (!ref) return;
 	opts = opts || {}
 	opts.returnType = opts.returnType || "all";
 	opts.query = opts.query || true;
-	if(opts.target) opts.parent = opts.target;
-	if(ref === "body"){
-		if(opts.returnType === "first") return document.body;
-		else if(opts.returnType === "last") return document.body;
+	if (opts.target) opts.parent = opts.target;
+	if (ref === "body") {
+		if (opts.returnType === "first") return document.body;
+		else if (opts.returnType === "last") return document.body;
 		else return [document.body];
-	}else if(Array.isArray(ref)){
-		if(opts.returnType === "first") return ref.shift();
-		else if(opts.returnType === "last") return ref.pop();
+	} else if (Array.isArray(ref)) {
+		if (opts.returnType === "first") return ref.shift();
+		else if (opts.returnType === "last") return ref.pop();
 		else return ref;
-	}else if(ref.toString() === "[object NodeList]" || ref.toString() === "[object HTMLCollection]"){
+	} else if (ref.toString() === "[object NodeList]" || ref.toString() === "[object HTMLCollection]") {
 		ref = Array.from(ref);
-		if(opts.returnType === "first") return ref.shift();
-		else if(opts.returnType === "last") return ref.pop();
+		if (opts.returnType === "first") return ref.shift();
+		else if (opts.returnType === "last") return ref.pop();
 		else return ref;
-	}else if(typeof(ref) === "object"){
-		if(opts.returnType === "first") return ref;
-		else if(opts.returnType === "last") return ref;
+	} else if (typeof (ref) === "object") {
+		if (opts.returnType === "first") return ref;
+		else if (opts.returnType === "last") return ref;
 		else return [ref];
-	};
+	}
 
-	if(!opts.parent || opts.parent === "body") opts.parent = [document.body];
-	if(typeof(opts.parent) === "string") opts.parent = cuppa.element(opts.parent);
-	if(!Array.isArray(opts.parent)) opts.parent = [opts.parent];
+	if (!opts.parent || opts.parent === "body") opts.parent = [document.body];
+	if (typeof (opts.parent) === "string") opts.parent = cuppa.element(opts.parent);
+	if (!Array.isArray(opts.parent)) opts.parent = [opts.parent];
 
-	let nodes = []; if(!opts.parent) return nodes;
-	for(let i = 0; i < opts.parent.length; i++){
+	let nodes = [];
+	if (!opts.parent) return nodes;
+	for (let i = 0; i < opts.parent.length; i++) {
 		let t = opts.parent[i];
 		let n = null;
-		if(cuppa.search("#", ref) && !opts.query){
+		if (cuppa.search("#", ref) && !opts.query) {
 			let e = cuppa.replace(ref, "#", "");
-			try{ n = t.getElementById(e); }catch(err){  }
-			if(n) nodes.push(n);
-		}else if(cuppa.search(".", ref) && !opts.query){
+			try {
+				n = t.getElementById(e);
+			} catch (err) {
+			}
+			if (n) nodes.push(n);
+		} else if (cuppa.search(".", ref) && !opts.query) {
 			ref = cuppa.replace(ref, "\\.", "");
-			try{ n = Array.from(t.getElementsByClassName(ref)); }catch(err){  }
-			if(n && n.length) nodes= nodes.concat(n);
-		}else{
-			try{ n = Array.from(t.querySelectorAll(ref)); }catch(err){  }
-			if(n && n.length) nodes= nodes.concat(n);
-		};
-	};
-	if(opts.not) nodes = nodes.filter(function(item){ if(item !== opts.not){ return item; }else{ return null; } });
-	if(opts.reverse || opts.invert) nodes.reverse();
-	if(opts.returnType === "first") return nodes.shift();
-	else if(opts.returnType === "last") return nodes.pop();
+			try {
+				n = Array.from(t.getElementsByClassName(ref));
+			} catch (err) {
+			}
+			if (n && n.length) nodes = nodes.concat(n);
+		} else {
+			try {
+				n = Array.from(t.querySelectorAll(ref));
+			} catch (err) {
+			}
+			if (n && n.length) nodes = nodes.concat(n);
+		}
+	}
+	if (opts.not) nodes = nodes.filter(function (item) {
+		if (item !== opts.not) {
+			return item;
+		} else {
+			return null;
+		}
+	});
+	if (opts.reverse || opts.invert) nodes.reverse();
+	if (opts.returnType === "first") return nodes.shift();
+	else if (opts.returnType === "last") return nodes.pop();
 	else return nodes;
 };
 
-cuppa.trim = function(string){
-	if(string) return string.replace(/^\s+|\s+$/g, '');
+cuppa.trim = function (string) {
+	if (string) return string.replace(/^\s+|\s+$/g, '');
 	else return "";
 };
