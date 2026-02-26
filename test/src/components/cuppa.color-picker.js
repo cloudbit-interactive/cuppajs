@@ -88,26 +88,26 @@ export class CuppaColorPicker extends CuppaComponent {
                                 type="color"
                                 .value="${this.value || '#FFFFFF'}"
                                 @change=${(e) => {
-			e.preventDefault();
-			e.stopPropagation();
-			this.onChange(e.target.value);
-			this.close();
-		}}
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    this.onChange(e.target.value);
+                                    this.close();
+                                }}
                                 @click=${e => {
-			if (!this.naviveColorPickerFocus) {
-				this.naviveColorPickerFocus = true;
-			} else {
-				e.stopPropagation();
-				e.preventDefault();
-				this.naviveColorPickerFocus = false;
-				e.target.blur();
-			}
-		}}
+                                    if (!this.naviveColorPickerFocus) {
+                                        this.naviveColorPickerFocus = true;
+                                    } else {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        this.naviveColorPickerFocus = false;
+                                        e.target.blur();
+                                    }
+                                }}
                                 @blur=${e => {
-			setTimeout(e => {
-				this.naviveColorPickerFocus = false;
-			}, 300)
-		}}
+                                    setTimeout(e => {
+                                        this.naviveColorPickerFocus = false;
+                                    }, 300)
+                                }}
                             >
                         </div>
                         ${!this.showReset ? `` : html`
@@ -115,11 +115,11 @@ export class CuppaColorPicker extends CuppaComponent {
                                 class="btn-clear"
                                 title="Clear"
                                 @click=${e => {
-			e.preventDefault();
-			e.stopPropagation();
-			this.onChange(this.defaultValue);
-			this.close();
-		}}
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    this.onChange(this.defaultValue);
+                                    this.close();
+                                }}
                             >
                                 ${unsafeHTML(iconX)}
                             </div>
@@ -128,14 +128,14 @@ export class CuppaColorPicker extends CuppaComponent {
                     ${!colors?.length ? `` : html`
                         <div class="color-list">
                             ${colors.map(color => {
-			return html`
+                                return html`
                                     <div
                                         class="btn-color ${color === this.value ? 'selected' : ''}"
                                         style="background: ${color}"
                                         @click=${(e) => this.onChange(color)}
                                     ></div>
                                 `
-		})}
+                            })}
                         </div>
                     `}
                 </div>
@@ -144,8 +144,8 @@ export class CuppaColorPicker extends CuppaComponent {
                 class="picker-modal"
                 style="display:${this.open ? 'flex' : 'none'}"
                 @click=${e => {
-			e.stopPropagation();
-		}}
+                    e.stopPropagation();
+                }}
             >
                 <div class="picker-area">
                     <div class="color-picker">
@@ -154,26 +154,26 @@ export class CuppaColorPicker extends CuppaComponent {
                             type="color"
                             .value="${this.value || '#FFFFFF'}"
                             @change=${(e) => {
-			e.preventDefault();
-			e.stopPropagation();
-			this.onChange(e.target.value);
-			this.close();
-		}}
+                                e.preventDefault();
+                                e.stopPropagation();
+                                this.onChange(e.target.value);
+                                this.close();
+                            }}
                             @click=${e => {
-			if (!this.naviveColorPickerFocus) {
-				this.naviveColorPickerFocus = true;
-			} else {
-				e.stopPropagation();
-				e.preventDefault();
-				this.naviveColorPickerFocus = false;
-				e.target.blur();
-			}
-		}}
+                                if (!this.naviveColorPickerFocus) {
+                                    this.naviveColorPickerFocus = true;
+                                } else {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    this.naviveColorPickerFocus = false;
+                                    e.target.blur();
+                                }
+                            }}
                             @blur=${e => {
-			setTimeout(e => {
-				this.naviveColorPickerFocus = false;
-			}, 300)
-		}}
+                                setTimeout(e => {
+                                    this.naviveColorPickerFocus = false;
+                                }, 300)
+                            }}
                         >
                     </div>
                     ${!this.showReset ? `` : html`
@@ -181,29 +181,29 @@ export class CuppaColorPicker extends CuppaComponent {
                             class="btn-clear"
                             title="Clear"
                             @click=${e => {
-			e.preventDefault();
-			e.stopPropagation();
-			this.onChange(this.defaultValue);
-			this.close();
-		}}
+                                e.preventDefault();
+                                e.stopPropagation();
+                                this.onChange(this.defaultValue);
+                                this.close();
+                            }}
                         >
                             ${unsafeHTML(iconX)}
                         </div>
                     `}
                 </div>
                 ${!colors?.length ? `` : html`
-            <div class="color-list">
-                ${colors.map(color => {
-                    return html`
+                    <div class="color-list">
+                        ${colors.map(color => {
+                            return html`
                                 <div
                                     class="btn-color ${color === this.value ? 'selected' : ''}"
                                     style="background: ${color}"
                                     @click=${(e) => this.onChange(color)}
                                 ></div>
                             `
-                })}
-            </div>
-		`}
+                        })}
+                    </div>
+                `}
             </div>
             <style>
                 cuppa-color-picker {
