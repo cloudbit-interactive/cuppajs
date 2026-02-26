@@ -297,7 +297,7 @@ export class CuppaSelect extends CuppaComponent {
                         padding: 0;
                         background: #fff;
                         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	                    overflow: hidden;
+	                    overflow: auto;
 
                         &:focus, &:focus-visible {
                             outline: none;
