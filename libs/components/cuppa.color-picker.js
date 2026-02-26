@@ -31,13 +31,13 @@ export class CuppaColorPicker extends CuppaComponent {
 		const btnDim = this.refs.pickerButton.getBoundingClientRect();
 		const dialogDim = this.refs.dialog.getBoundingClientRect();
 		this.refs.dialog.style.top = `${btnDim.y + btnDim.height}px`;
-		this.refs.dialog.style.left = `${btnDim.x +btnDim.width*0.5 - dialogDim.width*0.5}px`;
+		this.refs.dialog.style.left = `${btnDim.x + btnDim.width * 0.5 - dialogDim.width * 0.5}px`;
 		this.classList.add('open');
 		this.dispatchEvent(new CustomEvent("show", {detail: null}));
 		if (this.showCallback) this.showCallback(this);
 	}
 
-	onDialogClick(e){
+	onDialogClick(e) {
 		if (e.target === this.refs.dialog) {
 			this.close();
 		}
@@ -74,52 +74,52 @@ export class CuppaColorPicker extends CuppaComponent {
 		}) || [];
 		return html`
             <div
-	            ref="pickerButton"
-                class="picker-button"
-                style="background-color: ${this.value}"
-                @click=${this.show}
+                    ref="pickerButton"
+                    class="picker-button"
+                    style="background-color: ${this.value}"
+                    @click=${this.show}
             ></div>
             <dialog ref="dialog" class="dialog" style="background: #FFF; padding:20">
                 <div class="dialog-content">
                     <div class="picker-area">
                         <div class="color-picker">
                             <input
-                                title="Select Color"
-                                type="color"
-                                .value="${this.value || '#FFFFFF'}"
-                                @change=${(e) => {
-			e.preventDefault();
-			e.stopPropagation();
-			this.onChange(e.target.value);
-			this.close();
-		}}
-                                @click=${e => {
-			if (!this.naviveColorPickerFocus) {
-				this.naviveColorPickerFocus = true;
-			} else {
-				e.stopPropagation();
-				e.preventDefault();
-				this.naviveColorPickerFocus = false;
-				e.target.blur();
-			}
-		}}
-                                @blur=${e => {
-			setTimeout(e => {
-				this.naviveColorPickerFocus = false;
-			}, 300)
-		}}
+                                    title="Select Color"
+                                    type="color"
+                                    .value="${this.value || '#FFFFFF'}"
+                                    @change=${(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        this.onChange(e.target.value);
+                                        this.close();
+                                    }}
+                                    @click=${e => {
+                                        if (!this.naviveColorPickerFocus) {
+                                            this.naviveColorPickerFocus = true;
+                                        } else {
+                                            e.stopPropagation();
+                                            e.preventDefault();
+                                            this.naviveColorPickerFocus = false;
+                                            e.target.blur();
+                                        }
+                                    }}
+                                    @blur=${e => {
+                                        setTimeout(e => {
+                                            this.naviveColorPickerFocus = false;
+                                        }, 300)
+                                    }}
                             >
                         </div>
                         ${!this.showReset ? `` : html`
                             <div
-                                class="btn-clear"
-                                title="Clear"
-                                @click=${e => {
-			e.preventDefault();
-			e.stopPropagation();
-			this.onChange(this.defaultValue);
-			this.close();
-		}}
+                                    class="btn-clear"
+                                    title="Clear"
+                                    @click=${e => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        this.onChange(this.defaultValue);
+                                        this.close();
+                                    }}
                             >
                                 ${unsafeHTML(iconX)}
                             </div>
@@ -128,82 +128,82 @@ export class CuppaColorPicker extends CuppaComponent {
                     ${!colors?.length ? `` : html`
                         <div class="color-list">
                             ${colors.map(color => {
-			return html`
+                                return html`
                                     <div
-                                        class="btn-color ${color === this.value ? 'selected' : ''}"
-                                        style="background: ${color}"
-                                        @click=${(e) => this.onChange(color)}
+                                            class="btn-color ${color === this.value ? 'selected' : ''}"
+                                            style="background: ${color}"
+                                            @click=${(e) => this.onChange(color)}
                                     ></div>
                                 `
-		})}
+                            })}
                         </div>
                     `}
                 </div>
             </dialog>
             <div
-                class="picker-modal"
-                style="display:${this.open ? 'flex' : 'none'}"
-                @click=${e => {
-			e.stopPropagation();
-		}}
+                    class="picker-modal"
+                    style="display:${this.open ? 'flex' : 'none'}"
+                    @click=${e => {
+                        e.stopPropagation();
+                    }}
             >
                 <div class="picker-area">
                     <div class="color-picker">
                         <input
-                            title="Select Color"
-                            type="color"
-                            .value="${this.value || '#FFFFFF'}"
-                            @change=${(e) => {
-			e.preventDefault();
-			e.stopPropagation();
-			this.onChange(e.target.value);
-			this.close();
-		}}
-                            @click=${e => {
-			if (!this.naviveColorPickerFocus) {
-				this.naviveColorPickerFocus = true;
-			} else {
-				e.stopPropagation();
-				e.preventDefault();
-				this.naviveColorPickerFocus = false;
-				e.target.blur();
-			}
-		}}
-                            @blur=${e => {
-			setTimeout(e => {
-				this.naviveColorPickerFocus = false;
-			}, 300)
-		}}
+                                title="Select Color"
+                                type="color"
+                                .value="${this.value || '#FFFFFF'}"
+                                @change=${(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    this.onChange(e.target.value);
+                                    this.close();
+                                }}
+                                @click=${e => {
+                                    if (!this.naviveColorPickerFocus) {
+                                        this.naviveColorPickerFocus = true;
+                                    } else {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        this.naviveColorPickerFocus = false;
+                                        e.target.blur();
+                                    }
+                                }}
+                                @blur=${e => {
+                                    setTimeout(e => {
+                                        this.naviveColorPickerFocus = false;
+                                    }, 300)
+                                }}
                         >
                     </div>
                     ${!this.showReset ? `` : html`
                         <div
-                            class="btn-clear"
-                            title="Clear"
-                            @click=${e => {
-			e.preventDefault();
-			e.stopPropagation();
-			this.onChange(this.defaultValue);
-			this.close();
-		}}
+                                class="btn-clear"
+                                title="Clear"
+                                @click=${e => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    this.onChange(this.defaultValue);
+                                    this.close();
+                                }}
                         >
                             ${unsafeHTML(iconX)}
                         </div>
                     `}
                 </div>
                 ${!colors?.length ? `` : html`
-            <div class="color-list">
-                ${colors.map(color => {
-                    return html`
+                    <div class="color-list">
+                        ${colors.map(color => {
+                            return html`
                                 <div
-                                    class="btn-color ${color === this.value ? 'selected' : ''}"
-                                    style="background: ${color}"
-                                    @click=${(e) => this.onChange(color)}
+                                        class="btn-color ${color === this.value ? 'selected' : ''}"
+                                        style="background: ${color}"
+                                        @click=${(e) => this.onChange(color)}
                                 ></div>
                             `
-                })}
-            </div>
-		`}
+                        })}
+                    </div>
+                `}
             </div>
             <style>
                 cuppa-color-picker {
@@ -214,29 +214,34 @@ export class CuppaColorPicker extends CuppaComponent {
                         border: 1px solid rgba(0, 0, 0, 0.2);
                         cursor: pointer;
                     }
-	                .dialog{
+
+                    .dialog {
                         position: fixed;
                         inset: auto;
-                        left:0px;
-                        top:0px;
+                        left: 0px;
+                        top: 0px;
                         width: 200px;
                         border: 1px solid rgba(0, 0, 0, 0.2);
                         border-radius: 5px;
                         margin-top: 2px;
-                        padding:0;
+                        padding: 0;
                         background: #fff;
                         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
                         &:focus, &:focus-visible {
                             outline: none;
                         }
+
                         &::backdrop {
                             background: transparent;
                         }
-		                & .dialog-content{
+
+                        & .dialog-content {
                             display: flex;
                             flex-direction: column;
                             gap: 5px;
                             padding: 10px;
+
                             .picker-area {
                                 display: flex;
                                 flex-direction: row;
@@ -251,6 +256,7 @@ export class CuppaColorPicker extends CuppaComponent {
                                     overflow: hidden;
                                     border: 1px solid rgba(0, 0, 0, 0.2);
                                     border-radius: 3px;
+
                                     & input {
                                         position: absolute;
                                         top: -50px;
@@ -277,6 +283,7 @@ export class CuppaColorPicker extends CuppaComponent {
                                     }
                                 }
                             }
+
                             & .color-list {
                                 grid-area: color-list;
                                 border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -310,8 +317,8 @@ export class CuppaColorPicker extends CuppaComponent {
                                     }
                                 }
                             }
-		                }
-	                }
+                        }
+                    }
                 }
             </style>
 		`
