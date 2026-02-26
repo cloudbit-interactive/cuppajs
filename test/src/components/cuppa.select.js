@@ -315,6 +315,7 @@ export class CuppaSelect extends CuppaComponent {
                                 outline: none;
                                 padding:5px 10px;
                                 border-radius: 0;
+	                            font-size: 14px;
                             }
                             & .list {
                                 flex: 1;
