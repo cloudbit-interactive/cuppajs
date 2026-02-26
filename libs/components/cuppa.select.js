@@ -5,6 +5,7 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 export const CuppaSelectType = {SINGLE:'SINGLE', MULTIPLE:"MULTIPLE"}
 export let arrowImage = `data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ic3ZnLWljb24iIHN0eWxlPSJ3aWR0aDogMWVtOyBoZWlnaHQ6IDFlbTt2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO2ZpbGw6IGN1cnJlbnRDb2xvcjtvdmVyZmxvdzogaGlkZGVuOyIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik01MTIuMDM3OTkgMCA5MjEuNjc1OTgxIDQxMS42NDggMTAyLjQgNDExLjY0OCA1MTIuMDM3OTkgMFpNNTEyLjAzNzk5IDk5NS4zMjggMTAyLjQgNTgzLjY4IDkyMS42NzU5ODEgNTgzLjY4IDUxMi4wMzc5OSA5OTUuMzI4WiIgIC8+PC9zdmc+`;
 export let selectedImage = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQzNyIgdmlld0JveD0iMCAwIDYwMCA0MzciIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik01ODUuODk1IDEyLjYyMDdDNTgxLjkyOSA4LjYyMTY1IDU3Ny4yMSA1LjQ0NzQ3IDU3Mi4wMTEgMy4yODEzNEM1NjYuODExIDEuMTE1MjEgNTYxLjIzNCAwIDU1NS42MDIgMEM1NDkuOTY5IDAgNTQ0LjM5MyAxLjExNTIxIDUzOS4xOTMgMy4yODEzNEM1MzMuOTk0IDUuNDQ3NDcgNTI5LjI3NSA4LjYyMTY1IDUyNS4zMDkgMTIuNjIwN0wyMDcuNDQyIDMzMC45MTRMNzMuODk1MyAxOTYuOTQxQzY5Ljc3NzEgMTkyLjk2MyA2NC45MTU2IDE4OS44MzQgNTkuNTg4NSAxODcuNzM1QzU0LjI2MTMgMTg1LjYzNiA0OC41NzI4IDE4NC42MDYgNDIuODQ3OCAxODQuNzA1QzM3LjEyMjcgMTg0LjgwNCAzMS40NzMyIDE4Ni4wMyAyNi4yMjE5IDE4OC4zMTJDMjAuOTcwNiAxOTAuNTk1IDE2LjIyMDIgMTkzLjg4OSAxMi4yNDIgMTk4LjAwN0M4LjI2Mzg0IDIwMi4xMjYgNS4xMzU3NyAyMDYuOTg3IDMuMDM2NCAyMTIuMzE0QzAuOTM3MDMyIDIxNy42NDEgLTAuMDkyNTI0NiAyMjMuMzMgMC4wMDY1MjQ1NyAyMjkuMDU1QzAuMTA1NTc0IDIzNC43OCAxLjMzMTI4IDI0MC40MjkgMy42MTM2NyAyNDUuNjgxQzUuODk2MDYgMjUwLjkzMiA5LjE5MDQzIDI1NS42ODMgMTMuMzA4NyAyNTkuNjYxTDE3Ny4xNDkgNDIzLjUwMUMxODEuMTE1IDQyNy41IDE4NS44MzQgNDMwLjY3NCAxOTEuMDMzIDQzMi44NEMxOTYuMjMzIDQzNS4wMDYgMjAxLjgxIDQzNi4xMjEgMjA3LjQ0MiA0MzYuMTIxQzIxMy4wNzUgNDM2LjEyMSAyMTguNjUxIDQzNS4wMDYgMjIzLjg1MSA0MzIuODRDMjI5LjA1IDQzMC42NzQgMjMzLjc2OSA0MjcuNSAyMzcuNzM1IDQyMy41MDFMNTg1Ljg5NSA3NS4zNDA3QzU5MC4yMjYgNzEuMzQ1MyA1OTMuNjgzIDY2LjQ5NjIgNTk2LjA0NyA2MS4wOTg4QzU5OC40MTEgNTUuNzAxNSA1OTkuNjMxIDQ5Ljg3MzEgNTk5LjYzMSA0My45ODA3QzU5OS42MzEgMzguMDg4NCA1OTguNDExIDMyLjI1OTkgNTk2LjA0NyAyNi44NjI2QzU5My42ODMgMjEuNDY1MyA1OTAuMjI2IDE2LjYxNjEgNTg1Ljg5NSAxMi42MjA3WiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+Cg==`;
+
 export class CuppaSelect extends CuppaComponent {
 	static attributes = [
 		'placeholder',
@@ -85,45 +86,49 @@ export class CuppaSelect extends CuppaComponent {
 	maximumOptionsExceededString = '...';
 	spanStyle = '';
 
-	mounted(){
-		document.addEventListener('keyup', e=>{
-			if(String(e?.code).toLowerCase() === 'escape'){
-				e.preventDefault(); e.stopPropagation();
+	mounted() {
+		document.addEventListener('keyup', e => {
+			if (String(e?.code).toLowerCase() === 'escape') {
+				e.preventDefault();
+				e.stopPropagation();
 				this.close();
 			}
 		})
-		document.addEventListener('click', e=>{
-			if(!this.open) return;
+		document.addEventListener('click', e => {
+			if (!this.open) return;
 			this.close();
 			this.open = false;
 
 		})
-		this.addEventListener('click', e=>{
-			e.stopPropagation(); e.preventDefault();
+		this.addEventListener('click', e => {
+			e.stopPropagation();
+			e.preventDefault();
 		})
-		if(this.refs?.select){
-			this.refs?.select.addEventListener('keypress', e=>{
-				if(String(e?.code).toLowerCase() === 'space'){
-					e.preventDefault(); e.stopPropagation();
-					if(this.open){
+		if (this.refs?.select) {
+			this.refs?.select.addEventListener('keypress', e => {
+				if (String(e?.code).toLowerCase() === 'space') {
+					e.preventDefault();
+					e.stopPropagation();
+					if (this.open) {
 						this.close();
-					}else{
+					} else {
 						this.open = true;
 					}
 				}
 			})
 		}
-		if(this.refs?.search){
-			this.refs?.search.addEventListener('keypress', e=>{
-				if(String(e?.code).toLowerCase() === 'enter'){
-					e.preventDefault(); e.stopPropagation();
-					if(this.open){
+		if (this.refs?.search) {
+			this.refs?.search.addEventListener('keypress', e => {
+				if (String(e?.code).toLowerCase() === 'enter') {
+					e.preventDefault();
+					e.stopPropagation();
+					if (this.open) {
 						this.close();
-					}else{
+					} else {
 						this.open = true;
 					}
-					const options = (this.options || []).filter(opt=>String(opt[this.labelColumn]).toLowerCase().indexOf(this.search.toLowerCase()) !== -1);
-					if(!options?.length) return;
+					const options = (this.options || []).filter(opt => String(opt[this.labelColumn]).toLowerCase().indexOf(this.search.toLowerCase()) !== -1);
+					if (!options?.length) return;
 					const opt = options[0]
 					let value = (typeof opt === "object") ? opt[this.valueColumn] : opt;
 					this.selectValue(value);
@@ -132,42 +137,42 @@ export class CuppaSelect extends CuppaComponent {
 		}
 	}
 
-	selectValue(value, {close = true} = {}){
-		if(this.type === CuppaSelectType.MULTIPLE){
-			const selectedArray = (this.selected) ? String(this.selected).split(',').map(v=>v.trim()) : [];
-			if( selectedArray.includes(String(value)) ){
-				const newSelectedArray = selectedArray.filter(v=>v !== String(value));
-				this.selected = newSelectedArray.filter(v=>v).join(',');
-			}else{
+	selectValue(value, {close = true} = {}) {
+		if (this.type === CuppaSelectType.MULTIPLE) {
+			const selectedArray = (this.selected) ? String(this.selected).split(',').map(v => v.trim()) : [];
+			if (selectedArray.includes(String(value))) {
+				const newSelectedArray = selectedArray.filter(v => v !== String(value));
+				this.selected = newSelectedArray.filter(v => v).join(',');
+			} else {
 				selectedArray.push(String(value));
-				this.selected = selectedArray.filter(v=>v).join(',');
+				this.selected = selectedArray.filter(v => v).join(',');
 			}
-		}else{
+		} else {
 			this.selected = value;
 		}
-		this.dispatchEvent(new CustomEvent("change", {detail:this.selected}));
-		if(this.callback) this.callback(this.selected);
-		if(close && this.autoClose){
+		this.dispatchEvent(new CustomEvent("change", {detail: this.selected}));
+		if (this.callback) this.callback(this.selected);
+		if (close && this.autoClose) {
 			this.close();
 		}
 	}
 
-	getSelectedLabel(){
-		if(!this.selected) return '';
-		const selectedValues = String(this.selected).split(',').map(v=>v.trim()).filter(v=>v) || [];
+	getSelectedLabel() {
+		if (!this.selected) return '';
+		const selectedValues = String(this.selected).split(',').map(v => v.trim()).filter(v => v) || [];
 		const labels = [];
 		for (const [index, selectedValue] of selectedValues.entries()) {
-			let opt = this.options.filter(opt=>opt[this.valueColumn] == selectedValue)[0];
+			let opt = this.options.filter(opt => opt[this.valueColumn] == selectedValue)[0];
 			let label = opt;
 			if (typeof opt === "object") {
 				label = this.labelColumn.split(',').map(labelColumn => opt[labelColumn.trim()]);
 				label = label.join(this.multipleLabelSeparator);
 			}
-			if(!label) continue;
+			if (!label) continue;
 			label = String(label).replaceAll("_", " ");
 			labels.push(label);
-			if(index + 1 >= this.maximumOptionsShowed){
-				if(selectedValues.length > this.maximumOptionsShowed){
+			if (index + 1 >= this.maximumOptionsShowed) {
+				if (selectedValues.length > this.maximumOptionsShowed) {
 					labels.push(this.maximumOptionsExceededString);
 				}
 				break;
@@ -176,14 +181,14 @@ export class CuppaSelect extends CuppaComponent {
 		return labels.join(this.labelSeparator);
 	}
 
-	rendered(){
-		if(this.open && this.refs?.search){
+	rendered() {
+		if (this.open && this.refs?.search) {
 			this.refs?.search?.focus();
 		}
 	}
 
-	getOptions(){
-		return (this.options || []).filter(opt=>{
+	getOptions() {
+		return (this.options || []).filter(opt => {
 			let label = opt;
 			if (typeof opt === "object") {
 				label = this.labelColumn.split(',').map(labelColumn => opt[labelColumn.trim()]);
@@ -193,16 +198,16 @@ export class CuppaSelect extends CuppaComponent {
 		});
 	}
 
-	close(){
-		if(this.open){
-			this.dispatchEvent(new CustomEvent("close", {detail:this.selected}));
-			if(this.closeCallback) this.closeCallback(this.selected);
+	close() {
+		if (this.open) {
+			this.dispatchEvent(new CustomEvent("close", {detail: this.selected}));
+			if (this.closeCallback) this.closeCallback(this.selected);
 		}
 		this.open = false;
 	}
 
-	render(){
-		const selectedArray = String(this.selected).split(',').map(v=>v.trim());
+	render() {
+		const selectedArray = String(this.selected).split(',').map(v => v.trim());
 		const label = this.getSelectedLabel();
 		const options = this.getOptions();
 		return html`
@@ -210,18 +215,18 @@ export class CuppaSelect extends CuppaComponent {
                     ref="select"
                     class="select ${this.selectClass}"
                     tabindex="0"
-                    @click="${e=>{
-                        if(this.open){
+                    @click="${e => {
+                        if (this.open) {
                             this.close();
-                        }else{
+                        } else {
                             this.open = true;
                         }
                     }}"
                     style="${this.selectStyle}"
             >
-                <input type="hidden" name=${this.name} .value=${this.selected} >
+                <input type="hidden" name=${this.name} .value=${this.selected}>
                 <span style="${this.spanStyle}">${label || this.placeholder}</span>
-                ${!this.showArrow ? `` : html`<img class="arrow-img" src="${arrowImage}" />`}
+                ${!this.showArrow ? `` : html`<img class="arrow-img" src="${arrowImage}"/>`}
             </div>
             <div
                     class="dropdown ${this.open ? 'open' : ''}"
@@ -239,8 +244,8 @@ export class CuppaSelect extends CuppaComponent {
                         />
                     </div>
                 ` : ``}
-                <div class="list" >
-                    ${options.map(opt=>{
+                <div class="list">
+                    ${options.map(opt => {
                         let value = (typeof opt === "object") ? opt[this.valueColumn] : opt;
                         let label = opt;
                         if (typeof opt === "object") {
@@ -249,49 +254,54 @@ export class CuppaSelect extends CuppaComponent {
                         }
                         label = String(label).replaceAll("_", " ");
                         const isSelected = selectedArray.includes(String(value));
-                        if(this.labelAutoFormat) label = capitaliseAllWords(label);
+                        if (this.labelAutoFormat) label = capitaliseAllWords(label);
                         return html`
                             <div
                                     class="list-item"
-                                    @click=${e=>{
+                                    @click=${e => {
                                         this.selectValue(value);
                                     }}
                             >
                                 <span>${label}</span>
-                                ${!isSelected ? `` : html`<img class="selected-img" src="${selectedImage}" />`}
+                                ${!isSelected ? `` : html`<img class="selected-img" src="${selectedImage}"/>`}
                             </div>`
                     })}
                 </div>
             </div>
             <style>
-                cuppa-select{
+                cuppa-select {
                     display: block;
-                    & .select{
+
+                    & .select {
                         position: relative;
                         display: flex;
                         justify-content: flex-start;
                         align-items: center;
                         user-select: none;
-                        &:focus{
+
+                        &:focus {
                             outline: 2px solid #2d85c1;
                             border-radius: 3px;
                         }
                     }
-                    & .selected-img{
+
+                    & .selected-img {
                         width: auto;
-                        height:8px;
+                        height: 8px;
                     }
-                    & .arrow-img{
+
+                    & .arrow-img {
                         width: auto;
-                        height:10px;
+                        height: 10px;
                         position: absolute;
-                        right:10px;
-                        top:50%;
-                        margin-top:-5px;
-                        opacity:0.5;
+                        right: 10px;
+                        top: 50%;
+                        margin-top: -5px;
+                        opacity: 0.5;
                         pointer-events: none;
                     }
-                    & .dropdown{
+
+                    & .dropdown {
                         position: absolute;
                         display: none;
                         width: 100%;
@@ -303,26 +313,32 @@ export class CuppaSelect extends CuppaComponent {
                         border-radius: 3px;
                         flex-direction: column;
                         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-                        &.open{
+
+                        &.open {
                             display: flex;
                         }
-                        & input.search{
+
+                        & input.search {
                             width: 100%;
-                            border:none;
-                            border-bottom: 1px solid rgba(235,238,241, 1);
+                            border: none;
+                            border-bottom: 1px solid rgba(235, 238, 241, 1);
                             outline: none;
                             padding: 8px;
                             border-radius: 0;
                         }
-                        & .list{
-                            flex:1; overflow: auto;
-                            & .list-item{
+
+                        & .list {
+                            flex: 1;
+                            overflow: auto;
+
+                            & .list-item {
                                 padding: 8px;
                                 display: flex;
-                                gap:5px;
+                                gap: 5px;
                                 align-items: center;
                                 justify-content: space-between;
-                                &:hover{
+
+                                &:hover {
                                     background: #f6f8fa;
                                 }
                             }

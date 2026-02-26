@@ -5,70 +5,98 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 export class CuppaMultiInputs extends CuppaComponent {
 	static attributes = ['min', 'max'];
 	static observables = ['values', 'type', 'icon', 'min', 'max'];
-	values = {top:null, left:null, right:null, bottom:null};
+	values = {top: null, left: null, right: null, bottom: null};
 	type = 'number';
 	icon = 'px';
 	min = "";
 	max = "";
 	callback;
 
-	render(){
+	render() {
 		const valueNumbers = Object.keys(this.values)?.length;
 		return html`
-      <div class="values" style="grid-template-columns: repeat(${valueNumbers}, 1fr);">
-        ${Object.keys(this.values).map(key=>{
-          return html`
-          <div class="value value-${key}">
-            <label>${key}</label>
-	          <div class="input-wrap">
-	            <input
-	              .value="${this.values[key]}"
-	              type="${this.type}"
-	              min="${this.min}"
-	              max="${this.max}"
-	              @change=${(e)=>{
-									this.values[key] = e.target.value || null;
-	                this.values = {...this.values};
-									if(this.callback) this.callback(this.values);
-                  this.dispatchEvent(new CustomEvent("change", {detail:this.values}));
-                  this.dispatchEvent(new CustomEvent(`change${key}`, {detail:this.values[key]}));
-	              }}
-	            />
-              <div class="icon-wrap" style="${this.styleIcon}">${this.icon}</div>
+            <div class="values" style="grid-template-columns: repeat(${valueNumbers}, 1fr);">
+                ${Object.keys(this.values).map(key => {
+                    return html`
+                        <div class="value value-${key}">
+                            <label>${key}</label>
+                            <div class="input-wrap">
+                                <input
+                                        .value="${this.values[key]}"
+                                        type="${this.type}"
+                                        min="${this.min}"
+                                        max="${this.max}"
+                                        @change=${(e) => {
+                                            this.values[key] = e.target.value || null;
+                                            this.values = {...this.values};
+                                            if (this.callback) this.callback(this.values);
+                                            this.dispatchEvent(new CustomEvent("change", {detail: this.values}));
+                                            this.dispatchEvent(new CustomEvent(`change${key}`, {detail: this.values[key]}));
+                                        }}
+                                />
+                                <div class="icon-wrap" style="${this.styleIcon}">${this.icon}</div>
+                            </div>
+                        </div>
+                    `
+                })}
             </div>
-          </div>
-        `
-        })}
-      </div>
-      <style>
-        cuppa-multi-inputs, cuppa-multi-inputs *{ box-sizing: border-box; }
-        cuppa-multi-inputs{
-	        & .values{ 
-		        display: grid; place-items: center end; gap:8px; 
-		        & .value{ 
-			        display: grid; grid-template-columns: repeat(2, auto);
-			        place-items: center;
-			        gap:5px;
-			        & label{ margin: 0; padding: 0; text-transform: uppercase; font-size: 8px; font-weight: bold; }
-			        & .input-wrap{
-                color:#333 !important;
-				        & .icon-wrap{ position: absolute; pointer-events: none; right:5px; top:50%; transform: translate(0, -50%); font-size: 10px; opacity: 0.4; }
-                & input{ 
-	                width: 60px; 
-	                border: 1px solid rgba(0,0,0,0.2);
-	                background: #fff;
-	                border-radius: 3px;
-	                min-height: 24px;
-	                font-size: 12px;
+            <style>
+                cuppa-multi-inputs, cuppa-multi-inputs * {
+                    box-sizing: border-box;
                 }
-                &:hover{
-                  & .icon-wrap{ opacity: 0 !important; }
+
+                cuppa-multi-inputs {
+                    & .values {
+                        display: grid;
+                        place-items: center end;
+                        gap: 8px;
+
+                        & .value {
+                            display: grid;
+                            grid-template-columns: repeat(2, auto);
+                            place-items: center;
+                            gap: 5px;
+
+                            & label {
+                                margin: 0;
+                                padding: 0;
+                                text-transform: uppercase;
+                                font-size: 8px;
+                                font-weight: bold;
+                            }
+
+                            & .input-wrap {
+                                color: #333 !important;
+
+                                & .icon-wrap {
+                                    position: absolute;
+                                    pointer-events: none;
+                                    right: 5px;
+                                    top: 50%;
+                                    transform: translate(0, -50%);
+                                    font-size: 10px;
+                                    opacity: 0.4;
+                                }
+
+                                & input {
+                                    width: 60px;
+                                    border: 1px solid rgba(0, 0, 0, 0.2);
+                                    background: #fff;
+                                    border-radius: 3px;
+                                    min-height: 24px;
+                                    font-size: 12px;
+                                }
+
+                                &:hover {
+                                    & .icon-wrap {
+                                        opacity: 0 !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-			        }
-		        }
-	        }
-	      }
-      </style>
+            </style>
 		`
 	}
 }
