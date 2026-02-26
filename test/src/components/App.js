@@ -32,15 +32,12 @@ export default class App extends CuppaComponent {
 			<cuppa-select
 				style="width: 200px;"
 				.options=${values}
-                dropdown-style="width: 200px; max-height: 400px"
 			></cuppa-select>
       </div>
       <div style="overflow: hidden; padding:20px; position: relative; ">
           <label>Select Color</label>
           <cuppa-select
-                  style="width: 200px;"
-                  .options=${values}
-                  dropdown-style="width: 200px; max-height: 400px"
+              .options=${values}
           ></cuppa-select>
       </div>
 		`

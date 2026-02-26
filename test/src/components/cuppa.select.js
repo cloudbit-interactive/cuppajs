@@ -129,8 +129,10 @@ export class CuppaSelect extends CuppaComponent {
 		this.refs.dialog.showModal();
 		const btnDim = this.refs.select.getBoundingClientRect();
 		const dialogDim = this.refs.dialog.getBoundingClientRect();
+		const definedWidth = String(this.dropdownStyle).match(/width\s*:\s*([^;]+)/i)?.[1];
+		this.refs.dialog.style.width = definedWidth || `${btnDim.width}px`;
 		this.refs.dialog.style.top = `${btnDim.y + btnDim.height}px`;
-		this.refs.dialog.style.left = `${btnDim.x + btnDim.width * 0.5 - dialogDim.width * 0.5}px`;
+		this.refs.dialog.style.left = `${btnDim.x}px`;
 		this.classList.add('open');
 		this.dispatchEvent(new CustomEvent("show", {detail: null}));
 		if (this.showCallback) this.showCallback(this);
@@ -214,7 +216,7 @@ export class CuppaSelect extends CuppaComponent {
                 <span style="${this.spanStyle}">${label || this.placeholder}</span>
                 ${!this.showArrow ? `` : html`<img class="arrow-img" src="${arrowImage}"/>`}
             </div>
-            <dialog ref="dialog" class="dialog">
+            <dialog ref="dialog" class="dialog" style="${this.dropdownStyle}">
                 <div class="dialog-content">
                     ${!this.searchEnabled ? `` : html`
                         <div class="controls">
@@ -289,7 +291,6 @@ export class CuppaSelect extends CuppaComponent {
                         inset: auto;
                         left: 0;
                         top: 0;
-                        width: 200px;
                         max-height: 200px;
                         border: 1px solid rgba(0, 0, 0, 0.2);
                         border-radius: 5px;
