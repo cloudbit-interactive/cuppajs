@@ -1,13 +1,28 @@
-*{ box-sizing: border-box; }
-:root{
-	font-size: 62.5%;
+* {
+  box-sizing: border-box;
 }
-body{ margin:0; padding:1rem; color:var(--color-gray);
-	font-family: Arial; font-size: 1.4rem; letter-spacing: 0.5px; line-height: 2rem; overflow-x: hidden; }
+
+:root {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+  color: var(--color-gray);
+  font-family: Arial;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  line-height: 2rem;
+  overflow-x: hidden;
+  background: #fff;
+}
+
 lit-component {
-	background: #F00 !important;
-	button{
-		background: #F00;
-	}
+  background: #F00 !important;
+
+  button {
+    background: #F00;
+  }
 }
 
