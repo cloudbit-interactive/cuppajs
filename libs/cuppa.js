@@ -86,15 +86,23 @@ var cuppa = (typeof cuppa != "undefined") ? cuppa : { debug:false };
     };
 
 // new element
-    cuppa.newElement = function(str){
-        let parent;
-        let substr = str.substr(0,3);
-        if(substr === "<tr") parent = document.createElement('tbody');
-        else if(substr === "<td" || substr === "<th") parent = document.createElement('tr');
-        else parent = document.createElement('div');
-            parent.innerHTML = str;
-        return parent.firstChild;
-    };
+	cuppa.newElement = function(str, {template = false, returnAll = false} = {}){
+		if(!template){
+			if(!str) return null;
+			str = str.trim();
+			let parent;
+			let substr = str.substr(0,3);
+			if(substr === "<tr") parent = document.createElement('tbody');
+			else if(substr === "<td" || substr === "<th") parent = document.createElement('tr');
+			else parent = document.createElement('div');
+			parent.innerHTML = (str || '').trim();
+			return parent.firstChild;
+		}else{
+			const template = document.createElement('template');
+			template.innerHTML = str.trim();
+			return (returnAll) ? template.content : template.content.firstElementChild;
+		}
+	};
 
 // childrens
     cuppa.childrens = function(element) {
