@@ -6,7 +6,7 @@ export class CuppaContextMenu extends CuppaComponent {
 	static POSITION = {CENTER:"CENTER", LEFT:"LEFT", LEFT_IN:"LEFT_IN", RIGHT:"RIGHT", RIGHT_IN:"RIGHT_IN", TOP:"TOP", TOP_IN:"TOP_IN", BOTTOM:"BOTTOM", BOTTOM_IN:"BOTTOM_IN"}
 	static ARROW = {UP:"UP", LEFT:"LEFT", RIGHT:"RIGHT", DOWN:"DOWN", NONE:"NONE"}
 	static ADJUST_TYPE = {OPPOSITE:'OPPOSITE', GAP:'GAP', NONE:'NONE'}
-	static attributes = ['target', 'pos-x', 'pos-y', 'force-show', 'force-remove', 'arrow', 'style-arrow', 'adjust-type', 'theme', 'show-on-mouse-over', 'close-on-scroll'];
+	static attributes = ['target', 'pos-x', 'pos-y', 'force-show', 'force-remove', 'arrow', 'style-arrow', 'adjust-type', 'theme', 'show-on-mouse-over', 'close-on-scroll', 'main-menu-class', 'main-menu-style'];
 	static observables = ['posX', 'posY', 'arrow', 'adjustType'];
 	posX = CuppaContextMenu.POSITION.RIGHT;
 	posY = CuppaContextMenu.POSITION.TOP_IN;
@@ -22,6 +22,8 @@ export class CuppaContextMenu extends CuppaComponent {
 	showCallback;
 	closeCallback;
 	subMenuCloseDelay = 0;
+	mainMenuClass = '';
+	mainMenuStyle = '';
 	
 	mounted(){
 		this.processSubMenus();
@@ -138,7 +140,7 @@ export class CuppaContextMenu extends CuppaComponent {
                         <path data-name="Icon ionic-md-arrow-dropup" d="M9,22.5l9-9,9,9Z" transform="translate(-9 -13.5)"/>
                     </svg>
                 `}
-                <div ref="mainMenu" class="main-menu ${this.contentClass}" style="${this.contentStyle}">
+                <div ref="mainMenu" class="main-menu ${this.mainMenuClass}" style="${this.mainMenuStyle}">
                     ${this._children}
                 </div>
             </dialog>
