@@ -83,6 +83,7 @@ export class CuppaContextMenu extends CuppaComponent {
 		const dimTarget = targetElement.getBoundingClientRect();
 		const menuDim = menu.getBoundingClientRect();
 		const offset = (this.arrow === CuppaContextMenu.ARROW.NONE || !this.arrow) ? 0 : 5;
+		const gap = 20;
 		// x
 		const posX = (menu.nodeName.toLowerCase() === 'cuppa-context-sub-menu') ? (menu.getAttribute('pos-x') || CuppaContextMenu.POSITION.RIGHT).toUpperCase() : (this.posX || CuppaContextMenu.POSITION.RIGHT).toUpperCase();
 		let x = 0;
@@ -97,9 +98,11 @@ export class CuppaContextMenu extends CuppaComponent {
 		}else if(posX === CuppaContextMenu.POSITION.RIGHT_IN){
 			x = dimTarget.x + dimTarget.width -  menuDim.width;
 		}
-		if (x + menuDim.width > windowsDim.width) {
+		if(x < 0){
+			x = gap;
+		}else if (x + menuDim.width > windowsDim.width) {
 			let diff = x + menuDim.width - windowsDim.width;
-			x = x - diff - 20;
+			x = x - diff - gap;
 		}
 		menu.style.left = `${x}px`;
 		// y
@@ -116,9 +119,11 @@ export class CuppaContextMenu extends CuppaComponent {
 		}else if(posY === CuppaContextMenu.POSITION.BOTTOM_IN){
 			y = dimTarget.y+dimTarget.height-menuDim.height
 		}
-		if (y + menuDim.height > windowsDim.height) {
+		if(y < 0){
+			y = gap;
+		}else if (y + menuDim.height > windowsDim.height) {
 			let diff = y + menuDim.height - windowsDim.height;
-			y = y - diff - 20;
+			y = y - diff - gap;
 		}
 		
 		menu.style.top = `${y}px`;
