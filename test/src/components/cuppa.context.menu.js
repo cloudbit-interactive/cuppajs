@@ -6,7 +6,7 @@ export class CuppaContextMenu extends CuppaComponent {
 	static POSITION = {CENTER:"CENTER", LEFT:"LEFT", LEFT_IN:"LEFT_IN", RIGHT:"RIGHT", RIGHT_IN:"RIGHT_IN", TOP:"TOP", TOP_IN:"TOP_IN", BOTTOM:"BOTTOM", BOTTOM_IN:"BOTTOM_IN"}
 	static ARROW = {UP:"UP", LEFT:"LEFT", RIGHT:"RIGHT", DOWN:"DOWN", NONE:"NONE"}
 	static ADJUST_TYPE = {OPPOSITE:'OPPOSITE', GAP:'GAP', NONE:'NONE'}
-	static attributes = ['target', 'pos-x', 'pos-y', 'force-show', 'force-remove', 'arrow', 'style-arrow', 'adjust-type', 'theme', 'show-on-mouse-over'];
+	static attributes = ['target', 'pos-x', 'pos-y', 'force-show', 'force-remove', 'arrow', 'style-arrow', 'adjust-type', 'theme', 'show-on-mouse-over', 'close-on-scroll'];
 	static observables = ['posX', 'posY', 'arrow', 'adjustType'];
 	posX = CuppaContextMenu.POSITION.RIGHT;
 	posY = CuppaContextMenu.POSITION.TOP_IN;
@@ -18,32 +18,31 @@ export class CuppaContextMenu extends CuppaComponent {
 	forceShow = false;
 	groupEvents = `CuppaContextMenu_${crypto.randomUUID()}`;
 	showOnMouseOver = false;
+	closeOnScroll = true;
 	showCallback;
 	closeCallback;
 	subMenuCloseDelay = 0;
 	
-	constructor() {
-		super();
-	}
-	
 	mounted(){
-		this.processSubmenus();
+		this.processSubMenus();
 		this.addEvents();
 		if(this.forceShow) this.show();
 	}
 	
-	unmounted(){
-		cuppa.offGroup(this.groupEvents);
+	addEvents(){
+		const targetElement =  document.querySelector(this.target);
+		if(!targetElement) return;
+		cuppa.on(targetElement, `click`, (e)=>{ this.show(); }, this.groupEvents);
+		cuppa.on(this.refs.dialog, 'click', (e)=>{ this.close() }, this.groupEvents);
+		if(this.closeOnScroll) cuppa.on(window, `scroll`, this.close, this.groupEvents);
+		if(this.showOnMouseOver) cuppa.on(targetElement, `mouseenter`, this.show, this.groupEvents);
 	}
 	
-	processSubmenus(){
-		const submenus = this.querySelectorAll('cuppa-context-sub-menu');
-		for(const submenu of submenus){
+	processSubMenus(){
+		const subMenus = this.querySelectorAll('cuppa-context-sub-menu');
+		for(const submenu of subMenus){
 			const target = submenu.getAttribute('target');
 			const targetElement =  this.querySelector(target);
-			cuppa.on(targetElement, `click`, (e)=>{
-				e.stopPropagation();
-			}, this.groupEvents);
 			cuppa.on(targetElement, `mouseenter`, (e)=>{
 				clearTimeout(targetElement.delayCloseTimeout);
 				submenu.style.display = "block";
@@ -67,149 +66,173 @@ export class CuppaContextMenu extends CuppaComponent {
 		}
 	}
 	
-	addEvents(){
-		cuppa.on(window, `click`, this.close, this.groupEvents);
-		const targetElement =  document.querySelector(this.target);
-		cuppa.on(targetElement, `click`, (e)=>{
-			e.stopPropagation();
-			if(this.classList.contains('open')){
-				this.close();
-			}else{
-				this.show();
-			}
-		}, this.groupEvents);
-		if(this.showOnMouseOver){
-			cuppa.on(targetElement, `mouseenter`, this.show, this.groupEvents);
-		}
-	}
-	
 	show() {
-		if(!this.topLevel){
-			document.body.append(this);
-			this.topLevel = true;
-		}
 		this.classList.add('open');
 		this.classList.remove('close');
-		this.style.display = "block";
-		const targetElement = document.querySelector(this.target);
-		this.setPosition({targetElement, menu:this});
+		this.refs.dialog.showModal();
+		this.setPosition({targetElement: document.querySelector(this.target), menu:this.refs.mainMenu});
 		this.dispatchEvent(new CustomEvent("show", {detail: null}));
 		if(this.showCallback) this.showCallback(this);
 	}
 	
 	setPosition({targetElement, menu}){
 		if(!targetElement || !menu) return;
+		const windowsDim = {width: window.innerWidth, height: window.innerHeight};
 		const dimTarget = targetElement.getBoundingClientRect();
-		const dim = menu.getBoundingClientRect();
-		let offset = (this.arrow === CuppaContextMenu.ARROW.NONE || !this.arrow) ? 0 : 5;
+		const menuDim = menu.getBoundingClientRect();
+		const offset = (this.arrow === CuppaContextMenu.ARROW.NONE || !this.arrow) ? 0 : 5;
 		// x
-		let posX = (menu.getAttribute('pos-x') || CuppaContextMenu.POSITION.RIGHT).toUpperCase();
+		const posX = (menu.nodeName.toLowerCase() === 'cuppa-context-sub-menu') ? (menu.getAttribute('pos-x') || CuppaContextMenu.POSITION.RIGHT).toUpperCase() : (this.posX || CuppaContextMenu.POSITION.RIGHT).toUpperCase();
+		let x = 0;
 		if(posX === CuppaContextMenu.POSITION.CENTER){
-			menu.style.left = `${dimTarget.x + (dimTarget.width-dim.width)*0.5}px`;
+			x = dimTarget.x + (dimTarget.width-menuDim.width)*0.5;
 		}else if(posX === CuppaContextMenu.POSITION.LEFT){
-			menu.style.left = `${dimTarget.x - dim.width - offset}px`;
+			x = dimTarget.x - menuDim.width - offset;
 		}else if(posX === CuppaContextMenu.POSITION.LEFT_IN){
-			menu.style.left = `${dimTarget.x}px`;
+			x = dimTarget.x;
 		}else if(posX === CuppaContextMenu.POSITION.RIGHT){
-			menu.style.left = `${dimTarget.x + dimTarget.width + offset}px`;
+			x = dimTarget.x + dimTarget.width + offset;
 		}else if(posX === CuppaContextMenu.POSITION.RIGHT_IN){
-			menu.style.left = `${dimTarget.x + dimTarget.width -  dim.width}px`;
+			x = dimTarget.x + dimTarget.width -  menuDim.width;
 		}
+		if (x + menuDim.width > windowsDim.width) {
+			let diff = x + menuDim.width - windowsDim.width;
+			x = x - diff - 20;
+		}
+		menu.style.left = `${x}px`;
 		// y
-		let posY = (menu.getAttribute('pos-y') || CuppaContextMenu.POSITION.TOP_IN).toUpperCase();
+		const posY = (menu.nodeName.toLowerCase() === 'cuppa-context-sub-menu') ? (menu.getAttribute('pos-y') || CuppaContextMenu.POSITION.TOP_IN).toUpperCase() : (this.posY || CuppaContextMenu.POSITION.TOP_IN).toUpperCase();
+		let y = 0;
 		if(posY === CuppaContextMenu.POSITION.CENTER){
-			menu.style.top = `${dimTarget.y + (dimTarget.height-dim.height)*0.5}px`;
+			y = dimTarget.y + (dimTarget.height-menuDim.height)*0.5
 		}else if(posY === CuppaContextMenu.POSITION.TOP){
-			menu.style.top = `${dimTarget.y - dim.height - offset}px`;
+			y = dimTarget.y - menuDim.height - offset;
 		}else if(posY === CuppaContextMenu.POSITION.TOP_IN){
-			menu.style.top = `${dimTarget.y}px`;
+			y = dimTarget.y;
 		}else if(posY === CuppaContextMenu.POSITION.BOTTOM){
-			menu.style.top = `${dimTarget.y + dimTarget.height + offset}px`;
+			y = dimTarget.y + dimTarget.height + offset;
 		}else if(posY === CuppaContextMenu.POSITION.BOTTOM_IN){
-			menu.style.top = `${dimTarget.y+dimTarget.height-dim.height}px`;
+			y = dimTarget.y+dimTarget.height-menuDim.height
 		}
+		if (y + menuDim.height > windowsDim.height) {
+			let diff = y + menuDim.height - windowsDim.height;
+			y = y - diff - 20;
+		}
+		
+		menu.style.top = `${y}px`;
 	}
 	
 	close(){
 		this.classList.remove('open');
 		this.classList.add('close');
-		this.style.display = "none";
+		this.refs.dialog.close();
 		this.dispatchEvent(new CustomEvent("close", {detail: null}));
 		if(this.closeCallback) this.closeCallback(this);
 	}
-
+	
 	render() {
 		return html`
-            ${this.arrow === "" || this.arrow.toUpperCase() === CuppaContextMenu.ARROW.NONE ? `` : html`
-					<svg class="cuppa-menu_arrow ${this.arrow.toLowerCase()}" width="10" height="5" viewBox="0 0 18 9" preserveAspectRatio="none" style="${this.styleArrow}" >
-						<path data-name="Icon ionic-md-arrow-dropup" d="M9,22.5l9-9,9,9Z" transform="translate(-9 -13.5)"/>
-					</svg>
-			`}
-            ${this._children}
-			<style>
-				:root{
-				--cuppa-context-menu-bg:#fff;
-				--cuppa-context-menu-btn-bg:transparent;
-				--cuppa-context-menu-btn-bg-hover:rgba(0,0,0,0.07);
-				--cuppa-context-menu-btn-color:#333;
-				--cuppa-context-menu-tint:invert(0%) sepia(96%) saturate(21%) hue-rotate(215deg) brightness(96%) contrast(102%);
-				--cuppa-context-menu-shadow:0px 3px 10px rgba(0,0,0,0.1);
-				--cuppa-context-menu-border:1px solid rgba(0, 0, 0, 0.06);
-				--cuppa-context-menu-border-bottom:1px solid rgba(0, 0, 0, 0.02);
-				--cuppa-context-menu-separator:1px solid rgba(0, 0, 0, 0.08);
-				--cuppa-context-menu-shortcut-color:rgba(0, 0, 0, 0.4);
-				--cuppa-context-menu-arrow-color:#fff;
-				}
+            <dialog ref="dialog">
+                ${this.arrow === "" || this.arrow.toUpperCase() === CuppaContextMenu.ARROW.NONE ? `` : html`
+                    <svg class="cuppa-menu_arrow ${this.arrow.toLowerCase()}" width="10" height="5" viewBox="0 0 18 9" preserveAspectRatio="none" style="${this.styleArrow}" >
+                        <path data-name="Icon ionic-md-arrow-dropup" d="M9,22.5l9-9,9,9Z" transform="translate(-9 -13.5)"/>
+                    </svg>
+                `}
+                <div ref="mainMenu" class="main-menu ${this.contentClass}" style="${this.contentStyle}">
+                    ${this._children}
+                </div>
+            </dialog>
+            <style>
+                :root{
+                    --cuppa-context-menu-bg:#fff;
+                    --cuppa-context-menu-btn-bg:transparent;
+                    --cuppa-context-menu-btn-bg-hover:rgba(0,0,0,0.07);
+                    --cuppa-context-menu-btn-color:#333;
+                    --cuppa-context-menu-tint:invert(0%) sepia(96%) saturate(21%) hue-rotate(215deg) brightness(96%) contrast(102%);
+                    --cuppa-context-menu-shadow:0px 3px 10px rgba(0,0,0,0.1);
+                    --cuppa-context-menu-border:1px solid rgba(0, 0, 0, 0.06);
+                    --cuppa-context-menu-border-bottom:1px solid rgba(0, 0, 0, 0.02);
+                    --cuppa-context-menu-separator:1px solid rgba(0, 0, 0, 0.08);
+                    --cuppa-context-menu-shortcut-color:rgba(0, 0, 0, 0.4);
+                    --cuppa-context-menu-arrow-color:#fff;
+                }
 
                 cuppa-context-menu[theme=dark] {
-				color-scheme: dark;
-				--cuppa-context-menu-bg:#1e1e1e;
-				--cuppa-context-menu-btn-bg-hover:rgba(0,0,0,0.3);
-				--cuppa-context-menu-btn-color:#fff;
-				--cuppa-context-menu-tint:invert(100%) sepia(3%) saturate(4%) hue-rotate(251deg) brightness(115%) contrast(100%);
-				--cuppa-context-menu-border:1px solid rgba(255, 255, 255, 0.06);
-				--cuppa-context-menu-border-bottom:1px solid rgba(255, 255, 255, 0.02);
-				--cuppa-context-menu-separator:1px solid rgba(255, 255, 255, 0.08);
-				--cuppa-context-menu-arrow-color:#1e1e1e;
-				}
-                
-                cuppa-context-menu, cuppa-context-sub-menu{
-	                position: fixed;
-                    display: none;
-                    left: 0;
-	                top:0;
-                    border: var(--cuppa-context-menu-border);
-                    border-bottom: var(--cuppa-context-menu-border-bottom);
-                    padding: 4px 0;
-                    min-width:140px;
-                    white-space:nowrap;
-                    background: var(--cuppa-context-menu-bg);
-                    border-radius: 5px;
-                    box-shadow: var(--cuppa-context-menu-shadow);
-                    margin-top:3px;
-	                & cuppa-context-sub-menu{
-		                margin-top: 0;
-	                }
+                    color-scheme: dark;
+                    --cuppa-context-menu-bg:#1e1e1e;
+                    --cuppa-context-menu-btn-bg-hover:rgba(0,0,0,0.3);
+                    --cuppa-context-menu-btn-color:#fff;
+                    --cuppa-context-menu-tint:invert(100%) sepia(3%) saturate(4%) hue-rotate(251deg) brightness(115%) contrast(100%);
+                    --cuppa-context-menu-border:1px solid rgba(255, 255, 255, 0.06);
+                    --cuppa-context-menu-border-bottom:1px solid rgba(255, 255, 255, 0.02);
+                    --cuppa-context-menu-separator:1px solid rgba(255, 255, 255, 0.08);
+                    --cuppa-context-menu-arrow-color:#1e1e1e;
+                }
 
-                    & button{
-                        border: none;
-                        outline:none;
-                        white-space: nowrap;
-                        width: 100%;
-                        background: var(--cuppa-context-menu-btn-bg);
-                        color: var(--cuppa-context-menu-btn-color);
-                        padding: 7px 15px 7px 15px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-                        flex-wrap: nowrap;
-                        font-size: 14px;
-                        &:hover{
-                            background: var(--cuppa-context-menu-btn-bg-hover);
+                cuppa-context-menu{
+                    & dialog{
+                        position: fixed;
+                        inset: auto;
+                        left: 0;
+                        top:0;
+	                    margin:0;
+	                    padding:0;
+                        overflow: hidden;
+	                    width: 100%;
+	                    height: 100%;
+	                    max-width: none;
+	                    max-height: none;
+                        background: transparent;
+                        border:none;
+                        &:focus, &:focus-visible {
+                            outline: none;
                         }
+                        &::backdrop {
+                            background: transparent;
+                        }
+                        & .main-menu, cuppa-context-sub-menu{
+                            position: fixed;
+                            left: 0;
+                            top:0;
+                            border: var(--cuppa-context-menu-border);
+                            border-bottom: var(--cuppa-context-menu-border-bottom);
+                            padding: 4px 0;
+                            min-width:140px;
+                            white-space:nowrap;
+                            background: var(--cuppa-context-menu-bg);
+                            border-radius: 5px;
+                            box-shadow: var(--cuppa-context-menu-shadow);
+                            margin-top:3px;
+	                        
+                            & button{
+                                border: none;
+                                outline:none;
+                                white-space: nowrap;
+                                width: 100%;
+                                background: var(--cuppa-context-menu-btn-bg);
+                                color: var(--cuppa-context-menu-btn-color);
+                                padding: 7px 15px 7px 15px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                flex-wrap: nowrap;
+                                font-size: 14px;
+                                &:hover{
+                                    background: var(--cuppa-context-menu-btn-bg-hover);
+                                }
+                            }
+                        }
+
+                        & cuppa-context-sub-menu{
+                            display: none;
+                            margin-top: 0;
+	                        z-index: 1;
+                        }
+                        
                     }
-				}
-			</style>
+                }
+
+            </style>
 		`
 	}
 }
@@ -306,7 +329,7 @@ cuppa.dim = function(element, opts){
 	for(let i = 0; i < parents.length; i++){ if( cuppa.css(parents[i], "display") == "none" ) tmpParents.push(parents[i]); }
 	if(cuppa.css(element, "display") == "none") tmpParents.push(element);
 	cuppa.css(tmpParents, {display:"block", visibility:"hidden"});
-
+	
 	let clientRect = element.getBoundingClientRect();
 	let scrollPos = cuppa.scrollPosition(opts.scrollRef);
 	let style = getComputedStyle(element);
@@ -398,25 +421,27 @@ cuppa.css = function(elements, property, opts){
 cuppa.nodeType = function(element){ return  element.nodeName.toLowerCase(); };
 cuppa.elementType = function(element){ return cuppa.nodeType(element); };
 
-cuppa.parents = function(ref, {reverse = false, type = '', removeFirst = true} = {}){
+
+cuppa.parents = function(ref, opts){
+	opts = cuppa.mergeObjects([{reverse:false, type:""}, opts]);
 	let element = cuppa.element(ref)[0];
 	if(!element) return;
 	let parents = [];
 	if(cuppa.elementType(element) === "body") return parents;
 	while (element) {
 		if(element.toString() !== "[object HTMLDocument]" && element.toString() !== "[object HTMLHtmlElement]"){
-			if(type){
-				if(cuppa.elementType(element) === type){
+			if(opts.type){
+				if(cuppa.elementType(element) === opts.type){
 					parents.push(element);
 				}
 			}else{
 				parents.push(element);
 			}
-		}
+		};
 		element = element.parentNode;
-	}
-	if(removeFirst) parents.shift();
-	if(reverse) parents = parents.reverse();
+	};
+	parents.shift();
+	if(opts.reverse) parents = parents.reverse();
 	return parents;
 };
 
@@ -463,11 +488,11 @@ cuppa.element = function(ref, opts){
 		else if(opts.returnType === "last") return ref;
 		else return [ref];
 	};
-
+	
 	if(!opts.parent || opts.parent === "body") opts.parent = [document.body];
 	if(typeof(opts.parent) === "string") opts.parent = cuppa.element(opts.parent);
 	if(!Array.isArray(opts.parent)) opts.parent = [opts.parent];
-
+	
 	let nodes = []; if(!opts.parent) return nodes;
 	for(let i = 0; i < opts.parent.length; i++){
 		let t = opts.parent[i];
