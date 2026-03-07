@@ -15,7 +15,7 @@ body {
   letter-spacing: 0.5px;
   line-height: 2rem;
   overflow-x: hidden;
-  background: #fff;
+  background: #eee;
 }
 
 lit-component {
