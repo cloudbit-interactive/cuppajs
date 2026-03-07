@@ -327,6 +327,8 @@ export default class CuppaSelect extends CuppaComponent {
                         inset: auto;
                         left: 0;
                         top: 0;
+                        max-width: none;
+                        max-height: none;
                         max-height: calc(100vh - 150px);
                         border: 1px solid rgba(0, 0, 0, 0.2);
                         border-radius: 5px;

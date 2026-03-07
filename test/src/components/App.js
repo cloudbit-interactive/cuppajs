@@ -14,9 +14,15 @@ export default class App extends CuppaComponent {
     }
 
     render() {
+		const options = [];
+		for(let i=0; i<100; i++){
+			options.push({value: i, label: `Option ${i}`});
+		}
         return html`
             <div class="flex d-column g-10" style="padding: 40px 0;">
-	            <cuppa-select></cuppa-select>
+	            <cuppa-select
+	            	.options=${options}
+	            ></cuppa-select>
             </div>
 		`
     }
