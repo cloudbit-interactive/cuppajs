@@ -6,8 +6,8 @@ import "./cuppa.select.js";
 //import {LitComponent} from "./lit/LitComponent.js";
 
 export default class App extends CuppaComponent {
-    static observables = ['value']
-    value = '#FF0000'
+    static observables = ['selected'];
+	selected = [1,2,3]
 
     mounted() {
 
@@ -15,14 +15,16 @@ export default class App extends CuppaComponent {
 
     render() {
 		const options = [];
-		for(let i=0; i<100; i++){
+		for(let i=1; i<=100; i++){
 			options.push({value: i, label: `Option ${i}`});
 		}
         return html`
-            <div class="flex d-column g-10" style="padding: 40px 0;">
+            <div class="flex d-column g-10" style="padding: 20px 0;">
 	            <cuppa-select
 	            	.options=${options}
-	            ></cuppa-select>
+		            style="width: 300px;"
+                
+                ></cuppa-select>
             </div>
 		`
     }
