@@ -7,7 +7,6 @@ import "./cuppa.select.js";
 
 export default class App extends CuppaComponent {
     static observables = ['selected'];
-	selected = [1,2,3]
 
     mounted() {
 
@@ -21,9 +20,10 @@ export default class App extends CuppaComponent {
         return html`
             <div class="flex d-column g-10" style="padding: 20px 0;">
 	            <cuppa-select
+		            selected=${this.selected}
 	            	.options=${options}
 		            style="width: 300px;"
-                
+		            
                 ></cuppa-select>
             </div>
 		`

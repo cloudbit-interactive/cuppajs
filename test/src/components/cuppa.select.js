@@ -31,6 +31,7 @@ export default class CuppaSelect extends CuppaComponent {
 		'span-style',
 		'force-show',
 		'nowrap',
+		'toggle-enabled',
 	];
 	static observables = [
 		'placeholder',
@@ -89,6 +90,7 @@ export default class CuppaSelect extends CuppaComponent {
 	nowrap = false;
 	renderSelectedItem = null;
 	renderItemOnList = null;
+	toggle = true;
 	
 	mounted() {
 		this.refs.dialog.addEventListener('click', (e) => {
@@ -173,7 +175,11 @@ export default class CuppaSelect extends CuppaComponent {
 				this.selected = selectedArray.filter(v => v).join(',');
 			}
 		} else {
-			this.selected = value;
+			if(this.toggle && String(this.selected) === String(value)){
+				this.selected = '';
+			}else{
+				this.selected = value;
+			}
 		}
 		this.dispatchEvent(new CustomEvent("change", {detail: this.selected}));
 		if (this.callback) this.callback(this.selected);
