@@ -242,6 +242,8 @@
   .cols-span-#{$i}{ grid-column: auto / span $i; }
   .rows-span-#{$i}{ grid-row: 1 / span $i; }
 }
+.g-0{ gap: 0; }
+.g-2{ gap:2px; }
 .g-3{ gap:3px; }
 .g-5{ gap:5px; }
 .g-10{ gap:10px; }
