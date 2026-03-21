@@ -17,10 +17,6 @@ export class CuppaSortable extends CuppaComponent {
 	leaveCallback;
 	dropCallback;
 	
-	constructor() {
-		super();
-	}
-	
 	mounted() {
 		cuppa.sortable({
 			currentElement: this,
@@ -28,6 +24,8 @@ export class CuppaSortable extends CuppaComponent {
 			handle:this.handle,
 			value:this.value,
 			returnValue:this.returnValue,
+			onDragClass:this.onDragClass,
+			dragOpacity:this.dragOpacity,
 			startCallback:(e)=>{
 				if(this.startCallback) this.startCallback(this);
 				this.dispatchEvent(new CustomEvent("start", {detail:this}));
@@ -97,7 +95,7 @@ export class CuppaSortable extends CuppaComponent {
                     transition: transform 0.3s, opacity 0.3s;
                     &.move-right{
                         transform: translateX(10px);
-                    }
+	                }
                     &.d-i-children *{
                         pointer-events: none;
                         -webkit-user-select: none;
