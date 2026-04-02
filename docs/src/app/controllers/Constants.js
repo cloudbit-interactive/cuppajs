@@ -2,13 +2,17 @@ export class Constants {
 	static PREVIEW_CSS = `body{ background:#23272f; color:#fff; font-size:14px; padding:10px; font-family:arial, sans-serif; }`;
 	static components = [
 		{href:'cuppa-alert', label:'Alert'},
+		{href:'cuppa-capture', label:'Capture', disabled:true},
 		{href:'cuppa-collapsible', label:'Collapsible'},
 		{href:'cuppa-color-picker', label:'Color Picker', disabled:true},
+		{href:'cuppa-context-menu', label:'Context Menu', disabled:true},
 		{href:'cuppa-countdown', label:'Countdown', disabled:true},
 		{href:'cuppa-date', label:'Date', disabled:true},
+		{href:'cuppa-dialog', label:'Dialog', disabled: true},
 		{href:'cuppa-draggable', label:'Draggable', disabled:true},
 		{href:'cuppa-drawer', label:'Drawer'},
 		{href:'cuppa-menu', label:'Menu'},
+		{href:'cuppa-multi-inputs', label:'Multi Inputs', disabled:true},
 		{href:'cuppa-notification', label:'Notification'},
 		{href:'cuppa-pagination', label:'Pagination', disabled:true},
 		{href:'cuppa-portal', label:'Portal', disabled:true},
@@ -19,5 +23,6 @@ export class Constants {
 		{href:'cuppa-tabs', label:'Tabs'},
 		{href:'cuppa-tooltip', label:'Tooltip'},
 		{href:'cuppa-preview-code', label:'Preview Code', disabled:true},
+		{href:'cuppa-sortable', label:'Sortable', disabled:true},
 	]
 }

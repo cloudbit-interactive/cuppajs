@@ -39,13 +39,13 @@
 }
 body.dark-theme {
 	color-scheme: dark;
-	--color-background: #20242c;
+	--color-background: #060607;
 	--color-text: #f6f7f9;
 	--color-separator:#444;
 	--color-menu-mobile:#fff;
 	--nav-top-bg:#20242c;
 	/* menu */
-	--menu-bg: #23272f;
+	--menu-bg: #18181B;
 	--menu-bg-bar: rgba(0, 0, 0, 0.2);
 	--menu-color: #fff;
 	--menu-selected-bg: rgba(0, 0, 0, 0.15);
