@@ -1,4 +1,4 @@
-/*! v0.0.9 */
+/*! v0.0.10 */
 /*
 * Authors (https://github.com/cloudbit-interactive/cuppajs)
 * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
@@ -2214,78 +2214,97 @@ label.error:before, .form-error-message:before {
 
 .e-default {
   transition-timing-function: Cubic-bezier(0.25, 0.1, 0.25, 1);
+  animation-timing-function: Cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .e-easeIn {
   transition-timing-function: Cubic-bezier(0.42, 0, 1, 1);
+  animation-timing-function: Cubic-bezier(0.42, 0, 1, 1);
 }
 
 .e-easeOut {
   transition-timing-function: Cubic-bezier(0, 0, 0.58, 1);
+  animation-timing-function: Cubic-bezier(0, 0, 0.58, 1);
 }
 
 .e-easeInOut {
   transition-timing-function: Cubic-bezier(0.42, 0, 0.58, 1);
+  animation-timing-function: Cubic-bezier(0.42, 0, 0.58, 1);
 }
 
 .e-cubicIn {
   transition-timing-function: Cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  animation-timing-function: Cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 
 .e-cubicOut {
   transition-timing-function: Cubic-bezier(0.215, 0.61, 0.355, 1);
+  animation-timing-function: Cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 .e-cubicInOut {
   transition-timing-function: Cubic-bezier(0.645, 0.045, 0.355, 1);
+  animation-timing-function: Cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .e-expoIn {
   transition-timing-function: Cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  animation-timing-function: Cubic-bezier(0.95, 0.05, 0.795, 0.035);
 }
 
 .e-expoOut {
   transition-timing-function: Cubic-bezier(0.19, 1, 0.22, 1);
+  animation-timing-function: Cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .e-expoInOut {
   transition-timing-function: Cubic-bezier(1, 0, 0, 1);
+  animation-timing-function: Cubic-bezier(1, 0, 0, 1);
 }
 
 .e-backIn {
   transition-timing-function: Cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  animation-timing-function: Cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
 .e-backOut {
   transition-timing-function: Cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-timing-function: Cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .e-backInOut {
   transition-timing-function: Cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation-timing-function: Cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
 .e-sineIn {
   transition-timing-function: Cubic-bezier(0.47, 0, 0.745, 0.715);
+  animation-timing-function: Cubic-bezier(0.47, 0, 0.745, 0.715);
 }
 
 .e-sineOut {
   transition-timing-function: Cubic-bezier(0.39, 0.575, 0.565, 1);
+  animation-timing-function: Cubic-bezier(0.39, 0.575, 0.565, 1);
 }
 
 .e-sineInOut {
   transition-timing-function: Cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  animation-timing-function: Cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 
 .e-circIn {
   transition-timing-function: Cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  animation-timing-function: Cubic-bezier(0.6, 0.04, 0.98, 0.335);
 }
 
 .e-circOut {
   transition-timing-function: Cubic-bezier(0.075, 0.82, 0.165, 1);
+  animation-timing-function: Cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .e-circInOut {
   transition-timing-function: Cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  animation-timing-function: Cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
 .footer-fixed {
