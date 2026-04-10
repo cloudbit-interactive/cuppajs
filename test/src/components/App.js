@@ -1,9 +1,8 @@
-import { CuppaComponent, html, render as renderHTML } from "../../../libs/cuppa.component.js";
+import {CuppaComponent, html, ref, render as renderHTML} from "./cuppa.component.js";
 import { cuppa, log } from "../../../libs/cuppa.js";
 import CuppaStorageTest from "./cuppaStorage/CuppaStorageTest.js";
 import "./cuppaComponent/TestComponent.js";
 import "./cuppa.select.js";
-//import {LitComponent} from "./lit/LitComponent.js";
 
 export default class App extends CuppaComponent {
     static observables = ['selected'];
@@ -19,12 +18,13 @@ export default class App extends CuppaComponent {
 		}
         return html`
             <div class="flex d-column g-10" style="padding: 20px 0;">
-	            <cuppa-select
-		            selected=${this.selected}
-	            	.options=${options}
-		            style="width: 300px;"
-		            
-                ></cuppa-select>
+	            <div
+		         
+		            ${ref(el=>{
+						if(!el) return;
+						el.style.background = 'red';
+		            })}
+                >ddd</div>
             </div>
 		`
     }
