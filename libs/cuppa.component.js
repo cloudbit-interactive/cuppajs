@@ -1,4 +1,4 @@
-/*! v0.0.13 */
+/*! v0.0.14 */
 /*
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
@@ -64,7 +64,7 @@ export class CuppaComponent extends HTMLElement {
 		this._children = [...this.childNodes];
 		this.reSetPropertiesCallbacks();
 		if(this.shadow) this.attachShadow({mode: this.shadow});
-		if(this.beforeMounted) this.beforeMounted(this);
+		if(this.beforeMount) this.beforeMount(this);
 		this.forceRender(null, false);
 		setTimeout(()=>{
 			this.applyStylesAfterRender();
