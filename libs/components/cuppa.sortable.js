@@ -103,20 +103,6 @@ export class CuppaSortable extends CuppaComponent {
 		return html`
             ${this._children}
             ${this.content}
-            <style>
-                cuppa-sortable{
-                    transition: transform 0.3s, opacity 0.3s;
-                    &.move-right{
-                        transform: translateX(10px);
-                    }
-                    &.d-i-children *{
-                        pointer-events: none;
-                        -webkit-user-select: none;
-                        user-select: none;
-                        outline: none;
-                    }
-                }
-            </style>
 		`
 	}
 }
