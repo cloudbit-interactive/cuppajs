@@ -221,27 +221,11 @@ cuppa.sortable = (
 		dropCallback,
 	}
 ) => {
-	if(!document.querySelector('#cuppa-sortable-styles')){
-		document.body.append(cuppa.newElement(`
-			<style id="cuppa-sortable-styles">
-				${sortableClass}{
-					  transition: transform 0.3s, opacity 0.3s;
-					  &.move-right{ transform: translateX(10px); }
-					  &.d-i-children *{ pointer-events: none; -webkit-user-select: none; user-select: none; outline: none; }
-					  &.d-i-children&::after{ content: ''; position: absolute; top: 0; right: 0; left:0; bottom:0; background: rgba(0,0,0,0); }
-					}
-			</style>`
-			, {useTemplate:true}))
-	}
 	if(handle){
 		const _handle = currentElement.querySelector(handle);
 		if(_handle){
-			_handle.onmousedown = (e) => {
-				currentElement.draggable = true;
-			}
-			_handle.onmouseleave = (e) => {
-				cuppa.attribute(sortableClass, 'draggable', 'false');
-			}
+			_handle.onmousedown = (e) => { currentElement.draggable = true; }
+			_handle.onmouseleave = (e) => { cuppa.attribute(sortableClass, 'draggable', 'false'); }
 		}
 	}else{
 		currentElement.setAttribute('draggable', 'true');
@@ -292,5 +276,18 @@ cuppa.sortable = (
 			}
 		}
 		if(dropCallback) dropCallback(result);
+	}
+	
+	if(!document.querySelector('#cuppa-sortable-styles')){
+		document.body.append(cuppa.newElement(`
+			<style id="cuppa-sortable-styles">
+				${sortableClass}{
+					  transition: transform 0.3s, opacity 0.3s;
+					  &.move-right{ transform: translateX(10px); }
+					  &.d-i-children *{ pointer-events: none; -webkit-user-select: none; user-select: none; outline: none; }
+					  &.d-i-children&::after{ content: ''; position: absolute; top: 0; right: 0; left:0; bottom:0; background: rgba(0,0,0,0); }
+					}
+			</style>`
+			, {useTemplate:true}))
 	}
 }
