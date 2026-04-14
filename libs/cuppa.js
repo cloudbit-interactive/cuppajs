@@ -114,6 +114,9 @@ var cuppa = (typeof cuppa != "undefined") ? cuppa : { debug:false };
         };
         return childrens;
     }
+	
+	
+	
 
 // remove element
     cuppa.remove = function(ref){
@@ -3707,6 +3710,28 @@ cuppa.arrayObjectSort = function(data, key, orderBy, type){
                 if(opts.callback) opts.callback(true);
         }
     };
+
+
+/* ArrayFromTo */
+cuppa.arrayFromTo = function(from, to, fillWith){
+	if(from == undefined || to === undefined) return [];
+	let array = [];
+	for(let i = from; i <= to; i++){
+		let text = (fillWith !== undefined) ? fillWith : i;
+		array.push(text);
+	}
+	return array;
+}
+
+cuppa.arrayToArrayObject = function(data, {value = 'id', label = 'name', labelFormat = 'capitalize', clean = false} = {}){
+	if(typeof data === "object" && !Array.isArray(data)) data = Object.values(data);
+	return (data || []).map(item=>{
+		let labelFormated = String(item);
+		if(clean) labelFormated = String(labelFormated).replaceAll('_', ' ').replaceAll('-', ' ');
+		if(labelFormat === 'capitalize') labelFormated = cuppa.capitalize(labelFormated);
+		return { [value]:item, [label]: labelFormated }
+	});
+}
 
  export { log, cuppa, val, wait};
 try{ module.exports = { log, cuppa, val, wait}; }catch(err){ }
