@@ -253,7 +253,7 @@ cuppa.sortable = (
 		e.dataTransfer.dropEffect = 'move';
 		resetElements();
 		cuppa.from = currentElement;
-		setTimeout(()=>{ cuppa.from.style.opacity = 0; }, 0);
+		cuppa.from.style.opacity = 0.01;
 		cuppa.to = null;
 		cuppa.elements = getElements();
 		if(startCallback) startCallback();
