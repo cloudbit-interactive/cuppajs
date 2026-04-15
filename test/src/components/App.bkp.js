@@ -1,7 +1,7 @@
 import {CuppaComponent, html, ref, render as renderHTML} from "./cuppa.component.js";
 import { cuppa, log } from "../../../libs/cuppa.js";
 import "./cuppaComponent/TestComponent.js";
-import {CuppaSortableOld} from "./cuppa.sortable.old.js";
+import {CuppaSortableOld} from "./cuppa.sortable.js";
 
 export default class App extends CuppaComponent {
 	static observables = ['items'];

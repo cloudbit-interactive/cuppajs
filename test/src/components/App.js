@@ -1,7 +1,7 @@
 import {CuppaComponent, html, repeat, ref, render as renderHTML} from "./cuppa.component.js";
 import { cuppa, log } from "../../../libs/cuppa.js";
 import "./cuppaComponent/TestComponent.js";
-import {CuppaSortable} from "./cuppa.sortable.old.js";
+import {CuppaSortable} from "./cuppa.sortable.js";
 
 export default class App extends CuppaComponent {
 	static observables = ['items'];
@@ -10,7 +10,7 @@ export default class App extends CuppaComponent {
 	
 	constructor() {
 		super();
-		for(let i=0; i<10; i++){
+		for(let i=0; i<30; i++){
 			this.onAdd();
 		}
 	}
@@ -28,7 +28,7 @@ export default class App extends CuppaComponent {
 	}
 	
 	onAdd(){
-		this.items.push({id: this.addIndex, name: this.addIndex, height: 20 + Math.random() * 50});
+		this.items.push({id: this.addIndex, name: this.addIndex, height: 30 });
 		this.items = this.items;
 		this.addIndex++;
 	}
@@ -43,35 +43,39 @@ export default class App extends CuppaComponent {
                 this.items = this.items;
             }}>switch</button>
 	        <button @click=${this.onAdd}>+</button>
-	        <div ref="sortable1" class="flex d-column g-3">
+	        <div ref="sortable1" class="flex d-row g-3 j-start">
                 ${repeat(this.items, item => item.id, item => {
 					return html`
 	                    <div
-                            class="sortable-item grid cols-2"
-                            style="grid-template-columns: 40px 1fr; height: ${item.height}px;"
+		                    class="cuppa-sortable"
                             ${ref(el => {
-								if(!el) return;
-								CuppaSortable.sortable({
+                                if(!el) return;
+                                CuppaSortable.sortable({
                                     currentElement: el,
-                                    sortableClass: '.sortable-item',
+                                    sortableClass: '.cuppa-sortable',
                                     value:item,
-									valueKey:"id",
-									values:this.items,
-                                    dropCallback:(data)=>{ this.items = data?.values; }
+                                    valueKey:"id",
+                                    values:this.items,
+                                    dropCallback:(data)=>{
+										log(data);
+                                       this.items = data?.values;
+                                    }
                                 })
                             })}
-                        >
-                            <button class="handle">...</button>
-	                        <div class="p-x-20 flex j-start a-center">${item.name}</div>
+	                    >
+                            <div
+                                class="item grid cols-2"
+                                style="grid-template-columns: 40px 1fr; height: ${item.height}px; width: 300px"
+                            >
+                                <button class="handle">...</button>
+                                <div class="p-x-20 flex j-start a-center">${item.name}</div>
+                            </div>
 	                    </div>
 					`
                 })}
 	        </div>
             <style>
                 app-comp {
-	                .sortable-item{
-		                background: #FDF845;
-	                }
                     & table {
                         width: 100%;
                         border: 1px solid #F00;
