@@ -182,11 +182,11 @@ cuppa.attribute = function(elements, name, value, remove){
 	}
 }
 
-cuppa.reorderArrayObject = function({values, key = 'value', from, to, orderKey = ''} = {}){
-	if (!from || !to) return values;
-	let fromIndex = values.findIndex(d => d[key] === from);
-	let toIndex = values.findIndex(d => d[key] === to);
-	if (fromIndex === -1 || toIndex === -1) return values;
+cuppa.reorderArrayObject = function({values, key = 'value', from, to, fromIndex, toIndex, orderKey = ''} = {}){
+	if(!Array.isArray(values)) return values;
+	if(!Number.isInteger(fromIndex)) fromIndex = values.findIndex(d => d[key] === from);
+	if(!Number.isInteger(toIndex)) toIndex = values.findIndex(d => d[key] === to);
+	if(fromIndex < 0 || toIndex < 0 || fromIndex >= values.length || toIndex >= values.length) return values;
 	values.splice(toIndex, 0, values.splice(fromIndex, 1)[0]);
 	if(orderKey) values.forEach((item, index) => item[orderKey] = index);
 	return values;
@@ -220,6 +220,7 @@ cuppa.dragElement = null;
 cuppa.elements = [];
 cuppa.from = null;
 cuppa.to = null;
+cuppa.dropHandled = false;
 cuppa.sortable = (
 	{
 		currentElement,
@@ -252,6 +253,7 @@ cuppa.sortable = (
 		e.dataTransfer.effectAllowed = 'move';
 		e.dataTransfer.dropEffect = 'move';
 		resetElements();
+		cuppa.dropHandled = false;
 		cuppa.from = currentElement;
 		cuppa.from.style.opacity = 0.01;
 		cuppa.to = null;
@@ -261,6 +263,10 @@ cuppa.sortable = (
 	currentElement.ondragend = (e)=>{
 		resetElements();
 		currentElement.style.opacity = '';
+		cuppa.from = null;
+		cuppa.to = null;
+		cuppa.elements = [];
+		cuppa.dropHandled = false;
 		if(endCallback) endCallback();
 	}
 	currentElement.ondragover = (e)=>{
@@ -281,8 +287,16 @@ cuppa.sortable = (
 	};
 	currentElement.ondrop = (e)=>{
 		e.preventDefault();
+		e.stopPropagation();
+		if(cuppa.dropHandled) return;
+		cuppa.dropHandled = true;
 		resetElements();
-		if(cuppa.to === cuppa.from) return;
+		if(cuppa.to === cuppa.from){
+			cuppa.from = null;
+			cuppa.to = null;
+			cuppa.elements = [];
+			return;
+		}
 		const result = {from:cuppa.from, to:cuppa.to};
 		if(returnValue){
 			result.from = cuppa.from?.value;
@@ -292,6 +306,9 @@ cuppa.sortable = (
 			}
 		}
 		if(dropCallback) dropCallback(result);
+		cuppa.from = null;
+		cuppa.to = null;
+		cuppa.elements = [];
 	}
 	
 	const styleId = `cuppa-sortable-styles-${sortableClass}`;

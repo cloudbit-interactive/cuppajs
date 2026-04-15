@@ -1,140 +1,75 @@
-import {CuppaComponent, html, ref, render as renderHTML} from "./cuppa.component.js";
+import {CuppaComponent, html, repeat, ref, render as renderHTML} from "./cuppa.component.js";
 import { cuppa, log } from "../../../libs/cuppa.js";
 import "./cuppaComponent/TestComponent.js";
-import {CuppaSortable} from "./cuppa.sortable.js";
+import {CuppaSortable} from "./cuppa.sortable.old.js";
 
 export default class App extends CuppaComponent {
 	static observables = ['items'];
-	items = cuppa.arrayToArrayObject(cuppa.arrayFromTo(1, 15), {value:'id', label:'name'});
+	items = [];
+	addIndex = 1;
+	
+	constructor() {
+		super();
+		for(let i=0; i<10; i++){
+			this.onAdd();
+		}
+	}
+	
+	mounted(){
+		this.createSortable();
+	}
+	
+	createSortable(){
+		//CuppaSortable.sortable({element: this.refs.sortable1, handle:'.handle', valueKey:'id', values:this.items, dropCallback: this.updateCallback})
+	}
 	
 	updateCallback(data){
 		this.items = data?.values;
 	}
+	
+	onAdd(){
+		this.items.push({id: this.addIndex, name: this.addIndex, height: 20 + Math.random() * 50});
+		this.items = this.items;
+		this.addIndex++;
+	}
 
     render() {
         return html`
-	        <div class="flex d-column g-5" >
-		         ${this.items.map((item) => {
-				    return html`
-                        <cuppa-sortable
-                        	.value=${item}
-	                        .values=${this.items}
-                            value-key="id"
-	                        return-value="true"
-	                        .dropCallback=${(data) => {
-                               this.updateCallback(data)
-	                        }}
+            <button @click=${e=>{
+                e.stopPropagation();
+                const item = this.items[0];
+                this.items.splice(0, 1);
+                this.items.push(item);
+                this.items = this.items;
+            }}>switch</button>
+	        <button @click=${this.onAdd}>+</button>
+	        <div ref="sortable1" class="flex d-column g-3">
+                ${repeat(this.items, item => item.id, item => {
+					return html`
+	                    <div
+                            class="sortable-item grid cols-2"
+                            style="grid-template-columns: 40px 1fr; height: ${item.height}px;"
+                            ${ref(el => {
+								if(!el) return;
+								CuppaSortable.sortable({
+                                    currentElement: el,
+                                    sortableClass: '.sortable-item',
+                                    value:item,
+									valueKey:"id",
+									values:this.items,
+                                    dropCallback:(data)=>{ this.items = data?.values; }
+                                })
+                            })}
                         >
-	                        <div class="cuppa-sortable-item" >${item.name}</div>
-                        </cuppa-sortable>
-				    `
-                 })}
+                            <button class="handle">...</button>
+	                        <div class="p-x-20 flex j-start a-center">${item.name}</div>
+	                    </div>
+					`
+                })}
 	        </div>
-            <table >
-                <thead>
-                <tr>
-                    ${this.items.map((item) => {
-                        return html`
-                            <th
-                                class="sortable-th"
-                                ${ref(el => {
-                                    if (!el) return;
-                                    CuppaSortable.sortable({
-                                        currentElement: el,
-                                        sortableClass: '.sortable-th',
-                                        value: item,
-                                        valueKey: "id",
-                                        values: this.items,
-                                        returnValue: true,
-                                        dropCallback: this.updateCallback,
-                                    })
-                                })}
-                            >
-                                <div style="background: #ffa48b">${item.id}</div>
-                            </th>
-                        `;
-                    })}
-                </tr>
-                </thead>
-            </table>
-            <table >
-                <tbody>
-                ${this.items.map((item) => {
-                    return html`
-                        <tr
-                            class="sortable-tr"
-                            ${ref(el => {
-                                if (!el) return;
-                                CuppaSortable.sortable({
-                                    currentElement: el,
-                                    sortableClass: '.sortable-tr',
-                                    value: item,
-                                    valueKey: "id",
-                                    values: this.items,
-                                    returnValue: true,
-                                    dropCallback: this.updateCallback,
-                                })
-                            })}
-                        >
-                            <td>${item.id}</td>
-                        </tr>
-                    `
-                })}
-                </tbody>
-            </table>
-            <div class="flex d-column j-start g-5" >
-                ${this.items.map((item) => {
-                    return html`
-                        <div
-                            class="sortable-box2"
-                            ${ref(el => {
-                                if (!el) return;
-                                CuppaSortable.sortable({
-                                    currentElement: el,
-                                    sortableClass: '.sortable-box2',
-                                    value: item,
-                                    valueKey: "id",
-                                    values: this.items,
-                                    returnValue: true,
-                                    dropCallback: this.updateCallback,
-                                })
-                            })}
-                        >
-                            <div class="item" >
-                                <div>box ${item.id}</div>
-                            </div>
-                        </div>
-                    `
-                })}
-            </div>
-            <div class="flex d-row j-start g-5" >
-                ${this.items.map((item) => {
-                    return html`
-                        <div
-                            class="sortable-box"
-                            ${ref(el => {
-                                if (!el) return;
-                                CuppaSortable.sortable({
-                                    currentElement: el,
-                                    sortableClass: '.sortable-box',
-                                    value: item,
-                                    valueKey: "id",
-                                    values: this.items,
-                                    returnValue: true,
-                                    dropCallback: this.updateCallback,
-                                })
-                            })}
-                        >
-                            <div class="box">
-                                <div>box ${item.id}</div>
-                            </div>
-                        </div>
-                    `
-                })}
-            </div>
             <style>
                 app-comp {
-	                .cuppa-sortable-item{
+	                .sortable-item{
 		                background: #FDF845;
 	                }
                     & table {
