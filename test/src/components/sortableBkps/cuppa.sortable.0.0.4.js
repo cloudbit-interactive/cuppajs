@@ -298,7 +298,7 @@ cuppa.sortable = (
 			<style id="cuppa-sortable-styles">
 				${sortableClass}{
 					  transition: transform 0.3s, opacity 0.3s;
-					  &.move-right{ transform: translateX(10px) translateY(-50%); }
+					  &.move-right{ transform: translateX(10px) ; }
 					  &.d-i-children *{ pointer-events: none; -webkit-user-select: none; user-select: none; outline: none; }
 					  &.d-i-children&::after{ content: ''; position: absolute; top: 0; right: 0; left:0; bottom:0; background: rgba(0,0,0,0); }
 					}

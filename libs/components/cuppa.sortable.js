@@ -1,17 +1,16 @@
-/*! v0.0.8 */
+/*! v0.0.7 */
 /*
 	Example:
 		<tr key={field?.id || index}
-			className={'sortable-element'}
+			className={'cuppa-sortable-item'}
 			ref={ref=>{
 				if(!ref) return;
 				CuppaSortable.sortable({
 					currentElement: ref,
-					sortableClass: '.sortable-element',
+					sortableClass: '.cuppa-sortable-item',
 					value:field,
 					valueKey:"id",
                     values: this.fields,
-					returnValue:true,
 					dropCallback:(data)=>{
 						console.log(data)
 					}
@@ -27,7 +26,7 @@ export class CuppaSortable extends CuppaComponent {
 	sortableClass = 'cuppa-sortable';
 	value;
 	values;
-	returnValue = false;
+	returnValue = true;
 	valueKey = 'value';
 	orderKey = '';
 	content;
@@ -39,7 +38,7 @@ export class CuppaSortable extends CuppaComponent {
 	dropCallback;
 	
 	mounted() {
-		CuppaSortable.sortable({
+		cuppa.sortable({
 			currentElement: this,
 			sortableClass: this.sortableClass,
 			handle:this.handle,
@@ -77,11 +76,11 @@ export class CuppaSortable extends CuppaComponent {
 	static sortable(
 		{
 			currentElement,
-			sortableClass,
+			sortableClass = '.cuppa-sortable-item',
 			handle,
 			value,
 			values,
-			returnValue = false,
+			returnValue = true,
 			valueKey = 'value',
 			orderKey = '',
 			startCallback,
@@ -170,7 +169,7 @@ cuppa.attribute = function(elements, name, value, remove){
 			element.removeAttribute(name);
 		}
 		return;
-	}
+	};
 	if(value !== undefined && value !== null){
 		for(i = 0; i < elements.length; i++){
 			element = elements[i];
@@ -182,52 +181,23 @@ cuppa.attribute = function(elements, name, value, remove){
 	}
 }
 
-cuppa.reorderArrayObject = function({values, key = 'value', from, to, fromIndex, toIndex, orderKey = ''} = {}){
-	if(!Array.isArray(values)) return values;
-	if(!Number.isInteger(fromIndex)) fromIndex = values.findIndex(d => d[key] === from);
-	if(!Number.isInteger(toIndex)) toIndex = values.findIndex(d => d[key] === to);
-	if(fromIndex < 0 || toIndex < 0 || fromIndex >= values.length || toIndex >= values.length) return values;
+cuppa.reorderArrayObject = function({values, key = 'value', from, to, orderKey = ''} = {}){
+	if (!from || !to) return values;
+	let fromIndex = values.findIndex(d => d[key] === from);
+	let toIndex = values.findIndex(d => d[key] === to);
+	if (fromIndex === -1 || toIndex === -1) return values;
 	values.splice(toIndex, 0, values.splice(fromIndex, 1)[0]);
 	if(orderKey) values.forEach((item, index) => item[orderKey] = index);
 	return values;
 }
-
-cuppa.getSortableElementAtCoords = ({x, y, elements, ignore = null})=>{
-	if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
-	let best = null;
-	let bestDistance = Infinity;
-	for (const element of elements) {
-		if (!element || element === ignore) continue;
-		const rect = element.boundingClientRect;
-		if (!rect) continue;
-		if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-			return element;
-		}
-		const cx = rect.left + rect.width / 2;
-		const cy = rect.top + rect.height / 2;
-		const dx = x - cx;
-		const dy = y - cy;
-		const distance = dx * dx + dy * dy;
-		if (distance < bestDistance) {
-			bestDistance = distance;
-			best = element;
-		}
-	}
-	return best;
-}
-
-cuppa.dragElement = null;
-cuppa.elements = [];
 cuppa.from = null;
-cuppa.to = null;
-cuppa.dropHandled = false;
 cuppa.sortable = (
 	{
 		currentElement,
-		sortableClass,
+		sortableClass = '.cuppa-sortable-item',
 		handle,
 		value,
-		returnValue = false,
+		returnValue = true,
 		values,
 		valueKey = 'value',
 		orderKey = '',
@@ -242,8 +212,8 @@ cuppa.sortable = (
 	if(handle){
 		const _handle = currentElement.querySelector(handle);
 		if(_handle){
-			_handle.onmousedown = (e) => { currentElement.draggable = true; }
-			_handle.onmouseleave = (e) => { cuppa.attribute(sortableClass, 'draggable', 'false'); }
+			_handle.onpointerdown = (e) => { currentElement.draggable = true; }
+			_handle.onpointerleave = (e) => { cuppa.attribute(sortableClass, 'draggable', 'false'); }
 		}
 	}else{
 		currentElement.setAttribute('draggable', 'true');
@@ -252,21 +222,16 @@ cuppa.sortable = (
 	currentElement.ondragstart = (e)=>{
 		e.dataTransfer.effectAllowed = 'move';
 		e.dataTransfer.dropEffect = 'move';
-		resetElements();
-		cuppa.dropHandled = false;
 		cuppa.from = currentElement;
-		cuppa.from.style.opacity = 0.01;
-		cuppa.to = null;
-		cuppa.elements = getElements();
+		cuppa.addClass(sortableClass, 'd-i-children');
+		currentElement.style.opacity = 0;
 		if(startCallback) startCallback();
 	}
 	currentElement.ondragend = (e)=>{
-		resetElements();
-		currentElement.style.opacity = '';
+		reordering({reset:true});
 		cuppa.from = null;
-		cuppa.to = null;
-		cuppa.elements = [];
-		cuppa.dropHandled = false;
+		cuppa.removeClass(sortableClass, 'd-i-children');
+		currentElement.style.opacity = '';
 		if(endCallback) endCallback();
 	}
 	currentElement.ondragover = (e)=>{
@@ -275,40 +240,89 @@ cuppa.sortable = (
 		e.dataTransfer.dropEffect = 'move';
 		if(overCallback) overCallback();
 	};
+	
 	currentElement.ondragenter = (e)=>{
-		cuppa.to = cuppa.getSortableElementAtCoords({x:e.clientX, y:e.clientY, elements:cuppa.elements});
-		reordering({from:cuppa.from, to:cuppa.to });
-		if (e.target === cuppa.from) return;
+		const from = cuppa.from;
+		reordering({from, to:e.target});
+		if (e.target === from) return;
 		if(enterCallback) enterCallback();
 	};
 	
 	currentElement.ondragleave = (e)=>{
 		if(leaveCallback) leaveCallback();
 	};
+	
 	currentElement.ondrop = (e)=>{
 		e.preventDefault();
-		e.stopPropagation();
-		if(cuppa.dropHandled) return;
-		cuppa.dropHandled = true;
-		resetElements();
-		if(cuppa.to === cuppa.from){
-			cuppa.from = null;
-			cuppa.to = null;
-			cuppa.elements = [];
-			return;
-		}
-		const result = {from:cuppa.from, to:cuppa.to};
+		reordering({reset:true});
+		const from = cuppa.from;
+		if(e.target === from) return;
+		const to = e.target;
+		const result = {from, to};
 		if(returnValue){
-			result.from = cuppa.from?.value;
-			result.to = cuppa.to?.value;
+			result.from = from?.value;
+			result.to = to?.value;
 			if(values){
 				result.values = cuppa.reorderArrayObject({values, from:result.from?.[valueKey], to:result.to?.[valueKey], key:valueKey, orderKey});
 			}
 		}
 		if(dropCallback) dropCallback(result);
-		cuppa.from = null;
-		cuppa.to = null;
-		cuppa.elements = [];
+	}
+	
+	function resetReordering({elements}){
+		for(const element of elements){
+			for(const child of element.children){
+				child.classList.remove('cuppa-sortable-animation');
+				child.style.transform = `translateX(0) translateY(0)`;
+			}
+		}
+	}
+	
+	function reordering({from, to, reset} = {}){
+		const elements = document.querySelectorAll(sortableClass);
+		if(reset){ resetReordering({elements}); return; }
+		if(!from || !to) return;
+		const list = Array.from(elements);
+		const fromIndex = list.indexOf(from);
+		const toIndex = list.indexOf(to);
+		if(fromIndex === -1 || toIndex === -1) return;
+		for(const element of list){
+			applyTransform({element, x: '0px', y: '0px'});
+		}
+		const isForward = fromIndex < toIndex;
+		const draggedRect = from.getBoundingClientRect();
+		// move dragged element to the hovered element position
+		const targetRect = to.getBoundingClientRect();
+		applyTransform({element: from, x: `${targetRect.left - draggedRect.left}px`, y: `${targetRect.top - draggedRect.top}px`,});
+		// shift the elements between from and to one by one
+		if(isForward){
+			for(let i = fromIndex + 1; i <= toIndex; i++){
+				const element = list[i];
+				const prev = i === fromIndex + 1 ? from : list[i - 1];
+				const prevRect = prev.getBoundingClientRect();
+				const currentRect = element.getBoundingClientRect();
+				const x = prevRect.left - currentRect.left;
+				const y = prevRect.top - currentRect.top;
+				applyTransform({element, x: `${x}px`, y: `${y}px`, animated:true});
+			}
+		}else{
+			for(let i = fromIndex - 1; i >= toIndex; i--){
+				const element = list[i];
+				const next = i === fromIndex - 1 ? from : list[i + 1];
+				const nextRect = next.getBoundingClientRect();
+				const currentRect = element.getBoundingClientRect();
+				const x = nextRect.left - currentRect.left;
+				const y = nextRect.top - currentRect.top;
+				applyTransform({element, x: `${nextRect.left - currentRect.left}px`, y: `${nextRect.top - currentRect.top}px`, animated:true});
+			}
+		}
+	}
+	
+	function applyTransform({element, x = '0px', y = '0px', animated = false} = {}){
+		for(const child of element.children){
+			if(animated) child.classList.add('cuppa-sortable-animation');
+			child.style.transform = `translateX(${x}) translateY(${y})`;
+		}
 	}
 	
 	const styleId = `cuppa-sortable-styles-${sortableClass}`;
@@ -316,66 +330,12 @@ cuppa.sortable = (
 		document.body.append(cuppa.newElement(`
 			<style id="${styleId}">
 				${sortableClass}{
-					&.animated{ transition: transform 0.3s, opacity 0.01s; }
+					transition: opacity 0.01s;
+					& > *.cuppa-sortable-animation{ transition: transform 0.3s; }
 					&.d-i-children *{ pointer-events: none; -webkit-user-select: none; user-select: none; outline: none; }
 					&.d-i-children&::after{ content: ''; position: absolute; top: 0; right: 0; left:0; bottom:0; background: rgba(0,0,0,0); }
 				}
 			</style>`
 			, {useTemplate:true}))
 	}
-	
-	function getElements(){
-		const elements = Array.from(document.querySelectorAll(sortableClass));
-		for(const element of elements){
-			element.boundingClientRect = element.getBoundingClientRect();
-			element.classList.add('d-i-children');
-		}
-		return elements;
-	}
-	
-	function resetElements(){
-		for(const element of cuppa.elements){
-			element.classList.remove('animated');
-			element.classList.remove('d-i-children');
-			element.style.transform = `translateX(0) translateY(0)`;
-		}
-	}
-	
-	function reordering({from, to} = {}){
-		if(!from || !to) return;
-		const list = Array.from(cuppa.elements);
-		const fromIndex = list.indexOf(from);
-		const toIndex = list.indexOf(to);
-		if(fromIndex === -1 || toIndex === -1) return;
-		for(const element of list){ applyTransform({element, x: '0px', y: '0px'}); }
-		const isForward = fromIndex < toIndex;
-		const draggedRect = from.boundingClientRect;
-		// move dragged element to the hovered element position
-		const targetRect = to.boundingClientRect;
-		applyTransform({element: from, x: `${targetRect.left - draggedRect.left}px`, y: `${targetRect.top - draggedRect.top}px`,});
-		// shift the elements between from and to one by one
-		if(isForward){
-			for(let i = fromIndex + 1; i <= toIndex; i++){
-				const element = list[i];
-				const prev = i === fromIndex + 1 ? from : list[i - 1];
-				const prevRect = prev.boundingClientRect;
-				const currentRect = element.boundingClientRect;
-				applyTransform({element, x: `${prevRect.left - currentRect.left}px`, y: `${prevRect.top - currentRect.top}px`, animated:true});
-			}
-		}else{
-			for(let i = fromIndex - 1; i >= toIndex; i--){
-				const element = list[i];
-				const next = i === fromIndex - 1 ? from : list[i + 1];
-				const nextRect = next.boundingClientRect;
-				const currentRect = element.boundingClientRect;
-				applyTransform({element, x: `${nextRect.left - currentRect.left}px`, y: `${nextRect.top - currentRect.top}px`, animated:true});
-			}
-		}
-	}
-	
-	function applyTransform({element, x = '0px', y = '0px', animated = false} = {}){
-		if(animated) element.classList.add('animated');
-		element.style.transform = `translateX(${x}) translateY(${y})`;
-	}
-	
 }

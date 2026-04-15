@@ -10,7 +10,7 @@ export default class App extends CuppaComponent {
 	
 	constructor() {
 		super();
-		for(let i=0; i<30; i++){
+		for(let i=0; i<10; i++){
 			this.onAdd();
 		}
 	}
@@ -28,7 +28,8 @@ export default class App extends CuppaComponent {
 	}
 	
 	onAdd(){
-		this.items.push({id: this.addIndex, name: this.addIndex, height: 30 });
+		let height = 30;  // height = 20 + Math.random() * 100;
+		this.items.push({id: this.addIndex, name: this.addIndex, height});
 		this.items = this.items;
 		this.addIndex++;
 	}
@@ -43,16 +44,15 @@ export default class App extends CuppaComponent {
                 this.items = this.items;
             }}>switch</button>
 	        <button @click=${this.onAdd}>+</button>
-	        <div ref="sortable1" class="flex d-row g-3 j-start">
+	        <div class="flex d-column g-3 ">
                 ${repeat(this.items, item => item.id, item => {
 					return html`
 	                    <div
-		                    class="cuppa-sortable"
+		                    class="cuppa-sortable-item"
                             ${ref(el => {
                                 if(!el) return;
                                 CuppaSortable.sortable({
                                     currentElement: el,
-                                    sortableClass: '.cuppa-sortable',
                                     value:item,
                                     valueKey:"id",
                                     values:this.items,
@@ -98,7 +98,7 @@ export default class App extends CuppaComponent {
 
                     & .item {
                         background: #ddd;
-                        padding: 5px;
+                        padding: 0;
                     }
 
                     & .box {

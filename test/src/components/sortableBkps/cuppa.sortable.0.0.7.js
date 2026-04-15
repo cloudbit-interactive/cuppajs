@@ -2,16 +2,15 @@
 /*
 	Example:
 		<tr key={field?.id || index}
-			className={'sortable-element'}
+			className={'cuppa-sortable-item'}
 			ref={ref=>{
 				if(!ref) return;
 				CuppaSortable.sortable({
 					currentElement: ref,
-					sortableClass: '.sortable-element',
+					sortableClass: '.cuppa-sortable-item',
 					value:field,
 					valueKey:"id",
                     values: this.fields,
-					returnValue:true,
 					dropCallback:(data)=>{
 						console.log(data)
 					}
@@ -77,7 +76,7 @@ export class CuppaSortable extends CuppaComponent {
 	static sortable(
 		{
 			currentElement,
-			sortableClass,
+			sortableClass = '.cuppa-sortable-item',
 			handle,
 			value,
 			values,
@@ -191,10 +190,11 @@ cuppa.reorderArrayObject = function({values, key = 'value', from, to, orderKey =
 	if(orderKey) values.forEach((item, index) => item[orderKey] = index);
 	return values;
 }
+cuppa.from = null;
 cuppa.sortable = (
 	{
 		currentElement,
-		sortableClass,
+		sortableClass = '.cuppa-sortable-item',
 		handle,
 		value,
 		returnValue = true,
@@ -222,14 +222,14 @@ cuppa.sortable = (
 	currentElement.ondragstart = (e)=>{
 		e.dataTransfer.effectAllowed = 'move';
 		e.dataTransfer.dropEffect = 'move';
-		cuppa.addClass(currentElement, 'drag-element');
+		cuppa.from = currentElement;
 		cuppa.addClass(sortableClass, 'd-i-children');
 		currentElement.style.opacity = 0;
 		if(startCallback) startCallback();
 	}
 	currentElement.ondragend = (e)=>{
 		reordering({reset:true});
-		cuppa.removeClass(currentElement, 'drag-element');
+		cuppa.from = null;
 		cuppa.removeClass(sortableClass, 'd-i-children');
 		currentElement.style.opacity = '';
 		if(endCallback) endCallback();
@@ -242,7 +242,7 @@ cuppa.sortable = (
 	};
 	
 	currentElement.ondragenter = (e)=>{
-		const from = document.querySelector('.drag-element');
+		const from = cuppa.from;
 		reordering({from, to:e.target});
 		if (e.target === from) return;
 		if(enterCallback) enterCallback();
@@ -255,7 +255,7 @@ cuppa.sortable = (
 	currentElement.ondrop = (e)=>{
 		e.preventDefault();
 		reordering({reset:true});
-		const from = document.querySelector('.drag-element');
+		const from = cuppa.from;
 		if(e.target === from) return;
 		const to = e.target;
 		const result = {from, to};
@@ -267,20 +267,6 @@ cuppa.sortable = (
 			}
 		}
 		if(dropCallback) dropCallback(result);
-	}
-	
-	const styleId = `cuppa-sortable-styles-${sortableClass}`;
-	if(!document.querySelector(`#${styleId}`)){
-		document.body.append(cuppa.newElement(`
-			<style id="${styleId}">
-				${sortableClass}{
-					transition: opacity 0.01s;
-					& > *.cuppa-sortable-animation{ transition: transform 0.3s; }
-					&.d-i-children *{ pointer-events: none; -webkit-user-select: none; user-select: none; outline: none; }
-					&.d-i-children&::after{ content: ''; position: absolute; top: 0; right: 0; left:0; bottom:0; background: rgba(0,0,0,0); }
-				}
-			</style>`
-			, {useTemplate:true}))
 	}
 	
 	function resetReordering({elements}){
@@ -300,18 +286,24 @@ cuppa.sortable = (
 		const fromIndex = list.indexOf(from);
 		const toIndex = list.indexOf(to);
 		if(fromIndex === -1 || toIndex === -1) return;
-		for(const element of list){ applyTransform({element, x: '0px', y: '0px'}) }
+		for(const element of list){
+			applyTransform({element, x: '0px', y: '0px'});
+		}
 		const isForward = fromIndex < toIndex;
 		const draggedRect = from.getBoundingClientRect();
+		// move dragged element to the hovered element position
 		const targetRect = to.getBoundingClientRect();
-		applyTransform({element: from, x: `${targetRect.left - draggedRect.left}px`, y: `${targetRect.top - draggedRect.top}px`});
+		applyTransform({element: from, x: `${targetRect.left - draggedRect.left}px`, y: `${targetRect.top - draggedRect.top}px`,});
+		// shift the elements between from and to one by one
 		if(isForward){
 			for(let i = fromIndex + 1; i <= toIndex; i++){
 				const element = list[i];
 				const prev = i === fromIndex + 1 ? from : list[i - 1];
 				const prevRect = prev.getBoundingClientRect();
 				const currentRect = element.getBoundingClientRect();
-				applyTransform({element, x: `${prevRect.left - currentRect.left}px`, y: `${prevRect.top - currentRect.top}px`,});
+				const x = prevRect.left - currentRect.left;
+				const y = prevRect.top - currentRect.top;
+				applyTransform({element, x: `${x}px`, y: `${y}px`, animated:true});
 			}
 		}else{
 			for(let i = fromIndex - 1; i >= toIndex; i--){
@@ -319,16 +311,31 @@ cuppa.sortable = (
 				const next = i === fromIndex - 1 ? from : list[i + 1];
 				const nextRect = next.getBoundingClientRect();
 				const currentRect = element.getBoundingClientRect();
-				applyTransform({element, x: `${nextRect.left - currentRect.left}px`, y: `${nextRect.top - currentRect.top}px`,});
+				const x = nextRect.left - currentRect.left;
+				const y = nextRect.top - currentRect.top;
+				applyTransform({element, x: `${nextRect.left - currentRect.left}px`, y: `${nextRect.top - currentRect.top}px`, animated:true});
 			}
 		}
 	}
 	
-	function applyTransform({element, x = '0px', y = '0px'} = {}){
+	function applyTransform({element, x = '0px', y = '0px', animated = false} = {}){
 		for(const child of element.children){
-			child.classList.add('cuppa-sortable-animation');
+			if(animated) child.classList.add('cuppa-sortable-animation');
 			child.style.transform = `translateX(${x}) translateY(${y})`;
 		}
 	}
 	
+	const styleId = `cuppa-sortable-styles-${sortableClass}`;
+	if(!document.querySelector(`#${styleId}`)){
+		document.body.append(cuppa.newElement(`
+			<style id="${styleId}">
+				${sortableClass}{
+					transition: opacity 0.01s;
+					& > *.cuppa-sortable-animation{ transition: transform 0.3s; }
+					&.d-i-children *{ pointer-events: none; -webkit-user-select: none; user-select: none; outline: none; }
+					&.d-i-children&::after{ content: ''; position: absolute; top: 0; right: 0; left:0; bottom:0; background: rgba(0,0,0,0); }
+				}
+			</style>`
+			, {useTemplate:true}))
+	}
 }
