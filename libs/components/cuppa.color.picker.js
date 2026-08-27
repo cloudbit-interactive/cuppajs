@@ -71,7 +71,6 @@ export class CuppaColorPicker extends CuppaComponent {
 			name: this.storageName,
 			store: this.storeType
 		}) || [];
-		console.log(this.value)
 		return html`
             <div
                 ref="pickerButton"
@@ -86,7 +85,7 @@ export class CuppaColorPicker extends CuppaComponent {
                             <input
                                 title="Select Color"
                                 type="color"
-                                .value="${this.value || '#FFFFFF'}"
+                                .value="${this.value || '#7d3f3f'}"
                                 @change=${(e) => {
                                     e.preventDefault();
                                     e.stopPropagation();

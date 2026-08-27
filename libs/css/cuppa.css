@@ -989,6 +989,7 @@
 .ani-fade {
   animation-name: ani-fade;
   animation-duration: 0.2s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes ani-fade {
@@ -999,9 +1000,24 @@
     opacity: 1;
   }
 }
+.ani-fade-off {
+  animation-name: ani-fade-off;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ani-fade-off {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .ani-fade-up {
   animation-name: ani-fade-up;
   animation-duration: 0.2s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes ani-fade-up {
@@ -1014,9 +1030,26 @@
     transform: translateY(0px);
   }
 }
+.ani-fade-up-off {
+  animation-name: ani-fade-up-off;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ani-fade-up-off {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
 .ani-fade-down {
   animation-name: ani-fade-down;
   animation-duration: 0.2s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes ani-fade-down {
@@ -1029,9 +1062,26 @@
     transform: translateY(0px);
   }
 }
+.ani-fade-down-off {
+  animation-name: ani-fade-down-off;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ani-fade-down-off {
+  0% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
 .ani-fade-right {
   animation-name: ani-fade-right;
   animation-duration: 0.2s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes ani-fade-right {
@@ -1044,9 +1094,26 @@
     transform: translateX(0px);
   }
 }
+.ani-fade-right-off {
+  animation-name: ani-fade-right-off;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ani-fade-right-off {
+  0% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
 .ani-fade-left {
   animation-name: ani-fade-left;
   animation-duration: 0.2s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes ani-fade-left {
@@ -1059,10 +1126,27 @@
     transform: translateX(0px);
   }
 }
+.ani-fade-left-off {
+  animation-name: ani-fade-left-off;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ani-fade-left-off {
+  0% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
 .ani-shake {
   animation-name: ani-shake;
   animation-duration: 0.3s;
   animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
 
 @keyframes ani-shake {
@@ -1079,6 +1163,7 @@
 .ani-pop {
   animation-name: ani-pop;
   animation-duration: 0.2s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes ani-pop {
@@ -1089,6 +1174,22 @@
   100% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+.ani-pop-off {
+  animation-name: ani-pop-off;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ani-pop-off {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
   }
 }
 .capitalize {
@@ -9173,4 +9274,6 @@ label.error:before, .form-error-message:before {
   .s-100p-s500 {
     transform: scale(1) !important;
   }
-}/*# sourceMappingURL=cuppa.css.map */
+}
+
+/*# sourceMappingURL=cuppa.css.map */

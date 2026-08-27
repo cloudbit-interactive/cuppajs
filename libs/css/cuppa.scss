@@ -167,35 +167,32 @@
 .no-scroll, .no-scroll-all, .no-scroll-all * { overflow: hidden; }
 .hide-scroll{ scrollbar-width: none; }
 .hide-scroll::-webkit-scrollbar{ display: none; width: 0 }
-.ani-fade{ animation-name: ani-fade; animation-duration: 0.2s; }
+.ani-fade{ animation-name: ani-fade; animation-duration: 0.2s; animation-fill-mode: forwards; }
 @keyframes ani-fade { 0% { opacity:0; } 100% { opacity: 1; } }
-.ani-fade-up{ animation-name: ani-fade-up; animation-duration: 0.2s; }
+.ani-fade-off{ animation-name: ani-fade-off; animation-duration: 0.2s; animation-fill-mode: forwards; }
+@keyframes ani-fade-off { 0% { opacity:1; } 100% { opacity: 0; } }
+.ani-fade-up{ animation-name: ani-fade-up; animation-duration: 0.2s; animation-fill-mode: forwards; }
 @keyframes ani-fade-up { 0% { opacity:0; transform: translateY(10px) } 100% { opacity: 1; transform: translateY(0px) } }
-.ani-fade-down{ animation-name: ani-fade-down; animation-duration: 0.2s; }
+.ani-fade-up-off{ animation-name: ani-fade-up-off; animation-duration: 0.2s; animation-fill-mode: forwards; }
+@keyframes ani-fade-up-off { 0% { opacity: 1; transform: translateY(0px) } 100% { opacity:0; transform: translateY(-10px) } }
+.ani-fade-down{ animation-name: ani-fade-down; animation-duration: 0.2s; animation-fill-mode: forwards; }
 @keyframes ani-fade-down { 0% { opacity:0; transform: translateY(-10px) } 100% { opacity: 1; transform: translateY(0px) } }
-.ani-fade-right{ animation-name: ani-fade-right; animation-duration: 0.2s; }
+.ani-fade-down-off{ animation-name: ani-fade-down-off; animation-duration: 0.2s; animation-fill-mode: forwards; }
+@keyframes ani-fade-down-off { 0% { opacity: 1; transform: translateY(0px) } 100% { opacity:0; transform: translateY(10px) } }
+.ani-fade-right{ animation-name: ani-fade-right; animation-duration: 0.2s; animation-fill-mode: forwards; }
 @keyframes ani-fade-right { 0% { opacity:0; transform: translateX(10px) } 100% { opacity: 1; transform: translateX(0px) } }
-.ani-fade-left{ animation-name: ani-fade-left; animation-duration: 0.2s; }
+.ani-fade-right-off{ animation-name: ani-fade-right-off; animation-duration: 0.2s; animation-fill-mode: forwards; }
+@keyframes ani-fade-right-off { 0% { opacity: 1; transform: translateX(0px) } 100% { opacity:0; transform: translateX(10px) } }
+.ani-fade-left{ animation-name: ani-fade-left; animation-duration: 0.2s; animation-fill-mode: forwards; }
 @keyframes ani-fade-left { 0% { opacity:0; transform: translateX(-10px) } 100% { opacity: 1; transform: translateX(0px) } }
-
-.ani-shake {
-  animation-name: ani-shake;
-  animation-duration: 0.3s;
-  animation-timing-function: linear;
-}
-@keyframes ani-shake {
-  33% {
-    transform: translateX(10px);
-  }
-  66% {
-    transform: translateX(-10px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
-}
-.ani-pop{ animation-name: ani-pop; animation-duration: 0.2s; }
+.ani-fade-left-off{ animation-name: ani-fade-left-off; animation-duration: 0.2s; animation-fill-mode: forwards; }
+@keyframes ani-fade-left-off { 0% { opacity: 1; transform: translateX(0px) } 100% { opacity:0; transform: translateX(-10px)  } }
+.ani-shake { animation-name: ani-shake; animation-duration: 0.3s; animation-timing-function: linear; animation-fill-mode: forwards; }
+@keyframes ani-shake { 33% { transform: translateX(10px); } 66% {transform: translateX(-10px); } 100% { transform: translateX(0px); }  }
+.ani-pop{ animation-name: ani-pop; animation-duration: 0.2s; animation-fill-mode: forwards; }
 @keyframes ani-pop { 0% { opacity:0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+.ani-pop-off{ animation-name: ani-pop-off; animation-duration: 0.2s; animation-fill-mode: forwards; }
+@keyframes ani-pop-off { 0% { opacity: 1; transform: scale(1); } 100% { opacity:0; transform: scale(0.8); } }
 // fonts / text
 .capitalize{ text-transform: capitalize; }
 .capitalize-first{ text-transform: lowercase; }
