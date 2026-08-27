@@ -44,11 +44,15 @@ export default class App extends CuppaComponent {
                 this.items = this.items;
             }}>switch</button>
 	        <button @click=${this.onAdd}>+</button>
-	        <div class="flex d-column g-3 ">
+	        <div class="flex d-row g-3 j-start ">
                 ${repeat(this.items, item => item.id, item => {
 					return html`
 	                    <div
 		                    class="cuppa-sortable-item"
+		                    @click=${e=>{
+		                        e.stopPropagation(); e.preventDefault();
+								alert("click item: " + item.id);
+		                    }}
                             ${ref(el => {
                                 if(!el) return;
                                 CuppaSortable.sortable({
