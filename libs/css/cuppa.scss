@@ -1,4 +1,4 @@
-/*! v0.0.10 */
+/*! v0.0.11 */
 /*
 * Authors (https://github.com/cloudbit-interactive/cuppajs)
 * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
@@ -275,6 +275,7 @@
 .a-content-space-between{  align-content:space-between; }
 .a-content-space-around{  align-content:space-around; }
 .a-content-stretch{  align-content:stretch; }
+.order-0{ order: 0; }
 .order-1{ order: 1; }
 .order-2{ order: 2; }
 .order-3{ order: 3; }
@@ -431,6 +432,7 @@ label.error:before, .form-error-message:before{ content: ''; position: absolute;
     .absolute#{$maxWidthClass}{ position: absolute #{$important}; }
     .fixed#{$maxWidthClass}{ position: fixed #{$important}; }
     /* order */
+    .order-0#{$maxWidthClass}{ order: 0 #{$important}; }
     .order-1#{$maxWidthClass}{ order: 1 #{$important}; }
     .order-2#{$maxWidthClass}{ order: 2 #{$important}; }
     .order-3#{$maxWidthClass}{ order: 3 #{$important}; }
