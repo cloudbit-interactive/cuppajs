@@ -5,34 +5,34 @@ export class CuppaComponent extends HTMLElement{refs={};shadow=null;renderedCoun
 export class CuppaPortal extends CuppaComponent {
 	static observables = ['elements']
 	elements = {};
-
+	
 	add(name, element){
 		if(!name) name = "modal";
 		this.elements[name] = element;
 		this.elements = this.elements;
 		return this.elements;
 	}
-
+	
 	remove(name){
 		delete this.elements[name];
 		this.elements = this.elements;
 		return this.elements;
 	}
-
+	
 	get(name){
 		return this.elements[name];
 	}
-
+	
 	removeAll(callback){
 		this.elements = {};
 	}
-
+	
 	render(){
 		let elements = Object.entries(this.elements);
 		return html`
-      ${repeat(elements, element=>element[0], element=>html`
-        ${element[1]}
-      `)}
+            ${repeat(elements, element=>element[0], element=>html`
+                ${element[1]}
+            `)}
 		`;
 	}
 }

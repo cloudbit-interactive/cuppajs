@@ -3735,3 +3735,4 @@ cuppa.arrayToArrayObject = function(data, {value = 'id', label = 'name', labelFo
 
  export { log, cuppa, val, wait};
 try{ module.exports = { log, cuppa, val, wait}; }catch(err){ }
+

@@ -245,6 +245,11 @@
 	$value: $i*5;
 	.g-#{$value}{ gap: $value+px; }
 }
+.p-s-start{ place-self: start; }
+.p-s-center{ place-self: center; }
+.p-s-end{ place-self: end; }
+.p-s-stretch{ place-self: stretch; }
+.p-s-auto{ place-self: auto; }
 // flex
 .flex{ display:flex; justify-content: space-around; flex-wrap:wrap; }
 .flex-inline{ display: inline-flex; justify-content: space-around; flex-wrap:wrap; }
@@ -617,5 +622,10 @@ label.error:before, .form-error-message:before{ content: ''; position: absolute;
 			$value: $i*5;
 			.g-#{$value}#{$maxWidthClass}{ gap: $value+px; }
 		}
+		.p-s-start#{$maxWidthClass}{ place-self: start; }
+		.p-s-center#{$maxWidthClass}{ place-self: center; }
+		.p-s-end#{$maxWidthClass}{ place-self: end; }
+		.p-s-stretch#{$maxWidthClass}{ place-self: stretch; }
+		.p-s-auto#{$maxWidthClass}{ place-self: auto; }
 	}
 }

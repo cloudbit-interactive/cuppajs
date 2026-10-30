@@ -1896,6 +1896,26 @@
   gap: 60px;
 }
 
+.p-s-start {
+  place-self: start;
+}
+
+.p-s-center {
+  place-self: center;
+}
+
+.p-s-end {
+  place-self: end;
+}
+
+.p-s-stretch {
+  place-self: stretch;
+}
+
+.p-s-auto {
+  place-self: auto;
+}
+
 .flex {
   display: flex;
   justify-content: space-around;
@@ -5145,6 +5165,21 @@ label.error:before, .form-error-message:before {
   .g-60-s1300 {
     gap: 60px;
   }
+  .p-s-start-s1300 {
+    place-self: start;
+  }
+  .p-s-center-s1300 {
+    place-self: center;
+  }
+  .p-s-end-s1300 {
+    place-self: end;
+  }
+  .p-s-stretch-s1300 {
+    place-self: stretch;
+  }
+  .p-s-auto-s1300 {
+    place-self: auto;
+  }
 }
 @media (max-width: 1100px) {
   .d-block-s1100 {
@@ -6802,6 +6837,21 @@ label.error:before, .form-error-message:before {
   .g-60-s1100 {
     gap: 60px;
   }
+  .p-s-start-s1100 {
+    place-self: start;
+  }
+  .p-s-center-s1100 {
+    place-self: center;
+  }
+  .p-s-end-s1100 {
+    place-self: end;
+  }
+  .p-s-stretch-s1100 {
+    place-self: stretch;
+  }
+  .p-s-auto-s1100 {
+    place-self: auto;
+  }
 }
 @media (max-width: 750px) {
   .d-block-s750 {
@@ -8449,6 +8499,21 @@ label.error:before, .form-error-message:before {
   .g-60-s750 {
     gap: 60px;
   }
+  .p-s-start-s750 {
+    place-self: start;
+  }
+  .p-s-center-s750 {
+    place-self: center;
+  }
+  .p-s-end-s750 {
+    place-self: end;
+  }
+  .p-s-stretch-s750 {
+    place-self: stretch;
+  }
+  .p-s-auto-s750 {
+    place-self: auto;
+  }
 }
 @media (max-width: 500px) {
   .d-block-s500 {
@@ -10085,6 +10150,21 @@ label.error:before, .form-error-message:before {
   }
   .g-60-s500 {
     gap: 60px;
+  }
+  .p-s-start-s500 {
+    place-self: start;
+  }
+  .p-s-center-s500 {
+    place-self: center;
+  }
+  .p-s-end-s500 {
+    place-self: end;
+  }
+  .p-s-stretch-s500 {
+    place-self: stretch;
+  }
+  .p-s-auto-s500 {
+    place-self: auto;
   }
 }
 

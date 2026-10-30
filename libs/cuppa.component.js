@@ -1,4 +1,4 @@
-/*! v0.0.14 */
+/*! v0.0.15 */
 /*
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
@@ -10,6 +10,23 @@ export class CuppaComponent extends HTMLElement {
 	renderedCount = 0;
 	_template;
 	_callbacks = [];
+	
+	static set tag(tagName) {
+		if (!customElements.get(tagName)){
+			customElements.define(tagName, this);
+		}
+		this._tag = tagName;
+	}
+	
+	static get tag() {
+		return this._tag;
+	}
+	
+	static set global(value){
+		if(document.defaultView && value){
+			document.defaultView[this.name] = this;
+		}
+	}
 	
 	constructor() {
 		super();
@@ -139,8 +156,8 @@ export class CuppaComponent extends HTMLElement {
 			if(typeof element[propertyNames[i]] == "function"){
 				if(this[propertyNames[i]]) continue;
 				this[propertyNames[i]] = element[propertyNames[i]].bind(element);
-			};
-		};
+			}
+		}
 	}
 	
 	observables(object, callback) {
@@ -191,7 +208,7 @@ export function camelize(str) {
 		if (+match === 0) return "";
 		return index === 0 ? match.toLowerCase() : match.toUpperCase();
 	});
-};
+}
 
 // DEPENDENCIES
 // lit-html 3.3.1
