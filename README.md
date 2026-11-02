@@ -28,8 +28,12 @@ WebComponents [https://www.webcomponents.org/element/cuppajs-elements](https://w
 import {CuppaComponent, html} from "https://cdn.jsdelivr.net/npm/cuppajs/libs/cuppa.component.min.js";
 
 export default class MyComponent extends CuppaComponent {
-	static attributes = ['attr1', 'attr2'];
-	static observables = ['count'];
+	static{
+		this.tag = "my-component";
+		this.global = true;
+		this.attributes = ['attr1', 'attr2'];
+		this.observables = ['count'];
+	}
 	count = 0;
 	refs = {myDivRef:null};
 
@@ -57,11 +61,7 @@ export default class MyComponent extends CuppaComponent {
 		`
 	}
 }
-
-// Standard way to defines a new custom element.
-customElements.define('my-component', MyComponent);
-
-// Ok, now we can add a instance of our component and see the result
+// Ok, Add an component instance
 document.body.append(new MyComponent())
 
 ```
