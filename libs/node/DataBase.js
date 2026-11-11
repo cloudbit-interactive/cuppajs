@@ -1,5 +1,5 @@
 /*
-  V 0.0.21
+  V 0.0.22
   REQUIREMENT
     npm install mysql2
 * */
@@ -231,11 +231,14 @@ export default class DataBase {
 		if(!args?.length) {
 			return string;
 		}
+		args = structuredClone(args);
 		for(let i = 0; i < args.length; i++){
 			let arg = args[i];
 			if(Array.isArray(arg)){
 				arg.forEach((val, index)=>{
-					if(!auto){
+					if(cuppa.isNull(val)){
+						arg[index] = 'NULL';
+					}else if(!auto){
 						arg[index] = this.escape(val);
 					}else{
 						arg[index] = this.escape(val);
