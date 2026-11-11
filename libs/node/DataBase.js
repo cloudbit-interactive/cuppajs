@@ -1,5 +1,5 @@
 /*
-  V 0.0.16
+  V 0.0.21
   REQUIREMENT
     npm install mysql2
 * */
@@ -7,7 +7,7 @@
 import {cuppa} from "./cuppa.js";
 import mysql from "mysql2";
 
-export default class CuppaDataBase {
+export default class DataBase {
 	host;
 	database;
 	user;
@@ -16,9 +16,19 @@ export default class CuppaDataBase {
 	pool;
 	connectionLimit;
 	autoConnectTime = 5000;
+	autoConnectTimeout;
 	connectedCallback;
+	executionRetryLimit = 3;
+	executionRetryLimitDelay = 500;
+	retryableErrors = [
+		'ECONNREFUSED',
+		'ECONNRESET',
+		'ETIMEDOUT',
+		'EPIPE',
+		'PROTOCOL_CONNECTION_LOST'
+	];
 	
-	constructor(host, database, user, password, port = 3306, connectionLimit = 20, connectedCallback) {
+	constructor(host, database, user, password, port = 3306, connectionLimit = 10, connectedCallback) {
 		cuppa.bindAll(this);
 		this.host = host; this.database = database; this.user = user; this.password = password; this.port = port; this.connectionLimit = connectionLimit; this.connectedCallback = connectedCallback;
 		this.connect().then();
@@ -40,9 +50,15 @@ export default class CuppaDataBase {
 				enableKeepAlive: true,
 				keepAliveInitialDelay: 0,
 			});
+			this.pool.on('error', (err) => {
+				this.printError(err, {extraData:{from:'this.pool.onError', message:'ERROR ESTABLISHING DATABASE CONNECTION', db:this.database, user:this.user, port:this.port}});
+			})
 			await this.testConnection();
 			if(this.connectedCallback) this.connectedCallback();
-		}catch (err){ console.log(err) }
+		}catch (err){
+			this.printError(err, {extraData:{from:'this.pool.catch', message:'ERROR ESTABLISHING DATABASE CONNECTION', db:this.database, user:this.user, port:this.port}});
+			this.reconnect();
+		}
 	}
 	
 	async add(table, data, condition, columnsToReturn, noEscape, showError = true, classRef = null, classArgs = [], conditionArgs = [], showQuery){
@@ -156,28 +172,34 @@ export default class CuppaDataBase {
 		return 0
 	}
 	
-	async sql(query, showError = true, classRef = null, classArgs = null, queryArgs = [], showQuery = false){
-		if(showQuery) console.log(query);
-		let [result, error] = await new Promise((resolve) => {
-			this.pool.execute(query, queryArgs, function (error, results) {
-				if (error){
-					resolve([null, error]);
-				}else{
-					resolve([results]);
+	async sql(query, showError = true, classRef = null, classArgs = null, queryArgs = [], showQuery = false) {
+		if (showQuery) console.log(query);
+		let attempt = 0;
+		while (attempt < this.executionRetryLimit) {
+			let connection;
+			try {
+				connection = await this.pool.promise().getConnection();
+				const [results] = await connection.execute(query, queryArgs);
+				return this.castToClassList(results, classRef, classArgs);
+			} catch (err) {
+				attempt++;
+				if(!this.retryableErrors.includes(err.code)){ break; }
+				this.printError(err, {extraData:{from:'async sql', message:'DATABASE EXECUTION ERROR', db:this.database, user:this.user, port:this.port, attempt}});
+				if(connection) connection.destroy();
+				connection = null;
+				if(attempt >= this.executionRetryLimit){
+					throw err;
 				}
-			});
-		});
-		if(error?.code === 'ECONNREFUSED'){
-			if(showError) console.log(error);
-			this.onError(error);
-			return null;
+			} finally {
+				if(connection) connection?.release();
+			}
+			await cuppa.wait(this.executionRetryLimitDelay);
 		}
-		result = this.castToClassList(result, classRef, classArgs);
-		return result;
+		return null;
 	}
 	
-	async sql2({query = '', queryArgs = [], showError = true, classRef = null, classArgs = null}){
-		return await this.sql(query, showError, classRef, classArgs, queryArgs);
+	async sql2({query = '', queryArgs = [], showError = true, classRef = null, classArgs = null, showQuery}){
+		return await this.sql(query, showError, classRef, classArgs, queryArgs, showQuery);
 	}
 	
 	escape(data, noEscape = ""){
@@ -266,9 +288,22 @@ export default class CuppaDataBase {
 		return date;
 	}
 	
-	onError(err){
-		console.error(`ERROR ESTABLISHING DATABASE CONNECTION | host: ${this.host}, port: ${this.port}, database: ${this.database}, user: ${this.user}, pass: ${this.password}`);
-		setTimeout(()=>this.connect(), this.autoConnectTime);
+	printError(err, {extraData} = {}){
+		console.error(err);
+		if(extraData) console.error(`---> ${JSON.stringify(extraData)}`);
+	}
+	
+	reconnect(){
+		if(this.autoConnectTimeout) clearTimeout(this.autoConnectTimeout);
+		this.autoConnectTimeout = setTimeout(async ()=>{
+			if(this.pool){
+				await this.pool.end();
+				this.pool = null;
+				await this.connect();
+			}else{
+				await this.connect()
+			}
+		}, this.autoConnectTime);
 	}
 }
 
