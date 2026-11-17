@@ -1,4 +1,4 @@
-/*! v0.0.16 */
+/*! v0.0.17 */
 /*
  * Authors (https://github.com/cloudbit-interactive/cuppajs)
  * Licensed under MIT (https://github.com/cloudbit-interactive/cuppajs/blob/main/LICENSE)
@@ -104,11 +104,12 @@ export class CuppaComponent extends HTMLElement {
 		if(this.unmounted) this.unmounted(this);
 	}
 	
-	setVariables(args){
-		Object.entries(args).map(([name, value])=>{
-			this[`${name}`] = value;
-		});
-		this.forceRender();
+	setVariables(args = {}, {forceRender = true} = {}){
+		for(const key in args){
+			if(this[`_${key}`] === undefined) continue;
+			this[`_${key}`] = args[key];
+		}
+		if(forceRender) this.forceRender();
 	}
 	
 	forceRender(callback = null, dispatchRender = true){
